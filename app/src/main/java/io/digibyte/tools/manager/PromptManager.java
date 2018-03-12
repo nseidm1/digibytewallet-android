@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
 import io.digibyte.presenter.activities.settings.FingerprintActivity;
-import io.digibyte.presenter.activities.settings.ShareDataActivity;
 import io.digibyte.tools.security.BRKeyStore;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.Utils;
@@ -44,112 +44,61 @@ import static io.digibyte.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class PromptManager {
-
-    private PromptManager() {
-    }
+public class PromptManager
+{
+    public enum PromptItem { SYNCING, FINGER_PRINT, PAPER_KEY, UPGRADE_PIN, RECOMMEND_RESCAN, NO_PASS_CODE }
 
     private static PromptManager instance;
-
-    public static PromptManager getInstance() {
-        if (instance == null) instance = new PromptManager();
+    public static PromptManager getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new PromptManager();
+        }
         return instance;
     }
 
-    public enum PromptItem {
-        SYNCING,
-        FINGER_PRINT,
-        PAPER_KEY,
-        UPGRADE_PIN,
-        RECOMMEND_RESCAN,
-        NO_PASSCODE
-    }
+    private PromptManager() {}
 
-    public class PromptInfo {
-        public String title;
-        public String description;
-        public View.OnClickListener listener;
-
-        public PromptInfo(String title, String description, View.OnClickListener listener) {
-            assert (title != null);
-            assert (description != null);
-            assert (listener != null);
-            this.title = title;
-            this.description = description;
-            this.listener = listener;
+    public PromptItem nextPrompt()
+    {
+        if (shouldPrompt(RECOMMEND_RESCAN))
+        {
+            return RECOMMEND_RESCAN;
         }
+
+        if (shouldPrompt(UPGRADE_PIN))
+        {
+            return UPGRADE_PIN;
+        }
+
+        if (shouldPrompt(PAPER_KEY))
+        {
+            return PAPER_KEY;
+        }
+
+        if (shouldPrompt(FINGER_PRINT))
+        {
+            return FINGER_PRINT;
+        }
+        return null;
     }
 
-    public boolean shouldPrompt(Context app, PromptItem item) {
-        assert (app != null);
-        switch (item) {
+    private boolean shouldPrompt(PromptItem item)
+    {
+        final Context context = DigiByte.context;
+        switch (item)
+        {
             case FINGER_PRINT:
-                return !BRSharedPrefs.getUseFingerprint(app) && Utils.isFingerprintAvailable(app);
+                return !BRSharedPrefs.getUseFingerprint(context) && Utils.isFingerprintAvailable(context);
             case PAPER_KEY:
-                return !BRSharedPrefs.getPhraseWroteDown(app);
+                return !BRSharedPrefs.getPhraseWroteDown(context);
             case UPGRADE_PIN:
-                return BRKeyStore.getPinCode(app).length() != 6;
+                return BRKeyStore.getPinCode(context).length() != 6;
             case RECOMMEND_RESCAN:
-                return BRSharedPrefs.getScanRecommended(app);
-
+                return BRSharedPrefs.getScanRecommended(context);
         }
         return false;
-    }
-
-    public PromptItem nextPrompt(Context app) {
-        if (shouldPrompt(app, RECOMMEND_RESCAN)) return RECOMMEND_RESCAN;
-        if (shouldPrompt(app, UPGRADE_PIN)) return UPGRADE_PIN;
-        if (shouldPrompt(app, PAPER_KEY)) return PAPER_KEY;
-        if (shouldPrompt(app, FINGER_PRINT)) return FINGER_PRINT;
-        return null;
-    }
-
-    public PromptInfo promptInfo(final Activity app, PromptItem item) {
-        switch (item) {
-            case FINGER_PRINT:
-                return new PromptInfo(app.getString(R.string.Prompts_TouchId_title_android), app.getString(R.string.Prompts_TouchId_body_android), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(app, FingerprintActivity.class);
-                        app.startActivity(intent);
-                        app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    }
-                });
-            case PAPER_KEY:
-                return new PromptInfo(app.getString(R.string.Prompts_PaperKey_title), app.getString(R.string.Prompts_PaperKey_body), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(app, WriteDownActivity.class);
-                        app.startActivity(intent);
-                        app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-                    }
-                });
-            case UPGRADE_PIN:
-                return new PromptInfo(app.getString(R.string.Prompts_UpgradePin_title), app.getString(R.string.Prompts_UpgradePin_body), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(app, UpdatePinActivity.class);
-                        app.startActivity(intent);
-                        app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    }
-                });
-            case RECOMMEND_RESCAN:
-                return new PromptInfo(app.getString(R.string.Prompts_RecommendRescan_title), app.getString(R.string.Prompts_RecommendRescan_body), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                BRSharedPrefs.putStartHeight(app, 0);
-                                BRPeerManager.getInstance().rescan();
-                                BRSharedPrefs.putScanRecommended(app, false);
-                            }
-                        });
-                    }
-                });
-
-        }
-        return null;
     }
 
     /**
@@ -160,8 +109,10 @@ public class PromptManager {
      * noPasscodePrompt - Shown when the user does not have a passcode set up for their device.
      * shareDataPrompt - Shown when asking the user if they wish to share anonymous data. Lowest priority prompt. Only show once and if they dismiss do not show again.
      */
-    public String getPromptName(PromptItem prompt) {
-        switch (prompt) {
+    public String getPromptName(PromptItem prompt)
+    {
+        switch (prompt)
+        {
             case FINGER_PRINT:
                 return "touchIdPrompt";
             case PAPER_KEY:
@@ -170,7 +121,7 @@ public class PromptManager {
                 return "upgradePinPrompt";
             case RECOMMEND_RESCAN:
                 return "recommendRescanPrompt";
-            case NO_PASSCODE:
+            case NO_PASS_CODE:
                 return "noPasscodePrompt";
 
         }

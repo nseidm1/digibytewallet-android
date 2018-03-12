@@ -1,36 +1,27 @@
 package io.digibyte.tools.manager;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.NetworkOnMainThreadException;
 import android.support.annotation.WorkerThread;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 
-import io.digibyte.R;
-import io.digibyte.presenter.activities.BreadActivity;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
-import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.tools.adapter.TransactionListAdapter;
-import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.listeners.RecyclerItemClickListener;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.Utils;
-import io.digibyte.wallet.BRPeerManager;
-import io.digibyte.wallet.BRWalletManager;
-import com.platform.tools.KVStoreManager;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import io.digibyte.presenter.activities.BreadActivity;
+import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.tools.adapter.TransactionListAdapter;
+import io.digibyte.tools.threads.BRExecutor;
+import io.digibyte.wallet.BRPeerManager;
+import io.digibyte.wallet.BRWalletManager;
 
 
 /**
@@ -57,189 +48,96 @@ import java.util.List;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class TxManager {
+public class TxManager
+{
+    public interface onStatusListener
+    {
+        void onTxManagerUpdate(TxItem[] aTransactionList);
+    }
 
     private static final String TAG = TxManager.class.getName();
     private static TxManager instance;
-    private RecyclerView txList;
-    public TransactionListAdapter adapter;
-    public PromptManager.PromptItem currentPrompt;
-    public PromptManager.PromptInfo promptInfo;
-    public TransactionListAdapter.SyncingHolder syncingHolder;
 
-    public static TxManager getInstance() {
-        if (instance == null) instance = new TxManager();
+    private ArrayList<onStatusListener> theListeners;
+    public void addListener(onStatusListener aListener) { theListeners.add(aListener); }
+    public void removeListener(onStatusListener aListener) { theListeners.remove(aListener); }
+
+    public static TxManager getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new TxManager();
+        }
         return instance;
     }
 
-    public void init(final BreadActivity app) {
-        txList = app.findViewById(R.id.tx_list);
-        txList.setLayoutManager(new CustomLinearLayoutManager(app));
-        txList.addOnItemTouchListener(new RecyclerItemClickListener(app,
-                txList, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position, float x, float y) {
-                if (currentPrompt == null || position > 0)
-                    BRAnimator.showTransactionPager(app, adapter.getItems(), currentPrompt == null ? position : position - 1);
-                else {
-                    //clicked on the  x (close)
-                    if (x > view.getWidth() - 100 && y < 100) {
-                        view.animate().setDuration(150).translationX(BreadActivity.screenParametersPoint.x).setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                hidePrompt(app, null);
-                            }
-                        });
-
-                    } else { //clicked on the prompt
-                        BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(currentPrompt) + ".trigger");
-                        if (currentPrompt != PromptManager.PromptItem.SYNCING) {
-                            PromptManager.PromptInfo info = PromptManager.getInstance().promptInfo(app, currentPrompt);
-                            if (info != null)
-                                info.listener.onClick(view);
-                            currentPrompt = null;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
-        if (adapter == null)
-            adapter = new TransactionListAdapter(app, null);
-        txList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        setupSwipe(app);
+    private TxManager()
+    {
+        theListeners = new ArrayList<>();
     }
 
-    private TxManager() {
-    }
-
-    public void onResume(final Activity app) {
+    public void onResume(final Activity app)
+    {
         crashIfNotMain();
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
-                BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
+                BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable()
+                {
                     @Override
-                    public void run() {
-                        if (progress > 0 && progress < 1) {
-                            currentPrompt = PromptManager.PromptItem.SYNCING;
-                            updateCard(app);
-                        } else {
-                            showNextPrompt(app);
+                    public void run()
+                    {
+                        if (progress > 0 && progress < 1)
+                        {
+                            updateCard();
+                        }
+                        else
+                        {
+                            //showNextPrompt(app);
                         }
                     }
                 });
             }
         });
-
-    }
-
-    public void showPrompt(Activity app, PromptManager.PromptItem item) {
-        crashIfNotMain();
-        if (item == null) throw new RuntimeException("can't be null");
-        BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(item) + ".displayed");
-        if (currentPrompt != PromptManager.PromptItem.SYNCING) {
-            currentPrompt = item;
-        }
-        updateCard(app);
-    }
-
-    public void hidePrompt(final Activity app, final PromptManager.PromptItem item) {
-        crashIfNotMain();
-        currentPrompt = null;
-        if (txList.getAdapter() != null)
-            txList.getAdapter().notifyItemRemoved(0);
-        if (item == PromptManager.PromptItem.SYNCING) {
-            showNextPrompt(app);
-            updateCard(app);
-        } else {
-            if (item != null)
-                BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(item) + ".dismissed");
-
-        }
-
-    }
-
-    private void showNextPrompt(Activity app) {
-        crashIfNotMain();
-        PromptManager.PromptItem toShow = PromptManager.getInstance().nextPrompt(app);
-        if (toShow != null) {
-//            Log.d(TAG, "showNextPrompt: " + toShow);
-            currentPrompt = toShow;
-            promptInfo = PromptManager.getInstance().promptInfo(app, currentPrompt);
-            updateCard(app);
-        } else {
-            Log.i(TAG, "showNextPrompt: nothing to show");
-        }
     }
 
     @WorkerThread
-    public synchronized void updateTxList(final Context app) {
-        long start = System.currentTimeMillis();
-        final TxItem[] arr = BRWalletManager.getInstance().getTransactions();
-        final List<TxItem> items = arr == null ? null : new LinkedList<>(Arrays.asList(arr));
-
-        long took = (System.currentTimeMillis() - start);
-        if (took > 500)
-            Log.e(TAG, "updateTxList: took: " + took);
-        if (adapter != null ) {
-            ((Activity) app).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    adapter.setItems(items);
-                    txList.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-        }
-
-    }
-
-    public void updateCard(final Context app) {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+    public synchronized void updateTxList()
+    {
+        final TxItem[] transactions = BRWalletManager.getInstance().getTransactions();
+        new Handler(Looper.getMainLooper()).post(new Runnable()
+        {
             @Override
-            public void run() {
-                updateTxList(app);
+            public void run()
+            {
+                for (onStatusListener listener : theListeners)
+                {
+                    listener.onTxManagerUpdate(transactions);
+                }
             }
         });
     }
 
-    private void setupSwipe(final Activity app) {
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-
+    public void updateCard()
+    {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
+        {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                Toast.makeText(BreadActivity.this, "on Move ", Toast.LENGTH_SHORT).show();
-                return false;
+            public void run()
+            {
+                updateTxList();
             }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                hidePrompt(app, null);
-                //Remove swiped item from list and notify the RecyclerView
-            }
-
-            @Override
-            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                if (!(viewHolder instanceof TransactionListAdapter.PromptHolder)) return 0;
-                return super.getSwipeDirs(recyclerView, viewHolder);
-            }
-        };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(txList);
+        });
     }
 
+    private class CustomLinearLayoutManager extends LinearLayoutManager
+    {
 
-    private class CustomLinearLayoutManager extends LinearLayoutManager {
-
-        public CustomLinearLayoutManager(Context context) {
+        public CustomLinearLayoutManager(Context context)
+        {
             super(context);
         }
 
@@ -249,21 +147,26 @@ public class TxManager {
          * adapter size has decreased since the ViewHolder was recycled.
          */
         @Override
-        public boolean supportsPredictiveItemAnimations() {
+        public boolean supportsPredictiveItemAnimations()
+        {
             return false;
         }
 
-        public CustomLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+        public CustomLinearLayoutManager(Context context, int orientation, boolean reverseLayout)
+        {
             super(context, orientation, reverseLayout);
         }
 
-        public CustomLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        public CustomLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
+        {
             super(context, attrs, defStyleAttr, defStyleRes);
         }
     }
 
-    private void crashIfNotMain() {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
+    private void crashIfNotMain()
+    {
+        if (Looper.myLooper() != Looper.getMainLooper())
+        {
             throw new IllegalAccessError("Can only call from main thread");
         }
     }

@@ -13,6 +13,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +24,8 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
+import java.util.List;
+
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.activities.LoginActivity;
@@ -31,10 +34,10 @@ import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.fragments.FragmentGreetings;
 import io.digibyte.presenter.fragments.FragmentMenu;
-import io.digibyte.presenter.fragments.FragmentSignal;
 import io.digibyte.presenter.fragments.FragmentReceive;
 import io.digibyte.presenter.fragments.FragmentRequestAmount;
 import io.digibyte.presenter.fragments.FragmentSend;
+import io.digibyte.presenter.fragments.FragmentSignal;
 import io.digibyte.presenter.fragments.FragmentSupport;
 import io.digibyte.presenter.fragments.FragmentTransactionDetails;
 import io.digibyte.presenter.interfaces.BROnSignalCompletion;
@@ -42,8 +45,6 @@ import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.Utils;
-
-import java.util.List;
 
 
 /**
@@ -76,8 +77,8 @@ public class BRAnimator {
     private static FragmentSignal fragmentSignal;
     private static boolean clickAllowed = true;
     public static int SLIDE_ANIMATION_DURATION = 300;
-    public static float t1Size;
-    public static float t2Size;
+    public static float t1Size = 30;
+    public static float t2Size = 16;
     public static boolean supportIsShowing;
 
     public static void showBreadSignal(Activity activity, String title, String iconDescription, int drawableId, BROnSignalCompletion completion) {
@@ -94,14 +95,6 @@ public class BRAnimator {
         transaction.addToBackStack(null);
         if (!activity.isDestroyed())
             transaction.commit();
-    }
-
-    public static void init(Activity app) {
-        if (app == null) return;
-//        t1Size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 30, app.getResources().getDisplayMetrics());
-//        t2Size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, app.getResources().getDisplayMetrics());
-        t1Size = 30;
-        t2Size = 16;
     }
 
     public static void showFragmentByTag(Activity app, String tag) {
@@ -392,12 +385,9 @@ public class BRAnimator {
         Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
         Class toStart = auth ? LoginActivity.class : BreadActivity.class;
         Intent intent = new Intent(from, toStart);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         from.startActivity(intent);
         from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
-        if (!from.isDestroyed()) {
-            from.finish();
-        }
     }
 
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse, final OnSlideAnimationEnd listener) {
@@ -405,7 +395,9 @@ public class BRAnimator {
         float signalHeight = signalLayout.getHeight();
         signalLayout.setTranslationY(reverse ? translationY : translationY + signalHeight);
 
-        signalLayout.animate().translationY(reverse ? BreadActivity.screenParametersPoint.y : translationY).setDuration(SLIDE_ANIMATION_DURATION)
+
+        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        signalLayout.animate().translationY(reverse ? screenHeight : translationY).setDuration(SLIDE_ANIMATION_DURATION)
                 .setInterpolator(reverse ? new DecelerateInterpolator() : new OvershootInterpolator(0.7f))
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
