@@ -389,6 +389,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     public void onSyncManagerUpdate()
     {
+        if (!informationList.contains(listItemSyncingData)) {
+            informationList.clear();
+            informationList.add(listItemSyncingData);
+            listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
+        }
         listViewAdapter.updateSection(LIST_SECTION_INFORMATION);
     }
 
