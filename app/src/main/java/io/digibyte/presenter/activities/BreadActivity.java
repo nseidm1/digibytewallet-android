@@ -196,27 +196,38 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         listView.setAdapter(listViewAdapter);
         primaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, t1Size);//make it the size it should be after animation to get the X
         secondaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, t2Size);//make it the size it should be after animation to get the X
-        setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false);
+            }
+        });
     }
 
     private void updateUI()
     {
-        final String iso = BRSharedPrefs.getIso(BreadActivity.this);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
+                final String iso = BRSharedPrefs.getIso(BreadActivity.this);
 
-        //current amount in satoshis
-        final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
+                //current amount in satoshis
+                final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
 
-        //amount in BTC units
-        final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
-        final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "DGB", btcAmount);
+                //amount in BTC units
+                final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
+                final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "DGB", btcAmount);
 
-        //amount in currency units
-        final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
-        final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
-        primaryPrice.setText(formattedBTCAmount);
-        secondaryPrice.setText(String.format("%s", formattedCurAmount));
+                //amount in currency units
+                final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
+                final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
+                primaryPrice.setText(formattedBTCAmount);
+                secondaryPrice.setText(String.format("%s", formattedCurAmount));
 
-        TxManager.getInstance().updateTxList();
+                TxManager.getInstance().updateTxList();
+            }
+        });
     }
 
     private void loadNextPropmptItem()
