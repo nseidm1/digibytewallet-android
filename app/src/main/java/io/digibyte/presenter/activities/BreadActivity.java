@@ -96,12 +96,8 @@ import io.digibyte.wallet.BRWalletManager;
 
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener, TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener, SyncManager.onStatusListener, onStatusListener
 {
-    private static final String TAG = BreadActivity.class.getName();
-
     private final int LIST_SECTION_INFORMATION = 0;
     private final int LIST_SECTION_TRANSACTIONS = 1;
-
-    private InternetManager mConnectionReceiver = InternetManager.getInstance();
 
     @BindView(R.id.send_layout)
     LinearLayout sendButton;
@@ -124,9 +120,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @BindView(R.id.equals)
     TextView equals;
 
-    @BindView(R.id.loading_wallet_layout)
-    ConstraintLayout walletProgressLayout;
-
     @BindView(R.id.toolbar_layout)
     LinearLayout toolbarLayout;
 
@@ -145,6 +138,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @BindView(R.id.tx_list)
     RecyclerView listView;
 
+    private InternetManager mConnectionReceiver = InternetManager.getInstance();
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
     private TransactionListAdapter listViewAdapter = new TransactionListAdapter();;
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -200,43 +194,29 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         listViewAdapter.addSection(LIST_SECTION_INFORMATION);
         listViewAdapter.addSection(LIST_SECTION_TRANSACTIONS);
         listView.setAdapter(listViewAdapter);
-
-        // TODO: Programmatically swapping the content of a ViewGroup :( Jeez.... FIX>>>>>ASAP
-        toolbarLayout.removeView(walletProgressLayout);
         primaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, t1Size);//make it the size it should be after animation to get the X
         secondaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, t2Size);//make it the size it should be after animation to get the X
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false);
-            }
-        });
+        setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false);
     }
 
     private void updateUI()
     {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
-                final String iso = BRSharedPrefs.getIso(BreadActivity.this);
+        final String iso = BRSharedPrefs.getIso(BreadActivity.this);
 
-                //current amount in satoshis
-                final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
+        //current amount in satoshis
+        final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
 
-                //amount in BTC units
-                final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
-                final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "DGB", btcAmount);
+        //amount in BTC units
+        final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
+        final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "DGB", btcAmount);
 
-                //amount in currency units
-                final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
-                final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
-                primaryPrice.setText(formattedBTCAmount);
-                secondaryPrice.setText(String.format("%s", formattedCurAmount));
+        //amount in currency units
+        final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
+        final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
+        primaryPrice.setText(formattedBTCAmount);
+        secondaryPrice.setText(String.format("%s", formattedCurAmount));
 
-                TxManager.getInstance().updateTxList();
-            }
-        });
+        TxManager.getInstance().updateTxList();
     }
 
     private void loadNextPropmptItem()

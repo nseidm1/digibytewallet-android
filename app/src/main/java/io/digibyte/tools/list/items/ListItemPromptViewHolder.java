@@ -7,7 +7,6 @@ import io.digibyte.R;
 import io.digibyte.presenter.customviews.BRText;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
-import io.digibyte.tools.manager.PromptManager;
 
 public class ListItemPromptViewHolder extends ListItemViewHolder
 {
@@ -41,6 +40,9 @@ public class ListItemPromptViewHolder extends ListItemViewHolder
             case PAPER_KEY:
                 this.title.setText(R.string.Prompts_PaperKey_title);
                 this.description.setText(R.string.Prompts_PaperKey_body);
+                //Closing the paper key prompt just causes it to re-open again and again
+                //Might as well not show the close button
+                this.close.setVisibility(View.GONE);
                 break;
             case UPGRADE_PIN:
                 this.title.setText(R.string.Prompts_UpgradePin_title);

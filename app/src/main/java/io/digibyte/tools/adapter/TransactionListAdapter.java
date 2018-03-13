@@ -1,44 +1,16 @@
 package io.digibyte.tools.adapter;
 
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.platform.tools.KVStoreManager;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
-import io.digibyte.R;
-import io.digibyte.presenter.customviews.BRText;
-import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
-import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.manager.TxManager;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRCurrency;
-import io.digibyte.tools.util.BRDateUtil;
-import io.digibyte.tools.util.BRExchange;
-import io.digibyte.tools.util.Utils;
-import io.digibyte.wallet.BRPeerManager;
 
 
 /**
@@ -204,17 +176,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHol
 
 
 
-
-
-    private void setSyncing(final SyncingHolder syncing)
-    {
-        /*
-        //        Log.e(TAG, "setSyncing: " + syncing);
-        TxManager.getInstance().syncingHolder = syncing;
-        syncing.mainLayout.setBackgroundResource(R.drawable.tx_rounded);
-        */
-    }
-
     public void filterBy(String query, boolean[] switches)
     {
         /*
@@ -336,73 +297,4 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHol
         */
     }
 
-    private class TxHolder extends RecyclerView.ViewHolder
-    {
-        public RelativeLayout mainLayout;
-        public ConstraintLayout constraintLayout;
-        public TextView sentReceived;
-        public TextView amount;
-        public TextView toFrom;
-        public TextView account;
-        public TextView status;
-        public TextView status_2;
-        public TextView timestamp;
-        public TextView comment;
-        public ImageView arrowIcon;
-
-        public TxHolder(View view)
-        {
-            super(view);
-            mainLayout = (RelativeLayout) view.findViewById(R.id.main_layout);
-            constraintLayout = (ConstraintLayout) view.findViewById(R.id.constraintLayout);
-            sentReceived = (TextView) view.findViewById(R.id.sent_received);
-            amount = (TextView) view.findViewById(R.id.amount);
-            toFrom = (TextView) view.findViewById(R.id.to_from);
-            account = (TextView) view.findViewById(R.id.account);
-            status = (TextView) view.findViewById(R.id.status);
-            status_2 = (TextView) view.findViewById(R.id.status_2);
-            timestamp = (TextView) view.findViewById(R.id.timestamp);
-            comment = (TextView) view.findViewById(R.id.comment);
-            arrowIcon = (ImageView) view.findViewById(R.id.arrow_icon);
-        }
-    }
-
-    public class PromptHolder extends RecyclerView.ViewHolder
-    {
-        public RelativeLayout mainLayout;
-        public ConstraintLayout constraintLayout;
-        public BRText title;
-        public BRText description;
-        public ImageButton close;
-
-        public PromptHolder(View view)
-        {
-            super(view);
-            mainLayout = (RelativeLayout) view.findViewById(R.id.main_layout);
-            constraintLayout = (ConstraintLayout) view.findViewById(R.id.prompt_layout);
-            title = (BRText) view.findViewById(R.id.info_title);
-            description = (BRText) view.findViewById(R.id.info_description);
-            close = (ImageButton) view.findViewById(R.id.info_close_button);
-        }
-    }
-
-    public class SyncingHolder extends RecyclerView.ViewHolder
-    {
-        public RelativeLayout mainLayout;
-        public ConstraintLayout constraintLayout;
-        public BRText date;
-        public BRText label;
-        public ProgressBar progress;
-
-        public SyncingHolder(View view)
-        {
-            super(view);
-            mainLayout = (RelativeLayout) view.findViewById(R.id.main_layout);
-            constraintLayout = (ConstraintLayout) view.findViewById(R.id.syncing_layout);
-            date = (BRText) view.findViewById(R.id.sync_date);
-            label = (BRText) view.findViewById(R.id.syncing_label);
-            progress = (ProgressBar) view.findViewById(R.id.sync_progress);
-        }
-    }
-
-}
+  }
