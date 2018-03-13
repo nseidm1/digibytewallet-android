@@ -896,7 +896,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                         public void run() {
                             try {
                                 Thread.sleep(1000);
-                                CameraPlugin.handleCameraImageTaken(DigiByte.context, bytes);
+                                CameraPlugin.handleCameraImageTaken(DigiByte.getContext(), bytes);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

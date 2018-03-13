@@ -63,7 +63,7 @@ public class WalletPlugin implements Plugin {
     @Override
     public boolean handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         if (!target.startsWith("/_wallet")) return false;
-        Activity app = (Activity) DigiByte.getBreadContext();
+        Activity app = DigiByte.getContext().getActivity();
 
         if (target.startsWith("/_wallet/info") && request.getMethod().equalsIgnoreCase("get")) {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());

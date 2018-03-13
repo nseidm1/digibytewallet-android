@@ -2,26 +2,23 @@ package io.digibyte;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.graphics.Point;
-import android.hardware.fingerprint.FingerprintManager;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 
 import com.buglife.sdk.Buglife;
 import com.buglife.sdk.InvocationMethod;
-import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.tools.listeners.SyncReceiver;
-import io.digibyte.tools.util.Utils;
+import io.digibyte.presenter.activities.DisabledActivity;
+import io.digibyte.tools.animation.BRAnimator;
+import io.digibyte.tools.manager.BREventManager;
+import io.digibyte.tools.security.BRKeyStore;
 
 
 /**
@@ -49,98 +46,146 @@ import io.digibyte.tools.util.Utils;
  * THE SOFTWARE.
  */
 
-public class DigiByte extends Application {
+public class DigiByte extends Application implements Application.ActivityLifecycleCallbacks
+{
     private static final String TAG = DigiByte.class.getName();
-    public static int DISPLAY_HEIGHT_PX;
-    FingerprintManager mFingerprintManager;
-    // host is the server(s) on which the API is hosted
-    public static String HOST = "digibyte.io";
-    private static List<OnAppBackgrounded> listeners;
-    private static Timer isBackgroundChecker;
-    public static AtomicInteger activityCounter = new AtomicInteger();
-    public static long backgroundedTime;
-    public static boolean appInBackground;
 
-    private static Activity currentActivity;
-    public static Application context;
+    public static final String HOST = "digibyte.io";
+    public static final String LocalBroadcastOnEnterForeground = "OnEnterForeground";
+    public static final String LocalBroadcastOnEnterBackground = "OnEnterBackground";
+
+    private static DigiByte application;
+    public static DigiByte getContext() { return application; }
+    public static DigiByte getBreadContext() { return application; }
+
+    private long suspendedTime;
+    private Activity activeActivity;
+    private boolean isSuspendedFlag;
+    private ArrayList<Activity> activityList;
+
+    public boolean isSuspended() { return isSuspendedFlag; }
+    public Activity getActivity() { return activeActivity; }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        context = this;
-        if (Utils.isEmulatorOrDebug(this)) {
-//            BRKeyStore.putFailCount(0, this);
-//            HOST = "stage2.breadwallet.com";
-            FirebaseCrash.setCrashCollectionEnabled(false);
-//            FirebaseCrash.report(new RuntimeException("test with new json file"));
-        }
+    public void onCreate()
+    {
+        application = this;
 
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int DISPLAY_WIDTH_PX = size.x;
-        DISPLAY_HEIGHT_PX = size.y;
-        mFingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
+        activeActivity = null;
+        suspendedTime = 0;
+        isSuspendedFlag = false;
+        activityList = new ArrayList<>();
+
+        registerActivityLifecycleCallbacks(this);
+
+        super.onCreate();
 
         // Fill in API key here
         Buglife.initWithApiKey(this, "");
         Buglife.setInvocationMethod(InvocationMethod.SHAKE);
 
-//        addOnBackgroundedListener(new OnAppBackgrounded() {
-//            @Override
-//            public void onBackgrounded() {
-//
-//            }
-//        });
-
+        // Register receivers
+        LocalBroadcastManager.getInstance(this).registerReceiver(onApplicationEnterForeground, new IntentFilter(LocalBroadcastOnEnterForeground));
+        LocalBroadcastManager.getInstance(this).registerReceiver(onApplicationEnterBackground, new IntentFilter(LocalBroadcastOnEnterBackground));
     }
 
+    //////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////// Broadcast Receivers //////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    private BroadcastReceiver onApplicationEnterForeground = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            Log.d(TAG, "onApplicationEnterForeground");
 
-    public static Context getBreadContext() {
-        return currentActivity == null ? SyncReceiver.app : currentActivity;
-    }
-
-    public static void setBreadContext(Activity app) {
-        currentActivity = app;
-    }
-
-    public static void fireListeners() {
-        if (listeners == null) return;
-        for (OnAppBackgrounded lis : listeners) lis.onBackgrounded();
-    }
-
-    public static void addOnBackgroundedListener(OnAppBackgrounded listener) {
-        if (listeners == null) listeners = new ArrayList<>();
-        if (!listeners.contains(listener)) listeners.add(listener);
-    }
-
-    public static boolean isAppInBackground(final Context context) {
-        return context == null || activityCounter.get() <= 0;
-    }
-
-    //call onStop on evert activity so
-    public static void onStop(final BRActivity app) {
-        if (isBackgroundChecker != null) isBackgroundChecker.cancel();
-        isBackgroundChecker = new Timer();
-        TimerTask backgroundCheck = new TimerTask() {
-            @Override
-            public void run() {
-                if (isAppInBackground(app)) {
-                    backgroundedTime = System.currentTimeMillis();
-                    Log.e(TAG, "App went in background!");
-                    // APP in background, do something
-                    isBackgroundChecker.cancel();
-                    fireListeners();
+            if(null != activeActivity && !(activeActivity instanceof DisabledActivity))
+            {
+                // lock wallet if 3 minutes passed
+                if (suspendedTime != 0 && (System.currentTimeMillis() - suspendedTime >= 180 * 1000))
+                {
+                    if (!BRKeyStore.getPinCode(activeActivity).isEmpty())
+                    {
+                        BRAnimator.startBreadActivity(activeActivity, true);
+                    }
                 }
-                // APP in foreground, do something else
             }
-        };
+            suspendedTime = 0;
+        }
+    };
 
-        isBackgroundChecker.schedule(backgroundCheck, 500, 500);
+    private BroadcastReceiver onApplicationEnterBackground = new BroadcastReceiver()
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            Log.d(TAG, "onApplicationEnterBackground");
+
+            BREventManager.getInstance().onEnterBackground();
+
+            suspendedTime = System.currentTimeMillis();
+        }
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////
+    //////////// Implementation of ActivityLifecycleCallbacks interface //////////////
+    //////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onActivityCreated(Activity anActivity, Bundle aBundle)
+    {
+        addActivity(anActivity);
     }
 
-    public interface OnAppBackgrounded {
-        void onBackgrounded();
+    @Override
+    public void onActivityStarted(Activity anActivity)
+    {
+        addActivity(anActivity);
+    }
+
+    @Override
+    public void onActivityResumed(Activity anActivity)
+    {
+        activeActivity = anActivity;
+    }
+
+    @Override
+    public void onActivityStopped(Activity anActivity)
+    {
+        removeActivity(anActivity);
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity anActivity)
+    {
+        removeActivity(anActivity);
+    }
+
+    @Override public void onActivityPaused(Activity anActivity) {}
+    @Override public void onActivitySaveInstanceState(Activity anActivity, Bundle aBundle) {}
+
+    private void addActivity(Activity anActivity)
+    {
+        if(!activityList.contains(anActivity))
+        {
+            activityList.add(anActivity);
+        }
+
+        if(activityList.size() > 0 && isSuspendedFlag)
+        {
+            isSuspendedFlag = false;
+            activeActivity = anActivity;
+            LocalBroadcastManager.getInstance(anActivity).sendBroadcast(new Intent(LocalBroadcastOnEnterForeground));
+        }
+    }
+
+    private void removeActivity(Activity anActivity)
+    {
+        activityList.remove(anActivity);
+        if(activityList.size() == 0 && !isSuspendedFlag)
+        {
+            activeActivity = null;
+            isSuspendedFlag = true;
+            LocalBroadcastManager.getInstance(anActivity).sendBroadcast(new Intent(LocalBroadcastOnEnterBackground));
+        }
     }
 }

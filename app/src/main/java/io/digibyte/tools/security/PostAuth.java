@@ -346,7 +346,7 @@ public class PostAuth {
 
     }
 
-    public void onPaymentProtocolRequest(Activity app, boolean authAsked) {
+    public void onPaymentProtocolRequest(Context app, boolean authAsked) {
 
         byte[] rawSeed;
         try {

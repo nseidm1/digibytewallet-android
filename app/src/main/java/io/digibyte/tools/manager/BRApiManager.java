@@ -131,7 +131,7 @@ public class BRApiManager {
                         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                             @Override
                             public void run() {
-                                if (!DigiByte.isAppInBackground(context)) {
+                                if (!DigiByte.getContext().isSuspended()) {
                                     Log.e(TAG, "doInBackground: Stopping timer, no activity on.");
                                     BRApiManager.getInstance().stopTimerTask();
                                 }

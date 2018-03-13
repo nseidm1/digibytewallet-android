@@ -61,14 +61,6 @@ public class BRActivity extends Activity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        DigiByte.activityCounter.decrementAndGet();
-        DigiByte.onStop(this);
-        DigiByte.backgroundedTime = System.currentTimeMillis();
-    }
-
-    @Override
     protected void onResume() {
         init(this);
         super.onResume();
@@ -182,20 +174,11 @@ public class BRActivity extends Activity {
             if (AuthManager.getInstance().isWalletDisabled(app))
                 AuthManager.getInstance().setWalletDisabled(app);
 
-        DigiByte.activityCounter.incrementAndGet();
-        DigiByte.setBreadContext(app);
-        //lock wallet if 3 minutes passed
-        if (DigiByte.backgroundedTime != 0 && (System.currentTimeMillis() - DigiByte.backgroundedTime >= 180 * 1000) && !(app instanceof DisabledActivity)) {
-            if (!BRKeyStore.getPinCode(app).isEmpty()) {
-                BRAnimator.startBreadActivity(app, true);
-            }
-        }
         BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
                 HTTPServer.startServer();
             }
         });
-        DigiByte.backgroundedTime = System.currentTimeMillis();
     }
 }

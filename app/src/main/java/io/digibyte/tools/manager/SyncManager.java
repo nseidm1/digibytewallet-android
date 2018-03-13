@@ -122,7 +122,7 @@ public class SyncManager
     public synchronized void stopSyncingProgressThread()
     {
         Log.d(TAG, "stopSyncingProgressThread");
-        if (!(DigiByte.getBreadContext() instanceof BreadActivity))
+        if (!(DigiByte.getContext().getActivity() instanceof BreadActivity))
         {
             Log.e(TAG, "stopSyncingProgressThread: ctx is null");
             return;

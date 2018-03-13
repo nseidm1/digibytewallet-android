@@ -53,7 +53,7 @@ import static com.platform.APIClient.BASE_URL;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class BREventManager implements DigiByte.OnAppBackgrounded
+public class BREventManager
 {
     private static final String TAG = BREventManager.class.getName();
 
@@ -64,7 +64,6 @@ public class BREventManager implements DigiByte.OnAppBackgrounded
     private BREventManager()
     {
         sessionId = UUID.randomUUID().toString();
-        DigiByte.addOnBackgroundedListener(this);
     }
 
     public static BREventManager getInstance()
@@ -90,10 +89,8 @@ public class BREventManager implements DigiByte.OnAppBackgrounded
         events.add(event);
     }
 
-    @Override
-    public void onBackgrounded()
+    public void onEnterBackground()
     {
-        Log.e(TAG, "onBackgrounded: ");
         saveEvents();
         pushToServer();
     }

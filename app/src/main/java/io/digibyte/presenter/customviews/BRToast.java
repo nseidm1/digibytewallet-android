@@ -53,7 +53,7 @@ public class BRToast {
         if (!(app instanceof Activity)) app = DigiByte.getBreadContext();
         if (app == null) return;
         if (toast == null) toast = new Toast(app);
-        if (!DigiByte.isAppInBackground(app)) return;
+        if (!DigiByte.getContext().isSuspended()) return;
 
         if (customToastAvailable || !oldMessage.equals(message)) {
             oldMessage = message;

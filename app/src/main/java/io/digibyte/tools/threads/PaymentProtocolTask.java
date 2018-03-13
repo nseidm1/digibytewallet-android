@@ -1,9 +1,9 @@
 package io.digibyte.tools.threads;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import io.digibyte.DigiByte;
@@ -61,20 +61,22 @@ import java.util.Locale;
  * THE SOFTWARE.
  */
 
-public class PaymentProtocolTask extends AsyncTask<String, String, String> {
+public class PaymentProtocolTask extends AsyncTask<String, String, String>
+{
     public static final String TAG = PaymentProtocolTask.class.getName();
     HttpURLConnection urlConnection;
     String certName = null;
     PaymentRequestWrapper paymentRequest = null;
     int certified = 0;
-    Activity app;
 
     //params[0] = uri, params[1] = label
     @Override
-    protected String doInBackground(String... params) {
-        app = (Activity) DigiByte.getBreadContext();
+    protected String doInBackground(String... params)
+    {
+        final Context context = DigiByte.getContext();
         InputStream in;
-        try {
+        try
+        {
             Log.e(TAG, "the uri: " + params[0]);
             URL url = new URL(params[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -84,64 +86,85 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
             urlConnection.setUseCaches(false);
             in = urlConnection.getInputStream();
 
-            if (in == null) {
+            if (in == null)
+            {
                 Log.e(TAG, "The inputStream is null!");
                 return null;
             }
             byte[] serializedBytes = BytesUtil.readBytesFromStream(in);
-            if (serializedBytes == null || serializedBytes.length == 0) {
+            if (serializedBytes == null || serializedBytes.length == 0)
+            {
                 Log.e(TAG, "serializedBytes are null!!!");
                 return null;
             }
 
             paymentRequest = BitcoinUrlHandler.parsePaymentRequest(serializedBytes);
 
-            if (paymentRequest == null || paymentRequest.error == PaymentRequestWrapper.INVALID_REQUEST_ERROR) {
+            if (paymentRequest == null || paymentRequest.error == PaymentRequestWrapper.INVALID_REQUEST_ERROR)
+            {
                 Log.e(TAG, "paymentRequest is null!!!");
-                BRDialog.showCustomDialog(app, "", app.getString(R.string.Send_remoteRequestError), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(context, "", context.getString(R.string.Send_remoteRequestError), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
+                    public void onClick(BRDialogView brDialogView)
+                    {
                         brDialogView.dismissWithAnimation();
                     }
                 }, null, null, 0);
                 paymentRequest = null;
                 return null;
-            } else if (paymentRequest.error == PaymentRequestWrapper.INSUFFICIENT_FUNDS_ERROR) {
+            }
+            else if (paymentRequest.error == PaymentRequestWrapper.INSUFFICIENT_FUNDS_ERROR)
+            {
                 Log.e(TAG, "insufficient amount!!!");
-                BRDialog.showCustomDialog(app, "", app.getString(R.string.Alerts_sendFailure), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(context, "", context.getString(R.string.Alerts_sendFailure), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
+                    public void onClick(BRDialogView brDialogView)
+                    {
                         brDialogView.dismissWithAnimation();
                     }
                 }, null, null, 0);
                 paymentRequest = null;
                 return null;
-            } else if (paymentRequest.error == PaymentRequestWrapper.SIGNING_FAILED_ERROR) {
+            }
+            else if (paymentRequest.error == PaymentRequestWrapper.SIGNING_FAILED_ERROR)
+            {
                 Log.e(TAG, "failed to sign tx!!!");
                 Log.e(TAG, "insufficient amount!!!");
-                BRDialog.showCustomDialog(app, "", app.getString(R.string.Import_Error_signing), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(context, "", context.getString(R.string.Import_Error_signing), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
+                    public void onClick(BRDialogView brDialogView)
+                    {
                         brDialogView.dismissWithAnimation();
                     }
                 }, null, null, 0);
                 paymentRequest = null;
                 return null;
-            } else if (paymentRequest.error == PaymentRequestWrapper.REQUEST_TOO_LONG_ERROR) {
+            }
+            else if (paymentRequest.error == PaymentRequestWrapper.REQUEST_TOO_LONG_ERROR)
+            {
                 Log.e(TAG, "failed to sign tx!!!");
-                BRDialog.showCustomDialog(app, app.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), "Too long", app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(context, context.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), "Too long", context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
+                    public void onClick(BRDialogView brDialogView)
+                    {
                         brDialogView.dismissWithAnimation();
                     }
                 }, null, null, 0);
                 paymentRequest = null;
                 return null;
-            } else if (paymentRequest.error == PaymentRequestWrapper.AMOUNTS_ERROR) {
+            }
+            else if (paymentRequest.error == PaymentRequestWrapper.AMOUNTS_ERROR)
+            {
                 Log.e(TAG, "failed to sign tx!!!");
-                BRDialog.showCustomDialog(app, "", app.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(context, "", context.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
+                    public void onClick(BRDialogView brDialogView)
+                    {
                         brDialogView.dismissWithAnimation();
                     }
                 }, null, null, 0);
@@ -151,16 +174,22 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
 
             //Logging
             StringBuilder allAddresses = new StringBuilder();
-            for (String s : paymentRequest.addresses) {
+            for (String s : paymentRequest.addresses)
+            {
                 allAddresses.append(s).append(", ");
-                if (!BRWalletManager.validateAddress(s)) {
-                    if (app != null)
-                        BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.Send_invalidAddressTitle) + ": " + s, app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                if (!BRWalletManager.validateAddress(s))
+                {
+                    if (context != null)
+                    {
+                        BRDialog.showCustomDialog(context, context.getString(R.string.Alert_error), context.getString(R.string.Send_invalidAddressTitle) + ": " + s, context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                        {
                             @Override
-                            public void onClick(BRDialogView brDialogView) {
+                            public void onClick(BRDialogView brDialogView)
+                            {
                                 brDialogView.dismissWithAnimation();
                             }
                         }, null, null, 0);
+                    }
                     paymentRequest = null;
                     return null;
                 }
@@ -168,136 +197,201 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
 
             allAddresses.delete(allAddresses.length() - 2, allAddresses.length());
 
-            CustomLogger.logThis("Signature", String.valueOf(paymentRequest.signature.length),
-                    "pkiType", paymentRequest.pkiType, "pkiData", String.valueOf(paymentRequest.pkiData.length));
-            CustomLogger.logThis("network", paymentRequest.network, "time", String.valueOf(paymentRequest.time),
-                    "expires", String.valueOf(paymentRequest.expires), "memo", paymentRequest.memo,
-                    "paymentURL", paymentRequest.paymentURL, "merchantDataSize",
-                    String.valueOf(paymentRequest.merchantData.length), "address", allAddresses.toString(),
-                    "amount", String.valueOf(paymentRequest.amount));
+            CustomLogger.logThis("Signature", String.valueOf(paymentRequest.signature.length), "pkiType", paymentRequest.pkiType, "pkiData", String.valueOf(paymentRequest.pkiData.length));
+            CustomLogger.logThis("network", paymentRequest.network, "time", String.valueOf(paymentRequest.time), "expires", String.valueOf(paymentRequest.expires), "memo", paymentRequest.memo, "paymentURL", paymentRequest.paymentURL, "merchantDataSize", String.valueOf(paymentRequest.merchantData.length), "address", allAddresses.toString(), "amount", String.valueOf(paymentRequest.amount));
             //end logging
-            if (paymentRequest.expires != 0 && paymentRequest.time > paymentRequest.expires) {
+            if (paymentRequest.expires != 0 && paymentRequest.time > paymentRequest.expires)
+            {
                 Log.e(TAG, "Request is expired");
-                if (app != null)
-                    BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.PaymentProtocol_Errors_requestExpired), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                if (context != null)
+                {
+                    BRDialog.showCustomDialog(context, context.getString(R.string.Alert_error), context.getString(R.string.PaymentProtocol_Errors_requestExpired), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                    {
                         @Override
-                        public void onClick(BRDialogView brDialogView) {
+                        public void onClick(BRDialogView brDialogView)
+                        {
                             brDialogView.dismissWithAnimation();
                         }
                     }, null, null, 0);
+                }
                 paymentRequest = null;
                 return null;
             }
             List<X509Certificate> certList = X509CertificateValidator.getCertificateFromBytes(serializedBytes);
             certName = X509CertificateValidator.certificateValidation(certList, paymentRequest);
 
-        } catch (Exception e) {
-            if (e instanceof java.net.UnknownHostException) {
-                if (app != null)
-                    BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.PaymentProtocol_Errors_corruptedDocument), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+        }
+        catch (Exception e)
+        {
+            if (e instanceof java.net.UnknownHostException)
+            {
+                if (context != null)
+                {
+                    BRDialog.showCustomDialog(context, context.getString(R.string.Alert_error), context.getString(R.string.PaymentProtocol_Errors_corruptedDocument), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                    {
                         @Override
-                        public void onClick(BRDialogView brDialogView) {
+                        public void onClick(BRDialogView brDialogView)
+                        {
                             brDialogView.dismissWithAnimation();
                         }
                     }, null, null, 0);
+                }
                 paymentRequest = null;
-            } else if (e instanceof FileNotFoundException) {
-                if (app != null)
-                    BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+            }
+            else if (e instanceof FileNotFoundException)
+            {
+                if (context != null)
+                {
+                    BRDialog.showCustomDialog(context, context.getString(R.string.Alert_error), context.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                    {
                         @Override
-                        public void onClick(BRDialogView brDialogView) {
+                        public void onClick(BRDialogView brDialogView)
+                        {
                             brDialogView.dismissWithAnimation();
                         }
                     }, null, null, 0);
+                }
                 paymentRequest = null;
-            } else if (e instanceof SocketTimeoutException) {
-                if (app != null)
-                    BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), "Connection timed-out", app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+            }
+            else if (e instanceof SocketTimeoutException)
+            {
+                if (context != null)
+                {
+                    BRDialog.showCustomDialog(context, context.getString(R.string.Alert_error), "Connection timed-out", context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                    {
                         @Override
-                        public void onClick(BRDialogView brDialogView) {
+                        public void onClick(BRDialogView brDialogView)
+                        {
                             brDialogView.dismissWithAnimation();
                         }
                     }, null, null, 0);
+                }
                 paymentRequest = null;
-            } else if (e instanceof CertificateChainNotFound) {
+            }
+            else if (e instanceof CertificateChainNotFound)
+            {
                 Log.e(TAG, "No certificates!", e);
-            } else {
-                if (app != null)
-                    BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title), app.getString(R.string.PaymentProtocol_Errors_badPaymentRequest) + ":" + e.getMessage(), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+            }
+            else
+            {
+                if (context != null)
+                {
+                    BRDialog.showCustomDialog(context, context.getString(R.string.JailbreakWarnings_title), context.getString(R.string.PaymentProtocol_Errors_badPaymentRequest) + ":" + e.getMessage(), context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                    {
                         @Override
-                        public void onClick(BRDialogView brDialogView) {
+                        public void onClick(BRDialogView brDialogView)
+                        {
                             brDialogView.dismissWithAnimation();
                         }
                     }, null, null, 0);
+                }
 
                 paymentRequest = null;
             }
             e.printStackTrace();
-        } finally {
-            if (urlConnection != null) urlConnection.disconnect();
         }
-        if (paymentRequest == null) return null;
-        if (!paymentRequest.pkiType.equals("none") && certName == null) {
+        finally
+        {
+            if (urlConnection != null)
+            {
+                urlConnection.disconnect();
+            }
+        }
+        if (paymentRequest == null)
+        {
+            return null;
+        }
+        if (!paymentRequest.pkiType.equals("none") && certName == null)
+        {
             certified = 2;
-        } else if (!paymentRequest.pkiType.equals("none") && certName != null) {
+        }
+        else if (!paymentRequest.pkiType.equals("none") && certName != null)
+        {
             certified = 1;
         }
         certName = extractCNFromCertName(certName);
         if (certName == null || certName.isEmpty())
+        {
             certName = params[1];
+        }
         if (certName == null || certName.isEmpty())
+        {
             certName = paymentRequest.addresses[0];
+        }
         return null;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(String result)
+    {
         super.onPostExecute(result);
 
-        if (app == null) return;
-        if (paymentRequest == null || paymentRequest.addresses == null ||
-                paymentRequest.addresses.length == 0 || paymentRequest.amount == 0) {
+        final Context context = DigiByte.getContext();
+        if (context == null)
+        {
+            return;
+        }
+        if (paymentRequest == null || paymentRequest.addresses == null || paymentRequest.addresses.length == 0 || paymentRequest.amount == 0)
+        {
             return;
         }
         final String certification;
-        if (certified == 0) {
+        if (certified == 0)
+        {
             certification = certName + "\n";
-        } else {
-            if (certName == null || certName.isEmpty()) {
+        }
+        else
+        {
+            if (certName == null || certName.isEmpty())
+            {
                 certification = "\u274C " + certName + "\n";
-                BRDialog.showCustomDialog(app, app.getString(R.string.PaymentProtocol_Errors_untrustedCertificate), "", app.getString(R.string.JailbreakWarnings_ignore), app.getString(R.string.Button_cancel), new BRDialogView.BROnClickListener() {
+                BRDialog.showCustomDialog(context, context.getString(R.string.PaymentProtocol_Errors_untrustedCertificate), "", context.getString(R.string.JailbreakWarnings_ignore), context.getString(R.string.Button_cancel), new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
-                        continueWithThePayment(app, certification);
+                    public void onClick(BRDialogView brDialogView)
+                    {
+                        continueWithThePayment(context, certification);
                     }
-                }, new BRDialogView.BROnClickListener() {
+                }, new BRDialogView.BROnClickListener()
+                {
                     @Override
-                    public void onClick(BRDialogView brDialogView) {
+                    public void onClick(BRDialogView brDialogView)
+                    {
                         brDialogView.dismissWithAnimation();
                     }
                 }, null, 0);
                 return;
-            } else {
+            }
+            else
+            {
                 certification = "\uD83D\uDD12 " + certName + "\n";
             }
 
         }
 
-        continueWithThePayment(app, certification);
+        continueWithThePayment(context, certification);
 
     }
 
-    private String extractCNFromCertName(String str) {
-        if (str == null || str.length() < 4) return null;
+    private String extractCNFromCertName(String str)
+    {
+        if (str == null || str.length() < 4)
+        {
+            return null;
+        }
         String cn = "CN=";
         int index = -1;
         int endIndex = -1;
-        for (int i = 0; i < str.length() - 3; i++) {
-            if (str.substring(i, i + 3).equalsIgnoreCase(cn)) {
+        for (int i = 0; i < str.length() - 3; i++)
+        {
+            if (str.substring(i, i + 3).equalsIgnoreCase(cn))
+            {
                 index = i + 3;
             }
-            if (index != -1) {
-                if (str.charAt(i) == ',') {
+            if (index != -1)
+            {
+                if (str.charAt(i) == ',')
+                {
                     endIndex = i;
                     break;
                 }
@@ -308,32 +402,43 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
         return (index != -1 && endIndex != -1) ? cleanCN : null;
     }
 
-    private void continueWithThePayment(final Activity app, final String certification) {
+    private void continueWithThePayment(final Context context, final String certification)
+    {
 
         StringBuilder allAddresses = new StringBuilder();
-        for (String s : paymentRequest.addresses) {
+        for (String s : paymentRequest.addresses)
+        {
             allAddresses.append(s + ", ");
         }
         allAddresses.delete(allAddresses.length() - 2, allAddresses.length());
-        if (paymentRequest.memo == null) paymentRequest.memo = "";
+        if (paymentRequest.memo == null)
+        {
+            paymentRequest.memo = "";
+        }
         final String memo = (!paymentRequest.memo.isEmpty() ? "\n" : "") + paymentRequest.memo;
         allAddresses = new StringBuilder();
 
-        final String iso = BRSharedPrefs.getIso(app);
+        final String iso = BRSharedPrefs.getIso(context);
         final StringBuilder finalAllAddresses = allAddresses;
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 double minOutput = BRWalletManager.getInstance().getMinOutputAmount();
-                if (paymentRequest.amount < minOutput) {
-                    final String bitcoinMinMessage = String.format(Locale.getDefault(), app.getString(R.string.PaymentProtocol_Errors_smallTransaction),
-                            BRConstants.bitcoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100")));
-                    app.runOnUiThread(new Runnable() {
+                if (paymentRequest.amount < minOutput)
+                {
+                    final String bitcoinMinMessage = String.format(Locale.getDefault(), context.getString(R.string.PaymentProtocol_Errors_smallTransaction), BRConstants.bitcoinLowercase + new BigDecimal(minOutput).divide(new BigDecimal("100")));
+                    new Handler(Looper.getMainLooper()).post(new Runnable()
+                    {
                         @Override
-                        public void run() {
-                            BRDialog.showCustomDialog(app, app.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), bitcoinMinMessage, app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                        public void run()
+                        {
+                            BRDialog.showCustomDialog(context, context.getString(R.string.PaymentProtocol_Errors_badPaymentRequest), bitcoinMinMessage, context.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener()
+                            {
                                 @Override
-                                public void onClick(BRDialogView brDialogView) {
+                                public void onClick(BRDialogView brDialogView)
+                                {
                                     brDialogView.dismissWithAnimation();
                                 }
                             }, null, null, 0);
@@ -344,25 +449,28 @@ public class PaymentProtocolTask extends AsyncTask<String, String, String> {
                 }
                 final long total = paymentRequest.amount + paymentRequest.fee;
 
-                BigDecimal bigAm = BRExchange.getAmountFromSatoshis(app, iso, new BigDecimal(paymentRequest.amount));
-                BigDecimal bigFee = BRExchange.getAmountFromSatoshis(app, iso, new BigDecimal(paymentRequest.fee));
-                BigDecimal bigTotal = BRExchange.getAmountFromSatoshis(app, iso, new BigDecimal(total));
-                final String message = certification + memo + finalAllAddresses.toString() + "\n\n" + "amount: " + BRCurrency.getFormattedCurrencyString(app, iso, bigAm)
-                        + "\nnetwork fee: +" + BRCurrency.getFormattedCurrencyString(app, iso, bigFee)
-                        + "\ntotal: " + BRCurrency.getFormattedCurrencyString(app, iso, bigTotal);
+                BigDecimal bigAm = BRExchange.getAmountFromSatoshis(context, iso, new BigDecimal(paymentRequest.amount));
+                BigDecimal bigFee = BRExchange.getAmountFromSatoshis(context, iso, new BigDecimal(paymentRequest.fee));
+                BigDecimal bigTotal = BRExchange.getAmountFromSatoshis(context, iso, new BigDecimal(total));
+                final String message = certification + memo + finalAllAddresses.toString() + "\n\n" + "amount: " + BRCurrency.getFormattedCurrencyString(context, iso, bigAm) + "\nnetwork fee: +" + BRCurrency.getFormattedCurrencyString(context, iso, bigFee) + "\ntotal: " + BRCurrency.getFormattedCurrencyString(context, iso, bigTotal);
 
-                app.runOnUiThread(new Runnable() {
+                new Handler(Looper.getMainLooper()).post(new Runnable()
+                {
                     @Override
-                    public void run() {
-                        AuthManager.getInstance().authPrompt(app, "Confirmation", message, false, false,new BRAuthCompletion() {
+                    public void run()
+                    {
+                        AuthManager.getInstance().authPrompt(context, "Confirmation", message, false, false, new BRAuthCompletion()
+                        {
                             @Override
-                            public void onComplete() {
+                            public void onComplete()
+                            {
                                 PostAuth.getInstance().setTmpPaymentRequest(paymentRequest);
-                                PostAuth.getInstance().onPaymentProtocolRequest(app, false);
+                                PostAuth.getInstance().onPaymentProtocolRequest(context, false);
                             }
 
                             @Override
-                            public void onCancel() {
+                            public void onCancel()
+                            {
                                 Log.e(TAG, "onCancel: ");
                             }
                         });

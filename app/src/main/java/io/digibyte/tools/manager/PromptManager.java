@@ -86,7 +86,7 @@ public class PromptManager
 
     private boolean shouldPrompt(PromptItem item)
     {
-        final Context context = DigiByte.context;
+        final Context context = DigiByte.getContext();
         switch (item)
         {
             case FINGER_PRINT:

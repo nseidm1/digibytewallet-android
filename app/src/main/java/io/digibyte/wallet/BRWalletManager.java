@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -538,7 +539,8 @@ public class BRWalletManager
                 {
                     if (!BRToast.isToastShown())
                     {
-                        BRToast.showCustomToast(finalCtx, message, DigiByte.DISPLAY_HEIGHT_PX / 2, Toast.LENGTH_LONG, R.drawable.toast_layout_black);
+                        Point screenSize = Utils.getScreenSize(finalCtx);
+                        BRToast.showCustomToast(finalCtx, message, screenSize.y / 2, Toast.LENGTH_LONG, R.drawable.toast_layout_black);
                         AudioManager audioManager = (AudioManager) finalCtx.getSystemService(Context.AUDIO_SERVICE);
                         if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL)
                         {
@@ -556,7 +558,9 @@ public class BRWalletManager
                             }
                         }
 
-                        if (!(DigiByte.getBreadContext() instanceof BreadActivity) && BRSharedPrefs.getShowNotification(finalCtx))
+                        // TODO: Double check if this should work via DigiByte.getContext().isSuspended()
+                        final Activity activity = DigiByte.getContext().getActivity();
+                        if (null == activity || !(activity instanceof BreadActivity) && BRSharedPrefs.getShowNotification(finalCtx))
                         {
                             BRNotificationManager.sendNotification(finalCtx, R.drawable.notification_icon, finalCtx.getString(R.string.app_name), message, 1);
                         }

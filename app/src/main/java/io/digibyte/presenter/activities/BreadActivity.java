@@ -140,7 +140,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private InternetManager mConnectionReceiver = InternetManager.getInstance();
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
-    private TransactionListAdapter listViewAdapter = new TransactionListAdapter();;
+    private TransactionListAdapter listViewAdapter = new TransactionListAdapter();
     private Handler handler = new Handler(Looper.getMainLooper());
     private ArrayList<ListItemData> informationList = new ArrayList<>();
     private Unbinder unbinder;
