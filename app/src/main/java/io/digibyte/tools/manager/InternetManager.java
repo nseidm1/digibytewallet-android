@@ -1,6 +1,5 @@
 package io.digibyte.tools.manager;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import io.digibyte.DigiByte;
-import io.digibyte.wallet.BRPeerManager;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import io.digibyte.wallet.BRPeerManager;
 
 
 /**
@@ -66,7 +64,7 @@ public class InternetManager extends BroadcastReceiver {
     }
 
     public static void removeConnectionListener(ConnectionReceiverListener listener) {
-        if (!connectionReceiverListeners.contains(listener))
+        if (connectionReceiverListeners.contains(listener))
             connectionReceiverListeners.remove(listener);
     }
 

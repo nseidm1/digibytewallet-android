@@ -1,9 +1,12 @@
 package io.digibyte.presenter.activities;
 
+import static io.digibyte.tools.animation.BRAnimator.t1Size;
+import static io.digibyte.tools.animation.BRAnimator.t2Size;
+import static io.digibyte.tools.util.BRConstants.PLATFORM_ON;
+
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -66,10 +69,6 @@ import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 
-import static io.digibyte.tools.animation.BRAnimator.t1Size;
-import static io.digibyte.tools.animation.BRAnimator.t2Size;
-import static io.digibyte.tools.util.BRConstants.PLATFORM_ON;
-
 /**
  * BreadWallet
  * <p/>
@@ -102,7 +101,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private final int LIST_SECTION_INFORMATION = 0;
     private final int LIST_SECTION_TRANSACTIONS = 1;
 
-    private InternetManager mConnectionReceiver;
+    private InternetManager mConnectionReceiver = InternetManager.getInstance();
 
     @BindView(R.id.send_layout)
     LinearLayout sendButton;
@@ -146,10 +145,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @BindView(R.id.tx_list)
     RecyclerView listView;
 
-    private ListItemPromptData listItemPromptData;
     private ListItemSyncingData listItemSyncingData;
     private TransactionListAdapter listViewAdapter;
-    private String savedFragmentTag;
     private Unbinder unbinder;
     private Handler handler = new Handler(Looper.getMainLooper());
 
@@ -229,27 +226,20 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             @Override
             public void run() {
                 //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
-                String iso = BRSharedPrefs.getIso(BreadActivity.this);
+                final String iso = BRSharedPrefs.getIso(BreadActivity.this);
 
                 //current amount in satoshis
                 final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
 
                 //amount in BTC units
-                BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
+                final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
                 final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "DGB", btcAmount);
 
                 //amount in currency units
-                BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
+                final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
                 final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
-                handler.post(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        primaryPrice.setText(formattedBTCAmount);
-                        secondaryPrice.setText(String.format("%s", formattedCurAmount));
-                    }
-                });
+                primaryPrice.setText(formattedBTCAmount);
+                secondaryPrice.setText(String.format("%s", formattedCurAmount));
 
                 TxManager.getInstance().updateTxList();
             }
@@ -491,7 +481,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 public void run()
                 {
                     final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(BreadActivity.this));
-                    //                    Log.e(TAG, "run: " + progress);
                     if (progress < 1 && progress > 0)
                     {
                         SyncManager.getInstance().startSyncingProgressThread();
@@ -631,26 +620,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }, toolBarConstraintLayout.getLayoutTransition().getDuration(LayoutTransition.CHANGING));
     }
 
-    private void setupNetworking()
-    {
-        if (mConnectionReceiver == null)
-        {
-            mConnectionReceiver = InternetManager.getInstance();
-        }
-        IntentFilter mNetworkStateFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mConnectionReceiver, mNetworkStateFilter);
-        InternetManager.addConnectionListener(this);
-    }
-
-    private void saveVisibleFragment()
-    {
-        if (getFragmentManager().getBackStackEntryCount() == 0)
-        {
-            return;
-        }
-        savedFragmentTag = getFragmentManager().getBackStackEntryAt(0).getName();
-    }
-
     //returns x-pos relative to root layout
     private float getRelativeX(View myView)
     {
@@ -664,36 +633,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }
     }
 
-    //returns y-pos relative to root layout
-    private float getRelativeY(View myView)
-    {
-        if (myView.getParent() == myView.getRootView())
-        {
-            return myView.getY();
-        }
-        else
-        {
-            return myView.getY() + getRelativeY((View) myView.getParent());
-        }
-    }
-
-    //0 crypto is left, 1 crypto is right
-    private int getSwapPosition()
-    {
-        if (primaryPrice == null || secondaryPrice == null)
-        {
-            return 0;
-        }
-        return getRelativeX(primaryPrice) < getRelativeX(secondaryPrice) ? 0 : 1;
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// Activity overrides ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {
-        //leave it empty, avoiding the os bug
+        //leave it empty because the FragmentMenu is improperly designed
     }
 
     @Override
@@ -721,7 +668,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             APIClient.getInstance(this).updatePlatform();
         }
 
-        setupNetworking();
+        IntentFilter mNetworkStateFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mConnectionReceiver, mNetworkStateFilter);
+        InternetManager.addConnectionListener(this);
 
         if (!BRWalletManager.getInstance().isCreated())
         {
@@ -734,7 +683,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 }
             });
         }
-        new Handler().postDelayed(new Runnable()
+        handler.postDelayed(new Runnable()
         {
             @Override
             public void run()
@@ -745,9 +694,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
         BRWalletManager.getInstance().refreshBalance(this);
         SyncService.scheduleBackgroundSync(this);
-
-        BRAnimator.showFragmentByTag(this, savedFragmentTag);
-        savedFragmentTag = null;
         TxManager.getInstance().onResume(BreadActivity.this);
     }
 
@@ -755,7 +701,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onPause()
     {
         super.onPause();
-        saveVisibleFragment();
+        unregisterReceiver(mConnectionReceiver);
+        InternetManager.removeConnectionListener(this);
     }
 
     @Override
@@ -763,8 +710,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     {
         super.onDestroy();
         unbinder.unbind();
-        unregisterReceiver(mConnectionReceiver);
-        InternetManager.removeConnectionListener(this);
 
         BRWalletManager.getInstance().removeListener(this);
         BRPeerManager.getInstance().removeListener(this);
