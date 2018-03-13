@@ -161,13 +161,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         initializeViews();
         setupInformationListPromptSwipe();
 
-        BRWalletManager.getInstance().addBalanceChangedListener(this);
-        BRPeerManager.getInstance().addStatusUpdateListener(this);
-        BRSharedPrefs.addIsoChangedListener(this);
-
-        TxManager.getInstance().addListener(this);
-        SyncManager.getInstance().addListener(this);
-
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
         oneTimeGreeting();
@@ -681,6 +674,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             }
         }, 1000);
 
+        BRWalletManager.getInstance().addBalanceChangedListener(this);
+        BRPeerManager.getInstance().addStatusUpdateListener(this);
+        BRSharedPrefs.addIsoChangedListener(this);
+
+        TxManager.getInstance().addListener(this);
+        SyncManager.getInstance().addListener(this);
+
         BRWalletManager.getInstance().refreshBalance(this);
         SyncService.scheduleBackgroundSync(this);
         TxManager.getInstance().onResume(BreadActivity.this);
@@ -692,13 +692,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         super.onPause();
         unregisterReceiver(mConnectionReceiver);
         InternetManager.removeConnectionListener(this);
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        unbinder.unbind();
 
         BRWalletManager.getInstance().removeListener(this);
         BRPeerManager.getInstance().removeListener(this);
@@ -719,6 +712,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 }
             });
         }
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     @Override
