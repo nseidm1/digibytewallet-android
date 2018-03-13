@@ -145,10 +145,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @BindView(R.id.tx_list)
     RecyclerView listView;
 
-    private ListItemSyncingData listItemSyncingData;
-    private TransactionListAdapter listViewAdapter;
-    private Unbinder unbinder;
+    private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
+    private TransactionListAdapter listViewAdapter = new TransactionListAdapter();;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private ArrayList<ListItemData> informationList = new ArrayList<>();
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -171,7 +172,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
         oneTimeGreeting();
         updateUI();
-        updateInformationListSection();
+        loadNextPropmptItem();
     }
 
     private void oneTimeGreeting() {
@@ -203,7 +204,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         // Setup list view
         listView.setItemAnimator(null);
         listView.setLayoutManager(new LinearLayoutManager(this));
-        listViewAdapter = new TransactionListAdapter();
         listViewAdapter.addSection(LIST_SECTION_INFORMATION);
         listViewAdapter.addSection(LIST_SECTION_TRANSACTIONS);
         listView.setAdapter(listViewAdapter);
@@ -246,25 +246,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    private void updateInformationListSection()
+    private void loadNextPropmptItem()
     {
-        ArrayList<ListItemData> informationList = new ArrayList<>();
-
-        if(SyncManager.getInstance().isRunning())
+        PromptManager.PromptItem promptItem = PromptManager.getInstance().nextPrompt();
+        if (null != promptItem)
         {
-            informationList.add(new ListItemSyncingData());
+            informationList.add(new ListItemPromptData(promptItem, onPromptListItemClick, onPromptListItemCloseClick));
+            BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(promptItem) + ".displayed");
+            listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
         }
-        else
-        {
-            PromptManager.PromptItem promptItem = PromptManager.getInstance().nextPrompt();
-            if (null != promptItem)
-            {
-                informationList.add(new ListItemPromptData(promptItem, onPromptListItemClick, onPromptListItemCloseClick));
-                BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(promptItem) + ".displayed");
-            }
-        }
-
-        listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
     }
 
     private void setupInformationListPromptSwipe()
@@ -379,10 +369,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         public void onListItemClick(ListItemData aListItemData)
         {
             ListItemPromptData data = (ListItemPromptData) aListItemData;
-
+            informationList.remove(data);
+            listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, data);
             BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(data.promptItem) + ".dismissed");
-
-            updateInformationListSection();
+            loadNextPropmptItem();
         }
     };
 
@@ -392,28 +382,22 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     public void onSyncManagerStart()
     {
-        this.updateInformationListSection();
+        informationList.clear();
+        informationList.add(listItemSyncingData);
+        listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
     }
 
     public void onSyncManagerUpdate()
     {
-        if(null != listItemSyncingData)
-        {
-            listViewAdapter.updateSection(LIST_SECTION_INFORMATION);
-        }
+        listViewAdapter.updateSection(LIST_SECTION_INFORMATION);
     }
 
     @Override
     public void onSyncManagerFinished()
     {
-        if(!SyncManager.getInstance().isRunning())
-        {
-            if(null != listItemSyncingData)
-            {
-                listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, listItemSyncingData);
-                listItemSyncingData = null;
-            }
-        }
+        listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, listItemSyncingData);
+        informationList.clear();
+        loadNextPropmptItem();
     }
 
     @Override
