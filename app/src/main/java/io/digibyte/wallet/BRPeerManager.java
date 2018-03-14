@@ -1,23 +1,17 @@
 package io.digibyte.wallet;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.WorkerThread;
 import android.util.Log;
 
 import io.digibyte.DigiByte;
-import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.entities.BlockEntity;
 import io.digibyte.presenter.entities.PeerEntity;
 import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.manager.PromptManager;
 import io.digibyte.tools.manager.SyncManager;
-import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.sqlite.MerkleBlockDataSource;
 import io.digibyte.tools.sqlite.PeerDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.TrustedNode;
-import io.digibyte.tools.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +74,7 @@ public class BRPeerManager {
     public static void syncStarted() {
         Log.d(TAG, "syncStarted: " + Thread.currentThread().getName());
 //        BRPeerManager.getInstance().refreshConnection();
-        Context ctx = DigiByte.getBreadContext();
+        Context ctx = DigiByte.getContext();
         int startHeight = BRSharedPrefs.getStartHeight(ctx);
         int lastHeight = BRSharedPrefs.getLastBlockHeight(ctx);
         if (startHeight > lastHeight) BRSharedPrefs.putStartHeight(ctx, lastHeight);
@@ -89,7 +83,7 @@ public class BRPeerManager {
 
     public static void syncSucceeded() {
         Log.d(TAG, "syncSucceeded");
-        final Context app = DigiByte.getBreadContext();
+        final Context app = DigiByte.getContext();
         if (app == null) return;
         BRSharedPrefs.putLastSyncTime(app, System.currentTimeMillis());
         SyncManager.getInstance().updateAlarms(app);
@@ -108,7 +102,7 @@ public class BRPeerManager {
     public static void syncFailed() {
         Log.d(TAG, "syncFailed");
         SyncManager.getInstance().stopSyncingProgressThread();
-        Context ctx = DigiByte.getBreadContext();
+        Context ctx = DigiByte.getContext();
         if (ctx == null) return;
 
         SyncManager.getInstance().stopSyncingProgressThread();
@@ -133,7 +127,7 @@ public class BRPeerManager {
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
         Log.d(TAG, "saveBlocks: " + blockEntities.length);
 
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
@@ -147,7 +141,7 @@ public class BRPeerManager {
 
     public static void savePeers(final PeerEntity[] peerEntities, final boolean replace) {
         Log.d(TAG, "savePeers: " + peerEntities.length);
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
@@ -161,12 +155,12 @@ public class BRPeerManager {
 
     public static boolean networkIsReachable() {
         Log.d(TAG, "networkIsReachable");
-        return BRWalletManager.getInstance().isNetworkAvailable(DigiByte.getBreadContext());
+        return BRWalletManager.getInstance().isNetworkAvailable(DigiByte.getContext());
     }
 
     public static void deleteBlocks() {
         Log.d(TAG, "deleteBlocks");
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
@@ -179,7 +173,7 @@ public class BRPeerManager {
 
     public static void deletePeers() {
         Log.d(TAG, "deletePeers");
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
@@ -246,7 +240,7 @@ public class BRPeerManager {
     }
 
     public static void updateLastBlockHeight(int blockHeight) {
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
         BRSharedPrefs.putLastBlockHeight(ctx, blockHeight);
     }

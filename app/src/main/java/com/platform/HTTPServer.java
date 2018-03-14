@@ -152,7 +152,7 @@ public class HTTPServer {
 
     private static boolean dispatch(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         Log.d(TAG, "TRYING TO HANDLE: " + target + " (" + request.getMethod() + ")");
-        final Context app = DigiByte.getBreadContext();
+        final Context app = DigiByte.getContext();
         boolean result = false;
         if (target.equalsIgnoreCase("/_close")) {
             if (app != null) {

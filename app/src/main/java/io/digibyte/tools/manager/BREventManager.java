@@ -125,7 +125,7 @@ public class BREventManager
             //            Log.e(TAG, "saveEvents: insert json to array: " + obj);
             array.put(obj);
         }
-        Context app = DigiByte.getBreadContext();
+        Context app = DigiByte.getContext();
         if (app != null)
         {
             String fileName = app.getFilesDir().getAbsolutePath() + "/events/" + UUID.randomUUID().toString();
@@ -140,7 +140,7 @@ public class BREventManager
     private void pushToServer()
     {
         //        Log.d(TAG, "pushToServer");
-        Context app = DigiByte.getBreadContext();
+        Context app = DigiByte.getContext();
         if (app != null)
         {
             List<JSONArray> arrs = getEventsFromDisk(app);

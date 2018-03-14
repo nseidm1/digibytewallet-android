@@ -100,7 +100,7 @@ public class PaymentProtocolPostPaymentTask extends AsyncTask<String, String, St
 //            PostAuth.getInstance().setTmpPaymentRequest(paymentRequest);
 //            PostAuth.getInstance().onPaymentProtocolRequest(app,false);
         } catch (Exception e) {
-            Context app = DigiByte.getBreadContext();
+            Context app = DigiByte.getContext();
             if (e instanceof java.net.UnknownHostException) {
                 if (app != null) {
                     pendingErrorMessages.put(TITLE, app.getString(R.string.Alert_error));
@@ -145,7 +145,7 @@ public class PaymentProtocolPostPaymentTask extends AsyncTask<String, String, St
     }
 
     public static void handleMessage() {
-        Context app = DigiByte.getBreadContext();
+        Context app = DigiByte.getContext();
         if (app != null && message != null) {
             if (!message.isEmpty()) {
                 int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;

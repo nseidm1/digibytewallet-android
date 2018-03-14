@@ -3,11 +3,9 @@ package io.digibyte.presenter.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
-import io.digibyte.presenter.activities.settings.WebViewActivity;
 import io.digibyte.presenter.customviews.BRButton;
 import io.digibyte.presenter.customviews.BRKeyboard;
 import io.digibyte.presenter.customviews.BRLinearLayoutWithCaret;
@@ -30,13 +27,11 @@ import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.qrcode.QRUtils;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 
 import static io.digibyte.tools.animation.BRAnimator.animateBackgroundDim;
 import static io.digibyte.tools.animation.BRAnimator.animateSignalSlide;
-import static com.platform.HTTPServer.URL_SUPPORT;
 
 /**
  * BreadWallet
@@ -279,7 +274,7 @@ public class FragmentReceive extends Fragment {
     }
 
     private void updateQr() {
-        final Context ctx = getContext() == null ? DigiByte.getBreadContext() : (Activity) getContext();
+        final Context ctx = getContext() == null ? DigiByte.getContext() : (Activity) getContext();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {

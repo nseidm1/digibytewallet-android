@@ -460,7 +460,7 @@ public class BRWalletManager
     public static void publishCallback(final String message, final int error, byte[] txHash)
     {
         Log.e(TAG, "publishCallback: " + message + ", err:" + error + ", txHash: " + Arrays.toString(txHash));
-        final Context app = DigiByte.getBreadContext();
+        final Context app = DigiByte.getContext();
         BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable()
         {
             @Override
@@ -488,7 +488,7 @@ public class BRWalletManager
     public static void onBalanceChanged(final long balance)
     {
         Log.d(TAG, "onBalanceChanged:  " + balance);
-        Context app = DigiByte.getBreadContext();
+        Context app = DigiByte.getContext();
         BRWalletManager.getInstance().setBalance(app, balance);
 
     }
@@ -497,7 +497,7 @@ public class BRWalletManager
     {
         Log.d(TAG, "onTxAdded: " + String.format("tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length, blockHeight, timestamp, amount, hash));
 
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (amount > 0)
         {
             BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable()
@@ -527,7 +527,7 @@ public class BRWalletManager
     {
         if (ctx == null)
         {
-            ctx = DigiByte.getBreadContext();
+            ctx = DigiByte.getContext();
         }
         if (ctx != null)
         {
@@ -579,7 +579,7 @@ public class BRWalletManager
     public static void onTxUpdated(String hash, int blockHeight, int timeStamp)
     {
         Log.d(TAG, "onTxUpdated: " + String.format("hash: %s, blockHeight: %d, timestamp: %d", hash, blockHeight, timeStamp));
-        Context ctx = DigiByte.getBreadContext();
+        Context ctx = DigiByte.getContext();
         if (ctx != null)
         {
             TransactionDataSource.getInstance(ctx).updateTxBlockHeight(hash, blockHeight, timeStamp);
@@ -594,7 +594,7 @@ public class BRWalletManager
     public static void onTxDeleted(String hash, int notifyUser, final int recommendRescan)
     {
         Log.e(TAG, "onTxDeleted: " + String.format("hash: %s, notifyUser: %d, recommendRescan: %d", hash, notifyUser, recommendRescan));
-        final Context ctx = DigiByte.getBreadContext();
+        final Context ctx = DigiByte.getContext();
         if (ctx != null)
         {
             BRSharedPrefs.putScanRecommended(ctx, true);

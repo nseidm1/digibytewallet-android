@@ -199,7 +199,7 @@ public class WithdrawBchActivity extends BRActivity {
             BRSharedPrefs.putBCHTxId(app, txId);
             updateUi(app);
         } else {
-            Context activity = DigiByte.getBreadContext();
+            Context activity = DigiByte.getContext();
             BRSharedPrefs.putBCHTxId(activity, txId);
             Log.e(TAG, "updateUi: app is null");
         }

@@ -1,13 +1,11 @@
 package com.platform.middlewares;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
 import io.digibyte.DigiByte;
-import io.digibyte.tools.util.Utils;
+
 import com.platform.APIClient;
-import com.platform.BRHTTPHelper;
 import com.platform.interfaces.Middleware;
 
 import org.apache.commons.io.IOUtils;
@@ -72,7 +70,7 @@ public class APIProxy implements Middleware {
             "connection"};
 
     public APIProxy() {
-        Context app = DigiByte.getBreadContext();
+        Context app = DigiByte.getContext();
         if (app == null) {
             Log.e(TAG, "APIProxy: app is null!");
         }

@@ -66,7 +66,7 @@ public class GeoLocationManager {
     public void getOneTimeGeoLocation(Continuation cont, Request req) {
         this.continuation = cont;
         this.baseRequest = req;
-        final Context app = DigiByte.getBreadContext();
+        final Context app = DigiByte.getContext();
         if (app == null)
             return;
         locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
@@ -94,7 +94,7 @@ public class GeoLocationManager {
     public void startGeoSocket(Session sess) {
         session = sess;
 
-        final Context app = DigiByte.getBreadContext();
+        final Context app = DigiByte.getContext();
         if (app == null)
             return;
         final LocationManager locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
@@ -115,7 +115,7 @@ public class GeoLocationManager {
     }
 
     public void stopGeoSocket() {
-        final Context app = DigiByte.getBreadContext();
+        final Context app = DigiByte.getContext();
         if (app == null)
             return;
         final LocationManager locationManager = (LocationManager) app.getSystemService(Context.LOCATION_SERVICE);
@@ -212,7 +212,7 @@ public class GeoLocationManager {
                         } finally {
 
                             processing = false;
-                            Context app = DigiByte.getBreadContext();
+                            Context app = DigiByte.getContext();
                             if (app == null || ActivityCompat.checkSelfPermission(app, Manifest.permission.ACCESS_FINE_LOCATION)
                                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(app,
                                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

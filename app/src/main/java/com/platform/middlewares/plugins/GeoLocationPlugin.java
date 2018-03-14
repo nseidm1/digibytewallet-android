@@ -96,7 +96,7 @@ public class GeoLocationPlugin implements Plugin {
     public boolean handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         if (target.startsWith("/_permissions/geo")) {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
-            Context app =  DigiByte.getBreadContext();
+            Context app =  DigiByte.getContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);
@@ -175,7 +175,7 @@ public class GeoLocationPlugin implements Plugin {
             // "description" = "a string representation of this object"
             // "timestamp" = "ISO-8601 timestamp of when this location was generated"
             // "horizontal_accuracy" = double
-            Context app =  DigiByte.getBreadContext();
+            Context app =  DigiByte.getContext();
             if (app == null) {                    Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(500, "context is null", baseRequest, response);
             }

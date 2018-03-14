@@ -205,7 +205,7 @@ public class APIClient {
         if (ActivityUTILS.isMainThread()) {
             throw new NetworkOnMainThreadException();
         }
-        if (ctx == null) ctx = DigiByte.getBreadContext();
+        if (ctx == null) ctx = DigiByte.getContext();
         if (ctx == null) return null;
         String strUtl = BASE_URL + ME;
         Request request = new Request.Builder()
@@ -235,7 +235,7 @@ public class APIClient {
         if (ActivityUTILS.isMainThread()) {
             throw new NetworkOnMainThreadException();
         }
-        if (ctx == null) ctx = DigiByte.getBreadContext();
+        if (ctx == null) ctx = DigiByte.getContext();
         if (ctx == null) return null;
         try {
             String strUtl = BASE_URL + TOKEN;
@@ -624,7 +624,7 @@ public class APIClient {
     }
 
     public boolean tryExtractTar() {
-        Context app = DigiByte.getBreadContext();
+        Context app = DigiByte.getContext();
         if (app == null) {
             Log.e(TAG, "tryExtractTar: failed to extract, app is null");
             return false;

@@ -170,7 +170,7 @@ public class SyncManager
 
                 while (theRunningFlag)
                 {
-                    int startHeight = BRSharedPrefs.getStartHeight(DigiByte.getBreadContext());
+                    int startHeight = BRSharedPrefs.getStartHeight(DigiByte.getContext());
                     theProgress = BRPeerManager.syncProgress(startHeight);
                     theLastBlockTimestamp = BRPeerManager.getInstance().getLastBlockTimestamp();
 

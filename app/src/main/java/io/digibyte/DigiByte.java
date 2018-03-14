@@ -56,14 +56,14 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
 
     private static DigiByte application;
     public static DigiByte getContext() { return application; }
-    public static DigiByte getBreadContext() { return application; }
 
     private long suspendedTime;
-    private Activity activeActivity;
     private boolean isSuspendedFlag;
     private ArrayList<Activity> activityList;
-
     public boolean isSuspended() { return isSuspendedFlag; }
+
+    // TODO: Replace this with an atomic integer counter, we should avoid keeping references of activities
+    private Activity activeActivity;
     public Activity getActivity() { return activeActivity; }
 
     @Override

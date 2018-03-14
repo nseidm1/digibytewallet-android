@@ -37,9 +37,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -92,7 +89,7 @@ public class CameraPlugin implements Plugin {
 
         if (target.startsWith("/_camera/take_picture")) {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
-            final Context app = DigiByte.getBreadContext();
+            final Context app = DigiByte.getContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
 
@@ -152,7 +149,7 @@ public class CameraPlugin implements Plugin {
             return true;
         } else if (target.startsWith("/_camera/picture/")) {
             Log.i(TAG, "handling: " + target + " " + baseRequest.getMethod());
-            final Context app = DigiByte.getBreadContext();
+            final Context app = DigiByte.getContext();
             if (app == null) {
                 Log.e(TAG, "handle: context is null: " + target + " " + baseRequest.getMethod());
                 return BRHTTPHelper.handleError(404, "context is null", baseRequest, response);
