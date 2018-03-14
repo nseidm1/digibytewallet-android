@@ -33,6 +33,7 @@ import com.platform.APIClient;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -138,12 +139,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @BindView(R.id.tx_list)
     RecyclerView listView;
 
+    private Unbinder unbinder;
+    private TxItem[] transactionItems;
+    private Handler handler = new Handler(Looper.getMainLooper());
     private InternetManager mConnectionReceiver = InternetManager.getInstance();
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
     private TransactionListAdapter listViewAdapter = new TransactionListAdapter();
-    private Handler handler = new Handler(Looper.getMainLooper());
     private ArrayList<ListItemData> informationList = new ArrayList<>();
-    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -158,8 +160,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
         oneTimeGreeting();
+        loadNextPromptItem();
+        updateTransactionSection();
         updateUI();
-        loadNextPropmptItem();
     }
 
     private void oneTimeGreeting() {
@@ -187,6 +190,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         primaryPrice.setOnClickListener(this.onButtonPrice);
         secondaryPrice.setOnClickListener(this.onButtonPrice);
         searchIcon.setOnClickListener(this.onButtonSearch);
+        searchBar.setOnUpdateListener(onSearchBarUpdate);
 
         // Setup list view
         listView.setItemAnimator(null);
@@ -230,7 +234,68 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    private void loadNextPropmptItem()
+    private void updateTransactionSection()
+    {
+        ArrayList<ListItemData> transactionList = new ArrayList<>();
+        if(null != transactionItems)
+        {
+            boolean[] switches = searchBar.getFilterSwitches();
+            String searchQuery = searchBar.getSearchQuery().toLowerCase().trim();
+
+            int switchesON = 0;
+            for (boolean i : switches) if (i) switchesON++;
+            int transactionsCount = transactionItems.length;
+            for (int index = 0; index < transactionsCount; index++)
+            {
+                TxItem item = transactionItems[index];
+                boolean matchesHash = item.getTxHashHexReversed() != null && item.getTxHashHexReversed().contains(searchQuery);
+                boolean matchesAddress = item.getFrom()[0].contains(searchQuery) || item.getTo()[0].contains(searchQuery);
+                boolean matchesMemo = item.metaData != null && item.metaData.comment != null && item.metaData.comment.toLowerCase().contains(searchQuery);
+
+                // Can we optimize this?
+                if (matchesHash || matchesAddress || matchesMemo)
+                {
+                    boolean willAdd = true;
+
+                    if (switchesON > 0)
+                    {
+                        // filter by sent and this is received
+                        if (switches[0] && (item.getSent() - item.getReceived() <= 0))
+                        {
+                            willAdd = false;
+                        }
+
+                        // filter by received and this is sent
+                        if (switches[1] && (item.getSent() - item.getReceived() > 0))
+                        {
+                            willAdd = false;
+                        }
+
+                        // complete
+                        int confirms = item.getBlockHeight() == Integer.MAX_VALUE ? 0 : BRSharedPrefs.getLastBlockHeight(this) - item.getBlockHeight() + 1;
+                        if (switches[2] && confirms >= 6)
+                        {
+                            willAdd = false;
+                        }
+
+                        // pending
+                        if (switches[3] && confirms < 6)
+                        {
+                            willAdd = false;
+                        }
+                    }
+
+                    if (willAdd)
+                    {
+                        transactionList.add(new ListItemTransactionData(index, transactionsCount, transactionItems[index], onTransactionListItemClick));
+                    }
+                }
+            }
+        }
+        listViewAdapter.addItemsInSection(LIST_SECTION_TRANSACTIONS, transactionList);
+    }
+
+    private void loadNextPromptItem()
     {
         PromptManager.PromptItem promptItem = PromptManager.getInstance().nextPrompt();
         if (null != promptItem)
@@ -356,7 +421,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             informationList.remove(data);
             listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, data);
             BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(data.promptItem) + ".dismissed");
-            loadNextPropmptItem();
+            loadNextPromptItem();
         }
     };
 
@@ -386,23 +451,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     {
         listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, listItemSyncingData);
         informationList.clear();
-        loadNextPropmptItem();
+        loadNextPromptItem();
     }
 
     @Override
     public void onTxManagerUpdate(TxItem[] aTransactionList)
     {
-        if (null != aTransactionList)
-        {
-            ArrayList<ListItemData> transactionList = new ArrayList<>();
-
-            int transactionsCount = aTransactionList.length;
-            for (int index = 0; index < transactionsCount; index++)
-            {
-                transactionList.add(new ListItemTransactionData(index, transactionsCount, aTransactionList[index], onTransactionListItemClick));
-            }
-            listViewAdapter.addItemsInSection(LIST_SECTION_TRANSACTIONS, transactionList);
-        }
+        transactionItems = aTransactionList;
+        updateTransactionSection();
     }
 
     @Override
@@ -554,6 +610,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 barFlipper.setDisplayedChild(1); //search bar
                 searchBar.onShow(true);
             }
+        }
+    };
+
+    private BRSearchBar.onUpdateListener onSearchBarUpdate = new BRSearchBar.onUpdateListener()
+    {
+        @Override
+        public void onSearchBarFilterUpdate()
+        {
+            updateTransactionSection();
         }
     };
 

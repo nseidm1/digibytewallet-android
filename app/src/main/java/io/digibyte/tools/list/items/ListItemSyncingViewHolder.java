@@ -30,6 +30,6 @@ public class ListItemSyncingViewHolder extends ListItemViewHolder
 
         this.itemView.setBackgroundResource(R.drawable.tx_rounded);
         this.progress.setProgress((int) (SyncManager.getInstance().getProgress() * 100));
-        this.date.setText(Utils.formatTimeStamp(SyncManager.getInstance().getLastBlockTimestamp() * 1000, "MMM. dd, yyyy  ha"));
+        this.date.setText(Utils.formatTimeStamp(SyncManager.getInstance().getLastBlockTimestamp() * 1000, "MMM. dd, yyyy 'at' hh:mm a"));
     }
 }

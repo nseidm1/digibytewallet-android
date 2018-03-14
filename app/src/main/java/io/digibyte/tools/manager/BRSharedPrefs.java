@@ -69,7 +69,6 @@ public class BRSharedPrefs {
 
     }
 
-
     public static String getIso(Context context) {
         SharedPreferences settingsToGet = context.getSharedPreferences(BRConstants.PREFS_NAME, 0);
         String defIso;
