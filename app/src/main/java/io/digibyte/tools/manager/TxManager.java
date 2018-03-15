@@ -78,28 +78,16 @@ public class TxManager
 
     public void onResume(final Activity app)
     {
-        crashIfNotMain();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
         {
             @Override
             public void run()
             {
                 final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
-                BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable()
+                if (progress > 0 && progress < 1)
                 {
-                    @Override
-                    public void run()
-                    {
-                        if (progress > 0 && progress < 1)
-                        {
-                            updateCard();
-                        }
-                        else
-                        {
-                            //showNextPrompt(app);
-                        }
-                    }
-                });
+                    updateTxList();
+                }
             }
         });
     }
@@ -120,55 +108,4 @@ public class TxManager
             }
         });
     }
-
-    public void updateCard()
-    {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                updateTxList();
-            }
-        });
-    }
-
-    private class CustomLinearLayoutManager extends LinearLayoutManager
-    {
-
-        public CustomLinearLayoutManager(Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * Disable predictive animations. There is a bug in RecyclerView which causes views that
-         * are being reloaded to pull invalid ViewHolders from the internal recycler stack if the
-         * adapter size has decreased since the ViewHolder was recycled.
-         */
-        @Override
-        public boolean supportsPredictiveItemAnimations()
-        {
-            return false;
-        }
-
-        public CustomLinearLayoutManager(Context context, int orientation, boolean reverseLayout)
-        {
-            super(context, orientation, reverseLayout);
-        }
-
-        public CustomLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-        {
-            super(context, attrs, defStyleAttr, defStyleRes);
-        }
-    }
-
-    private void crashIfNotMain()
-    {
-        if (Looper.myLooper() != Looper.getMainLooper())
-        {
-            throw new IllegalAccessError("Can only call from main thread");
-        }
-    }
-
 }
