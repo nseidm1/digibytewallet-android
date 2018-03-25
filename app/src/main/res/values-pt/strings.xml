@@ -1,105 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <!-- App name -->
-  <string name="About.appName.android">DigiByte</string>
+  <string name="About.appName.android">DigiWallet</string>
   <!-- About screen blog label -->
-  <string name="About.blog">Website</string>
+  <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
-  <string name="About.footer">Criada pela equipa DigiByte global. Versão %1$s</string>
+  <string name="About.footer">Desenvolvido pela equipe DigiWallet. Versão %1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Política de Privacidade</string>
   <!-- About screen reddit label -->
-  <string name="About.reddit">Reddit</string>
+  <string name="About.reddit">https://www.reddit.com/r/Digibyte/</string>
   <!-- Terms of Use button label -->
-  <string name="About.terms">Termos de Uso</string>
+  <string name="About.terms">Termos de uso https://github.com/Racecraft/digibytewallet-android</string>
   <!-- About screen title -->
-  <string name="About.title">Sobre</string>
+  <string name="About.title">Rápido, simples e seguro!: DigiWallet para Android é a forma mais fácil de começar a enviar e receber digibytes. Desenvolvido para usuários novos e experientes, DigiWallet para Android é simples o suficiente para que um principiante use pela primeira vez, mas poderoso o suficiente para usuários  especializados.</string>
   <!-- About screen twitter label -->
-  <string name="About.twitter">Twitter</string>
+  <string name="About.twitter">https://twitter.com/digibytecoin</string>
   <!-- Close modal button accessibility label -->
-  <string name="AccessibilityLabels.close">Fechar</string>
+  <string name="AccessibilityLabels.close">Encerrar</string>
   <!-- Support center accessibiliy label -->
-  <string name="AccessibilityLabels.faq">Centro de Ajuda</string>
+  <string name="AccessibilityLabels.faq">Centro de Apoio</string>
   <!-- Loading Wallet Message -->
-  <string name="Account.loadingMessage">A Carregar Carteira</string>
+  <string name="Account.loadingMessage">A carregar Carteira</string>
   <!-- Default wallet name -->
-  <string name="AccountHeader.defaultWalletName">Minha DigiByte</string>
-  <!-- Equals symbol -->
-  <string name="AccountHeader.equals">=</string>
-  <!-- Manage wallet button title -->
-  <string name="AccountHeader.manageButtonName">GERIR</string>
+  <string name="AccountHeader.defaultWalletName">A Minha DigiWallet</string>
   <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">Ao que parece, está a utilizar um teclado de terceiros, o qual pode gravar aquilo que digita e furtar a sua Paper Key. Por favor, mude para o teclado predefinido do Android, a fim de ficar mais protegido.</string>
+  <string name="Alert.customKeyboard.android">Parece que  está a usar um teclado externo , que pode ser usado para mapear o que  digita e roubar sua  Chave de recuperação pessoal. Por favor  altere para o teclado padrão do Android para protecção  máxima.</string>
   <!-- Error alert title -->
   <string name="Alert.error">Erro</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Há um problema com a KeyStore do seu SO Android. Por favor, contacte support@digibyte.io</string>
+  <string name="Alert.keystore.generic.android">Existe um problema com Android OS keystore, por favor entre em contacto com support@digibyte.io</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Os seus dados encriptados pelo DigiByte foram recentemente invalidados porque o seu ecrã de bloqueio do Android estava desativado.</string>
+  <string name="Alert.keystore.invalidated.android">Os dados criptográficos das suas DigiWallet foram invalidados  porque o ecrã de bloqueio do Android estava desactivado.</string>
   <!-- Keystore error title -->
-  <string name="Alert.keystore.title.android">Erro na KeyStore do Android</string>
+  <string name="Alert.keystore.title.android">Erro no Android KeyStore</string>
   <!-- No internet alert message -->
-  <string name="Alert.noInternet">Não foi encontrada uma ligação à internet. Verifique a sua ligação e tente novamente.</string>
+  <string name="Alert.noInternet">Sem conexão com a internet. Verifique a sua conexão e tente novamente.</string>
   <!-- Warning alert title -->
-  <string name="Alert.warning">Aviso</string>
+  <string name="Alert.warning">Atenção</string>
   <!-- 'the addresses were copied'' Alert title -->
-  <string name="Alerts.copiedAddressesHeader">Endereços Copiados</string>
+  <string name="Alerts.copiedAddressesHeader">Endereços copiados</string>
   <!-- Addresses Copied Alert sub header -->
-  <string name="Alerts.copiedAddressesSubheader">Todos os endereços de carteiras foram copiados com sucesso.</string>
+  <string name="Alerts.copiedAddressesSubheader">Todos os endereços da carteira foram copiados com sucesso.</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">Chave de Papel Definida</string>
+  <string name="Alerts.paperKeySet">Chave de recuperação pessoal configurada</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">Incrível!</string>
+  <string name="Alerts.paperKeySetSubheader">Fantástico!</string>
   <!-- Alert Header label (the PIN was set) -->
-  <string name="Alerts.pinSet">PIN Definido</string>
+  <string name="Alerts.pinSet">Pin configurado</string>
   <!-- Send failure alert header label (the send failed to happen) -->
-  <string name="Alerts.sendFailure">Falha no envio</string>
+  <string name="Alerts.sendFailure">Falha no Envio</string>
   <!-- Send success alert header label (confirmation that the send happened) -->
   <string name="Alerts.sendSuccess">Confirmação de Envio</string>
   <!-- Send success alert subheader label (e.g. the money was sent) -->
-  <string name="Alerts.sendSuccessSubheader">Dinheiro Enviado!</string>
+  <string name="Alerts.sendSuccessSubheader">DigiByte Enviado!</string>
   <!-- Fingerprint was recognized by the scanner -->
-  <string name="Alerts.touchIdSucceeded.android">Impressão digital reconhecida</string>
+  <string name="Alerts.touchIdSucceeded.android">Impressão Digital reconhecida</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Erro de Serialização JSON</string>
   <!-- Wallet not ready error message -->
-  <string name="ApiClient.notReady">Carteira não preparada</string>
+  <string name="ApiClient.notReady">A Carteira não está preparada</string>
   <!-- API Token error message -->
-  <string name="ApiClient.tokenError">Não foi possível obter o token API</string>
+  <string name="ApiClient.tokenError">Não foi possível recuperar API token</string>
   <!-- Send BCH view body. -->
-  <string name="BCH.body">Introduza abaixo um endereço de destino da BCH. Toda a BCH que estiver na sua conta no momento da divisão (%1$s) será enviada.</string>
+  <string name="BCH.body">Digite o endereço DGB de destino por baixo. Todas as DGB na sua carteira serão enviadas na altura do fork  (%1$s) .</string>
   <!-- Confirm sending <$5.00> to <address>? -->
-  <string name="BCH.confirmationMessage">Confirme o envio de %1$s para %2$s</string>
+  <string name="BCH.confirmationMessage">Confirmar envio %1$s para %2$s</string>
   <!-- Confirmation alert title -->
   <string name="BCH.confirmationTitle">Confirmação</string>
   <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">A sua conta não contém qualquer BCH, ou recebeu as BCH depois da divisão.</string>
+  <string name="BCH.genericError">A sua conta não contém nenhuma DGB, ou já recebeu as DGB após o fork.</string>
   <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">ID da transação copiado</string>
+  <string name="BCH.hashCopiedMessage">Identificação de transação copiada</string>
   <!-- No address error message -->
-  <string name="BCH.noAddressError">Por favor, introduza um endereço</string>
+  <string name="BCH.noAddressError">Por favor insira o Endereço</string>
   <!-- Attempted to scan unsupported qr code error message. -->
-  <string name="BCH.paymentProtocolError">Não são suportados pedidos de protocolo de pagamento para transações de BCH</string>
+  <string name="BCH.paymentProtocolError">Os pedidos de protocolo de pagamento não são suportados para transações DGB</string>
   <!-- BCH successfully sent alert message -->
-  <string name="BCH.successMessage">A BCH foi enviada com sucesso</string>
+  <string name="BCH.successMessage">DGB foi enviado com sucesso.</string>
   <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">Levantar BCH</string>
+  <string name="BCH.title">Levantamento DGB</string>
   <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">ID da transação de BCH</string>
+  <string name="BCH.txHashHeader">Identificação da transação DGB</string>
   <!-- Approve button label -->
   <string name="BitID.approve">Aprovar</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
-  <string name="BitID.authenticationRequest">%1$s está a solicitar autenticação utilizando a sua carteira de bitcoin</string>
+  <string name="BitID.authenticationRequest">%1$s  está a solicitar  autenticação usando sua carteira DigiWallet.</string>
   <!-- Deny button label -->
-  <string name="BitID.deny">Recusar</string>
+  <string name="BitID.deny">Negar</string>
   <!-- BitID error alert title -->
-  <string name="BitID.error">Erro de autenticação</string>
+  <string name="BitID.error">\nErro de autenticação</string>
   <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
-  <string name="BitID.errorMessage">Por favor, verifique o serviço. Pode ser que precise de tentar novamente.</string>
+  <string name="BitID.errorMessage">Verifique com o serviço. Talvez seja necessário tentar novamente.</string>
   <!-- BitID success alert title -->
   <string name="BitID.success">Autenticado com sucesso</string>
   <!-- BitID Authentication Request alert view title -->
-  <string name="BitID.title">Pedido de autenticação BitID</string>
+  <string name="BitID.title">Solicitação de Autenticação DigiID</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">Cancelar</string>
   <!-- Ignore button label -->
@@ -115,19 +111,19 @@
   <!-- send button -->
   <string name="Button.send">enviar</string>
   <!-- Settings button label -->
-  <string name="Button.settings">Definições</string>
+  <string name="Button.settings">Configurações</string>
   <!-- Settings button label -->
-  <string name="Button.submit">Submeter</string>
+  <string name="Button.submit"> Submeter</string>
   <!-- Yes button -->
   <string name="Button.yes">Sim</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Centre a sua ID na caixa</string>
   <!-- Amount to Send: ($1.00) -->
-  <string name="Confirmation.amountLabel">Montante a enviar:</string>
+  <string name="Confirmation.amountLabel">Montante a Enviar</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">Comissão da rede:</string>
+  <string name="Confirmation.feeLabel">Taxa de transação :</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-  <string name="Confirmation.processingTime">Tempo de processamento: Prevê-se que esta transação esteja concluída dentro de %1$s.</string>
+  <string name="Confirmation.processingTime">Tempo de processamento: Esta transação  será concluída em %1$s.</string>
   <!-- Label for "send" button on final confirmation screen -->
   <string name="Confirmation.send">Enviar</string>
   <!-- Confirmation Screen title -->
@@ -135,115 +131,115 @@
   <!-- To: (address) -->
   <string name="Confirmation.to">Para</string>
   <!-- Total Cost: ($5.00) -->
-  <string name="Confirmation.totalLabel">Custo total</string>
+  <string name="Confirmation.totalLabel">Custo Total:</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">Para ter certeza que tudo foi escrito corretamente, por favor introduza as seguintes palavras da sua chave de papel.</string>
+  <string name="ConfirmPaperPhrase.label">Para garantirmos que tudo foi escrito correctamente, digite as seguintes palavras da sua Chave de recuperação pessoal.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Palavra #%1$s</string>
   <!-- Bitcoin denomination picker label -->
-  <string name="DefaultCurrency.bitcoinLabel">Moeda de apresentação da bitcoin</string>
+  <string name="DefaultCurrency.bitcoinLabel">Unidade de exibição DigiByte</string>
   <!-- Exchange rate label -->
-  <string name="DefaultCurrency.rateLabel">Taxa de Câmbio</string>
+  <string name="DefaultCurrency.rateLabel">\nTaxa de câmbio</string>
   <!-- Email unavailable alert title -->
-  <string name="ErrorMessages.emailUnavailableMessage">Este dispositivo não está configurado para enviar emails com a app Mail do iOS.</string>
+  <string name="ErrorMessages.emailUnavailableMessage">Este dispositivo não está configurado para enviar e-mails com o aplicativo de e-mail Android.</string>
   <!-- Email unavailable alert title -->
   <string name="ErrorMessages.emailUnavailableTitle">Email Indisponível</string>
+  <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
+  <string name="ErrorMessages.loopingLockScreen.android">DigiWallet não pode ser autenticada devido a um erro na sua versão  Android. [Pressione aqui para obter mais informações.]</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableMessage">Este dispositivo não está configurado para enviar mensagens.</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableTitle">Mensagens Indisponíveis</string>
+  <string name="ErrorMessages.messagingUnavailableTitle">Mensagens não Disponíveis</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
-  <string name="ErrorMessages.touchIdFailed.android">Impressão digital não reconhecida. Por favor, tente novamente.</string>
+  <string name="ErrorMessages.touchIdFailed.android">Impressão Digital não reconhecida. Por favor, tente novamente.</string>
   <!-- Economy fee -->
-  <string name="FeeSelector.economy">Economia</string>
+  <string name="FeeSelector.economy">Econômica</string>
   <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
   <string name="FeeSelector.economyTime">1-24 horas</string>
   <!-- Warning message for economy fee -->
-  <string name="FeeSelector.economyWarning">Esta opção não se recomenda para transações delicadas a nível de tempo.</string>
+  <string name="FeeSelector.economyWarning">Esta opção não é recomendada para transações sensíveis ao tempo.</string>
   <!-- E.g. Estimated delivery: 10-60 minutes -->
   <string name="FeeSelector.estimatedDeliver">Entrega estimada: %1$s</string>
   <!-- Regular fee -->
-  <string name="FeeSelector.regular">Normal.</string>
+  <string name="FeeSelector.regular">Regular</string>
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
   <string name="FeeSelector.regularTime">10-60 minutos</string>
   <!-- Fee Selector title -->
-  <string name="FeeSelector.title">Velocidade de processamento</string>
+  <string name="FeeSelector.title">Velocidade de Processamento</string>
   <!-- Checking private key balance progress view text -->
-  <string name="Import.checking">A verificar o saldo da chave privada...</string>
+  <string name="Import.checking">Verificando o balanço da chave privada ...</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">Enviar %1$s desta chave privada para a sua carteira? A rede bitcoin receberá uma taxa de %2$s.</string>
+  <string name="Import.confirm">Enviar %1$s a partir desta chave privada da sua carteira? A rede digibyte receberá uma taxa de %2$s .</string>
   <!-- Duplicate key error message -->
   <string name="Import.Error.duplicate">Esta chave privada já está na sua carteira.</string>
   <!-- empty private key error message -->
   <string name="Import.Error.empty">Esta chave privada está vazia.</string>
   <!-- High fees error message -->
-  <string name="Import.Error.highFees">Os custos de transação seriam superiores aos fundos disponíveis nesta chave privada.</string>
+  <string name="Import.Error.highFees">As taxas de transação custariam mais do que os fundos disponíveis nesta chave privada.</string>
   <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">Não é uma chave privada válida</string>
   <!-- Import signing error message -->
-  <string name="Import.Error.signing">Erro a assinar transação</string>
+  <string name="Import.Error.signing">Erro ao assinar a transação</string>
   <!-- Import button label -->
   <string name="Import.importButton">Importar</string>
   <!-- Importing wallet progress view label -->
-  <string name="Import.importing">A Importar Carteira</string>
+  <string name="Import.importing">Importando Carteira</string>
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">Carteira a ser importada</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Importar uma carteira transfere todo o dinheiro da sua outra carteira para a carteira DigiByte usando uma única transação.</string>
+  <string name="Import.message">Ao importar a carteira irá transferir  todas as DigiByte da sua outra carteira para sua carteira DigiWallet numa única transação.</string>
   <!-- Enter password alert view title -->
-  <string name="Import.password">Esta chave privada está protegida com uma palavra-passe.</string>
+  <string name="Import.password">Esta chave privada é protegida por senha.</string>
   <!-- password textfield placeholder -->
-  <string name="Import.passwordPlaceholder">palavra-passe</string>
+  <string name="Import.passwordPlaceholder">senha</string>
   <!-- Caption for graphics -->
-  <string name="Import.rightCaption">A Sua Carteira DigiByte</string>
+  <string name="Import.rightCaption">A sua Carteira DigiWallet</string>
   <!-- Scan Private key button label -->
-  <string name="Import.scan">Digitalizar Chave Privada</string>
+  <string name="Import.scan">Scan Chave Privada</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Sucesso</string>
+  <string name="Import.success">Successo</string>
   <!-- Successfully imported wallet message body -->
   <string name="Import.SuccessBody">Carteira importada com sucesso.</string>
   <!-- Import Wallet screen title -->
   <string name="Import.title">Importar Carteira</string>
   <!-- Unlocking Private key activity view message. -->
-  <string name="Import.unlockingActivity">A Desbloquear Chave</string>
+  <string name="Import.unlockingActivity">Desbloquear Chave</string>
   <!-- Import wallet intro warning message -->
-  <string name="Import.warning">Importar uma carteira não inclui o histórico de transações ou outros detalhes.</string>
+  <string name="Import.warning">A importação de uma carteira não inclui histórico de transações ou outros detalhes.</string>
   <!-- Wrong password alert message -->
-  <string name="Import.wrongPassword">Palavra-passe errada. Por favor, tente de novo.</string>
+  <string name="Import.wrongPassword">Senha errada, tente novamente.</string>
   <!-- Close app button -->
-  <string name="JailbreakWarnings.close">Fechar</string>
+  <string name="JailbreakWarnings.close">Encerrar</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Ignorar</string>
+  <string name="JailbreakWarnings.ignore">Ingnorar</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">SEGURANÇA DO DISPOSITIVO COMPROMETIDA\n Qualquer aplicação com \"jailbreak\" consegue aceder aos seus dados de porta-chaves e roubar as suas bitcoins! Apague esta carteira imediatamente e restaure-a num dispositivo seguro.</string>
+  <string name="JailbreakWarnings.messageWithBalance">SEGURANÇA DO DISPOSITIVO COMPROMETIDA\n Qualquer aplicativo \'jailbreak\' pode aceder aos dados da sua chave DigiWallet e roubar as suas DigiByte! Apague esta carteira imediatamente e restaure  em um dispositivo seguro.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">SEGURANÇA DO DISPOSITIVO COMPROMETIDA\n Qualquer aplicação com \"jailbreak\" consegue aceder aos seus dados de porta-chaves da DigiByte e roubar as suas bitcoins. Por favor, use a DigiByte somente num dispositivo não desbloqueado.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">SEGURANÇA DO DISPOSITIVO COMPROMETIDA\n Qualquer aplicativo \'jailbreak\' pode aceder aos dados da chave DigiWallet e roubar as suas DigiByte. Por favor, use a DigiWallet somente em um dispositivo seguro.</string>
   <!-- Jailbreak warning title -->
-  <string name="JailbreakWarnings.title">AVISO</string>
-  <!-- Wipe wallet button -->
-  <string name="JailbreakWarnings.wipe">Apagar</string>
+  <string name="JailbreakWarnings.title">ATENÇÃO</string>
   <!-- Location services disabled error -->
   <string name="LocationPlugin.disabled">Os serviços de localização estão desativados.</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">A DigiByte não tem permissão para aceder aos serviços de localização.</string>
+  <string name="LocationPlugin.notAuthorized">DigiWallet não tem permissão para aceder aos serviços de localização.</string>
   <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Criou a sua carteira em %1$s</string>
+  <string name="ManageWallet.creationDatePrefix">Criou a sua Carteira a %1$s</string>
   <!-- Manage wallet description text -->
   <string name="ManageWallet.description">O nome da sua carteira só aparece no histórico de transações da sua conta e não pode ser visto por mais ninguém.</string>
   <!-- Change Wallet name textfield label -->
   <string name="ManageWallet.textFeildLabel">Nome da Carteira</string>
   <!-- Manage wallet modal title -->
-  <string name="ManageWallet.title">Gerir Carteira</string>
+  <string name="ManageWallet.title">Configurar Carteira</string>
   <!-- Buy bitcoin title -->
-  <string name="MenuButton.buy">Comprar Bitcoins</string>
+  <string name="MenuButton.buy">Comprar DigiByte</string>
   <!-- Menu button title -->
   <string name="MenuButton.lock">Bloquear Carteira</string>
   <!-- Menu button title -->
   <string name="MenuButton.security">Centro de Segurança</string>
   <!-- Menu button title -->
-  <string name="MenuButton.settings">Definições</string>
+  <string name="MenuButton.settings">Configurações</string>
   <!-- Menu button title -->
-  <string name="MenuButton.support">Ajuda</string>
+  <string name="MenuButton.support">Apoio</string>
   <!-- button label -->
   <string name="MenuViewController.createButton">Criar Nova Carteira</string>
   <!-- Menu modal title -->
@@ -251,79 +247,79 @@
   <!-- button label -->
   <string name="MenuViewController.recoverButton">Recuperar Carteira</string>
   <!-- Switch to automatic mode button label -->
-  <string name="NodeSelector.automaticButton">Mudar para o modo automático</string>
+  <string name="NodeSelector.automaticButton">Alterar para o Modo Automático</string>
   <!-- Node is connected label -->
-  <string name="NodeSelector.connected">Ligação estabelecida</string>
+  <string name="NodeSelector.connected">Conectado</string>
   <!-- Enter node ip address view body -->
-  <string name="NodeSelector.enterBody">Introduza o endereço de IP e porta do nó (opcional)</string>
+  <string name="NodeSelector.enterBody">Insira o endereço IP da Node e a porta (opcional)</string>
   <!-- Enter Node ip address view title -->
-  <string name="NodeSelector.enterTitle">Introduza o nó</string>
+  <string name="NodeSelector.enterTitle">Insira Node</string>
   <!-- Switch to manual mode button label -->
-  <string name="NodeSelector.manualButton">Trocar para modo manual</string>
+  <string name="NodeSelector.manualButton">Alterar para Modo Manual</string>
   <!-- Node address label -->
-  <string name="NodeSelector.nodeLabel">Nó primário atual</string>
+  <string name="NodeSelector.nodeLabel">Node primária atual</string>
   <!-- Node is not connected label -->
-  <string name="NodeSelector.notConnected">Ligação não estabelecida</string>
+  <string name="NodeSelector.notConnected">Não conectado</string>
   <!-- Node status label -->
-  <string name="NodeSelector.statusLabel">Estado da ligação do nó</string>
+  <string name="NodeSelector.statusLabel">Status de conexão do Node</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">Nós de bitcoin</string>
+  <string name="NodeSelector.title">DigiByte Nodes</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Pedido de Pagamento Inválido</string>
+  <string name="PaymentProtocol.Errors.badPaymentRequest">Pedido de pagamento inválido</string>
   <!-- Error opening payment protocol file message -->
   <string name="PaymentProtocol.Errors.corruptedDocument">Documento não suportado ou corrompido</string>
   <!-- Missing certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.missingCertificate">certificado em falta</string>
   <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">o pedido expirou</string>
+  <string name="PaymentProtocol.Errors.requestExpired">Pedido expirado</string>
   <!-- Payment too small alert title -->
   <string name="PaymentProtocol.Errors.smallOutputError">Não foi possível fazer o pagamento</string>
   <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">Os pagamentos em bitcoin não podem ser inferiores a %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallPayment">Os pagamentos em DigiByte não podem ser inferiores a %1$s</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">As saídas de transações em bitcoin não podem ser inferiores a %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">As transações DigiByte não podem ser inferiores a %1$s</string>
   <!-- Unsupported signature type payment protocol error message -->
-  <string name="PaymentProtocol.Errors.unsupportedSignatureType">tipo de assinatura não suportado</string>
+  <string name="PaymentProtocol.Errors.unsupportedSignatureType">tipo de assinatura não suportada</string>
   <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">certificado não fidedigno</string>
+  <string name="PaymentProtocol.Errors.untrustedCertificate">O certificado não é confiável</string>
   <!-- No passcode set warning body -->
-  <string name="Prompts.NoPasscode.body">Para proteger a sua carteira, é necessário ter um código de acesso ao dispositivo. Vá às definições e ative o código de acesso.</string>
+  <string name="Prompts.NoPasscode.body">É necessária uma senha de segurança para proteger sua carteira. Aceda a configurações e active o código de acesso.</string>
   <!-- No Passcode set warning title -->
-  <string name="Prompts.NoPasscode.title">Ativar o código de acesso ao dispositivo</string>
+  <string name="Prompts.NoPasscode.title">Active o código do dispositivo</string>
   <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">É necessário um bloqueio de ecrã no dispositivo para salvaguardar a sua carteira. Vá a \"Definições\" &gt; \"Segurança\" &gt; \"Bloqueio de ecrã\" e ative para continuar.</string>
+  <string name="Prompts.NoScreenLock.body.android">É necessário um bloqueio de ecran no dispositivo para proteger a sua carteira. Aceda a \"Configurações\"&gt; \"Segurança\"&gt; \"Bloqueio de ecran\" e active para continuar.</string>
   <!-- Device encryption prompt title -->
-  <string name="Prompts.NoScreenLock.title.android">Bloqueio de ecrã desativado</string>
+  <string name="Prompts.NoScreenLock.title.android">Bloqueio de ecran desactivado</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">O seu Paper Key deve ser guardado para o caso de perder ou alterar o seu telemóvel. Clique aqui para continuar.</string>
+  <string name="Prompts.PaperKey.body">A sua Chave de recuperação pessoal deve ser guardada no caso de você perder ou mudar de telefone. Pressione aqui para continuar.</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">Ação Necessária</string>
+  <string name="Prompts.PaperKey.title">Acção rnecessária</string>
   <!-- Transaction rejected prompt body -->
-  <string name="Prompts.RecommendRescan.body">A sua carteira pode estar dessincronizada. Isto pode ser frequentemente resolvido ao voltar a digitalizar a blockchain.</string>
+  <string name="Prompts.RecommendRescan.body">A sua carteira pode estar sem sincronia. Isto muitas vezes pode ser corrigido ao restaurar novamente o blockchain..</string>
   <!-- Transaction rejected prompt title -->
-  <string name="Prompts.RecommendRescan.title">Transação Rejeitada</string>
+  <string name="Prompts.RecommendRescan.title">Transação rejeitada</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Ajude a melhorar a DigiByte, partilhando connosco os seus dados anónimos</string>
+  <string name="Prompts.ShareData.body">Ajude a melhorar a DigiWallet partilhando seus dados anônimos connosco</string>
   <!-- Share data prompt title -->
-  <string name="Prompts.ShareData.title">Partilhar dados anónimos</string>
+  <string name="Prompts.ShareData.title">Partilhar dados anônimos</string>
   <!-- Enable touch ID prompt body -->
-  <string name="Prompts.TouchId.body">Toque aqui para ativar o Touch ID</string>
+  <string name="Prompts.TouchId.body">Pressione aqui para activar Touch ID</string>
   <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">Toque aqui para ativar a autenticação por impressão digital</string>
+  <string name="Prompts.TouchId.body.android">Pressione aqui para activar autenticação por impressão digital</string>
   <!-- Enable touch ID prompt title -->
-  <string name="Prompts.TouchId.title">Ativar Touch ID</string>
+  <string name="Prompts.TouchId.title">Activar Touch ID</string>
   <!-- Enable Fingerprint prompt title -->
-  <string name="Prompts.TouchId.title.android">Ativar a Autenticação por Impressão Digital</string>
+  <string name="Prompts.TouchId.title.android">Activar  autenticação por impressão digital</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">A DigiByte foi atualizada para usar um PIN de 6-dígitos. Toque aqui para atualizar.</string>
+  <string name="Prompts.UpgradePin.body">A DigiWallet foi atualizada para usar um PIN de 6 dígitos. Pressione aqui para atualizar.</string>
   <!-- Upgrade PIN prompt title. -->
-  <string name="Prompts.UpgradePin.title">Atualizar PIN</string>
+  <string name="Prompts.UpgradePin.title">Actualizar PIN</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">Ative as notificações para receber mensagens especiais da DigiByte no futuro.</string>
+  <string name="PushNotifications.body">Active as notificações para no futuro receber mensagens especiais da DigiWallet.</string>
   <!-- Push notifications toggle switch label -->
-  <string name="PushNotifications.label">Notificações Push</string>
+  <string name="PushNotifications.label">Avançar Notificações</string>
   <!-- Push notifications are off label -->
   <string name="PushNotifications.off">Desligado</string>
   <!-- Push notifications are on label -->
@@ -335,7 +331,7 @@
   <!-- Share via email button label -->
   <string name="Receive.emailButton">Email</string>
   <!-- Request button label -->
-  <string name="Receive.request">Pedir uma Quantia</string>
+  <string name="Receive.request">Solicite uma quantia</string>
   <!-- Share button label -->
   <string name="Receive.share">Partilhar</string>
   <!-- Share via text message (SMS) -->
@@ -343,59 +339,59 @@
   <!-- Receive modal title -->
   <string name="Receive.title">Receber</string>
   <!-- Done button text -->
-  <string name="RecoverWallet.done">Feito</string>
+  <string name="RecoverWallet.done">Terminado</string>
   <!-- Recover wallet header -->
   <string name="RecoverWallet.header">Recuperar Carteira</string>
   <!-- Reset PIN with paper key: header -->
-  <string name="RecoverWallet.header_reset_pin">Redefinir PIN</string>
+  <string name="RecoverWallet.header_reset_pin">Apagar PIN</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">Introduzir Chave de Papel</string>
+  <string name="RecoverWallet.instruction">Inserir Chave de recuperação pessoal</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Recupere a sua DigiByte com a sua chave de papel.</string>
+  <string name="RecoverWallet.intro">Recupere s sua DigiWallet com a sua Chave de recuperação pessoal.</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">A chave de papel que introduziu é inválida. Por favor verifique cada palavra e tente novamente.</string>
+  <string name="RecoverWallet.invalid">A Chave de recuperação pessoal que inseriu é inválida. Verifique novamente cada palavra e tente novamente.</string>
   <!-- Previous button accessibility label -->
-  <string name="RecoverWallet.leftArrow">Seta para a Esquerda</string>
+  <string name="RecoverWallet.leftArrow">Seta à Esquerda</string>
   <!-- Next button label -->
   <string name="RecoverWallet.next">Seguinte</string>
   <!-- Reset PIN with paper key: more information button. -->
-  <string name="RecoverWallet.reset_pin_more_info">Toque aqui para mais informações.</string>
+  <string name="RecoverWallet.reset_pin_more_info">Pressione aqui para mais informações.</string>
   <!-- Next button accessibility label -->
-  <string name="RecoverWallet.rightArrow">Seta para a Direita</string>
+  <string name="RecoverWallet.rightArrow">Seta à direita</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">Introduza a chave de papel para a carteira que quer recuperar.</string>
+  <string name="RecoverWallet.subheader">Insira a Chave de recuperação pessoal da carteira que deseja recuperar.</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">Para redefinir o seu PIN, introduza as palavras da sua chave de papel nas caixas abaixo.</string>
+  <string name="RecoverWallet.subheader_reset_pin">Para redefinir o seu PIN, insira as palavras da sua Chave de recuperação pessoal nas caixas por baixo.</string>
   <!-- No amount entered error message. -->
-  <string name="RequestAnAmount.noAmount">Primeiro, por favor, introduza um montante.</string>
+  <string name="RequestAnAmount.noAmount">Por favor insira a quantia primeiro.</string>
   <!-- Request a specific amount of bitcoin -->
-  <string name="RequestAnAmount.title">Pedir uma Quantia</string>
+  <string name="RequestAnAmount.title">Solicite a quantia</string>
   <!-- Alert action button label -->
-  <string name="ReScan.alertAction">Sincronizar</string>
+  <string name="ReScan.alertAction">Sinc</string>
   <!-- Alert message body -->
-  <string name="ReScan.alertMessage">Não será capaz de enviar dinheiro enquanto estiver a sincronizar.</string>
+  <string name="ReScan.alertMessage">Não poderá enviar Digibyte enquanto está a  sincronizar.</string>
   <!-- Alert message title -->
-  <string name="ReScan.alertTitle">Sincronizar com a Blockchain?</string>
+  <string name="ReScan.alertTitle">Sincronizar com o Blockchain?</string>
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 minutos</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Se uma transação aparece como concluída na sua rede bitcoin mas não na sua DigiByte.</string>
+  <string name="ReScan.body2">Se uma transação aparece como concluída na rede DigiByte, mas não na sua DigiWallet.</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">Recebe repetidamente uma mensagem de erro dizendo que a sua transação foi rejeitada.</string>
+  <string name="ReScan.body3">Está a receber repetidamente um erro a informar que a sua transação foi rejeitada.</string>
   <!-- Start Sync button label -->
-  <string name="ReScan.buttonTitle">Começar Sincronização</string>
+  <string name="ReScan.buttonTitle">Iniciar sincronização</string>
   <!-- Sync blockchain view footer -->
-  <string name="ReScan.footer">Não será capaz de enviar dinheiro enquanto estiver a sincronizar com a blockchain.</string>
+  <string name="ReScan.footer">Não poderá enviar Digibyte enquanto está a  sincronizar com o blockchain.</string>
   <!-- Sync Blockchain view header -->
   <string name="ReScan.header">Sincronizar Blockchain</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader1">Tempo previsto</string>
+  <string name="ReScan.subheader1">Tempo estimado</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader2">Quando sincronizar?</string>
   <!-- Scan bitcoin address camera flash toggle -->
-  <string name="Scanner.flashButtonLabel">Flash da Câmara</string>
+  <string name="Scanner.flashButtonLabel">Flash da câmera</string>
   <!-- Complete filter label -->
-  <string name="Search.complete">concluído</string>
+  <string name="Search.complete">Concluido</string>
   <!-- Pending filter label -->
   <string name="Search.pending">pendente</string>
   <!-- Received filter label -->
@@ -403,41 +399,41 @@
   <!-- Sent filter label -->
   <string name="Search.sent">enviado</string>
   <!-- Security Center Info -->
-  <string name="SecurityCenter.info">Ativar todos os recursos de segurança para máxima proteção.</string>
+  <string name="SecurityCenter.info">Active todos os recursos de segurança para protecção máxima.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">A única forma de aceder às suas bitcoins se perder ou atualizar o seu telefone.</string>
+  <string name="SecurityCenter.paperKeyDescription">A única forma de aceder ás suas digibyte se  perder ou atualizar o seu telefone.</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">Chave de Papel</string>
+  <string name="SecurityCenter.paperKeyTitle">Chave de recuperação pessoal</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">Protege a sua DigiByte de utilizadores não autorizados.</string>
+  <string name="SecurityCenter.pinDescription">Protege a sua DigiWallet de usuários não autorizados.</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">PIN de 6-Dígitos</string>
+  <string name="SecurityCenter.pinTitle">6-Dígitos PIN</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Centro de Segurança</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">Desbloqueie convenientemente a sua DigiByte e envie dinheiro até um limite definido</string>
+  <string name="SecurityCenter.touchIdDescription">Convenientemente, desbloqueie a sua DigiWallet e envie DigiByte até um limite definido.</string>
   <!-- Touch ID button title -->
   <string name="SecurityCenter.touchIdTitle">Touch ID</string>
   <!-- Security center fingerprint authentication button -->
-  <string name="SecurityCenter.touchIdTitle.android">Autenticação por Impressão Digital</string>
+  <string name="SecurityCenter.touchIdTitle.android">Autenticação de Impressão Digital</string>
   <!-- Send money amount label -->
   <string name="Send.amountLabel">Quantia</string>
   <!-- Balance: $4.00 -->
   <string name="Send.balance">Saldo: %1$s</string>
   <!-- Instructions how to allow the camera access for the app -->
-  <string name="Send.cameraUnavailabeMessage.android">Permita o acesso à câmara em \"Definições\" &gt; \"Aplicações\" &gt; \"DigiByte\" &gt; \"Permissões\"</string>
+  <string name="Send.cameraUnavailabeMessage.android">Permitir acesso à câmera em \"Configurações\"&gt; \"Aplicativos\"&gt; \"DigiWallet\"&gt; \"Permissões\"</string>
   <!-- Permission required to access camera -->
-  <string name="Send.cameraUnavailabeTitle.android">O DigiByte não tem autorização para aceder à câmara</string>
+  <string name="Send.cameraUnavailabeTitle.android">DigiWallet não tem permissão para aceder à câmera</string>
   <!-- Camera not allowed message -->
-  <string name="Send.cameraunavailableMessage">Vá às Definições para permitir acesso à câmara.</string>
+  <string name="Send.cameraunavailableMessage">Aceda a Configurações para permitir o acesso da câmera.</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">A DigiByte não tem autorização para aceder à câmara</string>
+  <string name="Send.cameraUnavailableTitle">DigiWallet não tem permissão para aceder à câmera</string>
   <!-- Warning when sending to self. -->
-  <string name="Send.containsAddress">O destino é o seu próprio endereço. Não pode enviar a si mesmo.</string>
+  <string name="Send.containsAddress">O destino é seu próprio endereço. Você não pode enviar para si mesmo.</string>
   <!-- Could not create transaction alert title -->
-  <string name="Send.creatTransactionError">Não foi possível criar a transação.</string>
+  <string name="Send.creatTransactionError">Não foi possível criar a transacção</string>
   <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">Nota</string>
+  <string name="Send.descriptionLabel">Memo</string>
   <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">A área de transferência está vazia</string>
   <!-- Network Fee: $0.01 -->
@@ -445,27 +441,27 @@
   <!-- Payee identity not certified alert title. -->
   <string name="Send.identityNotCertified">A identidade do beneficiário não está certificada.</string>
   <!-- Invalid address alert message -->
-  <string name="Send.invalidAddressMessage">O endereço de destino não é um endereço de bitcoin válido.</string>
+  <string name="Send.invalidAddressMessage">O endereço de destino não é um endereço digibyte válido.</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">A área de transferência não possui nenhum endereço de bitcoin válido.</string>
+  <string name="Send.invalidAddressOnPasteboard">A área de transferência não contém um endereço DigiByte válido</string>
   <!-- Invalid address alert title -->
-  <string name="Send.invalidAddressTitle">Endereço Inválido</string>
+  <string name="Send.invalidAddressTitle">Endereço inválido</string>
   <!-- Is rescanning error message -->
-  <string name="Send.isRescanning">O envio encontra-se desativado durante a reanálise completa.</string>
+  <string name="Send.isRescanning">O envio está desactivado durante rescan.</string>
   <!-- We are loading the request (now) -->
-  <string name="Send.loadingRequest">A carregar o pedido</string>
+  <string name="Send.loadingRequest">Pedido de Carregamento</string>
   <!-- Empty address alert message -->
-  <string name="Send.noAddress">Por favor, introduza o endereço do destinatário.</string>
+  <string name="Send.noAddress">Por favor insira o endereço do destinatário.</string>
   <!-- Emtpy amount alert message -->
-  <string name="Send.noAmount">Por favor, introduza a quantia a enviar.</string>
+  <string name="Send.noAmount">Por favor insira o montante a enviar.</string>
   <!-- Paste button label -->
   <string name="Send.pasteLabel">Colar</string>
   <!-- Could not publish transaction alert title -->
   <string name="Send.publishTransactionError">Não foi possível publicar a transação.</string>
   <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Não foi possível carregar a solicitação de pagamento</string>
+  <string name="Send.remoteRequestError">Não foi possível carregar o pedido de pagamento</string>
   <!-- Scan button label -->
-  <string name="Send.scanLabel">Digitalizar</string>
+  <string name="Send.scanLabel">Scan</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Enviar</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
@@ -473,65 +469,71 @@
   <!-- Send money to label -->
   <string name="Send.toLabel">Para</string>
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">Os endereços de bitcoin destinam-se apenas a uma única utilização.</string>
+  <string name="Send.UsedAddress.firstLine">Os endereços DigiByte destinam-se apenas a um único uso.</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">A reutilização reduz a sua privacidade e a do destinatário e pode resultar em perdas se o destinatário não controlar diretamente o endereço.</string>
+  <string name="Send.UsedAddress.secondLIne">A reutilização reduz a privacidade tanto para si, quanto para o destinatário e pode resultar em perda se o destinatário não controlar diretamente o endereço.</string>
   <!-- Adress already used alert title -->
-  <string name="Send.UsedAddress.title">Endereço Já Utilizado</string>
+  <string name="Send.UsedAddress.title">Endereço já utilizado</string>
   <!-- About label -->
   <string name="Settings.about">Sobre</string>
   <!-- Advanced Settings title -->
-  <string name="Settings.advancedTitle">Definições avançadas</string>
+  <string name="Settings.advancedTitle">Configurações avançadas</string>
   <!-- i.e. the currency which will be displayed -->
-  <string name="Settings.currency">Mostrar moeda</string>
+  <string name="Settings.currency">Exibir Moeda</string>
   <!-- Join Early access label -->
-  <string name="Settings.earlyAccess">Registe-se no Acesso Antecipado</string>
-  <!-- Are you enjoying DigiByte alert message body -->
-  <string name="Settings.enjoying">Está a gostar da DigiByte?</string>
+  <string name="Settings.earlyAccess">Desfrute de um Acesso antecipado</string>
+  <!-- Are you enjoying bread alert message body -->
+  <string name="Settings.enjoying">Está a desfrutar da DigiWallet?</string>
+  <!-- Import wallet left message -->
+  <string name="Settings.importLeftMessage">Carteira a ser importada</string>
+  <!-- Import wallet right message -->
+  <string name="Settings.importRightMessage">A sua  Carteira DigiWallet</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">Importar Carteira</string>
   <!-- Manage settings section header -->
   <string name="Settings.manage">Gerir</string>
   <!-- Notifications label -->
   <string name="Settings.notifications">Notificações</string>
+  <!-- Restore screen lower label. -->
+  <string name="Settings.restore_label">As suas DigiWallet neste Dispositivo</string>
   <!-- Leave review button label -->
-  <string name="Settings.review">Deixe-nos uma avaliação</string>
+  <string name="Settings.review">Deixe-nos o seu comentário</string>
   <!-- Share anonymous data label -->
-  <string name="Settings.shareData">Partilhar Dados Anónimos</string>
+  <string name="Settings.shareData">Partilhe dados anônimos</string>
   <!-- Sync blockchain label -->
-  <string name="Settings.sync">Sincronizar Blockchain</string>
+  <string name="Settings.sync">Sincronize Blockchain</string>
   <!-- Settings title -->
-  <string name="Settings.title">Definições</string>
+  <string name="Settings.title">Configurações</string>
   <!-- Touch ID spending limit label -->
-  <string name="Settings.touchIdLimit">Limite de Gastos Touch ID</string>
+  <string name="Settings.touchIdLimit">Touch ID Limite de gastos </string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">Limite de Gastos da Autenticação por Impressão Digital</string>
+  <string name="Settings.touchIdLimit.android">Fingerprint, Autenticação  Limite de Gastos</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">Carteira</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">Iniciar/recuperar outra carteira</string>
+  <string name="Settings.wipe">Iniciar/Recuperar outra carteira</string>
   <!-- Share data view body -->
-  <string name="ShareData.body">Ajude a melhorar a DigiByte partilhando os seus dados anónimos connosco. Isto não inclui quaisquer informações financeiras. Respeitamos a sua privacidade financeira.</string>
+  <string name="ShareData.body">Ajude a melhorar a DigiWallet partilhando os seus dados anônimos connosco.  Não inclui nenhuma informação financeira. Nós respeitamos sua privacidade financeira.</string>
   <!-- Share data header -->
-  <string name="ShareData.header">Partilhar Dados?</string>
+  <string name="ShareData.header">Partilhar Data?</string>
   <!-- Share data switch label. -->
-  <string name="ShareData.toggleLabel">Partilhar Dados Anónimos?</string>
+  <string name="ShareData.toggleLabel">Partilhar Dados  Anônimos?</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">Escrever Novamente Chave de Papel</string>
+  <string name="StartPaperPhrase.againButtonTitle">Escreva novamente a Chave de recuperação pessoal</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">A chave de papel é a única forma de restaurar a sua DigiByte se o seu telefone for perdido, roubado, partido ou atualizado.\n\nVamos mostrar-lhe uma lista de palavras para escrever numa folha de papel e manter em segurança.</string>
+  <string name="StartPaperPhrase.body">A sua Chave de recuperação pessoal é a única forma de restaurar as suas DigiWallet se o seu telefone for perdido, roubado, estragar-se ou atualizado.\n\nVamos mostrar uma lista de palavras para escrever numa folha de papel e manter em segurança.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">Escrever Chave de Papel</string>
+  <string name="StartPaperPhrase.buttonTitle">Escreva a Chave de recuperação pessoal</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">A última vez que escreveu a sua chave de papel foi em %1$s</string>
+  <string name="StartPaperPhrase.date">A última vez que escreveu a sua Chave de recuperação pessoal foi %1$s</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">A forma mais protegida e segura de utilizar a digibyte.</string>
+  <string name="StartViewController.message">A forma mais fácil e segura de usar DigiByte.</string>
   <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">Conectando</string>
   <!-- Syncing view header text -->
-  <string name="SyncingView.header">A Sincronizar</string>
+  <string name="SyncingView.header">Sincronizando</string>
   <!-- Retry button label -->
-  <string name="SyncingView.retry">Tentar Novamente</string>
+  <string name="SyncingView.retry">Repetir</string>
   <!-- Syncing view syncing state header text -->
   <string name="SyncingView.syncing">Sincronizando</string>
   <!-- 6 d (6 days) -->
@@ -543,195 +545,195 @@
   <!-- 6 s (6 seconds) -->
   <string name="TimeSince.seconds">%1$s s</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-  <string name="TouchIdSettings.customizeText">Pode ajustar o limite dos gastos quando usa o Touch ID, de acordo com a sua preferência, a partir de %1$s.</string>
+  <string name="TouchIdSettings.customizeText">Pode personalizar o seu  limite de gastos Touch ID, a partir de %1$s.</string>
   <!-- Fingerprint enabling description body -->
-  <string name="TouchIdSettings.customizeText.android">Pode personalizar o seu Limite de Gastos da Autenticação por Impressão Digital no ecrã de Limite de Gastos da Autorização por Impressão Digital</string>
+  <string name="TouchIdSettings.customizeText.android"> Pode personalizar seu limite de gastos no Menu Limite de gastos com autorização de impressão digital</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">Não ativou a autenticação por impressão digital neste dispositivo. Vá a Definições -&gt; Segurança para definir a autenticação por impressão digital.</string>
+  <string name="TouchIdSettings.disabledWarning.body.android">Não activou a autenticação de impressão digital neste dispositivo. Aceda a Configurações -&gt; Segurança para configurar a autenticação de impressão digital.</string>
   <!-- Fingerprint Is Not Setup -->
-  <string name="TouchIdSettings.disabledWarning.title.android">Autenticação por Impressão Digital não Ativada</string>
+  <string name="TouchIdSettings.disabledWarning.title.android">Autenticação de Impressão Digital não activada</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">Utilize a impressão digital para desbloquear a sua DigiByte e enviar dinheiro até um limite definido.</string>
+  <string name="TouchIdSettings.label">Use sua impressão digital para desbloquear a sua Carteira e enviar Digibyte até um limite definido.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <string name="TouchIdSettings.linkText">Ecrã de limite dos gastos do Touch ID</string>
+  <string name="TouchIdSettings.linkText">Touch ID Ecran de Limite de Gastos</string>
   <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">Limite de Gastos: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
-  <string name="TouchIdSettings.switchLabel">Ativar Touch ID para a DigiByte</string>
-  <!-- Enable fingerprint for this wallet called DigiByte -->
-  <string name="TouchIdSettings.switchLabel.android">Ativar a Autenticação por Impressão Digital</string>
+  <string name="TouchIdSettings.switchLabel">Activar Touch ID para DigiWallet</string>
+  <!-- Enable fingerprint for this wallet called Bread -->
+  <string name="TouchIdSettings.switchLabel.android">Activar autenticação de impressão digital</string>
   <!-- Touch ID settings view title -->
   <string name="TouchIdSettings.title">Touch ID</string>
   <!-- Fingerprint authentication label -->
-  <string name="TouchIdSettings.title.android">Autenticação por Impressão Digital</string>
+  <string name="TouchIdSettings.title.android">Autenticação de impressão digital</string>
   <!-- Touch ID unavailable alert message -->
-  <string name="TouchIdSettings.unavailableAlertMessage">Não definiu o Touch ID neste dispositivo. Vá a Definições-&gt;Touch ID e Código para o configurar agora.</string>
+  <string name="TouchIdSettings.unavailableAlertMessage">Não configurou Touch ID neste dispositivo. Aceda a Configurações -&gt;  Configurações-&gt;Touch ID &amp; senha para configurar agora.</string>
   <!-- Touch ID unavailable alert title -->
-  <string name="TouchIdSettings.unavailableAlertTitle">Touch ID Não Configurado</string>
+  <string name="TouchIdSettings.unavailableAlertTitle">Touch ID não configurado</string>
   <!-- Always require passcode option -->
-  <string name="TouchIdSpendingLimit">Pedir sempre um código de acesso</string>
+  <string name="TouchIdSpendingLimit">Sempre solicita a senha</string>
   <!-- Touch ID spending limit screen body -->
-  <string name="TouchIdSpendingLimit.body">Ser-lhe-á pedido para introduzir o seu PIN de 6-dígitos para enviar qualquer transação acima do seu limite de gastos, e a cada 48 horas após a última utilização do seu PIN de 6-dígitos.</string>
+  <string name="TouchIdSpendingLimit.body">Será solicitado a inserir seu PIN de 6 dígitos para enviar qualquer transação acima do seu limite de gastos, e a cada 48 horas desde a última vez que você inseriu seu PIN de 6 dígitos.</string>
   <!-- Touch Id spending limit screen title -->
-  <string name="TouchIdSpendingLimit.title">Limite de Gastos Touch ID</string>
+  <string name="TouchIdSpendingLimit.title">Touch ID Limite de gastos</string>
   <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">Limite de Gastos da Autorização por Impressão Digital</string>
+  <string name="TouchIdSpendingLimit.title.android">Impressão digital,  autorização de Limite de Gastos</string>
   <!-- Availability status text -->
-  <string name="Transaction.available">Disponível para Gastar</string>
+  <string name="Transaction.available">Disponível para usar</string>
   <!-- Transaction complete label -->
-  <string name="Transaction.complete">Concluída</string>
+  <string name="Transaction.complete">Concluido</string>
   <!-- eg. Ending balance: $50.00 -->
-  <string name="Transaction.ending">Saldo final: %1$s</string>
+  <string name="Transaction.ending">Saldo Final: %1$s</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDayReceived">Taxa de câmbio ao receber:</string>
+  <string name="Transaction.exchangeOnDayReceived">Taxa de câmbio quando recebido:</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">Taxa de câmbio ao enviar:</string>
+  <string name="Transaction.exchangeOnDaySent">Taxa de câmbio quando enviado:</string>
   <!-- (b600 fee) -->
-  <string name="Transaction.fee">(taxa de %1$s)</string>
+  <string name="Transaction.fee">(%1$s taxa)</string>
   <!-- Invalid transaction -->
-  <string name="Transaction.invalid">INVÁLIDA</string>
+  <string name="Transaction.invalid">INVÁLIDO</string>
   <!-- Timestamp label for event that just happened -->
-  <string name="Transaction.justNow">mesmo agora</string>
+  <string name="Transaction.justNow">Agora mesmo</string>
   <!-- Receive status text: 'In progress: 20%' -->
   <string name="Transaction.receivedStatus">Em progresso: %1$s</string>
   <!-- Send status text: 'In progress: 20%' -->
   <string name="Transaction.sendingStatus">Em progresso: %1$s</string>
   <!-- eg. Starting balance: $50.00 -->
-  <string name="Transaction.starting">Saldo inicial: %1$s</string>
+  <string name="Transaction.starting">Iniciando saldo: %1$s</string>
   <!-- Waiting to be confirmed string -->
-  <string name="Transaction.waiting">À espera de confirmação. Alguns comerciantes necessitam de confirmação para concluir uma transação. Tempo estimado: 1-2 horas.</string>
+  <string name="Transaction.waiting">Confirmação em espera. Alguns comerciantes precisam de confirmação para concluir uma transação. Tempo estimado: 1-2 horas.</string>
   <!-- e.g. I received money from an account. -->
   <string name="TransactionDetails.account">conta</string>
   <!-- Amount section header -->
-  <string name="TransactionDetails.amountHeader">Quantia</string>
+  <string name="TransactionDetails.amountHeader">Saldo</string>
   <!-- Block height label -->
-  <string name="TransactionDetails.blockHeightLabel">Confirmado no bloco</string>
+  <string name="TransactionDetails.blockHeightLabel">Bloco confirmado</string>
   <!-- Memo section header -->
-  <string name="TransactionDetails.commentsHeader">Nota</string>
+  <string name="TransactionDetails.commentsHeader">Memo</string>
   <!-- Empty transaction list message. -->
-  <string name="TransactionDetails.emptyMessage">As suas transações aparecerão aqui.</string>
+  <string name="TransactionDetails.emptyMessage">As suas transações irão aparecer aqui.</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
   <string name="TransactionDetails.from">em %1$s</string>
   <!-- More button title -->
   <string name="TransactionDetails.more">Mais...</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-  <string name="TransactionDetails.moved">Movimentou %1$s</string>
+  <string name="TransactionDetails.moved">Movido %1$s</string>
   <!-- Moved $5.00 -->
   <string name="TransactionDetails.movedAmountDescription">Movido <b>%1$s</b></string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
   <string name="TransactionDetails.notConfirmedBlockHeightLabel">Não confirmado</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
-  <string name="TransactionDetails.received">Recebeu %1$s</string>
+  <string name="TransactionDetails.received">Recebido %1$s</string>
   <!-- Received $5.00 -->
   <string name="TransactionDetails.receivedAmountDescription">Recebido <b>%1$s</b></string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
-  <string name="TransactionDetails.sent">Enviou %1$s</string>
+  <string name="TransactionDetails.sent">Enviado %1$s</string>
   <!-- Sent $5.00 -->
   <string name="TransactionDetails.sentAmountDescription">Enviado <b>%1$s</b></string>
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">Estado</string>
   <!-- Transaction Details Title -->
-  <string name="TransactionDetails.title">Detalhes da Transação</string>
+  <string name="TransactionDetails.title">Detalhes da transação</string>
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
   <string name="TransactionDetails.to">para %1$s</string>
   <!-- Transaction ID header -->
-  <string name="TransactionDetails.txHashHeader">ID da Transação de Bitcoin</string>
+  <string name="TransactionDetails.txHashHeader">ID da transação DigiByte</string>
   <!-- (this transaction was) Received at this address: -->
-  <string name="TransactionDirection.address">Recebida neste endereço</string>
+  <string name="TransactionDirection.address">Recebido neste endereço</string>
   <!-- (this transaction was) Sent to this address: -->
-  <string name="TransactionDirection.to">Enviada para este endereço</string>
+  <string name="TransactionDirection.to">Enviado para este endereço</string>
   <!-- Disabled until date -->
-  <string name="UnlockScreen.disabled">Desativado até: %1$s</string>
+  <string name="UnlockScreen.disabled">Desactivado até: %1$s</string>
   <!-- My Address button title -->
-  <string name="UnlockScreen.myAddress">Meu Endereço</string>
+  <string name="UnlockScreen.myAddress">Meu endereço</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Redefinir PIN</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Digitalizar</string>
+  <string name="UnlockScreen.scan">Scan</string>
   <!-- Unlock Screen sub-header -->
-  <string name="UnlockScreen.subheader">Introduzir PIN</string>
+  <string name="UnlockScreen.subheader">Inserir PIN</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
-  <string name="UnlockScreen.touchIdInstructions.android">Sensor de Toque</string>
+  <string name="UnlockScreen.touchIdInstructions.android">Sensor de toque</string>
   <!-- TouchID prompt text -->
-  <string name="UnlockScreen.touchIdPrompt">Desbloqueie a sua DigiByte.</string>
+  <string name="UnlockScreen.touchIdPrompt">Desbloqueie a sua DigiWallet.</string>
   <!-- Device authentication body -->
-  <string name="UnlockScreen.touchIdPrompt.android">Desbloqueie o seu dispositivo Android para continuar.</string>
+  <string name="UnlockScreen.touchIdPrompt.android">Desbloqueie seu dispositivo Android para continuar.</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">Desbloquear com Touch ID</string>
+  <string name="UnlockScreen.touchIdText">Desbloqueie com TouchID</string>
   <!-- Device authentication title -->
-  <string name="UnlockScreen.touchIdTitle.android">Autenticação necessária</string>
+  <string name="UnlockScreen.touchIdTitle.android">Autentificação necessária\n</string>
   <!-- Wallet unlocked message -->
-  <string name="UnlockScreen.unlocked">Carteira Desbloqueada</string>
+  <string name="UnlockScreen.unlocked">Carteira desbloqueada</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">Lembre-se deste PIN. Se o esquecer, não será capaz de aceder às suas bitcoins.</string>
+  <string name="UpdatePin.caption">Lembre-se deste PIN. Se esquecer-se, não poderá aceder ás suas digibyte.</string>
   <!-- PIN creation info. -->
-  <string name="UpdatePin.createInstruction">O seu PIN será usado para desbloquear a sua DigiByte e para enviar dinheiro.</string>
+  <string name="UpdatePin.createInstruction">O seu PIN será usado para desbloquear a sua DigiWallet e enviar Digibyte.</string>
   <!-- Update PIN title -->
   <string name="UpdatePin.createTitle">Definir PIN</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitleConfirm">Reintroduzir PIN</string>
+  <string name="UpdatePin.createTitleConfirm">Insira novamente o PIN</string>
   <!-- Enter current PIN instruction -->
   <string name="UpdatePin.enterCurrent">Introduza o seu PIN atual.</string>
   <!-- Enter new PIN instruction -->
-  <string name="UpdatePin.enterNew">Introduza o seu novo PIN.</string>
+  <string name="UpdatePin.enterNew">Introduza o seu  novo PIN.</string>
   <!-- Re-Enter new PIN instruction -->
-  <string name="UpdatePin.reEnterNew">Reintroduza o seu novo PIN.</string>
+  <string name="UpdatePin.reEnterNew">Insira novamente o seu novo PIN.</string>
   <!-- Update PIN failure error message. -->
-  <string name="UpdatePin.setPinError">Desculpe, não foi possível atualizar o PIN</string>
+  <string name="UpdatePin.setPinError">Desculpe, não foi possível actualizar o PIN.</string>
   <!-- Update PIN failure alert view title -->
-  <string name="UpdatePin.setPinErrorTitle">Erro a Atualizar PIN</string>
+  <string name="UpdatePin.setPinErrorTitle">Erro ao Actualizar o Pin</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">Atualizar PIN</string>
+  <string name="UpdatePin.updateTitle">Actualizar Pin</string>
   <!-- Authorize to copy wallet addresses alert message -->
-  <string name="URLHandling.addressaddressListAlertMessage">Copiar endereços da carteira para a área de transferência?</string>
+  <string name="URLHandling.addressaddressListAlertMessage">Copiar os endereços da carteira para a área de transferência?</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
-  <string name="URLHandling.addressList">Autorize para copiar o endereço da carteira para a área de transferência</string>
+  <string name="URLHandling.addressList">Autorize a copiar o endereço da carteira para a área de transferência</string>
   <!-- Authorize to copy wallet address alert title -->
-  <string name="URLHandling.addressListAlertTitle">Copiar Endereços da Carteira</string>
+  <string name="URLHandling.addressListAlertTitle">Copiar endereços da carteira</string>
   <!-- Copy wallet addresses alert button label -->
   <string name="URLHandling.copy">Copiar</string>
   <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">Por favor, introduza o seu PIN, a fim de autorizar esta transação.</string>
+  <string name="VerifyPin.authorize">Por favor insira o seu PIN para autorizar esta transação.</string>
   <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">Por favor, introduza o seu PIN para continuar.</string>
+  <string name="VerifyPin.continueBody">Por favor insira o seu PIN para continuar.</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">PIN Obrigatório</string>
+  <string name="VerifyPin.title">PIN Necessário\n</string>
   <!-- Authorize transaction with touch id message -->
-  <string name="VerifyPin.touchIdMessage">Autorizar esta transação</string>
+  <string name="VerifyPin.touchIdMessage">Autorize esta transação</string>
   <!-- 'No wallet' warning for watch app -->
-  <string name="Watch.noWalletWarning">Abra a aplicação DigiByte para iPhone para configurar a sua carteira.</string>
+  <string name="Watch.noWalletWarning">Inicie o aplicativo Android  DigiWallet para configurar sua carteira.</string>
   <!-- Dismiss button label -->
-  <string name="Webview.dismiss">Ignorar</string>
+  <string name="Webview.dismiss">Dispensar</string>
   <!-- Webview loading error message -->
-  <string name="Webview.errorMessage">Ocorreu um erro a carregar o conteúdo. Por favor, tente novamente.</string>
+  <string name="Webview.errorMessage">Ocorreu um erro ao carregar o conteúdo. Por favor tente novamente.</string>
   <!-- Updating webview message -->
-  <string name="Webview.updating">A Atualizar...</string>
+  <string name="Webview.updating">Actualizando...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">As DigiBytewallets mudaram de nome para DigiByte, com um visual completamente novo e algumas características novas. \n\nSe precisar de ajuda, procure o (?) no canto superior direito da maioria das telas.</string>
+  <string name="Welcome.body">A DigiWallet tem um novo visual e alguns novos recursos.\n\nIf Se precisar de ajuda, procure o (?) No canto superior direito da maioria dos ecrans.\n</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Bem-vindo ao DigiByte!</string>
+  <string name="Welcome.title">Bem-vindo à DigiWallet!</string>
   <!-- Wipe wallet alert message -->
-  <string name="WipeWallet.alertMessage">Tem a certeza de que quer eliminar esta carteira?</string>
+  <string name="WipeWallet.alertMessage">Tem certeza de que deseja apagar esta carteira?</string>
   <!-- Wipe wallet alert title -->
-  <string name="WipeWallet.alertTitle">Limpar carteira?</string>
+  <string name="WipeWallet.alertTitle">Apagar Carteira?</string>
   <!-- Failed wipe wallet alert message -->
-  <string name="WipeWallet.failedMessage">Falha ao limpar a carteira.</string>
+  <string name="WipeWallet.failedMessage">Falha ao apagar  carteira.</string>
   <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Falhou</string>
+  <string name="WipeWallet.failedTitle">Falha</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">Introduza a frase de recuperação desta carteira, a fim de limpar a mesma e iniciar ou recuperar outra. O seu saldo atual permanece nesta frase.</string>
+  <string name="WipeWallet.instruction">Para instalar uma nova carteira ou restaurar uma carteira existente, primeiro deve apagar a carteira que está atualmente instalada. Para continuar, insira a Chave de recuperação pessoal da carteira atual.</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">Começar ou recuperar outra carteira permite-lhe entrar e administrar uma carteira diferente da DigiByte neste dispositivo.</string>
+  <string name="WipeWallet.startMessage">Iniciar ou recuperar outra carteira permite aceder e gerenciar uma carteira DigiWallet diferente nesse dispositivo.</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">Não poderá mais aceder à sua DigiBytewallet a partir deste dispositivo. O saldo permanecerá na frase.</string>
+  <string name="WipeWallet.startWarning">A sua carteira atual será removida deste dispositivo. Se você deseja restaurar  no futuro, precisará inserir a sua Chave de recuperação pessoal.</string>
   <!-- Wipe wallet navigation item title. -->
-  <string name="WipeWallet.title">Iniciar ou recuperar outra carteira</string>
+  <string name="WipeWallet.title">Inicie ou Recupere outra Carteira</string>
   <!-- Wipe wallet button title -->
-  <string name="WipeWallet.wipe">Limpar</string>
+  <string name="WipeWallet.wipe">Apagar</string>
   <!-- Wiping activity message -->
-  <string name="WipeWallet.wiping">A limpar...</string>
+  <string name="WipeWallet.wiping">Apagando...</string>
   <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">Escreva cada palavra por ordem e guarde-as num lugar seguro.</string>
+  <string name="WritePaperPhrase.instruction">Anote cada palavra nesta ordem e guarde-as em um local seguro.</string>
   <!-- button label -->
   <string name="WritePaperPhrase.next">Seguinte</string>
   <!-- button label -->
