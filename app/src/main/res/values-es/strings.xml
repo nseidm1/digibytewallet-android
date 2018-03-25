@@ -619,7 +619,7 @@
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
   <string name="TransactionDetails.moved">Transferido %1$s</string>
   <!-- Moved $5.00 -->
-  <string name="TransactionDetails.movedAmountDescription">Tansferido <b>%1$s<b></string>
+  <string name="TransactionDetails.movedAmountDescription">Tansferido %1$s</string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
   <string name="TransactionDetails.notConfirmedBlockHeightLabel">No está confirmado</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
