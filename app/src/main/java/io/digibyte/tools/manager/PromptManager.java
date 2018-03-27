@@ -1,24 +1,15 @@
 package io.digibyte.tools.manager;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.view.View;
-
-import io.digibyte.DigiByte;
-import io.digibyte.R;
-import io.digibyte.presenter.activities.UpdatePinActivity;
-import io.digibyte.presenter.activities.intro.WriteDownActivity;
-import io.digibyte.presenter.activities.settings.FingerprintActivity;
-import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.Utils;
-import io.digibyte.wallet.BRPeerManager;
-
 import static io.digibyte.tools.manager.PromptManager.PromptItem.FINGER_PRINT;
 import static io.digibyte.tools.manager.PromptManager.PromptItem.PAPER_KEY;
 import static io.digibyte.tools.manager.PromptManager.PromptItem.RECOMMEND_RESCAN;
 import static io.digibyte.tools.manager.PromptManager.PromptItem.UPGRADE_PIN;
+
+import android.content.Context;
+
+import io.digibyte.DigiByte;
+import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.util.Utils;
 
 /**
  * BreadWallet
@@ -62,26 +53,40 @@ public class PromptManager
 
     public PromptItem nextPrompt()
     {
-        if (shouldPrompt(RECOMMEND_RESCAN))
+        if (shouldPrompt(RECOMMEND_RESCAN) && !hasPromptBeenDismissed(RECOMMEND_RESCAN))
         {
             return RECOMMEND_RESCAN;
         }
 
-        if (shouldPrompt(UPGRADE_PIN))
+        if (shouldPrompt(UPGRADE_PIN) && !hasPromptBeenDismissed(UPGRADE_PIN))
         {
             return UPGRADE_PIN;
         }
 
-        if (shouldPrompt(PAPER_KEY))
+        if (shouldPrompt(PAPER_KEY) && !hasPromptBeenDismissed(PAPER_KEY))
         {
             return PAPER_KEY;
         }
 
-        if (shouldPrompt(FINGER_PRINT))
+        if (shouldPrompt(FINGER_PRINT) && !hasPromptBeenDismissed(FINGER_PRINT))
         {
             return FINGER_PRINT;
         }
         return null;
+    }
+
+    private boolean hasPromptBeenDismissed(PromptItem promptItem) {
+        switch (promptItem) {
+            default:
+            case RECOMMEND_RESCAN:
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(RECOMMEND_RESCAN));
+            case UPGRADE_PIN:
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(UPGRADE_PIN));
+            case PAPER_KEY:
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(PAPER_KEY));
+            case FINGER_PRINT:
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(FINGER_PRINT));
+        }
     }
 
     private boolean shouldPrompt(PromptItem item)

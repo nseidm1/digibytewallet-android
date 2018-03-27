@@ -1,12 +1,10 @@
 package io.digibyte.tools.manager;
 
-import android.app.Activity;
+import static io.digibyte.tools.util.BRConstants.GEO_PERMISSIONS_REQUESTED;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
-import io.digibyte.DigiByte;
-import io.digibyte.tools.util.BRConstants;
 
 import org.json.JSONArray;
 
@@ -16,8 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import static io.digibyte.tools.util.BRConstants.GEO_PERMISSIONS_REQUESTED;
-import static io.digibyte.tools.util.BRConstants.receive;
+import io.digibyte.tools.util.BRConstants;
 
 /**
  * BreadWallet
@@ -463,5 +460,17 @@ public class BRSharedPrefs {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("trustNode", trustNode);
         editor.apply();
+    }
+
+    public static void putPromptDismissed(Context context, String promptName) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(promptName, true);
+        editor.apply();
+    }
+
+    public static boolean hasPromptDismissed(Context context, String promptName) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(promptName, false);
     }
 }

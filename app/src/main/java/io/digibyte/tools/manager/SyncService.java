@@ -7,6 +7,8 @@ import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import io.digibyte.tools.threads.BRExecutor;
@@ -21,16 +23,19 @@ import io.digibyte.wallet.BRWalletManager;
  * for sync to occur, is for this job to init the wallet.
  */
 
-public class SyncService extends JobService implements BRPeerManager.OnSyncSucceeded {
-
+public class SyncService extends JobService implements BRPeerManager.OnSyncSucceeded
+{
     private static final int SYNC_SERVICE_ID = 1234;
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
+    private static Executor onFinishedExecutor = Executors.newSingleThreadExecutor();
     private JobParameters jobParameters;
 
     @Override
-    public boolean onStartJob(JobParameters jobParameters) {
+    public boolean onStartJob(JobParameters jobParameters)
+    {
         this.jobParameters = jobParameters;
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
+        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable()
+        {
             @Override
             public void run() {
                 BRWalletManager.getInstance().initWallet(SyncService.this);
@@ -45,7 +50,8 @@ public class SyncService extends JobService implements BRPeerManager.OnSyncSucce
      * @return true to always re-reun this job according to the jobInfo configuration.
      */
     @Override
-    public boolean onStopJob(JobParameters jobParameters){
+    public boolean onStopJob(JobParameters jobParameters)
+    {
         return true;
     }
 
@@ -73,8 +79,14 @@ public class SyncService extends JobService implements BRPeerManager.OnSyncSucce
 
     @Override
     public void onFinished() {
-        int startHeight = BRSharedPrefs.getStartHeight(this);
-        double progressStatus = BRPeerManager.syncProgress(startHeight);
-        jobFinished(jobParameters, progressStatus != 1);
+        onFinishedExecutor.execute(new Runnable()
+        {
+            @Override
+            public void run() {
+                int startHeight = BRSharedPrefs.getStartHeight(SyncService.this);
+                double progressStatus = BRPeerManager.syncProgress(startHeight);
+                jobFinished(jobParameters, progressStatus != 1);
+            }
+        });
     }
 }

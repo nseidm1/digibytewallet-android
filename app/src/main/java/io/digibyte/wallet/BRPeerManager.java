@@ -3,6 +3,9 @@ package io.digibyte.wallet;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.digibyte.DigiByte;
 import io.digibyte.presenter.entities.BlockEntity;
 import io.digibyte.presenter.entities.PeerEntity;
@@ -12,9 +15,6 @@ import io.digibyte.tools.sqlite.MerkleBlockDataSource;
 import io.digibyte.tools.sqlite.PeerDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.TrustedNode;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * BreadWallet
@@ -86,7 +86,8 @@ public class BRPeerManager {
         final Context app = DigiByte.getContext();
         if (app == null) return;
         BRSharedPrefs.putLastSyncTime(app, System.currentTimeMillis());
-        SyncManager.getInstance().updateAlarms(app);
+        //Alarms are not longer used, the job scheduler is
+        //SyncManager.getInstance().updateAlarms(app);
         BRSharedPrefs.putAllowSpend(app, true);
         SyncManager.getInstance().stopSyncingProgressThread();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {

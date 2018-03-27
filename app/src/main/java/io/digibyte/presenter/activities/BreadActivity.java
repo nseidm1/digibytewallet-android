@@ -21,7 +21,6 @@ import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,10 +32,10 @@ import com.platform.APIClient;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
@@ -49,7 +48,6 @@ import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.items.ListItemPromptData;
-import io.digibyte.tools.list.items.ListItemPromptViewHolder;
 import io.digibyte.tools.list.items.ListItemSyncingData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BREventManager;
@@ -155,7 +153,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         unbinder = ButterKnife.bind(this);
 
         initializeViews();
-        setupInformationListPromptSwipe();
 
         onConnectionChanged(InternetManager.getInstance().isConnected(this));
 
@@ -182,16 +179,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void initializeViews()
     {
-        // Set listeners
-        sendButton.setOnClickListener(this.onButtonSend);
-        receiveButton.setOnClickListener(this.onButtonReceive);
-        menuButton.setOnClickListener(this.onButtonMenu);
-        manageText.setOnClickListener(this.onManageText);
-        primaryPrice.setOnClickListener(this.onButtonPrice);
-        secondaryPrice.setOnClickListener(this.onButtonPrice);
-        searchIcon.setOnClickListener(this.onButtonSearch);
-        searchBar.setOnUpdateListener(onSearchBarUpdate);
-
         // Setup list view
         listView.setItemAnimator(null);
         listView.setLayoutManager(new LinearLayoutManager(this));
@@ -306,40 +293,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }
     }
 
-    private void setupInformationListPromptSwipe()
-    {
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT)
-        {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)
-            {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir)
-            {
-                if (viewHolder instanceof ListItemPromptViewHolder)
-                {
-                    ListItemPromptViewHolder listItemViewHolder = (ListItemPromptViewHolder) viewHolder;
-                    onPromptListItemCloseClick.onListItemClick(listItemViewHolder.getItemData());
-                }
-            }
-
-            @Override
-            public int getSwipeDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
-            {
-                if (viewHolder instanceof ListItemPromptViewHolder)
-                {
-                    return super.getSwipeDirs(recyclerView, viewHolder);
-                }
-                return 0;
-            }
-        };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(listView);
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// List item click listeners ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -420,6 +373,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             ListItemPromptData data = (ListItemPromptData) aListItemData;
             informationList.remove(data);
             listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, data);
+            BRSharedPrefs.putPromptDismissed(BreadActivity.this, PromptManager.getInstance().getPromptName(data.promptItem));
             BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(data.promptItem) + ".dismissed");
             loadNextPromptItem();
         }
@@ -433,7 +387,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     {
         informationList.clear();
         informationList.add(listItemSyncingData);
-        listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
+        //Avoid illegal state exception associated with triggering a notifyDataSetChange
+        //potentially during a layout pass or scroll event
+        handler.post(new Runnable()
+        {
+            @Override
+            public void run() {
+                listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
+            }
+        });
     }
 
     public void onSyncManagerUpdate()
@@ -499,11 +461,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     {
         if (isConnected)
         {
-            if (barFlipper.getDisplayedChild() == 2)
-            {
-                barFlipper.setDisplayedChild(0);
-            }
-
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
             {
                 @Override
@@ -519,7 +476,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         }
         else
         {
-            barFlipper.setDisplayedChild(2);
             SyncManager.getInstance().stopSyncingProgressThread();
         }
     }
@@ -533,85 +489,68 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// UI OnClick Listeners /////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private View.OnClickListener onButtonSend = new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View aView)
-        {
-            if (BRAnimator.isClickAllowed())
-            {
-                BRAnimator.showSendFragment(BreadActivity.this, null);
-            }
-        }
-    };
 
-    private View.OnClickListener onButtonReceive = new View.OnClickListener()
+    @OnClick(R.id.send_layout)
+    void onButtonSend(View view)
     {
-        @Override
-        public void onClick(View aView)
+        if (BRAnimator.isClickAllowed())
         {
-            if (BRAnimator.isClickAllowed())
-            {
-                BRAnimator.showReceiveFragment(BreadActivity.this, true);
-            }
+            BRAnimator.showSendFragment(BreadActivity.this, null);
         }
-    };
+    }
 
-    private View.OnClickListener onButtonMenu = new View.OnClickListener()
+    @OnClick(R.id.receive_layout)
+    void onButtonReceive(View view)
     {
-        @Override
-        public void onClick(View aView)
+        if (BRAnimator.isClickAllowed())
         {
-            if (BRAnimator.isClickAllowed())
-            {
-                BRAnimator.showMenuFragment(BreadActivity.this);
-            }
+            BRAnimator.showReceiveFragment(BreadActivity.this, true);
         }
-    };
+    }
 
-    private View.OnClickListener onManageText = new View.OnClickListener()
+    @OnClick(R.id.menu_layout)
+    void onMenuButtonClick(View view)
     {
-        @Override
-        public void onClick(View aView)
+        if (BRAnimator.isClickAllowed())
         {
-            if (BRAnimator.isClickAllowed())
-            {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-                FragmentManage fragmentManage = new FragmentManage();
-                transaction.add(android.R.id.content, fragmentManage, FragmentManage.class.getName());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
+            BRAnimator.showMenuFragment(BreadActivity.this);
         }
-    };
+    }
 
-    private View.OnClickListener onButtonPrice = new View.OnClickListener()
+    @OnClick(R.id.manage_text)
+    void onManageTextClick(View view)
     {
-        @Override
-        public void onClick(View aView)
+        if (BRAnimator.isClickAllowed())
         {
-            if (BRAnimator.isClickAllowed())
-            {
-                boolean b = !BRSharedPrefs.getPreferredBTC(BreadActivity.this);
-                setPriceTags(b, true);
-                BRSharedPrefs.putPreferredBTC(BreadActivity.this, b);
-            }
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
+            FragmentManage fragmentManage = new FragmentManage();
+            transaction.add(android.R.id.content, fragmentManage, FragmentManage.class.getName());
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
-    };
+    }
 
-    private View.OnClickListener onButtonSearch = new View.OnClickListener()
+    @OnClick(R.id.primary_price)
+    void onPrimaryPriceClick(View view)
     {
-        @Override
-        public void onClick(View v)
+        if (BRAnimator.isClickAllowed())
         {
-            if (BRAnimator.isClickAllowed())
-            {
-                barFlipper.setDisplayedChild(1); //search bar
-                searchBar.onShow(true);
-            }
+            boolean b = !BRSharedPrefs.getPreferredBTC(BreadActivity.this);
+            setPriceTags(b, true);
+            BRSharedPrefs.putPreferredBTC(BreadActivity.this, b);
         }
-    };
+    }
+
+    @OnClick(R.id.search_icon)
+    void onSearchClick(View view)
+    {
+        if (BRAnimator.isClickAllowed())
+        {
+            barFlipper.setDisplayedChild(1); //search bar
+            searchBar.onShow(true);
+        }
+    }
 
     private BRSearchBar.onUpdateListener onSearchBarUpdate = new BRSearchBar.onUpdateListener()
     {
