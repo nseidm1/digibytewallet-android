@@ -86,10 +86,17 @@ public class SyncManager
         Log.d(TAG, "stopSyncingProgressThread");
         mScheduledFuture.cancel(true);
         executorService.shutdown();
-        for (onStatusListener listener : theListeners)
+        handler.post(new Runnable()
         {
-            listener.onSyncManagerFinished();
-        }
+            @Override
+            public void run()
+            {
+                for (onStatusListener listener : theListeners)
+                {
+                    listener.onSyncManagerFinished();
+                }
+            }
+        });
     }
 
     private Runnable syncRunnable = new Runnable() {
