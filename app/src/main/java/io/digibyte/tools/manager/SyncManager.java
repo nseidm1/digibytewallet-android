@@ -73,10 +73,17 @@ public class SyncManager
     public synchronized void startSyncingProgressThread()
     {
         Log.d(TAG, "startSyncingProgressThread:" + Thread.currentThread().getName());
-        for (onStatusListener listener : theListeners)
+        handler.post(new Runnable()
         {
-            listener.onSyncManagerStart();
-        }
+            @Override
+            public void run()
+            {
+                for (onStatusListener listener : theListeners)
+                {
+                    listener.onSyncManagerStart();
+                }
+            }
+        });
         executorService = Executors.newSingleThreadScheduledExecutor();
         mScheduledFuture = executorService.schedule(syncRunnable, 1, TimeUnit.SECONDS);
     }
