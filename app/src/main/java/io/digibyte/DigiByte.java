@@ -10,9 +10,6 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.buglife.sdk.Buglife;
-import com.buglife.sdk.InvocationMethod;
-
 import java.util.ArrayList;
 
 import io.digibyte.presenter.activities.DisabledActivity;
@@ -79,10 +76,6 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
         registerActivityLifecycleCallbacks(this);
 
         super.onCreate();
-
-        // Fill in API key here
-        Buglife.initWithApiKey(this, "");
-        Buglife.setInvocationMethod(InvocationMethod.SHAKE);
 
         // Register receivers
         LocalBroadcastManager.getInstance(this).registerReceiver(onApplicationEnterForeground, new IntentFilter(LocalBroadcastOnEnterForeground));
