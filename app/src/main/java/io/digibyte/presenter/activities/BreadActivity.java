@@ -93,7 +93,7 @@ import io.digibyte.wallet.BRWalletManager;
  * THE SOFTWARE.
  */
 
-public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener, TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener, SyncManager.onStatusListener, onStatusListener
+public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener, TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener, SyncManager.onStatusListener, onStatusListener, BRSearchBar.OnSearchUpdateListener
 {
     private final int LIST_SECTION_INFORMATION = 0;
     private final int LIST_SECTION_TRANSACTIONS = 1;
@@ -682,6 +682,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRWalletManager.getInstance().refreshBalance(this);
         SyncService.scheduleBackgroundSync(this);
         TxManager.getInstance().onResume(BreadActivity.this);
+
+        searchBar.setOnUpdateListener(this);
     }
 
     @Override
@@ -697,6 +699,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
+
+        searchBar.setOnUpdateListener(null);
 
         //sync the kv stores
         if (PLATFORM_ON)
@@ -735,5 +739,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 break;
             }
         }
+    }
+
+    @Override
+    public void onSearchBarFilterUpdate() {
+        updateTransactionSection();
     }
 }

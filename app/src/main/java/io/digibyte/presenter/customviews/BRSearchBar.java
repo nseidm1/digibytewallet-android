@@ -40,13 +40,13 @@ import io.digibyte.presenter.activities.BreadActivity;
  */
 public class BRSearchBar extends android.support.v7.widget.Toolbar
 {
-    public interface onUpdateListener
+    public interface OnSearchUpdateListener
     {
         void onSearchBarFilterUpdate();
     }
 
-    private onUpdateListener listener;
-    public void setOnUpdateListener(onUpdateListener aListener) { listener = aListener; }
+    private OnSearchUpdateListener listener;
+    public void setOnUpdateListener(OnSearchUpdateListener aListener) { listener = aListener; }
 
     private EditText searchEdit;
     private BRButton sentFilter;
@@ -148,6 +148,10 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar
                 searchEdit.setText("");
                 breadActivity.barFlipper.setDisplayedChild(0);
                 clearSwitches();
+                if(null != listener)
+                {
+                    listener.onSearchBarFilterUpdate();
+                }
                 onShow(false);
             }
         });
