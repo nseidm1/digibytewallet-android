@@ -50,6 +50,7 @@ import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.items.ListItemPromptData;
 import io.digibyte.tools.list.items.ListItemSyncingData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
+import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BREventManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.manager.InternetManager;
@@ -682,6 +683,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRWalletManager.getInstance().refreshBalance(this);
         SyncService.scheduleBackgroundSync(this);
         TxManager.getInstance().onResume(BreadActivity.this);
+
+        BRApiManager.getInstance().updateCurrencyData(this);
 
         searchBar.setOnUpdateListener(this);
     }

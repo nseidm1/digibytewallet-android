@@ -5,24 +5,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
-import io.digibyte.DigiByte;
-import io.digibyte.presenter.activities.DisabledActivity;
-import io.digibyte.presenter.activities.intro.IntroActivity;
-import io.digibyte.presenter.activities.intro.RecoverActivity;
-import io.digibyte.presenter.activities.intro.WriteDownActivity;
-import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.manager.BRApiManager;
-import io.digibyte.tools.manager.InternetManager;
+import com.platform.tools.BRBitId;
+
 import io.digibyte.tools.security.AuthManager;
-import io.digibyte.tools.security.BRKeyStore;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.wallet.BRWalletManager;
-
-import com.platform.HTTPServer;
-import com.platform.tools.BRBitId;
 
 /**
  * BreadWallet
@@ -62,7 +52,9 @@ public class BRActivity extends Activity {
 
     @Override
     protected void onResume() {
-        init(this);
+        if (!ActivityUTILS.isAppSafe(this))
+            if (AuthManager.getInstance().isWalletDisabled(this))
+                AuthManager.getInstance().setWalletDisabled(this);
         super.onResume();
     }
 
@@ -161,24 +153,5 @@ public class BRActivity extends Activity {
                 }
                 break;
         }
-    }
-
-    public static void init(Activity app) {
-        //set status bar color
-//        ActivityUTILS.setStatusBarColor(app, android.R.color.transparent);
-        InternetManager.getInstance();
-        if (!(app instanceof IntroActivity || app instanceof RecoverActivity || app instanceof WriteDownActivity))
-            BRApiManager.getInstance().startTimer(app);
-        //show wallet locked if it is
-        if (!ActivityUTILS.isAppSafe(app))
-            if (AuthManager.getInstance().isWalletDisabled(app))
-                AuthManager.getInstance().setWalletDisabled(app);
-
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                HTTPServer.startServer();
-            }
-        });
     }
 }

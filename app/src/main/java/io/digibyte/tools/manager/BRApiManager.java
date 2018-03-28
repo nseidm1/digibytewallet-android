@@ -4,7 +4,6 @@ import static io.digibyte.presenter.fragments.FragmentSend.isEconomyFee;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
@@ -24,8 +23,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import io.digibyte.DigiByte;
 import io.digibyte.presenter.entities.CurrencyEntity;
@@ -65,15 +62,6 @@ public class BRApiManager {
     private static final String TAG = BRApiManager.class.getName();
 
     private static BRApiManager instance;
-    private Timer timer;
-
-    private TimerTask timerTask;
-
-    private Handler handler;
-
-    private BRApiManager() {
-        handler = new Handler();
-    }
 
     public static BRApiManager getInstance() {
 
@@ -98,10 +86,7 @@ public class BRApiManager {
                         tmp.code = tmpObj.getString("code");
                         tmp.rate = (float) tmpObj.getDouble("rate");
                         String selectedISO = BRSharedPrefs.getIso(context);
-//                        Log.e(TAG,"selectedISO: " + selectedISO);
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
-//                            Log.e(TAG, "theIso : " + theIso);
-//                                Log.e(TAG, "Putting the shit in the shared preffs");
                             BRSharedPrefs.putIso(context, tmp.code);
                             BRSharedPrefs.putCurrencyListPosition(context, i - 1);
                         }
@@ -121,52 +106,18 @@ public class BRApiManager {
         return new LinkedHashSet<>(set);
     }
 
-
-    private void initializeTimerTask(final Context context) {
-        timerTask = new TimerTask() {
+    public void updateCurrencyData(final Context context) {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+            @Override
             public void run() {
-                //use a handler to run a toast that shows the current timestamp
-                handler.post(new Runnable() {
-                    public void run() {
-                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!DigiByte.getContext().isSuspended()) {
-                                    Log.e(TAG, "doInBackground: Stopping timer, no activity on.");
-                                    BRApiManager.getInstance().stopTimerTask();
-                                }
-                                Set<CurrencyEntity> tmp = getCurrencies((Activity) context);
-                                CurrencyDataSource.getInstance(context).putCurrencies(tmp);
-                            }
-                        });
-                    }
-                });
+                Set<CurrencyEntity> tmp = getCurrencies((Activity) context);
+                CurrencyDataSource.getInstance(context).putCurrencies(tmp);
             }
-        };
-    }
-
-    public void startTimer(Context context) {
-        //set a new Timer
-        if (timer != null) return;
-        timer = new Timer();
-
-        //initialize the TimerTask's job
-        initializeTimerTask(context);
-
-        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
-        timer.schedule(timerTask, 0, 60000); //
-    }
-
-    public void stopTimerTask() {
-        //stop the timer, if it's not already null
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
+        });
     }
 
 
-    public static JSONArray fetchRates(Activity activity) {
+    private static JSONArray fetchRates(Activity activity) {
         String jsonString = urlGET(activity, "https://" + DigiByte.HOST + "/rates.php");
         JSONArray jsonArray = null;
         if (jsonString == null) return null;
@@ -177,22 +128,6 @@ public class BRApiManager {
         }
         return jsonArray;
     }
-
-    public static JSONArray backupFetchRates(Activity activity) {
-        String jsonString = urlGET(activity, "https://bitpay.com/rates");
-
-        JSONArray jsonArray = null;
-        if (jsonString == null) return null;
-        try {
-            JSONObject obj = new JSONObject(jsonString);
-
-            jsonArray = obj.getJSONArray("data");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonArray;
-    }
-
 
     public static void updateFeePerKb(Context app) {
         String jsonString = urlGET(app, DigiByte.FEE_URL);
@@ -228,14 +163,12 @@ public class BRApiManager {
                 FirebaseCrash.report(new NullPointerException("Economy fee is weird:" + economyFee));
             }
         } catch (JSONException e) {
-            //Log.e(TAG, "updateFeePerKb: FAILED: " + jsonString, e);
             BRReportsManager.reportBug(e);
             BRReportsManager.reportBug(new IllegalArgumentException("JSON ERR: " + jsonString));
         }
     }
 
     private static String urlGET(Context app, String myURL) {
-//        System.out.println("Requested URL_EA:" + myURL);
         Request request = new Request.Builder()
                 .url(myURL)
                 .header("Content-Type", "application/json")
@@ -268,6 +201,4 @@ public class BRApiManager {
         }
         return response;
     }
-
-
 }
