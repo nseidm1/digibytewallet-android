@@ -64,6 +64,9 @@ public class BRToast {
                     customToastAvailable = true;
                 }
             }, 1000);
+            if (!(app instanceof Activity)) {
+                return;
+            }
             LayoutInflater inflater = ((Activity) app).getLayoutInflater();
             View layout = inflater.inflate(R.layout.toast, (ViewGroup) ((Activity) app).findViewById(R.id.toast_layout_root));
             layout.setBackgroundResource(layoutDrawable);
