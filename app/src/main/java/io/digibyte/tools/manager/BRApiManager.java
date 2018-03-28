@@ -1,5 +1,7 @@
 package io.digibyte.tools.manager;
 
+import static io.digibyte.presenter.fragments.FragmentSend.isEconomyFee;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -33,8 +35,6 @@ import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static io.digibyte.presenter.fragments.FragmentSend.isEconomyFee;
 
 /**
  * BreadWallet
@@ -195,17 +195,26 @@ public class BRApiManager {
 
 
     public static void updateFeePerKb(Context app) {
-        String jsonString = urlGET(app, "https://" + DigiByte.HOST + "/fee-per-kb");
+        String jsonString = urlGET(app, DigiByte.FEE_URL);
         if (jsonString == null || jsonString.isEmpty()) {
             Log.e(TAG, "updateFeePerKb: failed to update fee, response string: " + jsonString);
             return;
         }
-        long fee;
-        long economyFee;
+        long fee = 0;
+        long economyFee = 0;
         try {
-            JSONObject obj = new JSONObject(jsonString);
-            fee = obj.getLong("fee_per_kb");
-            economyFee = obj.getLong("fee_per_kb_economy");
+            JSONArray array = new JSONArray(jsonString);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject feeObject = array.getJSONObject(i);
+                switch(feeObject.getString("level")) {
+                    case "economy":
+                        economyFee = feeObject.getLong("feePerKb");
+                        break;
+                    case "normal":
+                        fee = feeObject.getLong("feePerKb");
+                        break;
+                }
+            }
             if (fee != 0 && fee < BRWalletManager.getInstance().maxFee()) {
                 BRSharedPrefs.putFeePerKb(app, fee);
                 BRWalletManager.getInstance().setFeePerKb(fee, isEconomyFee); //todo improve that logic

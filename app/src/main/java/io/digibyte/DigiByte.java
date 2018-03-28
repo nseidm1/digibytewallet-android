@@ -48,6 +48,7 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
     private static final String TAG = DigiByte.class.getName();
 
     public static final String HOST = "digibyte.io";
+    public static final String FEE_URL = "https://go.digibyte.co/bws/api/v2/feelevels";
     public static final String LocalBroadcastOnEnterForeground = "OnEnterForeground";
     public static final String LocalBroadcastOnEnterBackground = "OnEnterBackground";
 
