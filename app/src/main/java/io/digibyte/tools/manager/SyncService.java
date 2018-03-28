@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import io.digibyte.tools.threads.BRExecutor;
+import io.digibyte.tools.util.BRConstants;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -29,6 +30,10 @@ public class SyncService extends JobService implements BRPeerManager.OnSyncSucce
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
     private static Executor onFinishedExecutor = Executors.newSingleThreadExecutor();
     private JobParameters jobParameters;
+
+    static {
+        System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
+    }
 
     @Override
     public boolean onStartJob(JobParameters jobParameters)
