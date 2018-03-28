@@ -197,10 +197,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     private void updateUI()
     {
-        handler.post(new Runnable() {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                //sleep a little in order to make sure all the commits are finished (like SharePreferences commits)
                 final String iso = BRSharedPrefs.getIso(BreadActivity.this);
 
                 //current amount in satoshis
@@ -213,9 +212,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 //amount in currency units
                 final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
                 final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
-                primaryPrice.setText(formattedBTCAmount);
-                secondaryPrice.setText(String.format("%s", formattedCurAmount));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        primaryPrice.setText(formattedBTCAmount);
+                        secondaryPrice.setText(String.format("%s", formattedCurAmount));
 
+                    }
+                });
                 TxManager.getInstance().updateTxList();
             }
         });
@@ -224,7 +228,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private void updateTransactionSection()
     {
         ArrayList<ListItemData> transactionList = new ArrayList<>();
-        if(null != transactionItems)
+
+        //The third top crash comes from this method, a NPE on the searchBar view
+        //Triggered from line 219 above. My guess is onCreate updateTxList is triggered
+        //and it takes a while for the native BRWalletManager.getInstance().getTransactions()
+        //when this callback is hit the activity has already been destroyed with searchBar being null.
+        //The simple solution for now is to just null check searchBar. It's strange because the
+        //TxManager and the BrPeerManager listeners are both unregistered onPause
+
+        if(null != transactionItems && searchBar != null)
         {
             boolean[] switches = searchBar.getFilterSwitches();
             String searchQuery = searchBar.getSearchQuery().toLowerCase().trim();
@@ -551,15 +563,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             searchBar.onShow(true);
         }
     }
-
-    private BRSearchBar.onUpdateListener onSearchBarUpdate = new BRSearchBar.onUpdateListener()
-    {
-        @Override
-        public void onSearchBarFilterUpdate()
-        {
-            updateTransactionSection();
-        }
-    };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// LEFT OVERS CLEANUP? //////////////////////////////////////////////////
