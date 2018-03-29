@@ -9,8 +9,8 @@ android {
         applicationId = 'io.digibyte'
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 1894
-        versionName "1894"
+        versionCode 1905
+        versionName "1905"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
