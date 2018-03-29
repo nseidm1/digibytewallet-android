@@ -1,5 +1,7 @@
 package io.digibyte.wallet;
 
+import static io.digibyte.presenter.fragments.FragmentSend.isEconomyFee;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
@@ -62,8 +64,6 @@ import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Bip39Reader;
 import io.digibyte.tools.util.TypesConverter;
 import io.digibyte.tools.util.Utils;
-
-import static io.digibyte.presenter.fragments.FragmentSend.isEconomyFee;
 
 /**
  * BreadWallet
@@ -767,6 +767,14 @@ public class BRWalletManager
         }
         balanceListeners.remove(listener);
 
+    }
+
+    public static void openWalletIfNecessary(Context context)
+    {
+        if (!BRWalletManager.getInstance().isCreated()) {
+            BRExecutor.getInstance().forBackgroundTasks().execute(() ->
+                    BRWalletManager.getInstance().initWallet(context));
+        }
     }
 
     public interface OnBalanceChanged

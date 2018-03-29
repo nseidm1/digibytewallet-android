@@ -73,12 +73,10 @@ public class BRPeerManager {
 
     public static void syncStarted() {
         Log.d(TAG, "syncStarted: " + Thread.currentThread().getName());
-//        BRPeerManager.getInstance().refreshConnection();
         Context ctx = DigiByte.getContext();
         int startHeight = BRSharedPrefs.getStartHeight(ctx);
         int lastHeight = BRSharedPrefs.getLastBlockHeight(ctx);
         if (startHeight > lastHeight) BRSharedPrefs.putStartHeight(ctx, lastHeight);
-        SyncManager.getInstance().startSyncingProgressThread();
     }
 
     public static void syncSucceeded() {
@@ -86,10 +84,7 @@ public class BRPeerManager {
         final Context app = DigiByte.getContext();
         if (app == null) return;
         BRSharedPrefs.putLastSyncTime(app, System.currentTimeMillis());
-        //Alarms are not longer used, the job scheduler is
-        //SyncManager.getInstance().updateAlarms(app);
         BRSharedPrefs.putAllowSpend(app, true);
-        SyncManager.getInstance().stopSyncingProgressThread();
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
@@ -97,7 +92,6 @@ public class BRPeerManager {
             }
         });
         if (onSyncFinished != null) onSyncFinished.onFinished();
-
     }
 
     public static void syncFailed() {
@@ -122,7 +116,6 @@ public class BRPeerManager {
                 updateLastBlockHeight(getCurrentBlockHeight());
             }
         });
-
     }
 
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
@@ -137,7 +130,6 @@ public class BRPeerManager {
                 MerkleBlockDataSource.getInstance(ctx).putMerkleBlocks(blockEntities);
             }
         });
-
     }
 
     public static void savePeers(final PeerEntity[] peerEntities, final boolean replace) {
@@ -151,7 +143,6 @@ public class BRPeerManager {
                 PeerDataSource.getInstance(ctx).putPeers(peerEntities);
             }
         });
-
     }
 
     public static boolean networkIsReachable() {
@@ -202,22 +193,23 @@ public class BRPeerManager {
     }
 
     public void networkChanged(boolean isOnline) {
-        if (isOnline)
+        if (isOnline) {
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
                 @Override
                 public void run() {
                     BRPeerManager.getInstance().connect();
                 }
             });
-
+        }
     }
 
     public void addStatusUpdateListener(OnTxStatusUpdate listener) {
         if (statusUpdateListeners == null) {
             return;
         }
-        if (!statusUpdateListeners.contains(listener))
+        if (!statusUpdateListeners.contains(listener)) {
             statusUpdateListeners.add(listener);
+        }
     }
 
     public void removeListener(OnTxStatusUpdate listener) {
@@ -264,15 +256,16 @@ public class BRPeerManager {
 
     public native static int getCurrentBlockHeight();
 
-    public  native static int getRelayCount(byte[] hash);
+    public native static int getRelayCount(byte[] hash);
 
-    public  native boolean setFixedPeer(String node, int port);
+    public native boolean setFixedPeer(String node, int port);
 
     public native static int getEstimatedBlockHeight();
 
     public native boolean isCreated();
 
-    //0 = disconnected, 1 = connecting, 2 = connected, -1 = _peerManager is null, -2 = something went wrong.
+    //0 = disconnected, 1 = connecting, 2 = connected, -1 = _peerManager is null, -2 = something
+    // went wrong.
     public native int connectionStatus();
 
     public native void peerManagerFreeEverything();

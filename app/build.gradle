@@ -4,6 +4,10 @@ android {
     compileSdkVersion = 27
     buildToolsVersion = '26.0.3'
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         applicationId = 'io.digibyte'
@@ -125,6 +129,10 @@ android {
         }
 
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 task copyResDirectoryToClasses(type: Copy) {
@@ -143,12 +151,12 @@ def gitUpdateModules() {
 }
 
 repositories {
+    jcenter()
     mavenCentral()
     google()
 }
 
 dependencies {
-
     implementation 'commons-io:commons-io:2.4'
     implementation 'org.eclipse.jetty:jetty-webapp:9.2.19.v20160908'
     implementation 'org.eclipse.jetty.websocket:websocket-server:9.2.19.v20160908'
@@ -171,9 +179,7 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.volley:volley:1.1.0'
-
     androidTestCompile 'tools.fastlane:screengrab:1.1.0'
-
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

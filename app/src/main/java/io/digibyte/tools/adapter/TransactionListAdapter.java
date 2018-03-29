@@ -1,7 +1,6 @@
 package io.digibyte.tools.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,68 +37,28 @@ import io.digibyte.tools.list.ListItemViewHolder;
  * THE SOFTWARE.
  */
 
-public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHolder>
-{
+public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHolder> {
     public static final String TAG = TransactionListAdapter.class.getName();
 
-    private SparseArray<ArrayList<ListItemData>> theItemDataList;
+    private ArrayList<ListItemData> listItemData = new ArrayList<>();
 
-    public TransactionListAdapter()
-    {
-        theItemDataList = new SparseArray<>();
-    }
-
-    public void addSection(int aSectionId)
-    {
-        theItemDataList.put(aSectionId, new ArrayList<ListItemData>());
-    }
-
-    public void removeSection(int aSectionId)
-    {
-        theItemDataList.remove(aSectionId);
-        this.notifyDataSetChanged(); // TODO: Notify correct range position
-    }
-
-    public ArrayList<ListItemData> getItemsInSection(int aSectionId)
-    {
-        return theItemDataList.get(aSectionId, new ArrayList<ListItemData>());
-    }
-
-    public void updateSection(int aSectionId)
-    {
-        this.notifyDataSetChanged(); // TODO: Notify correct range position
-    }
-
-    public void addItemsInSection(int aSectionId, ArrayList<ListItemData> anItemDataList)
-    {
-        theItemDataList.put(aSectionId, anItemDataList);
-        this.notifyDataSetChanged(); // TODO: Notify correct range position
-    }
-
-    public void removeItemInSection(int aSectionId, ListItemData aListItem)
-    {
-        if(null != theItemDataList.get(aSectionId))
-        {
-            theItemDataList.get(aSectionId).remove(aListItem);
-            this.notifyDataSetChanged(); // TODO: Notify correct item position
-        }
+    public void updateTransactions(ArrayList<ListItemData> anItemDataList) {
+        listItemData.clear();
+        listItemData.addAll(anItemDataList);
+        notifyDataSetChanged();
     }
 
     @Override
-    public ListItemViewHolder onCreateViewHolder(ViewGroup aParent, int aResourceId)
-    {
+    public ListItemViewHolder onCreateViewHolder(ViewGroup aParent, int aResourceId) {
         ListItemViewHolder holder;
         LayoutInflater layoutInflater = LayoutInflater.from(aParent.getContext());
         View view = layoutInflater.inflate(aResourceId, aParent, false);
 
-        try
-        {
+        try {
             Class<?> viewHolder = ListItemData.getViewHolder(aResourceId);
             Constructor<?> constructors = viewHolder.getConstructor(View.class);
             holder = (ListItemViewHolder) constructors.newInstance(view);
-        }
-        catch (Exception ignore)
-        {
+        } catch (Exception ignore) {
             holder = new ListItemViewHolder(view);
         }
 
@@ -107,41 +66,21 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHol
     }
 
     @Override
-    public void onBindViewHolder(ListItemViewHolder holder, int aPosition)
-    {
+    public void onBindViewHolder(ListItemViewHolder holder, int aPosition) {
         holder.process(this.getListItemDataForPosition(aPosition));
     }
 
     @Override
-    public int getItemViewType(int aPosition)
-    {
+    public int getItemViewType(int aPosition) {
         return this.getListItemDataForPosition(aPosition).resourceId;
     }
 
     @Override
-    public int getItemCount()
-    {
-        int itemCount = 0;
-        for(int sectionIndex = 0; sectionIndex < theItemDataList.size(); sectionIndex++)
-        {
-            itemCount += theItemDataList.valueAt(sectionIndex).size();
-        }
-        return itemCount;
+    public int getItemCount() {
+        return listItemData.size();
     }
 
-    private ListItemData getListItemDataForPosition(int aPosition)
-    {
-        int currentPosition = -1;
-        for(int sectionIndex = 0; sectionIndex < theItemDataList.size(); sectionIndex++)
-        {
-            for(int index = 0; index < theItemDataList.get(sectionIndex).size(); index++)
-            {
-                if(aPosition == ++currentPosition)
-                {
-                    return theItemDataList.get(sectionIndex).get(index);
-                }
-            }
-        }
-        return null;
+    private ListItemData getListItemDataForPosition(int aPosition) {
+        return listItemData.get(aPosition);
     }
 }

@@ -2,13 +2,12 @@ package io.digibyte.tools.manager;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import io.digibyte.DigiByte;
 import io.digibyte.wallet.BRPeerManager;
@@ -37,12 +36,10 @@ import io.digibyte.wallet.BRPeerManager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class SyncManager
-{
-    public interface onStatusListener
-    {
-        void onSyncManagerStart();
+public class SyncManager {
+    public interface onStatusListener {
         void onSyncManagerUpdate();
+
         void onSyncManagerFinished();
     }
 
@@ -51,93 +48,74 @@ public class SyncManager
 
     private double theProgress;
     private long theLastBlockTimestamp;
-    public double getProgress() { return theProgress; }
-    public long getLastBlockTimestamp() { return theLastBlockTimestamp; }
+    private boolean enabled;
 
-    private ScheduledFuture mScheduledFuture;
-    private static ScheduledExecutorService executorService;
+    public double getProgress() {
+        return theProgress;
+    }
+
+    public long getLastBlockTimestamp() {
+        return theLastBlockTimestamp;
+    }
+
+    private static Executor executorService = Executors.newSingleThreadScheduledExecutor();
     private static Handler handler = new Handler(Looper.getMainLooper());
     private ArrayList<onStatusListener> theListeners = new ArrayList<>();
-    public void addListener(onStatusListener aListener) { theListeners.add(aListener); }
-    public void removeListener(onStatusListener aListener) { theListeners.remove(aListener); }
 
-    public static SyncManager getInstance()
-    {
-        if (instance == null)
-        {
+    public void addListener(onStatusListener aListener) {
+        theListeners.add(aListener);
+    }
+
+    public void removeListener(onStatusListener aListener) {
+        theListeners.remove(aListener);
+    }
+
+    public static SyncManager getInstance() {
+        if (instance == null) {
             instance = new SyncManager();
         }
         return instance;
     }
 
-    public synchronized void startSyncingProgressThread()
-    {
+    public synchronized void startSyncingProgressThread() {
         Log.d(TAG, "startSyncingProgressThread:" + Thread.currentThread().getName());
-        handler.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                for (onStatusListener listener : theListeners)
-                {
-                    listener.onSyncManagerStart();
-                }
-            }
-        });
-        executorService = Executors.newSingleThreadScheduledExecutor();
-        mScheduledFuture = executorService.schedule(syncRunnable, 1, TimeUnit.SECONDS);
+        if (enabled) {
+            return;
+        }
+        enabled = true;
+        handler.postDelayed(() -> executorService.execute(syncRunnable), 2500);
     }
 
-    public synchronized void stopSyncingProgressThread()
-    {
+    public synchronized void stopSyncingProgressThread() {
         Log.d(TAG, "stopSyncingProgressThread");
-        mScheduledFuture.cancel(true);
-        executorService.shutdown();
-        handler.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                for (onStatusListener listener : theListeners)
-                {
-                    listener.onSyncManagerFinished();
-                }
+        if (!enabled) {
+            return;
+        }
+        enabled = false;
+        handler.postDelayed(() -> {
+            for (onStatusListener listener : theListeners) {
+                listener.onSyncManagerFinished();
             }
-        });
+        }, 2500);
     }
 
     private Runnable syncRunnable = new Runnable() {
         @Override
         public void run() {
-            theProgress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(DigiByte.getContext()));
+            SystemClock.sleep(500);
+            theProgress = BRPeerManager.syncProgress(
+                    BRSharedPrefs.getStartHeight(DigiByte.getContext()));
             theLastBlockTimestamp = BRPeerManager.getInstance().getLastBlockTimestamp();
-            handler.post(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    for (onStatusListener listener : theListeners)
-                    {
-                        listener.onSyncManagerUpdate();
-                    }
+            handler.post(() -> {
+                for (onStatusListener listener : theListeners) {
+                    listener.onSyncManagerUpdate();
                 }
             });
-            if (theProgress == 1) {
-                handler.post(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        for (onStatusListener listener : theListeners)
-                        {
-                            listener.onSyncManagerFinished();
-                        }
-                    }
-                });
+            if (theProgress != 1 && enabled) {
+                executorService.execute(syncRunnable);
             } else {
-                mScheduledFuture = executorService.schedule(syncRunnable, 250, TimeUnit.MILLISECONDS);
+                stopSyncingProgressThread();
             }
-
         }
     };
 }

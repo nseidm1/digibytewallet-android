@@ -2,42 +2,35 @@ package io.digibyte.presenter.activities;
 
 import static io.digibyte.tools.animation.BRAnimator.t1Size;
 import static io.digibyte.tools.animation.BRAnimator.t2Size;
-import static io.digibyte.tools.util.BRConstants.PLATFORM_ON;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
 
-import com.platform.APIClient;
-
+import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityBreadBinding;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
 import io.digibyte.presenter.activities.settings.FingerprintActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
@@ -47,13 +40,12 @@ import io.digibyte.presenter.fragments.FragmentManage;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemData;
+import io.digibyte.tools.list.ListItemViewHolder;
 import io.digibyte.tools.list.items.ListItemPromptData;
 import io.digibyte.tools.list.items.ListItemSyncingData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
-import io.digibyte.tools.manager.BREventManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.manager.InternetManager;
 import io.digibyte.tools.manager.PromptManager;
 import io.digibyte.tools.manager.SyncManager;
 import io.digibyte.tools.manager.SyncService;
@@ -94,447 +86,353 @@ import io.digibyte.wallet.BRWalletManager;
  * THE SOFTWARE.
  */
 
-public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged, BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener, TransactionDataSource.OnTxAddedListener, InternetManager.ConnectionReceiverListener, SyncManager.onStatusListener, onStatusListener, BRSearchBar.OnSearchUpdateListener
-{
-    private final int LIST_SECTION_INFORMATION = 0;
-    private final int LIST_SECTION_TRANSACTIONS = 1;
-
-    @BindView(R.id.send_layout)
-    LinearLayout sendButton;
-
-    @BindView(R.id.receive_layout)
-    LinearLayout receiveButton;
-
-    @BindView(R.id.manage_text)
-    TextView manageText;
-
-    @BindView(R.id.menu_layout)
-    LinearLayout menuButton;
-
-    @BindView(R.id.primary_price)
-    TextView primaryPrice;
-
-    @BindView(R.id.secondary_price)
-    TextView secondaryPrice;
-
-    @BindView(R.id.equals)
-    TextView equals;
-
-    @BindView(R.id.toolbar_layout)
-    LinearLayout toolbarLayout;
-
-    @BindView(R.id.search_icon)
-    ImageButton searchIcon;
-
-    @BindView(R.id.search_bar)
-    BRSearchBar searchBar;
-
-    @BindView(R.id.tool_bar_flipper)
-    public ViewFlipper barFlipper;
-
-    @BindView(R.id.bread_toolbar)
-    ConstraintLayout toolBarConstraintLayout;
-
-    @BindView(R.id.tx_list)
-    RecyclerView listView;
-
+public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
+        BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener,
+        TransactionDataSource.OnTxAddedListener, SyncManager.onStatusListener, onStatusListener,
+        BRSearchBar.OnSearchUpdateListener {
+    ActivityBreadBinding bindings;
     private Unbinder unbinder;
     private TxItem[] transactionItems;
     private Handler handler = new Handler(Looper.getMainLooper());
-    private InternetManager mConnectionReceiver = InternetManager.getInstance();
-    private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
     private TransactionListAdapter listViewAdapter = new TransactionListAdapter();
-    private ArrayList<ListItemData> informationList = new ArrayList<>();
+    private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
+    private ListItemViewHolder syncViewHolder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bread);
+        bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
+        bindings.syncContainer.addView(getSyncView());
+        bindings.mainContainer.getLayoutTransition()
+                .enableTransitionType(LayoutTransition.CHANGING);
+        bindings.txList.getItemAnimator().setAddDuration(500);
+        bindings.txList.getItemAnimator().setRemoveDuration(500);
+        bindings.txList.getItemAnimator().setChangeDuration(0);
         unbinder = ButterKnife.bind(this);
-
         initializeViews();
-
-        onConnectionChanged(InternetManager.getInstance().isConnected(this));
-
-        oneTimeGreeting();
         loadNextPromptItem();
-        updateTransactionSection();
-        updateUI();
+        updateTransactions();
     }
 
-    private void oneTimeGreeting() {
-        if (!BRSharedPrefs.getGreetingsShown(BreadActivity.this))
-        {
-            handler.postDelayed(new Runnable()
-            {
+    private void initializeViews() {
+        bindings.txList.setLayoutManager(new LinearLayoutManager(this));
+        bindings.txList.setAdapter(listViewAdapter);
+        bindings.primaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                t1Size);//make it the size it should be after animation to get the X
+        bindings.secondaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                t2Size);//make it the size it should be after animation to get the X
+        handler.post(() -> setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false));
+    }
+
+    private void updateDigibyteDollarValues() {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            final String iso = BRSharedPrefs.getIso(BreadActivity.this);
+
+            //current amount in satoshis
+            final BigDecimal amount = new BigDecimal(
+                    BRSharedPrefs.getCatchedBalance(BreadActivity.this));
+
+            //amount in BTC units
+            final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this,
+                    amount);
+            final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(
+                    BreadActivity.this, "DGB", btcAmount);
+
+            //amount in currency units
+            final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this,
+                    iso, amount);
+            final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(
+                    BreadActivity.this, iso, curAmount);
+            runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
-                    BRAnimator.showGreetingsMessage(BreadActivity.this);
-                    BRSharedPrefs.putGreetingsShown(BreadActivity.this, true);
+                public void run() {
+                    bindings.primaryPrice.setText(formattedBTCAmount);
+                    bindings.secondaryPrice.setText(String.format("%s", formattedCurAmount));
                 }
-            }, 1000);
-        }
-    }
-
-    private void initializeViews()
-    {
-        // Setup list view
-        listView.setItemAnimator(null);
-        listView.setLayoutManager(new LinearLayoutManager(this));
-        listViewAdapter.addSection(LIST_SECTION_INFORMATION);
-        listViewAdapter.addSection(LIST_SECTION_TRANSACTIONS);
-        listView.setAdapter(listViewAdapter);
-        primaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, t1Size);//make it the size it should be after animation to get the X
-        secondaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX, t2Size);//make it the size it should be after animation to get the X
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false);
-            }
+            });
         });
     }
 
-    private void updateUI()
-    {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                final String iso = BRSharedPrefs.getIso(BreadActivity.this);
-
-                //current amount in satoshis
-                final BigDecimal amount = new BigDecimal(BRSharedPrefs.getCatchedBalance(BreadActivity.this));
-
-                //amount in BTC units
-                final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this, amount);
-                final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, "DGB", btcAmount);
-
-                //amount in currency units
-                final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this, iso, amount);
-                final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(BreadActivity.this, iso, curAmount);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        primaryPrice.setText(formattedBTCAmount);
-                        secondaryPrice.setText(String.format("%s", formattedCurAmount));
-
-                    }
-                });
-                TxManager.getInstance().updateTxList();
-            }
-        });
-    }
-
-    private void updateTransactionSection()
-    {
+    private void updateTransactions() {
         ArrayList<ListItemData> transactionList = new ArrayList<>();
-
-        //The third top crash comes from this method, a NPE on the searchBar view
-        //Triggered from line 219 above. My guess is onCreate updateTxList is triggered
-        //and it takes a while for the native BRWalletManager.getInstance().getTransactions()
-        //when this callback is hit the activity has already been destroyed with searchBar being null.
-        //The simple solution for now is to just null check searchBar. It's strange because the
-        //TxManager and the BrPeerManager listeners are both unregistered onPause
-
-        if(null != transactionItems && searchBar != null)
-        {
-            boolean[] switches = searchBar.getFilterSwitches();
-            String searchQuery = searchBar.getSearchQuery().toLowerCase().trim();
+        if (null != transactionItems && bindings.searchBar != null) {
+            boolean[] switches = bindings.searchBar.getFilterSwitches();
+            String searchQuery = bindings.searchBar.getSearchQuery().toLowerCase().trim();
 
             int switchesON = 0;
             for (boolean i : switches) if (i) switchesON++;
             int transactionsCount = transactionItems.length;
-            for (int index = 0; index < transactionsCount; index++)
-            {
+            boolean matchesHash;
+            boolean matchesAddress;
+            boolean matchesMemo;
+            boolean willAdd;
+            for (int index = 0; index < transactionsCount; index++) {
                 TxItem item = transactionItems[index];
-                boolean matchesHash = item.getTxHashHexReversed() != null && item.getTxHashHexReversed().contains(searchQuery);
-                boolean matchesAddress = item.getFrom()[0].contains(searchQuery) || item.getTo()[0].contains(searchQuery);
-                boolean matchesMemo = item.metaData != null && item.metaData.comment != null && item.metaData.comment.toLowerCase().contains(searchQuery);
+                matchesHash =
+                        item.getTxHashHexReversed() != null &&
+                                item.getTxHashHexReversed().contains(searchQuery);
+                matchesAddress = item.getFrom()[0].contains(searchQuery)
+                        || item.getTo()[0].contains(searchQuery);
+                matchesMemo = item.metaData != null && item.metaData.comment != null
+                        && item.metaData.comment.toLowerCase().contains(searchQuery);
 
                 // Can we optimize this?
-                if (matchesHash || matchesAddress || matchesMemo)
-                {
-                    boolean willAdd = true;
+                if (matchesHash || matchesAddress || matchesMemo) {
+                    willAdd = true;
 
-                    if (switchesON > 0)
-                    {
+                    if (switchesON > 0) {
                         // filter by sent and this is received
-                        if (switches[0] && (item.getSent() - item.getReceived() <= 0))
-                        {
+                        if (switches[0] && (item.getSent() - item.getReceived() <= 0)) {
                             willAdd = false;
                         }
 
                         // filter by received and this is sent
-                        if (switches[1] && (item.getSent() - item.getReceived() > 0))
-                        {
+                        if (switches[1] && (item.getSent() - item.getReceived() > 0)) {
                             willAdd = false;
                         }
 
                         // complete
-                        int confirms = item.getBlockHeight() == Integer.MAX_VALUE ? 0 : BRSharedPrefs.getLastBlockHeight(this) - item.getBlockHeight() + 1;
-                        if (switches[2] && confirms >= 6)
-                        {
+                        int confirms = item.getBlockHeight() == Integer.MAX_VALUE ? 0
+                                : BRSharedPrefs.getLastBlockHeight(this) - item.getBlockHeight()
+                                        + 1;
+                        if (switches[2] && confirms >= 6) {
                             willAdd = false;
                         }
 
                         // pending
-                        if (switches[3] && confirms < 6)
-                        {
+                        if (switches[3] && confirms < 6) {
                             willAdd = false;
                         }
                     }
 
-                    if (willAdd)
-                    {
-                        transactionList.add(new ListItemTransactionData(index, transactionsCount, transactionItems[index], onTransactionListItemClick));
+                    if (willAdd) {
+                        transactionList.add(new ListItemTransactionData(index, transactionsCount,
+                                transactionItems[index], onTransactionListItemClick));
                     }
                 }
             }
         }
-        listViewAdapter.addItemsInSection(LIST_SECTION_TRANSACTIONS, transactionList);
+        listViewAdapter.updateTransactions(transactionList);
     }
 
-    private void loadNextPromptItem()
-    {
+    private void loadNextPromptItem() {
         PromptManager.PromptItem promptItem = PromptManager.getInstance().nextPrompt();
-        if (null != promptItem)
-        {
-            informationList.add(new ListItemPromptData(promptItem, onPromptListItemClick, onPromptListItemCloseClick));
-            BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(promptItem) + ".displayed");
-            listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
+        if (null != promptItem) {
+            showPrompt(new ListItemPromptData(promptItem, onPromptListItemClick,
+                    onPromptListItemCloseClick));
+        }
+    }
+
+    private View getSyncView() {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View view = layoutInflater.inflate(listItemSyncingData.resourceId, bindings.syncContainer,
+                false);
+        view.setVisibility(View.GONE);
+        try {
+            Class<?> viewHolder = ListItemData.getViewHolder(listItemSyncingData.resourceId);
+            Constructor<?> constructors = viewHolder.getConstructor(View.class);
+            syncViewHolder = (ListItemViewHolder) constructors.newInstance(view);
+        } catch (Exception ignore) {
+            syncViewHolder = new ListItemViewHolder(view);
+        }
+        return view;
+    }
+
+    private void showPrompt(ListItemPromptData listItemPromptData) {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View view = layoutInflater.inflate(listItemPromptData.resourceId, bindings.syncContainer,
+                false);
+        ListItemViewHolder promptViewHolder;
+        try {
+            Class<?> viewHolder = ListItemData.getViewHolder(listItemPromptData.resourceId);
+            Constructor<?> constructors = viewHolder.getConstructor(View.class);
+            promptViewHolder = (ListItemViewHolder) constructors.newInstance(view);
+        } catch (Exception ignore) {
+            promptViewHolder = new ListItemViewHolder(view);
+        }
+        bindings.promptContainer.getLayoutTransition()
+                .enableTransitionType(LayoutTransition.CHANGING);
+        bindings.promptContainer.addView(view);
+        bindings.promptContainer.getLayoutTransition()
+                .disableTransitionType(LayoutTransition.CHANGING);
+        promptViewHolder.process(listItemPromptData);
+    }
+
+    private void removePrompt() {
+        bindings.promptContainer.getLayoutTransition()
+                .enableTransitionType(LayoutTransition.CHANGING);
+        bindings.promptContainer.removeAllViews();
+        bindings.promptContainer.getLayoutTransition()
+                .disableTransitionType(LayoutTransition.CHANGING);
+    }
+
+    public void closeSearchBar() {
+        if (bindings != null) {
+            bindings.toolBarFlipper.setDisplayedChild(0);
+        }
+    }
+
+    public void openSearchBar() {
+        if (bindings != null) {
+            bindings.toolBarFlipper.setDisplayedChild(1);
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// List item click listeners ////////////////////////////////////////////
+    //////////////////////////////////////////////// List item click listeners
+    /// ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private ListItemData.OnListItemClickListener onTransactionListItemClick = new ListItemData.OnListItemClickListener()
-    {
-        @Override
-        public void onListItemClick(ListItemData aListItemData)
-        {
-            int position = 0;
-            ArrayList<TxItem> transactionItems = new ArrayList<>();
-            ArrayList<ListItemData> transactionList = listViewAdapter.getItemsInSection(LIST_SECTION_TRANSACTIONS);
-            for(int index = 0; index < transactionList.size(); index++)
-            {
-                ListItemTransactionData listItem = (ListItemTransactionData) transactionList.get(index);
-                if(listItem.equals(aListItemData))
-                {
-                    position = index;
+
+    private ListItemData.OnListItemClickListener onTransactionListItemClick =
+            aListItemData -> {
+                int position = 0;
+                ListItemTransactionData listItemTransactionData =
+                        (ListItemTransactionData) aListItemData;
+                for (int index = 0; index < this.transactionItems.length; index++) {
+                    if (listItemTransactionData.getTransactionItem()
+                            == this.transactionItems[index]) {
+                        position = index;
+                    }
                 }
-                transactionItems.add(listItem.transactionItem);
-            }
-            BRAnimator.showTransactionPager(BreadActivity.this, transactionItems, position);
-        }
-    };
+                BRAnimator.showTransactionPager(BreadActivity.this, Arrays.asList(transactionItems),
+                        position);
+            };
 
-    private ListItemData.OnListItemClickListener onPromptListItemClick = new ListItemData.OnListItemClickListener()
-    {
-        @Override
-        public void onListItemClick(ListItemData aListItemData)
-        {
-            Intent intent;
-            final Activity activity = BreadActivity.this;
-            ListItemPromptData data = (ListItemPromptData) aListItemData;
+    private ListItemData.OnListItemClickListener onPromptListItemClick =
+            aListItemData -> {
+                Intent intent;
+                final Activity activity = BreadActivity.this;
+                ListItemPromptData data = (ListItemPromptData) aListItemData;
 
-            BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(data.promptItem) + ".trigger");
+                switch (data.promptItem) {
+                    case SYNCING:
+                        break;
+                    case FINGER_PRINT:
+                        intent = new Intent(activity, FingerprintActivity.class);
+                        activity.startActivity(intent);
+                        activity.overridePendingTransition(R.anim.enter_from_right,
+                                R.anim.exit_to_left);
+                        break;
+                    case PAPER_KEY:
+                        intent = new Intent(activity, WriteDownActivity.class);
+                        activity.startActivity(intent);
+                        activity.overridePendingTransition(R.anim.enter_from_bottom,
+                                R.anim.fade_down);
+                        break;
+                    case UPGRADE_PIN:
+                        intent = new Intent(activity, UpdatePinActivity.class);
+                        activity.startActivity(intent);
+                        activity.overridePendingTransition(R.anim.enter_from_right,
+                                R.anim.exit_to_left);
+                        break;
+                    case RECOMMEND_RESCAN:
+                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        BRSharedPrefs.putStartHeight(activity, 0);
+                                        BRPeerManager.getInstance().rescan();
+                                        BRSharedPrefs.putScanRecommended(activity, false);
+                                    }
+                                });
+                        break;
+                    case NO_PASS_CODE:
+                        break;
+                }
+            };
 
-            switch (data.promptItem)
-            {
-                case SYNCING:
-                    break;
-                case FINGER_PRINT:
-                    intent = new Intent(activity, FingerprintActivity.class);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    break;
-                case PAPER_KEY:
-                    intent = new Intent(activity, WriteDownActivity.class);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-                    break;
-                case UPGRADE_PIN:
-                    intent = new Intent(activity, UpdatePinActivity.class);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    break;
-                case RECOMMEND_RESCAN:
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            BRSharedPrefs.putStartHeight(activity, 0);
-                            BRPeerManager.getInstance().rescan();
-                            BRSharedPrefs.putScanRecommended(activity, false);
-                        }
-                    });
-                    break;
-                case NO_PASS_CODE:
-                    break;
-            }
-        }
-    };
-
-    private ListItemData.OnListItemClickListener onPromptListItemCloseClick = new ListItemData.OnListItemClickListener()
-    {
-        @Override
-        public void onListItemClick(ListItemData aListItemData)
-        {
-            ListItemPromptData data = (ListItemPromptData) aListItemData;
-            informationList.remove(data);
-            listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, data);
-            BRSharedPrefs.putPromptDismissed(BreadActivity.this, PromptManager.getInstance().getPromptName(data.promptItem));
-            BREventManager.getInstance().pushEvent("prompt." + PromptManager.getInstance().getPromptName(data.promptItem) + ".dismissed");
-            loadNextPromptItem();
-        }
-    };
+    private ListItemData.OnListItemClickListener onPromptListItemCloseClick =
+            aListItemData -> {
+                ListItemPromptData data = (ListItemPromptData) aListItemData;
+                removePrompt();
+                BRSharedPrefs.putPromptDismissed(BreadActivity.this,
+                        PromptManager.getInstance().getPromptName(data.promptItem));
+                loadNextPromptItem();
+            };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// Manager Listeners ////////////////////////////////////////////////////
+    //////////////////////////////////////////////// Manager Listeners
+    /// ////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void onSyncManagerStart()
-    {
-        informationList.clear();
-        informationList.add(listItemSyncingData);
-        //Avoid illegal state exception associated with triggering a notifyDataSetChange
-        //potentially during a layout pass or scroll event
-        handler.post(new Runnable()
-        {
-            @Override
-            public void run() {
-                listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
-            }
-        });
-    }
 
-    public void onSyncManagerUpdate()
-    {
-        if (!informationList.contains(listItemSyncingData)) {
-            informationList.clear();
-            informationList.add(listItemSyncingData);
-            listViewAdapter.addItemsInSection(LIST_SECTION_INFORMATION, informationList);
+    public void onSyncManagerUpdate() {
+        if (bindings.syncContainer.getChildAt(0).getVisibility() != View.VISIBLE) {
+            bindings.syncContainer.getLayoutTransition()
+                    .enableTransitionType(LayoutTransition.CHANGING);
+            bindings.syncContainer.getChildAt(0).setVisibility(View.VISIBLE);
+            bindings.syncContainer.getLayoutTransition()
+                    .disableTransitionType(LayoutTransition.CHANGING);
         }
-        listViewAdapter.updateSection(LIST_SECTION_INFORMATION);
+        syncViewHolder.process(listItemSyncingData);
     }
 
     @Override
-    public void onSyncManagerFinished()
-    {
-        listViewAdapter.removeItemInSection(LIST_SECTION_INFORMATION, listItemSyncingData);
-        informationList.clear();
-        loadNextPromptItem();
+    public void onSyncManagerFinished() {
+        if (bindings.syncContainer.getChildAt(0).getVisibility() != View.GONE) {
+            bindings.syncContainer.getLayoutTransition()
+                    .enableTransitionType(LayoutTransition.CHANGING);
+            bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
+            bindings.syncContainer.getLayoutTransition()
+                    .disableTransitionType(LayoutTransition.CHANGING);
+        }
     }
 
     @Override
-    public void onTxManagerUpdate(TxItem[] aTransactionList)
-    {
+    public void onTxManagerUpdate(TxItem[] aTransactionList) {
         transactionItems = aTransactionList;
-        updateTransactionSection();
+        updateTransactions();
     }
 
     @Override
-    public void onStatusUpdate()
-    {
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                TxManager.getInstance().updateTxList();
-            }
-        });
+    public void onStatusUpdate() {
+        TxManager.getInstance().updateTxList();
     }
 
     @Override
-    public void onIsoChanged(String iso)
-    {
-        updateUI();
+    public void onIsoChanged(String iso) {
+        updateDigibyteDollarValues();
     }
 
     @Override
-    public void onTxAdded()
-    {
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                TxManager.getInstance().updateTxList();
-            }
-        });
+    public void onTxAdded() {
+        TxManager.getInstance().updateTxList();
         BRWalletManager.getInstance().refreshBalance(BreadActivity.this);
     }
 
     @Override
-    public void onConnectionChanged(boolean isConnected)
-    {
-        if (isConnected)
-        {
-            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(BreadActivity.this));
-                    if (progress < 1 && progress > 0)
-                    {
-                        SyncManager.getInstance().startSyncingProgressThread();
-                    }
-                }
-            });
-        }
-        else
-        {
-            SyncManager.getInstance().stopSyncingProgressThread();
-        }
-    }
-
-    @Override
-    public void onBalanceChanged(final long balance)
-    {
-        updateUI();
+    public void onBalanceChanged(final long balance) {
+        updateDigibyteDollarValues();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// UI OnClick Listeners /////////////////////////////////////////////////
+    //////////////////////////////////////////////// UI OnClick Listeners
+    /// /////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @OnClick(R.id.send_layout)
-    void onButtonSend(View view)
-    {
-        if (BRAnimator.isClickAllowed())
-        {
+    void onButtonSend(View view) {
+        if (BRAnimator.isClickAllowed()) {
             BRAnimator.showSendFragment(BreadActivity.this, null);
         }
     }
 
     @OnClick(R.id.receive_layout)
-    void onButtonReceive(View view)
-    {
-        if (BRAnimator.isClickAllowed())
-        {
+    void onButtonReceive(View view) {
+        if (BRAnimator.isClickAllowed()) {
             BRAnimator.showReceiveFragment(BreadActivity.this, true);
         }
     }
 
     @OnClick(R.id.menu_layout)
-    void onMenuButtonClick(View view)
-    {
-        if (BRAnimator.isClickAllowed())
-        {
+    void onMenuButtonClick(View view) {
+        if (BRAnimator.isClickAllowed()) {
             BRAnimator.showMenuFragment(BreadActivity.this);
         }
     }
 
     @OnClick(R.id.manage_text)
-    void onManageTextClick(View view)
-    {
-        if (BRAnimator.isClickAllowed())
-        {
+    void onManageTextClick(View view) {
+        if (BRAnimator.isClickAllowed()) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
             FragmentManage fragmentManage = new FragmentManage();
@@ -545,10 +443,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     @OnClick(R.id.primary_price)
-    void onPrimaryPriceClick(View view)
-    {
-        if (BRAnimator.isClickAllowed())
-        {
+    void onPrimaryPriceClick(View view) {
+        if (BRAnimator.isClickAllowed()) {
             boolean b = !BRSharedPrefs.getPreferredBTC(BreadActivity.this);
             setPriceTags(b, true);
             BRSharedPrefs.putPreferredBTC(BreadActivity.this, b);
@@ -556,187 +452,109 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     @OnClick(R.id.search_icon)
-    void onSearchClick(View view)
-    {
-        if (BRAnimator.isClickAllowed())
-        {
-            barFlipper.setDisplayedChild(1); //search bar
-            searchBar.onShow(true);
+    void onSearchClick(View view) {
+        if (BRAnimator.isClickAllowed()) {
+            openSearchBar();
+            bindings.searchBar.onShow(true);
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// LEFT OVERS CLEANUP? //////////////////////////////////////////////////
+    //////////////////////////////////////////////// LEFT OVERS CLEANUP?
+    /// //////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void setPriceTags(boolean btcPreferred, boolean animate)
-    {
-        secondaryPrice.setTextSize(!btcPreferred ? t1Size : t2Size);
-        primaryPrice.setTextSize(!btcPreferred ? t2Size : t1Size);
+
+    private void setPriceTags(boolean btcPreferred, boolean animate) {
+        bindings.secondaryPrice.setTextSize(!btcPreferred ? t1Size : t2Size);
+        bindings.primaryPrice.setTextSize(!btcPreferred ? t2Size : t1Size);
         ConstraintSet set = new ConstraintSet();
-        set.clone(toolBarConstraintLayout);
-        if (animate)
-        {
-            TransitionManager.beginDelayedTransition(toolBarConstraintLayout);
+        set.clone(bindings.breadToolbar);
+        if (animate) {
+            TransitionManager.beginDelayedTransition(bindings.breadToolbar);
         }
         int px4 = Utils.getPixelsFromDps(this, 4);
         int px16 = Utils.getPixelsFromDps(this, 16);
-        //align to parent left
-        set.connect(!btcPreferred ? R.id.secondary_price : R.id.primary_price, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.END, px16);
-        //align equals after the first item
-        set.connect(R.id.equals, ConstraintSet.START, !btcPreferred ? secondaryPrice.getId() : primaryPrice.getId(), ConstraintSet.END, px4);
-        //align second item after equals
-        set.connect(!btcPreferred ? R.id.primary_price : R.id.secondary_price, ConstraintSet.START, equals.getId(), ConstraintSet.END, px4);
-        //        align the second item to the baseline of the first
-        //        set.connect(!btcPreferred ? R.id.primary_price : R.id.secondary_price, ConstraintSet.BASELINE, btcPreferred ? R.id.primary_price : R.id.secondary_price, ConstraintSet.BASELINE, 0);
-        // Apply the changes
-        set.applyTo(toolBarConstraintLayout);
+        set.connect(!btcPreferred ? R.id.secondary_price : R.id.primary_price, ConstraintSet.START,
+                ConstraintSet.PARENT_ID, ConstraintSet.END, px16);
+        set.connect(R.id.equals, ConstraintSet.START,
+                !btcPreferred ? bindings.secondaryPrice.getId() : bindings.primaryPrice.getId(),
+                ConstraintSet.END,
+                px4);
+        set.connect(!btcPreferred ? R.id.primary_price : R.id.secondary_price, ConstraintSet.START,
+                bindings.equals.getId(), ConstraintSet.END, px4);
+        set.applyTo(bindings.breadToolbar);
 
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                updateUI();
-            }
-        }, toolBarConstraintLayout.getLayoutTransition().getDuration(LayoutTransition.CHANGING));
-    }
-
-    //returns x-pos relative to root layout
-    private float getRelativeX(View myView)
-    {
-        if (myView.getParent() == myView.getRootView())
-        {
-            return myView.getX();
-        }
-        else
-        {
-            return myView.getX() + getRelativeX((View) myView.getParent());
-        }
+        new Handler().postDelayed(() ->
+                        updateDigibyteDollarValues(),
+                bindings.breadToolbar.getLayoutTransition().getDuration(LayoutTransition.CHANGING));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// Activity overrides ///////////////////////////////////////////////////
+    //////////////////////////////////////////////// Activity overrides
+    /// ///////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
+    protected void onSaveInstanceState(Bundle outState) {
         //leave it empty because the FragmentMenu is improperly designed
     }
 
     @Override
-    protected void onNewIntent(Intent intent)
-    {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
         Uri data = intent.getData();
-        if (data != null)
-        {
+        if (data != null) {
             String scheme = data.getScheme();
-            if (scheme != null && (scheme.startsWith("digibyte") || scheme.startsWith("digiid")))
-            {
+            if (scheme != null && (scheme.startsWith("digibyte") || scheme.startsWith("digiid"))) {
                 BitcoinUrlHandler.processRequest(this, intent.getDataString());
             }
         }
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
-        if (PLATFORM_ON)
-        {
-            APIClient.getInstance(this).updatePlatform();
-        }
-
-        IntentFilter mNetworkStateFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mConnectionReceiver, mNetworkStateFilter);
-        InternetManager.addConnectionListener(this);
-
-        if (!BRWalletManager.getInstance().isCreated())
-        {
-            BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    BRWalletManager.getInstance().initWallet(BreadActivity.this);
-                }
-            });
-        }
-        handler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                updateUI();
-            }
-        }, 1000);
-
+        updateDigibyteDollarValues();
+        BRWalletManager.openWalletIfNecessary(this);
         BRWalletManager.getInstance().addBalanceChangedListener(this);
         BRPeerManager.getInstance().addStatusUpdateListener(this);
         BRSharedPrefs.addIsoChangedListener(this);
-
         TxManager.getInstance().addListener(this);
         SyncManager.getInstance().addListener(this);
-
         BRWalletManager.getInstance().refreshBalance(this);
         SyncService.scheduleBackgroundSync(this);
-        TxManager.getInstance().onResume(BreadActivity.this);
-
+        TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().updateCurrencyData(this);
-
-        searchBar.setOnUpdateListener(this);
+        bindings.searchBar.setOnUpdateListener(this);
+        SyncManager.getInstance().startSyncingProgressThread();
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
-        unregisterReceiver(mConnectionReceiver);
-        InternetManager.removeConnectionListener(this);
-
         BRWalletManager.getInstance().removeListener(this);
         BRPeerManager.getInstance().removeListener(this);
         BRSharedPrefs.removeListener(this);
-
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
-
-        searchBar.setOnUpdateListener(null);
-
-        //sync the kv stores
-        if (PLATFORM_ON)
-        {
-            BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    APIClient.getInstance(BreadActivity.this).syncKvStore();
-                }
-            });
-        }
+        SyncManager.getInstance().stopSyncingProgressThread();
+        bindings.searchBar.setOnUpdateListener(null);
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode)
-        {
-            case BRConstants.CAMERA_REQUEST_ID:
-            {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
+        switch (requestCode) {
+            case BRConstants.CAMERA_REQUEST_ID: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
                 }
                 break;
@@ -746,6 +564,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSearchBarFilterUpdate() {
-        updateTransactionSection();
+        updateTransactions();
     }
 }

@@ -116,7 +116,6 @@ public class BRApiManager {
         });
     }
 
-
     private static JSONArray fetchRates(Activity activity) {
         String jsonString = urlGET(activity, "https://" + DigiByte.HOST + "/rates.php");
         JSONArray jsonArray = null;

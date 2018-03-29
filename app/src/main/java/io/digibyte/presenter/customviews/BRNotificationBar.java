@@ -2,15 +2,8 @@ package io.digibyte.presenter.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Handler;
-import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
@@ -67,8 +60,8 @@ public class BRNotificationBar extends android.support.v7.widget.Toolbar {
     private void init(AttributeSet attrs) {
         inflate(getContext(), R.layout.notification_bar, this);
         breadActivity = (BreadActivity) getContext();
-        description = (BRText) findViewById(R.id.description);
-        close = (BRButton) findViewById(R.id.cancel_button);
+        description = findViewById(R.id.description);
+        close = findViewById(R.id.cancel_button);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.BRNotificationBar);
         final int N = a.getIndexCount();
@@ -82,14 +75,6 @@ public class BRNotificationBar extends android.support.v7.widget.Toolbar {
             }
         }
         a.recycle();
-
-        close.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                breadActivity.barFlipper.setDisplayedChild(0);
-            }
-        });
-
+        close.setOnClickListener(v -> breadActivity.closeSearchBar());
     }
-
 }

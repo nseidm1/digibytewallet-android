@@ -52,4 +52,40 @@ public class TxMetaData {
     public int txSize;
     public int creationTime;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TxMetaData that = (TxMetaData) o;
+
+        if (classVersion != that.classVersion) return false;
+        if (blockHeight != that.blockHeight) return false;
+        if (Double.compare(that.exchangeRate, exchangeRate) != 0) return false;
+        if (fee != that.fee) return false;
+        if (txSize != that.txSize) return false;
+        if (creationTime != that.creationTime) return false;
+        if (deviceId != null ? !deviceId.equals(that.deviceId) : that.deviceId != null)
+            return false;
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+        return exchangeCurrency != null ? exchangeCurrency.equals(that.exchangeCurrency)
+                : that.exchangeCurrency == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = deviceId != null ? deviceId.hashCode() : 0;
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (exchangeCurrency != null ? exchangeCurrency.hashCode() : 0);
+        result = 31 * result + classVersion;
+        result = 31 * result + blockHeight;
+        temp = Double.doubleToLongBits(exchangeRate);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (int) (fee ^ (fee >>> 32));
+        result = 31 * result + txSize;
+        result = 31 * result + creationTime;
+        return result;
+    }
 }

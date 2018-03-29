@@ -1,26 +1,12 @@
 package io.digibyte.tools.manager;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.WorkerThread;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.AttributeSet;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
-import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 
 
@@ -48,10 +34,8 @@ import io.digibyte.wallet.BRWalletManager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class TxManager
-{
-    public interface onStatusListener
-    {
+public class TxManager {
+    public interface onStatusListener {
         void onTxManagerUpdate(TxItem[] aTransactionList);
     }
 
@@ -59,53 +43,34 @@ public class TxManager
     private static TxManager instance;
 
     private ArrayList<onStatusListener> theListeners;
-    public void addListener(onStatusListener aListener) { theListeners.add(aListener); }
-    public void removeListener(onStatusListener aListener) { theListeners.remove(aListener); }
 
-    public static TxManager getInstance()
-    {
-        if (instance == null)
-        {
+    public void addListener(onStatusListener aListener) {
+        theListeners.add(aListener);
+    }
+
+    public void removeListener(onStatusListener aListener) {
+        theListeners.remove(aListener);
+    }
+
+    public static TxManager getInstance() {
+        if (instance == null) {
             instance = new TxManager();
         }
         return instance;
     }
 
-    private TxManager()
-    {
+    private TxManager() {
         theListeners = new ArrayList<>();
     }
 
-    public void onResume(final Activity app)
-    {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                final double progress = BRPeerManager.syncProgress(BRSharedPrefs.getStartHeight(app));
-                if (progress > 0 && progress < 1)
-                {
-                    updateTxList();
-                }
-            }
-        });
-    }
-
-    @WorkerThread
-    public synchronized void updateTxList()
-    {
-        final TxItem[] transactions = BRWalletManager.getInstance().getTransactions();
-        new Handler(Looper.getMainLooper()).post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                for (onStatusListener listener : theListeners)
-                {
+    public synchronized void updateTxList() {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            final TxItem[] transactions = BRWalletManager.getInstance().getTransactions();
+            new Handler(Looper.getMainLooper()).post(() -> {
+                for (onStatusListener listener : theListeners) {
                     listener.onTxManagerUpdate(transactions);
                 }
-            }
+            });
         });
     }
 }
