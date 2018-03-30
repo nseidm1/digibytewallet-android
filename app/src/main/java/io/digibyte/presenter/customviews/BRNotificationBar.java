@@ -38,9 +38,6 @@ public class BRNotificationBar extends android.support.v7.widget.Toolbar {
 
     private BreadActivity breadActivity;
     private BRText description;
-    private BRButton close;
-
-    public boolean[] filterSwitches = new boolean[4];
 
     public BRNotificationBar(Context context) {
         super(context);
@@ -61,7 +58,6 @@ public class BRNotificationBar extends android.support.v7.widget.Toolbar {
         inflate(getContext(), R.layout.notification_bar, this);
         breadActivity = (BreadActivity) getContext();
         description = findViewById(R.id.description);
-        close = findViewById(R.id.cancel_button);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.BRNotificationBar);
         final int N = a.getIndexCount();
@@ -75,6 +71,5 @@ public class BRNotificationBar extends android.support.v7.widget.Toolbar {
             }
         }
         a.recycle();
-        close.setOnClickListener(v -> breadActivity.closeSearchBar());
     }
 }

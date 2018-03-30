@@ -21,7 +21,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import java.lang.reflect.Constructor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +41,9 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
 import io.digibyte.tools.list.items.ListItemPromptData;
+import io.digibyte.tools.list.items.ListItemPromptViewHolder;
 import io.digibyte.tools.list.items.ListItemSyncingData;
+import io.digibyte.tools.list.items.ListItemSyncingViewHolder;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -60,6 +61,7 @@ import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
+import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 
 /**
  * BreadWallet
@@ -92,9 +94,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSearchBar.OnSearchUpdateListener {
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
-    private TxItem[] transactionItems;
+    private ArrayList<ListItemTransactionData> transactions = new ArrayList<>();
     private Handler handler = new Handler(Looper.getMainLooper());
-    private TransactionListAdapter listViewAdapter = new TransactionListAdapter();
+    private TransactionListAdapter listViewAdapter;
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
     private ListItemViewHolder syncViewHolder;
 
@@ -102,16 +104,17 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
+        listViewAdapter = new TransactionListAdapter(bindings.txList);
         bindings.syncContainer.addView(getSyncView());
         bindings.mainContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
-        bindings.txList.getItemAnimator().setAddDuration(500);
-        bindings.txList.getItemAnimator().setRemoveDuration(500);
-        bindings.txList.getItemAnimator().setChangeDuration(0);
+        SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
+        slideInDownAnimator.setAddDuration(500);
+        slideInDownAnimator.setChangeDuration(0);
+        bindings.txList.setItemAnimator(slideInDownAnimator);
         unbinder = ButterKnife.bind(this);
         initializeViews();
         loadNextPromptItem();
-        updateTransactions();
     }
 
     private void initializeViews() {
@@ -153,28 +156,30 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    private void updateTransactions() {
-        ArrayList<ListItemData> transactionList = new ArrayList<>();
-        if (null != transactionItems && bindings.searchBar != null) {
+    private void showSearchTransactions() {
+        ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
+        if (bindings.searchBar != null && isSearching()) {
             boolean[] switches = bindings.searchBar.getFilterSwitches();
             String searchQuery = bindings.searchBar.getSearchQuery().toLowerCase().trim();
 
             int switchesON = 0;
             for (boolean i : switches) if (i) switchesON++;
-            int transactionsCount = transactionItems.length;
+            int transactionsCount = transactions.size();
             boolean matchesHash;
             boolean matchesAddress;
             boolean matchesMemo;
             boolean willAdd;
             for (int index = 0; index < transactionsCount; index++) {
-                TxItem item = transactionItems[index];
+                ListItemTransactionData transactionData = transactions.get(index);
+                TxItem item = transactionData.transactionItem;
                 matchesHash =
                         item.getTxHashHexReversed() != null &&
-                                item.getTxHashHexReversed().contains(searchQuery);
-                matchesAddress = item.getFrom()[0].contains(searchQuery)
-                        || item.getTo()[0].contains(searchQuery);
+                                item.getTxHashHexReversed().toLowerCase().contains(
+                                        searchQuery.toLowerCase());
+                matchesAddress = item.getFrom()[0].toLowerCase().contains(searchQuery.toLowerCase())
+                        || item.getTo()[0].toLowerCase().contains(searchQuery.toLowerCase());
                 matchesMemo = item.metaData != null && item.metaData.comment != null
-                        && item.metaData.comment.toLowerCase().contains(searchQuery);
+                        && item.metaData.comment.toLowerCase().contains(searchQuery.toLowerCase());
 
                 // Can we optimize this?
                 if (matchesHash || matchesAddress || matchesMemo) {
@@ -206,13 +211,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                     }
 
                     if (willAdd) {
-                        transactionList.add(new ListItemTransactionData(index, transactionsCount,
-                                transactionItems[index], onTransactionListItemClick));
+                        transactionList.add(transactionData);
                     }
                 }
             }
         }
-        listViewAdapter.updateTransactions(transactionList);
+        listViewAdapter.showSearchResults(transactionList);
     }
 
     private void loadNextPromptItem() {
@@ -228,13 +232,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         View view = layoutInflater.inflate(listItemSyncingData.resourceId, bindings.syncContainer,
                 false);
         view.setVisibility(View.GONE);
-        try {
-            Class<?> viewHolder = ListItemData.getViewHolder(listItemSyncingData.resourceId);
-            Constructor<?> constructors = viewHolder.getConstructor(View.class);
-            syncViewHolder = (ListItemViewHolder) constructors.newInstance(view);
-        } catch (Exception ignore) {
-            syncViewHolder = new ListItemViewHolder(view);
-        }
+        syncViewHolder = new ListItemSyncingViewHolder(view);
         return view;
     }
 
@@ -242,20 +240,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View view = layoutInflater.inflate(listItemPromptData.resourceId, bindings.syncContainer,
                 false);
-        ListItemViewHolder promptViewHolder;
-        try {
-            Class<?> viewHolder = ListItemData.getViewHolder(listItemPromptData.resourceId);
-            Constructor<?> constructors = viewHolder.getConstructor(View.class);
-            promptViewHolder = (ListItemViewHolder) constructors.newInstance(view);
-        } catch (Exception ignore) {
-            promptViewHolder = new ListItemViewHolder(view);
-        }
+        ListItemPromptViewHolder listItemPromptViewHolder = new ListItemPromptViewHolder(view);
         bindings.promptContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         bindings.promptContainer.addView(view);
         bindings.promptContainer.getLayoutTransition()
                 .disableTransitionType(LayoutTransition.CHANGING);
-        promptViewHolder.process(listItemPromptData);
+        listItemPromptViewHolder.process(listItemPromptData);
     }
 
     private void removePrompt() {
@@ -267,36 +258,26 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     public void closeSearchBar() {
-        if (bindings != null) {
-            bindings.toolBarFlipper.setDisplayedChild(0);
-        }
+        bindings.toolBarFlipper.setDisplayedChild(0);
+        handler.postDelayed(() -> {
+            bindings.searchBar.toggleKeyboard(false);
+            listViewAdapter.clearSearchResults();
+        }, 250);
     }
 
     public void openSearchBar() {
-        if (bindings != null) {
-            bindings.toolBarFlipper.setDisplayedChild(1);
-        }
+        bindings.searchBar.toggleKeyboard(true);
+        bindings.toolBarFlipper.setDisplayedChild(1);
+    }
+
+    private boolean isSearching() {
+        return bindings.toolBarFlipper.getDisplayedChild() == 1;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// List item click listeners
     /// ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private ListItemData.OnListItemClickListener onTransactionListItemClick =
-            aListItemData -> {
-                int position = 0;
-                ListItemTransactionData listItemTransactionData =
-                        (ListItemTransactionData) aListItemData;
-                for (int index = 0; index < this.transactionItems.length; index++) {
-                    if (listItemTransactionData.getTransactionItem()
-                            == this.transactionItems[index]) {
-                        position = index;
-                    }
-                }
-                BRAnimator.showTransactionPager(BreadActivity.this, Arrays.asList(transactionItems),
-                        position);
-            };
 
     private ListItemData.OnListItemClickListener onPromptListItemClick =
             aListItemData -> {
@@ -379,8 +360,25 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onTxManagerUpdate(TxItem[] aTransactionList) {
-        transactionItems = aTransactionList;
-        updateTransactions();
+        if (aTransactionList == null || isSearching()) {
+            return;
+        }
+        ArrayList<TxItem> transactionsData = new ArrayList<>(Arrays.asList(aTransactionList));
+        transactions.clear();
+        for (TxItem tx : transactionsData) {
+            transactions.add(new ListItemTransactionData(transactionsData.indexOf(tx),
+                    transactionsData.size(), tx));
+        }
+        ArrayList<ListItemTransactionData> transactionsCopy = new ArrayList(transactions);
+        ArrayList<ListItemTransactionData> currentlyDisplayedTransactions =
+                listViewAdapter.getTransactions();
+        transactionsCopy.removeAll(currentlyDisplayedTransactions);
+        if (transactionsCopy.size() > 0) {
+            listViewAdapter.addTransactions(transactionsCopy);
+            bindings.txList.smoothScrollToPosition(0);
+        } else {
+            listViewAdapter.updateTransactions(transactions);
+        }
     }
 
     @Override
@@ -455,7 +453,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     void onSearchClick(View view) {
         if (BRAnimator.isClickAllowed()) {
             openSearchBar();
-            bindings.searchBar.onShow(true);
         }
     }
 
@@ -502,6 +499,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        boolean clearTransactions = intent.getBooleanExtra("clear_transactions", false);
+        if (clearTransactions) {
+            transactions.clear();
+            listViewAdapter.clearTransactions();
+        }
         Uri data = intent.getData();
         if (data != null) {
             String scheme = data.getScheme();
@@ -564,6 +566,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSearchBarFilterUpdate() {
-        updateTransactions();
+        showSearchTransactions();
     }
 }

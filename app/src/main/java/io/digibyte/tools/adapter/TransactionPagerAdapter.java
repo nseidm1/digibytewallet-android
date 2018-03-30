@@ -4,10 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
-import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.presenter.fragments.FragmentTransactionItem;
-
 import java.util.List;
+
+import io.digibyte.presenter.fragments.FragmentTransactionItem;
+import io.digibyte.tools.list.items.ListItemTransactionData;
 
 /**
  * BreadWallet
@@ -35,9 +35,9 @@ import java.util.List;
  */
 public class TransactionPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = TransactionPagerAdapter.class.getName();
-    private List<TxItem> items;
+    private List<ListItemTransactionData> items;
 
-    public TransactionPagerAdapter(FragmentManager fm, List<TxItem> items) {
+    public TransactionPagerAdapter(FragmentManager fm, List<ListItemTransactionData> items) {
         super(fm);
         this.items = items;
 

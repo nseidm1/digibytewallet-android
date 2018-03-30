@@ -7,11 +7,10 @@ import io.digibyte.tools.list.ListItemData;
 public class ListItemTransactionData extends ListItemData {
     public final int transactionIndex;
     public final int transactionsCount;
-    public final TxItem transactionItem;
+    public TxItem transactionItem;
 
-    public ListItemTransactionData(int anIndex, int aTransactionsCount, TxItem aTransactionItem,
-            OnListItemClickListener aListener) {
-        super(R.layout.list_item_transaction, ListItemTransactionViewHolder.class, aListener);
+    public ListItemTransactionData(int anIndex, int aTransactionsCount, TxItem aTransactionItem) {
+        super(R.layout.list_item_transaction);
 
         this.transactionIndex = anIndex;
         this.transactionsCount = aTransactionsCount;
@@ -23,8 +22,22 @@ public class ListItemTransactionData extends ListItemData {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        ListItemTransactionData listItemTransactionData = (ListItemTransactionData) obj;
-        return listItemTransactionData.transactionItem.equals(transactionItem);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ListItemTransactionData that = (ListItemTransactionData) o;
+
+        return transactionItem != null ? transactionItem.equals(that.transactionItem)
+                : that.transactionItem == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return transactionItem != null ? transactionItem.hashCode() : 0;
+    }
+
+    public void update(TxItem transactionItem) {
+        this.transactionItem = transactionItem;
     }
 }

@@ -7,6 +7,6 @@ public class ListItemSyncingData extends ListItemData
 {
     public ListItemSyncingData()
     {
-        super(R.layout.list_item_syncing, ListItemSyncingViewHolder.class);
+        super(R.layout.list_item_syncing);
     }
 }

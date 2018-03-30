@@ -31,7 +31,6 @@ import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.activities.LoginActivity;
 import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
-import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.fragments.FragmentGreetings;
 import io.digibyte.presenter.fragments.FragmentMenu;
 import io.digibyte.presenter.fragments.FragmentReceive;
@@ -41,6 +40,7 @@ import io.digibyte.presenter.fragments.FragmentSignal;
 import io.digibyte.presenter.fragments.FragmentSupport;
 import io.digibyte.presenter.fragments.FragmentTransactionDetails;
 import io.digibyte.presenter.interfaces.BROnSignalCompletion;
+import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
@@ -201,7 +201,7 @@ public class BRAnimator {
 
     }
 
-    public static void showTransactionPager(Activity app, List<TxItem> items, int position) {
+    public static void showTransactionPager(Activity app, List<ListItemTransactionData> items, int position) {
         if (app == null) {
             Log.e(TAG, "showSendFragment: app is null");
             return;
@@ -386,6 +386,17 @@ public class BRAnimator {
         Class toStart = auth ? LoginActivity.class : BreadActivity.class;
         Intent intent = new Intent(from, toStart);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        from.startActivity(intent);
+        from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
+    }
+
+    public static void startBreadActivity(Activity from, boolean auth, boolean clearTransactions) {
+        if (from == null) return;
+        Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
+        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
+        Intent intent = new Intent(from, toStart);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("clear_transactions", true);
         from.startActivity(intent);
         from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
     }

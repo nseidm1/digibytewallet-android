@@ -1,8 +1,9 @@
 package io.digibyte.presenter.entities;
 
 
-import io.digibyte.tools.util.Utils;
 import com.platform.entities.TxMetaData;
+
+import java.util.Arrays;
 
 /**
  * BreadWallet
@@ -71,6 +72,10 @@ public class TxItem {
         return blockHeight;
     }
 
+    public void setBlockHeight(int blockHeight) {
+        this.blockHeight = blockHeight;
+    }
+
     public long getFee() {
         return fee;
     }
@@ -123,4 +128,18 @@ public class TxItem {
         return isValid;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TxItem txItem = (TxItem) o;
+
+        return Arrays.equals(txHash, txItem.txHash);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(txHash);
+    }
 }

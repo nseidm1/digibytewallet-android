@@ -12,7 +12,7 @@ public class ListItemPromptData extends ListItemData
 
     public ListItemPromptData(PromptManager.PromptItem aPromptItem, OnListItemClickListener aClickListener, OnListItemClickListener aCloseClickListener)
     {
-        super(R.layout.list_item_prompt, ListItemPromptViewHolder.class, aClickListener);
+        super(R.layout.list_item_prompt, aClickListener);
         this.onCloseClickListener = aCloseClickListener;
         this.promptItem = aPromptItem;
     }

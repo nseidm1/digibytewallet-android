@@ -1,33 +1,20 @@
 package io.digibyte.presenter.activities.settings;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
-import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRConstants;
 import io.digibyte.wallet.BRPeerManager;
+import io.digibyte.wallet.BRWalletManager;
 
 
 public class SyncBlockchainActivity extends BRActivity {
-    private static final String TAG = SyncBlockchainActivity.class.getName();
     private Button scanButton;
     public static boolean appVisible = false;
-    private static SyncBlockchainActivity app;
-
-    public static SyncBlockchainActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -49,34 +36,28 @@ public class SyncBlockchainActivity extends BRActivity {
         }); */
 
         scanButton = (Button) findViewById(R.id.button_scan);
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRDialog.showCustomDialog(SyncBlockchainActivity.this, getString(R.string.ReScan_alertTitle),
-                        getString(R.string.ReScan_footer), getString(R.string.ReScan_alertAction), getString(R.string.Button_cancel),
-                        new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+        scanButton.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            BRDialog.showCustomDialog(SyncBlockchainActivity.this,
+                    getString(R.string.ReScan_alertTitle),
+                    getString(R.string.ReScan_footer), getString(R.string.ReScan_alertAction),
+                    getString(R.string.Button_cancel),
+                    brDialogView -> {
+                        brDialogView.dismissWithAnimation();
+                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                                new Runnable() {
                                     @Override
                                     public void run() {
-                                        BRSharedPrefs.putStartHeight(SyncBlockchainActivity.this, 0);
-                                        BRSharedPrefs.putAllowSpend(SyncBlockchainActivity.this, false);
-                                        BRPeerManager.getInstance().rescan();
-                                        BRAnimator.startBreadActivity(SyncBlockchainActivity.this, false);
-
+                                        BRWalletManager.getInstance().wipeBlockAndTrans(
+                                                SyncBlockchainActivity.this, () -> {
+                                                    BRPeerManager.getInstance().rescan();
+                                                    BRAnimator.startBreadActivity(
+                                                            SyncBlockchainActivity.this,
+                                                            false, true);
+                                                });
                                     }
                                 });
-                            }
-                        }, new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, 0);
-            }
+                    }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
         });
 
     }
@@ -85,7 +66,6 @@ public class SyncBlockchainActivity extends BRActivity {
     protected void onResume() {
         super.onResume();
         appVisible = true;
-        app = this;
     }
 
     @Override
@@ -99,5 +79,4 @@ public class SyncBlockchainActivity extends BRActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
-
 }

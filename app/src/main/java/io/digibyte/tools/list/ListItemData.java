@@ -1,7 +1,5 @@
 package io.digibyte.tools.list;
 
-import android.util.SparseArray;
-
 public class ListItemData
 {
     public interface OnListItemClickListener
@@ -9,29 +7,25 @@ public class ListItemData
         void onListItemClick(ListItemData aListItemData);
     }
 
-    private static SparseArray<Class<?>> listItemViewHolders = new SparseArray<>();
-    public static Class<?> getViewHolder(int aResourceId) { return listItemViewHolders.get(aResourceId); }
-
     public final int resourceId;
     public final OnListItemClickListener onClickListener;
     public final OnListItemClickListener onLongClickListener;
 
-    public ListItemData(int aResourceId, Class<?> aViewHolder)
+    public ListItemData(int aResourceId)
     {
-        this(aResourceId, aViewHolder, null);
+        this(aResourceId, null);
     }
 
-    public ListItemData(int aResourceId, Class<?> aViewHolder, OnListItemClickListener aClickListener)
+    public ListItemData(int aResourceId, OnListItemClickListener aClickListener)
     {
-        this(aResourceId, aViewHolder, aClickListener, null);
+        this(aResourceId, aClickListener, null);
     }
 
-    public ListItemData(int aResourceId, Class<?> aViewHolder, OnListItemClickListener aClickListener, OnListItemClickListener aLongClickListener)
+    public ListItemData(int aResourceId, OnListItemClickListener aClickListener, OnListItemClickListener aLongClickListener)
     {
         this.resourceId = aResourceId;
         this.onClickListener = aClickListener;
         this.onLongClickListener = aLongClickListener;
-        listItemViewHolders.append(aResourceId, aViewHolder);
     }
 
     public void onClick()

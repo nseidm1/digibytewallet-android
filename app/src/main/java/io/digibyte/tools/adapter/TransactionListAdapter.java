@@ -1,15 +1,21 @@
 package io.digibyte.tools.adapter;
 
+import android.app.Activity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
+import io.digibyte.DigiByte;
+import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemData;
-import io.digibyte.tools.list.ListItemViewHolder;
+import io.digibyte.tools.list.items.ListItemTransactionData;
+import io.digibyte.tools.list.items.ListItemTransactionViewHolder;
+import io.digibyte.tools.manager.BRSharedPrefs;
 
 
 /**
@@ -37,38 +43,106 @@ import io.digibyte.tools.list.ListItemViewHolder;
  * THE SOFTWARE.
  */
 
-public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHolder> {
+public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransactionViewHolder> {
     public static final String TAG = TransactionListAdapter.class.getName();
 
-    private ArrayList<ListItemData> listItemData = new ArrayList<>();
+    private ArrayList<ListItemTransactionData> listItemData = new ArrayList<>();
+    private ArrayList<ListItemTransactionData> searchHolder = null;
 
-    public void updateTransactions(ArrayList<ListItemData> anItemDataList) {
+    private RecyclerView recyclerView;
+
+    public TransactionListAdapter(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+        setHasStableIds(true);
+    }
+
+    public void clearTransactions() {
+        int countToRemove = listItemData.size();
         listItemData.clear();
-        listItemData.addAll(anItemDataList);
+        notifyItemRangeRemoved(0, countToRemove);
+    }
+
+    public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
+        for (ListItemTransactionData listItemTransactionData : listItemData) {
+            int indexOfPotentialChange = listItemData.indexOf(listItemTransactionData);
+            TxItem newTxItem = transactions.get(indexOfPotentialChange).getTransactionItem();
+            int confirms = BRSharedPrefs.getLastBlockHeight(DigiByte.getContext())
+                    - newTxItem.getBlockHeight() + 1;
+            if (confirms <= 4) {
+                listItemTransactionData.update(newTxItem);
+                ListItemTransactionViewHolder listItemTransactionViewHolder =
+                        (ListItemTransactionViewHolder) recyclerView
+                                .findViewHolderForAdapterPosition(
+                                indexOfPotentialChange);
+                if (listItemTransactionViewHolder != null &&
+                        isPositionOnscreen(indexOfPotentialChange)) {
+                    listItemTransactionViewHolder.process(listItemTransactionData);
+                }
+            }
+        }
+    }
+
+    private boolean isPositionOnscreen(int position) {
+        LinearLayoutManager linearLayoutManager =
+                (LinearLayoutManager) recyclerView.getLayoutManager();
+        int firstVisiblePosition = linearLayoutManager.findFirstVisibleItemPosition();
+        int lastVisiblePosition = linearLayoutManager.findLastVisibleItemPosition();
+        return position >= firstVisiblePosition && position <= lastVisiblePosition;
+    }
+
+    public void addTransactions(ArrayList<ListItemTransactionData> transactions) {
+        for (ListItemTransactionData transaction : transactions) {
+            listItemData.add(0, transaction);
+            notifyItemInserted(0);
+        }
+    }
+
+    public void showSearchResults(ArrayList<ListItemTransactionData> searchTransactions) {
+        if (searchTransactions == null) {
+            return;
+        }
+        if (searchHolder == null) {
+            searchHolder = listItemData;
+        }
+        listItemData = searchTransactions;
         notifyDataSetChanged();
     }
 
+    public void clearSearchResults() {
+        if (searchHolder != null) {
+            listItemData = searchHolder;
+            searchHolder = null;
+        }
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<ListItemTransactionData> getTransactions() {
+        return listItemData;
+    }
+
     @Override
-    public ListItemViewHolder onCreateViewHolder(ViewGroup aParent, int aResourceId) {
-        ListItemViewHolder holder;
+    public ListItemTransactionViewHolder onCreateViewHolder(ViewGroup aParent, int aResourceId) {
         LayoutInflater layoutInflater = LayoutInflater.from(aParent.getContext());
         View view = layoutInflater.inflate(aResourceId, aParent, false);
-
-        try {
-            Class<?> viewHolder = ListItemData.getViewHolder(aResourceId);
-            Constructor<?> constructors = viewHolder.getConstructor(View.class);
-            holder = (ListItemViewHolder) constructors.newInstance(view);
-        } catch (Exception ignore) {
-            holder = new ListItemViewHolder(view);
-        }
-
-        return holder;
+        return new ListItemTransactionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ListItemViewHolder holder, int aPosition) {
+    public void onBindViewHolder(ListItemTransactionViewHolder holder, int aPosition) {
         holder.process(this.getListItemDataForPosition(aPosition));
+        holder.getView().setOnClickListener(mOnClickListener);
     }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ListItemTransactionViewHolder listItemTransactionViewHolder =
+                    (ListItemTransactionViewHolder) recyclerView.findContainingViewHolder(view);
+            int adapterPosition = listItemTransactionViewHolder.getAdapterPosition();
+            BRAnimator.showTransactionPager((Activity) view.getContext(),
+                    listItemData, adapterPosition);
+        }
+    };
 
     @Override
     public int getItemViewType(int aPosition) {
@@ -82,5 +156,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemViewHol
 
     private ListItemData getListItemDataForPosition(int aPosition) {
         return listItemData.get(aPosition);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return Integer.valueOf(listItemData.get(
+                position).getTransactionItem().hashCode()).longValue();
     }
 }

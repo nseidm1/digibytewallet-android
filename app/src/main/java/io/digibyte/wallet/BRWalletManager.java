@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.NetworkOnMainThreadException;
 import android.os.SystemClock;
 import android.security.keystore.UserNotAuthenticatedException;
@@ -337,6 +338,27 @@ public class BRWalletManager
             }
         });
 
+    }
+    public void wipeBlockAndTrans(Context ctx, ClearedListener clearedListener) {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                BRPeerManager.getInstance().peerManagerFreeEverything();
+                walletFreeEverything();
+                TransactionDataSource.getInstance(ctx).deleteAllTransactions();
+                MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
+                PeerDataSource.getInstance(ctx).deleteAllPeers();
+                BRSharedPrefs.putStartHeight(ctx, 0);
+                BRSharedPrefs.putAllowSpend(ctx, false);
+                new Handler(Looper.getMainLooper()).post(() -> clearedListener.onCleared());
+            }
+        });
+    }
+
+    public interface ClearedListener {
+        public void onCleared();
     }
 
     public void wipeAll(Context app)

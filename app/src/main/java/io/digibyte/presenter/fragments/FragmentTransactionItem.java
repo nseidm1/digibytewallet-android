@@ -2,16 +2,11 @@ package io.digibyte.presenter.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,20 +16,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import io.digibyte.DigiByte;
-import io.digibyte.R;
-import io.digibyte.presenter.activities.settings.WebViewActivity;
-import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.SlideDetector;
-import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.manager.TxManager;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRConstants;
-import io.digibyte.tools.util.BRCurrency;
-import io.digibyte.tools.util.BRExchange;
-import io.digibyte.tools.util.Utils;
-import io.digibyte.wallet.BRPeerManager;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
@@ -43,7 +24,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.platform.HTTPServer.URL_SUPPORT;
+import io.digibyte.R;
+import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.tools.animation.BRAnimator;
+import io.digibyte.tools.animation.SlideDetector;
+import io.digibyte.tools.list.items.ListItemTransactionData;
+import io.digibyte.tools.manager.BRSharedPrefs;
+import io.digibyte.tools.manager.TxManager;
+import io.digibyte.tools.threads.BRExecutor;
+import io.digibyte.tools.util.BRCurrency;
+import io.digibyte.tools.util.BRExchange;
+import io.digibyte.tools.util.Utils;
+import io.digibyte.wallet.BRPeerManager;
 
 /**
  * BreadWallet
@@ -306,15 +298,15 @@ public class FragmentTransactionItem extends Fragment {
         super.onPause();
     }
 
-    public static FragmentTransactionItem newInstance(TxItem item) {
+    public static FragmentTransactionItem newInstance(ListItemTransactionData item) {
         FragmentTransactionItem f = new FragmentTransactionItem();
         f.setItem(item);
 
         return f;
     }
 
-    public void setItem(TxItem item) {
-        this.item = item;
+    public void setItem(ListItemTransactionData item) {
+        this.item = item.transactionItem;
 
     }
 

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -83,7 +82,6 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
 
     private void init() {
         inflate(getContext(), R.layout.search_bar, this);
-
         breadActivity = (BreadActivity) getContext();
         searchEdit = findViewById(R.id.search_edit);
         sentFilter = findViewById(R.id.sent_filter);
@@ -91,105 +89,82 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
         pendingFilter = findViewById(R.id.pending_filter);
         completedFilter = findViewById(R.id.complete_filter);
         cancelButton = findViewById(R.id.cancel_button);
-
         clearSwitches();
-
         setListeners();
-
-        searchEdit.requestFocus();
-        searchEdit.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager keyboard = (InputMethodManager) getContext().getSystemService(
-                        Context.INPUT_METHOD_SERVICE);
-                if (null != keyboard) {
-                    keyboard.showSoftInput(searchEdit, 0);
-                }
-            }
-        }, 200); //use 300 to make it run when coming back from lock screen
     }
 
-    private void updateFilterButtonsUI() {
+    private void updateFilterButtons() {
         sentFilter.setType(filterSwitches[0] ? 3 : 2);
         receivedFilter.setType(filterSwitches[1] ? 3 : 2);
         pendingFilter.setType(filterSwitches[2] ? 3 : 2);
         completedFilter.setType(filterSwitches[3] ? 3 : 2);
+    }
 
-        if (null != listener) {
-            listener.onSearchBarFilterUpdate();
-        }
+    private void processFilterButtonClick() {
+        updateFilterButtons();
+        listener.onSearchBarFilterUpdate();
     }
 
     private void setListeners() {
         cancelButton.setOnClickListener(v -> {
-            searchEdit.setText("");
+            clearSwitches();
             breadActivity.closeSearchBar();
-            onShow(false);
         });
 
-        searchEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (null != listener) {
-                    listener.onSearchBarFilterUpdate();
-                }
-            }
-        });
-
-        searchEdit.setOnKeyListener((v, keyCode, event) -> {
-            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode
-                    == KeyEvent.KEYCODE_ENTER)) {
-                onShow(false);
-                return true;
-            }
-            return false;
-        });
+        searchEdit.addTextChangedListener(searchWatcher);
 
         sentFilter.setOnClickListener(v -> {
             filterSwitches[0] = !filterSwitches[0];
             filterSwitches[1] = false;
-            updateFilterButtonsUI();
-
+            processFilterButtonClick();
         });
 
         receivedFilter.setOnClickListener(v -> {
             filterSwitches[1] = !filterSwitches[1];
             filterSwitches[0] = false;
-            updateFilterButtonsUI();
+            processFilterButtonClick();
         });
 
         pendingFilter.setOnClickListener(v -> {
             filterSwitches[2] = !filterSwitches[2];
             filterSwitches[3] = false;
-            updateFilterButtonsUI();
+            processFilterButtonClick();
         });
 
         completedFilter.setOnClickListener(v -> {
             filterSwitches[3] = !filterSwitches[3];
             filterSwitches[2] = false;
-            updateFilterButtonsUI();
+            processFilterButtonClick();
         });
     }
+
+    TextWatcher searchWatcher = new TextWatcher() {
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            listener.onSearchBarFilterUpdate();
+        }
+    };
 
     public void clearSwitches() {
         filterSwitches[0] = false;
         filterSwitches[1] = false;
         filterSwitches[2] = false;
         filterSwitches[3] = false;
+        updateFilterButtons();
     }
 
-    public void onShow(boolean b) {
+    public void toggleKeyboard(boolean open) {
         final InputMethodManager keyboard = (InputMethodManager) getContext().getSystemService(
                 Context.INPUT_METHOD_SERVICE);
-        if (b) {
+        if (open) {
             new Handler().postDelayed(() -> {
                 searchEdit.requestFocus();
                 if (null != keyboard) {
@@ -201,7 +176,5 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
                 keyboard.hideSoftInputFromWindow(searchEdit.getWindowToken(), 0);
             }
         }
-        clearSwitches();
-        updateFilterButtonsUI();
     }
 }

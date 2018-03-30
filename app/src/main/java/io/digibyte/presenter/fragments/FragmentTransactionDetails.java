@@ -14,12 +14,12 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import io.digibyte.R;
-import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.adapter.TransactionPagerAdapter;
 import io.digibyte.tools.animation.BRAnimator;
-
-import java.util.List;
+import io.digibyte.tools.list.items.ListItemTransactionData;
 
 
 /**
@@ -54,7 +54,7 @@ public class FragmentTransactionDetails extends Fragment {
     public LinearLayout backgroundLayout;
     private ViewPager txViewPager;
     private TransactionPagerAdapter txPagerAdapter;
-    private List<TxItem> items;
+    private List<ListItemTransactionData> items;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,7 +129,7 @@ public class FragmentTransactionDetails extends Fragment {
         super.onPause();
     }
 
-    public void setItems(List<TxItem> items) {
+    public void setItems(List<ListItemTransactionData> items) {
         this.items = items;
     }
 }
