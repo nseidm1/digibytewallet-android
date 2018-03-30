@@ -381,7 +381,7 @@ public class BRKeyStore {
             /** if for any other reason the keystore fails, crash! */
             Log.e(TAG, "getData: error: " + e.getClass().getSuperclass().getName());
             BRReportsManager.reportBug(e);
-            throw new RuntimeException(e.getMessage());
+            return null;
         } catch (BadPaddingException | IllegalBlockSizeException | NoSuchProviderException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
