@@ -6,25 +6,11 @@ import io.digibyte.tools.manager.PromptManager;
 
 public class ListItemPromptData extends ListItemData
 {
-    private final OnListItemClickListener onCloseClickListener;
-
     public final PromptManager.PromptItem promptItem;
 
-    public ListItemPromptData(PromptManager.PromptItem aPromptItem, OnListItemClickListener aClickListener, OnListItemClickListener aCloseClickListener)
+    public ListItemPromptData(PromptManager.PromptItem aPromptItem)
     {
-        super(R.layout.list_item_prompt, aClickListener);
-        this.onCloseClickListener = aCloseClickListener;
+        super(R.layout.list_item_prompt);
         this.promptItem = aPromptItem;
-    }
-
-    public boolean onCloseClick()
-    {
-        if(null != this.onCloseClickListener)
-        {
-            this.onCloseClickListener.onListItemClick(this);
-
-            return true;
-        }
-        return false;
     }
 }

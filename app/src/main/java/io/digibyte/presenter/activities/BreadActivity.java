@@ -38,7 +38,6 @@ import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.fragments.FragmentManage;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
 import io.digibyte.tools.list.items.ListItemPromptData;
 import io.digibyte.tools.list.items.ListItemPromptViewHolder;
@@ -222,8 +221,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private void loadNextPromptItem() {
         PromptManager.PromptItem promptItem = PromptManager.getInstance().nextPrompt();
         if (null != promptItem) {
-            showPrompt(new ListItemPromptData(promptItem, onPromptListItemClick,
-                    onPromptListItemCloseClick));
+            showPrompt(new ListItemPromptData(promptItem));
         }
     }
 
@@ -240,7 +238,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View view = layoutInflater.inflate(listItemPromptData.resourceId, bindings.syncContainer,
                 false);
-        ListItemPromptViewHolder listItemPromptViewHolder = new ListItemPromptViewHolder(view);
+        view.setOnClickListener(new PromptClickListener(listItemPromptData.promptItem));
+        ListItemPromptViewHolder listItemPromptViewHolder = new ListItemPromptViewHolder(view,
+                new PromptCloseClickListener(listItemPromptData.promptItem));
         bindings.promptContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         bindings.promptContainer.addView(view);
@@ -279,57 +279,73 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     /// ////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private ListItemData.OnListItemClickListener onPromptListItemClick =
-            aListItemData -> {
-                Intent intent;
-                final Activity activity = BreadActivity.this;
-                ListItemPromptData data = (ListItemPromptData) aListItemData;
+    private class PromptClickListener implements View.OnClickListener {
 
-                switch (data.promptItem) {
-                    case SYNCING:
-                        break;
-                    case FINGER_PRINT:
-                        intent = new Intent(activity, FingerprintActivity.class);
-                        activity.startActivity(intent);
-                        activity.overridePendingTransition(R.anim.enter_from_right,
-                                R.anim.exit_to_left);
-                        break;
-                    case PAPER_KEY:
-                        intent = new Intent(activity, WriteDownActivity.class);
-                        activity.startActivity(intent);
-                        activity.overridePendingTransition(R.anim.enter_from_bottom,
-                                R.anim.fade_down);
-                        break;
-                    case UPGRADE_PIN:
-                        intent = new Intent(activity, UpdatePinActivity.class);
-                        activity.startActivity(intent);
-                        activity.overridePendingTransition(R.anim.enter_from_right,
-                                R.anim.exit_to_left);
-                        break;
-                    case RECOMMEND_RESCAN:
-                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BRSharedPrefs.putStartHeight(activity, 0);
-                                        BRPeerManager.getInstance().rescan();
-                                        BRSharedPrefs.putScanRecommended(activity, false);
-                                    }
-                                });
-                        break;
-                    case NO_PASS_CODE:
-                        break;
-                }
-            };
+        private PromptManager.PromptItem promptItem;
 
-    private ListItemData.OnListItemClickListener onPromptListItemCloseClick =
-            aListItemData -> {
-                ListItemPromptData data = (ListItemPromptData) aListItemData;
-                removePrompt();
-                BRSharedPrefs.putPromptDismissed(BreadActivity.this,
-                        PromptManager.getInstance().getPromptName(data.promptItem));
-                loadNextPromptItem();
-            };
+        public PromptClickListener(PromptManager.PromptItem promptItem) {
+            this.promptItem = promptItem;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent;
+            final Activity activity = BreadActivity.this;
+            switch (promptItem) {
+                case SYNCING:
+                    break;
+                case FINGER_PRINT:
+                    intent = new Intent(activity, FingerprintActivity.class);
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.enter_from_right,
+                            R.anim.exit_to_left);
+                    break;
+                case PAPER_KEY:
+                    intent = new Intent(activity, WriteDownActivity.class);
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.enter_from_bottom,
+                            R.anim.fade_down);
+                    break;
+                case UPGRADE_PIN:
+                    intent = new Intent(activity, UpdatePinActivity.class);
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.enter_from_right,
+                            R.anim.exit_to_left);
+                    break;
+                case RECOMMEND_RESCAN:
+                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    BRSharedPrefs.putStartHeight(activity, 0);
+                                    BRPeerManager.getInstance().rescan();
+                                    BRSharedPrefs.putScanRecommended(activity, false);
+                                }
+                            });
+                    break;
+                case NO_PASS_CODE:
+                    break;
+            }
+        }
+    }
+
+    private class PromptCloseClickListener implements View.OnClickListener {
+
+        private PromptManager.PromptItem promptItem;
+
+        public PromptCloseClickListener(PromptManager.PromptItem promptItem) {
+            this.promptItem = promptItem;
+        }
+
+        @Override
+        public void onClick(View view) {
+            removePrompt();
+            BRSharedPrefs.putPromptDismissed(BreadActivity.this,
+                    PromptManager.getInstance().getPromptName(promptItem));
+            loadNextPromptItem();
+
+        }
+    }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////// Manager Listeners

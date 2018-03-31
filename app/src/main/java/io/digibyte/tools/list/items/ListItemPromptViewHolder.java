@@ -14,14 +14,14 @@ public class ListItemPromptViewHolder extends ListItemViewHolder
     private final BRText description;
     private final ImageButton close;
 
-    public ListItemPromptViewHolder(View anItemView)
+    public ListItemPromptViewHolder(View anItemView, View.OnClickListener closeClickListener)
     {
         super(anItemView);
 
         title = anItemView.findViewById(R.id.info_title);
         description = anItemView.findViewById(R.id.info_description);
         close = anItemView.findViewById(R.id.info_close_button);
-        close.setOnClickListener(onCloseClickListener);
+        close.setOnClickListener(closeClickListener);
     }
 
     @Override
@@ -53,16 +53,4 @@ public class ListItemPromptViewHolder extends ListItemViewHolder
 
         this.itemView.setBackgroundResource(R.drawable.tx_rounded);
     }
-
-    private View.OnClickListener onCloseClickListener = new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View view)
-        {
-            if(null != theItemData)
-            {
-                ((ListItemPromptData) theItemData).onCloseClick();
-            }
-        }
-    };
 }
