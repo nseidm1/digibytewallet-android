@@ -65,6 +65,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
             int indexOfPotentialChange = listItemData.indexOf(listItemTransactionData);
+            if (indexOfPotentialChange < 0 || indexOfPotentialChange > transactions.size()) {
+                continue;
+            }
             TxItem newTxItem = transactions.get(indexOfPotentialChange).getTransactionItem();
             int confirms = BRSharedPrefs.getLastBlockHeight(DigiByte.getContext())
                     - newTxItem.getBlockHeight() + 1;
