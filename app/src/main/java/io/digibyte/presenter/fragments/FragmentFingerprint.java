@@ -53,7 +53,8 @@ import io.digibyte.tools.util.Utils;
 public class FragmentFingerprint extends Fragment
         implements FingerprintUiHelper.Callback {
     public static final String TAG = FragmentFingerprint.class.getName();
-
+    public static final int ANIMATION_DURATION = 300;
+    FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder;
     private FingerprintManager.CryptoObject mCryptoObject;
     private FingerprintUiHelper mFingerprintUiHelper;
     private BRAuthCompletion completion;
@@ -62,11 +63,8 @@ public class FragmentFingerprint extends Fragment
     private LinearLayout fingerPrintLayout;
     private RelativeLayout fingerprintBackground;
     private boolean authSucceeded;
-    public static final int ANIMATION_DURATION = 300;
     private String customTitle;
     private String customMessage;
-
-    FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder;
 
     public FragmentFingerprint() {
     }
@@ -75,14 +73,15 @@ public class FragmentFingerprint extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Do not create a new Fragment when the Activity is re-created such as orientation changes. 
+        // Do not create a new Fragment when the Activity is re-created such as orientation
+        // changes.
         setRetainInstance(true);
 //        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fingerprint_dialog_container, container, false);
 //        getDialog().setTitle(R.string.fingerprint_auth);
@@ -101,9 +100,12 @@ public class FragmentFingerprint extends Fragment
             customMessage = messageString;
             message.setText(customMessage);
         }
-        FingerprintManager mFingerprintManager = (FingerprintManager) getActivity().getSystemService(Activity.FINGERPRINT_SERVICE);
-        mFingerprintUiHelperBuilder = new FingerprintUiHelper.FingerprintUiHelperBuilder(mFingerprintManager);
-        mFingerprintUiHelper = mFingerprintUiHelperBuilder.build((ImageView) v.findViewById(R.id.fingerprint_icon),
+        FingerprintManager mFingerprintManager =
+                (FingerprintManager) getActivity().getSystemService(Activity.FINGERPRINT_SERVICE);
+        mFingerprintUiHelperBuilder = new FingerprintUiHelper.FingerprintUiHelperBuilder(
+                mFingerprintManager);
+        mFingerprintUiHelper = mFingerprintUiHelperBuilder.build(
+                (ImageView) v.findViewById(R.id.fingerprint_icon),
                 (TextView) v.findViewById(R.id.fingerprint_status), this, getContext());
         View mFingerprintContent = v.findViewById(R.id.fingerprint_container);
 
@@ -113,7 +115,8 @@ public class FragmentFingerprint extends Fragment
             @Override
             public void onClick(View view) {
                 if (!BRAnimator.isClickAllowed()) return;
-//                if (!BRAnimator.scanResultFragmentOn && mode == BRConstants.AUTH_FOR_PAY && request.isAmountRequested) {
+//                if (!BRAnimator.scanResultFragmentOn && mode == BRConstants.AUTH_FOR_PAY &&
+// request.isAmountRequested) {
 ////                    FragmentScanResult.address = request.address[0];
 //                    BRWalletManager.getInstance().offerToChangeTheAmount(getActivity(), "");
 //                }
@@ -157,8 +160,9 @@ public class FragmentFingerprint extends Fragment
 
         animateBackgroundDim(true);
         animateSignalSlide(true);
-        if (!authSucceeded)
+        if (!authSucceeded) {
             completion.onCancel();
+        }
     }
 
     @Override
@@ -183,12 +187,14 @@ public class FragmentFingerprint extends Fragment
         final Context app = getContext();
         closeMe();
 
-        if (mFingerprintUiHelper != null)
+        if (mFingerprintUiHelper != null) {
             mFingerprintUiHelper.stopListening();
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                AuthManager.getInstance().authPrompt(app, customTitle, customMessage, true, false, completion);
+                AuthManager.getInstance().authPrompt(app, customTitle, customMessage, true, false,
+                        completion);
             }
         }, ANIMATION_DURATION + 100);
     }
@@ -225,7 +231,8 @@ public class FragmentFingerprint extends Fragment
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                fingerprintBackground.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
+                fingerprintBackground.setBackgroundColor(
+                        (Integer) valueAnimator.getAnimatedValue());
             }
         });
 
@@ -247,14 +254,17 @@ public class FragmentFingerprint extends Fragment
             fingerPrintLayout.animate()
                     .translationY(1500)
                     .setDuration(ANIMATION_DURATION)
-                    .withLayer().setInterpolator(new AnticipateInterpolator(2f)).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    if (getActivity() != null)
-                        getActivity().getFragmentManager().beginTransaction().remove(FragmentFingerprint.this).commit();
-                }
-            });
+                    .withLayer().setInterpolator(new AnticipateInterpolator(2f)).setListener(
+                    new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            if (getActivity() != null) {
+                                getActivity().getFragmentManager().beginTransaction().remove(
+                                        FragmentFingerprint.this).commit();
+                            }
+                        }
+                    });
 
         }
 

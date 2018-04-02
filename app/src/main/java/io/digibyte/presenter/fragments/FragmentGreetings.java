@@ -1,41 +1,18 @@
 package io.digibyte.presenter.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import io.digibyte.R;
-import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
-import io.digibyte.presenter.activities.settings.SettingsActivity;
-import io.digibyte.presenter.activities.settings.WebViewActivity;
 import io.digibyte.presenter.customviews.BRButton;
-import io.digibyte.presenter.entities.BRMenuItem;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.SlideDetector;
-import com.platform.APIClient;
-import com.platform.HTTPServer;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static io.digibyte.R.id.menu_listview;
 
 /**
  * BreadWallet

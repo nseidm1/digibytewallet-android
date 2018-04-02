@@ -6,6 +6,7 @@ import static io.digibyte.tools.util.BRConstants.SCANNER_REQUEST;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,17 +15,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityPinBinding;
 import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRDialogView;
-import io.digibyte.presenter.customviews.BRKeyboard;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
@@ -39,32 +37,17 @@ import io.digibyte.wallet.BRWalletManager;
 
 public class LoginActivity extends BRActivity {
     private static final String TAG = LoginActivity.class.getName();
-    private BRKeyboard keyboard;
-    private LinearLayout pinLayout;
-    private View dot1;
-    private View dot2;
-    private View dot3;
-    private View dot4;
-    private View dot5;
-    private View dot6;
+    ActivityPinBinding binding;
     private StringBuilder pin = new StringBuilder();
     private int pinLimit = 6;
-
-    private ImageView unlockedImage;
-    private TextView unlockedText;
-    private TextView enterPinLabel;
-    private LinearLayout offlineButtonsLayout;
-
-    private ImageButton fingerPrint;
     private boolean inputAllowed = true;
-
-    private Button leftButton;
-    private Button rightButton;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pin);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_pin);
+        unbinder = ButterKnife.bind(this);
         String pin = BRKeyStore.getPinCode(this);
         if (pin.isEmpty() || (pin.length() != 6 && pin.length() != 4)) {
             Intent intent = new Intent(this, SetPinActivity.class);
@@ -73,120 +56,85 @@ public class LoginActivity extends BRActivity {
             if (!LoginActivity.this.isDestroyed()) finish();
             return;
         }
-
         if (BRKeyStore.getPinCode(this).length() == 4) pinLimit = 4;
-
-        keyboard = (BRKeyboard) findViewById(R.id.brkeyboard);
-        pinLayout = (LinearLayout) findViewById(R.id.pinLayout);
-        fingerPrint = (ImageButton) findViewById(R.id.fingerprint_icon);
-
-        unlockedImage = (ImageView) findViewById(R.id.unlocked_image);
-        unlockedText = (TextView) findViewById(R.id.unlocked_text);
-        enterPinLabel = (TextView) findViewById(R.id.enter_pin_label);
-        offlineButtonsLayout = (LinearLayout) findViewById(R.id.buttons_layout);
-
-        dot1 = findViewById(R.id.dot1);
-        dot2 = findViewById(R.id.dot2);
-        dot3 = findViewById(R.id.dot3);
-        dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
-
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleClick(key);
-            }
-        });
-        keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_trans_button);
-        keyboard.setBRButtonTextColor(R.color.white);
-        keyboard.setShowDot(false);
-        keyboard.setBreadground(getDrawable(R.drawable.bread_gradient));
-        keyboard.setCustomButtonBackgroundColor(10, getColor(android.R.color.transparent));
-        keyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
-
-        leftButton = (Button) findViewById(R.id.left_button);
-        rightButton = (Button) findViewById(R.id.right_button);
-
+        binding.brkeyboard.addOnInsertListener(key -> handleClick(key));
+        binding.brkeyboard.setBRButtonBackgroundResId(R.drawable.keyboard_trans_button);
+        binding.brkeyboard.setBRButtonTextColor(R.color.white);
+        binding.brkeyboard.setShowDot(false);
+        binding.brkeyboard.setBreadground(getDrawable(R.drawable.bread_gradient));
+        binding.brkeyboard.setCustomButtonBackgroundColor(10,
+                getColor(android.R.color.transparent));
+        binding.brkeyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
         setUpOfflineButtons();
+        final boolean useFingerprint = AuthManager.isFingerPrintAvailableAndSetup(this)
+                && BRSharedPrefs.getUseFingerprint(this);
+        binding.fingerprintIcon.setVisibility(useFingerprint ? View.VISIBLE : View.GONE);
+        if (useFingerprint) {
+            binding.fingerprintIcon.setOnClickListener(
+                    v -> AuthManager.getInstance().authPrompt(LoginActivity.this,
+                            "", "", false,
+                            true, new BRAuthCompletion() {
+                                @Override
+                                public void onComplete() {
+                                    unlockWallet();
+                                }
 
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showReceiveFragment(LoginActivity.this, false);
-//                chooseWordsSize(true);
-            }
-        });
+                                @Override
+                                public void onCancel() {
 
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                try {
-                    // Check if the camera permission is granted
-                    if (ContextCompat.checkSelfPermission(LoginActivity.this,
-                            Manifest.permission.CAMERA)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        // Should we show an expgetString(R.string.ConfirmPaperPhrase_word)lanation?
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
-                                Manifest.permission.CAMERA)) {
-                            BRDialog.showCustomDialog(LoginActivity.this, getString(R.string.Send_cameraUnavailabeTitle_android),
-                                    getString(R.string.Send_cameraUnavailabeMessage_android), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-                                        @Override
-                                        public void onClick(BRDialogView brDialogView) {
-                                            brDialogView.dismiss();
-                                        }
-                                    }, null, null, 0);
-                        } else {
-                            // No explanation needed, we can request the permission.
-                            ActivityCompat.requestPermissions(LoginActivity.this,
-                                    new String[]{Manifest.permission.CAMERA},
-                                    BRConstants.CAMERA_REQUEST_ID);
-                        }
-                    } else {
-                        // Permission is granted, open camera
-                        Intent intent = new Intent(LoginActivity.this, ScanQRActivity.class);
-                        startActivityForResult(intent, SCANNER_REQUEST);
-                        overridePendingTransition(R.anim.fade_up, 0);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        final boolean useFingerprint = AuthManager.isFingerPrintAvailableAndSetup(this) && BRSharedPrefs.getUseFingerprint(this);
-//        Log.e(TAG, "onCreate: isFingerPrintAvailableAndSetup: " + useFingerprint);
-        fingerPrint.setVisibility(useFingerprint ? View.VISIBLE : View.GONE);
-
-        if (useFingerprint)
-            fingerPrint.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AuthManager.getInstance().authPrompt(LoginActivity.this, "", "", false, true, new BRAuthCompletion() {
-                        @Override
-                        public void onComplete() {
-//                            AuthManager.getInstance().authSuccess(LoginActivity.this);
-                            unlockWallet();
-                        }
-
-                        @Override
-                        public void onCancel() {
-
-                        }
-                    });
-                }
-            });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (fingerPrint != null && useFingerprint)
-                    fingerPrint.performClick();
+                                }
+                            }));
+        }
+        new Handler().postDelayed(() -> {
+            if (binding.fingerprintIcon != null && useFingerprint) {
+                binding.fingerprintIcon.performClick();
             }
         }, 500);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.left_button)
+    public void leftButtonClick(View view) {
+        if (!BRAnimator.isClickAllowed()) return;
+        BRAnimator.showReceiveFragment(LoginActivity.this, false);
+    }
+
+    @OnClick(R.id.right_button)
+    public void rightButtonClick(View view) {
+        if (!BRAnimator.isClickAllowed()) return;
+        try {
+            // Check if the camera permission is granted
+            if (ContextCompat.checkSelfPermission(LoginActivity.this,
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Should we show an expgetString(R.string.ConfirmPaperPhrase_word)lanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
+                        Manifest.permission.CAMERA)) {
+                    BRDialog.showCustomDialog(LoginActivity.this,
+                            getString(R.string.Send_cameraUnavailabeTitle_android),
+                            getString(R.string.Send_cameraUnavailabeMessage_android),
+                            getString(R.string.AccessibilityLabels_close), null,
+                            brDialogView -> brDialogView.dismiss(), null, null, 0);
+                } else {
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(LoginActivity.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            BRConstants.CAMERA_REQUEST_ID);
+                }
+            } else {
+                // Permission is granted, open camera
+                Intent intent = new Intent(LoginActivity.this, ScanQRActivity.class);
+                startActivityForResult(intent, SCANNER_REQUEST);
+                overridePendingTransition(R.anim.fade_up, 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -196,12 +144,8 @@ public class LoginActivity extends BRActivity {
 
         inputAllowed = true;
         if (!BRWalletManager.getInstance().isCreated()) {
-            BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-                @Override
-                public void run() {
-                    BRWalletManager.getInstance().initWallet(LoginActivity.this);
-                }
-            });
+            BRExecutor.getInstance().forBackgroundTasks().execute(
+                    () -> BRWalletManager.getInstance().initWallet(LoginActivity.this));
         }
     }
 
@@ -226,14 +170,16 @@ public class LoginActivity extends BRActivity {
 
 
     private void handleDigitClick(Integer dig) {
-        if (pin.length() < pinLimit)
+        if (pin.length() < pinLimit) {
             pin.append(dig);
+        }
         updateDots();
     }
 
     private void handleDeleteClick() {
-        if (pin.length() > 0)
+        if (pin.length() > 0) {
             pin.deleteCharAt(pin.length() - 1);
+        }
         updateDots();
     }
 
@@ -254,7 +200,7 @@ public class LoginActivity extends BRActivity {
     }
 
     private void showFailedToUnlock() {
-        SpringAnimator.failShakeAnimation(LoginActivity.this, pinLayout);
+        SpringAnimator.failShakeAnimation(LoginActivity.this, binding.pinLayout);
         pin = new StringBuilder("");
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -266,28 +212,30 @@ public class LoginActivity extends BRActivity {
     }
 
     private void updateDots() {
-        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_white,
-                new AuthManager.OnPinSuccess() {
-                    @Override
-                    public void onSuccess() {
-                        inputAllowed = false;
-                        if (AuthManager.getInstance().checkAuth(pin.toString(), LoginActivity.this)) {
-                            AuthManager.getInstance().authSuccess(LoginActivity.this);
-                            unlockWallet();
-                        } else {
-                            AuthManager.getInstance().authFail(LoginActivity.this);
-                            showFailedToUnlock();
-                        }
+        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), binding.dot1,
+                binding.dot2, binding.dot3, binding.dot4,
+                binding.dot5, binding.dot6, R.drawable.ic_pin_dot_white, () -> {
+                    inputAllowed = false;
+                    if (AuthManager.getInstance().checkAuth(pin.toString(),
+                            LoginActivity.this)) {
+                        AuthManager.getInstance().authSuccess(LoginActivity.this);
+                        unlockWallet();
+                    } else {
+                        AuthManager.getInstance().authFail(LoginActivity.this);
+                        showFailedToUnlock();
                     }
                 });
     }
 
     private void setUpOfflineButtons() {
         int activeColor = getColor(white);
-        GradientDrawable leftDrawable = (GradientDrawable) leftButton.getBackground().getCurrent();
-        GradientDrawable rightDrawable = (GradientDrawable) rightButton.getBackground().getCurrent();
+        GradientDrawable leftDrawable =
+                (GradientDrawable) binding.leftButton.getBackground().getCurrent();
+        GradientDrawable rightDrawable =
+                (GradientDrawable) binding.rightButton.getBackground().getCurrent();
 
-        int rad = Utils.getPixelsFromDps(this, (int) getResources().getDimension(R.dimen.radius) / 2);
+        int rad = Utils.getPixelsFromDps(this,
+                (int) getResources().getDimension(R.dimen.radius) / 2);
         int stoke = 2;
 
         leftDrawable.setCornerRadii(new float[]{rad, rad, 0, 0, 0, 0, rad, rad});
@@ -295,12 +243,13 @@ public class LoginActivity extends BRActivity {
 
         leftDrawable.setStroke(stoke, activeColor, 0, 0);
         rightDrawable.setStroke(stoke, activeColor, 0, 0);
-        leftButton.setTextColor(activeColor);
-        rightButton.setTextColor(activeColor);
+        binding.leftButton.setTextColor(activeColor);
+        binding.rightButton.setTextColor(activeColor);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
@@ -313,20 +262,17 @@ public class LoginActivity extends BRActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    Log.e(TAG, "onRequestPermissionsResult: permission isn't granted for: " + requestCode);
+                    Log.e(TAG, "onRequestPermissionsResult: permission isn't granted for: "
+                            + requestCode);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
     }
-
 }

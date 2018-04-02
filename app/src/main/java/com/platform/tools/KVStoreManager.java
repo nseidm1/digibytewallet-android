@@ -3,15 +3,9 @@ package com.platform.tools;
 import android.content.Context;
 import android.util.Log;
 
-import io.digibyte.tools.crypto.CryptoHelper;
-import io.digibyte.tools.manager.BRReportsManager;
-import io.digibyte.tools.util.BRCompressor;
-import io.digibyte.tools.util.Utils;
-import com.platform.APIClient;
 import com.platform.entities.TxMetaData;
 import com.platform.entities.WalletInfo;
 import com.platform.kvstore.CompletionObject;
-import com.platform.kvstore.RemoteKVStore;
 import com.platform.kvstore.ReplicatedKVStore;
 import com.platform.sqlite.KVItem;
 
@@ -19,10 +13,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.digibyte.tools.crypto.CryptoHelper;
+import io.digibyte.tools.manager.BRReportsManager;
+import io.digibyte.tools.util.BRCompressor;
+import io.digibyte.tools.util.Utils;
 
 /**
  * BreadWallet
@@ -64,8 +62,7 @@ public class KVStoreManager {
 
     public WalletInfo getWalletInfo(Context app) {
         WalletInfo result = new WalletInfo();
-        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(APIClient.getInstance(app));
-        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app, remoteKVStore);
+        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app);
         long ver = kvStore.localVersion(walletInfoKey).version;
         CompletionObject obj = kvStore.get(walletInfoKey, ver);
         if (obj.kv == null) {
@@ -91,7 +88,6 @@ public class KVStoreManager {
             result.classVersion = json.getInt("classVersion");
             result.creationDate = json.getInt("creationDate");
             result.name = json.getString("name");
-//            result.currentCurrency = json.getString("currentCurrency");
             Log.d(TAG, "getWalletInfo: " + result.creationDate + ", name: " + result.name);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -140,33 +136,24 @@ public class KVStoreManager {
             BRReportsManager.reportBug(e);
             return;
         }
-        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(APIClient.getInstance(app));
-        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app, remoteKVStore);
+        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app);
         long localVer = kvStore.localVersion(walletInfoKey).version;
-        long removeVer = kvStore.remoteVersion(walletInfoKey);
-        CompletionObject compObj = kvStore.set(localVer, removeVer, walletInfoKey, compressed, System.currentTimeMillis(), 0);
+        CompletionObject compObj = kvStore.set(localVer, walletInfoKey, compressed, System.currentTimeMillis(), 0);
         if (compObj.err != null) {
             Log.e(TAG, "putWalletInfo: Error setting value for key: " + walletInfoKey + ", err: " + compObj.err);
         }
 
     }
 
-//    public TxMetaData getTxMetaData(Context app, byte[] txHash) {
-//        return getTxMetaData(app, txHash, null);
-//    }
-
     public TxMetaData getTxMetaData(Context app, byte[] txHash) {
-//        if(ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
         String key = txKey(txHash);
 
-        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(APIClient.getInstance(app));
-        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app, remoteKVStore);
+        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app);
         long ver = kvStore.localVersion(key).version;
 
         CompletionObject obj = kvStore.get(key, ver);
 
         if (obj.kv == null) {
-//            Log.e(TAG, "getTxMetaData: kv is null for key: " + key);
             return null;
         }
 
@@ -175,8 +162,7 @@ public class KVStoreManager {
 
     public Map<String, TxMetaData> getAllTxMD(Context app) {
         Map<String, TxMetaData> mds = new HashMap<>();
-        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(APIClient.getInstance(app));
-        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app, remoteKVStore);
+        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app);
         List<KVItem> list = kvStore.getAllTxMdKv();
         for (int i = 0; i < list.size(); i++) {
             TxMetaData md = valueToMetaData(list.get(i).value);
@@ -227,7 +213,6 @@ public class KVStoreManager {
     }
 
     public void putTxMetaData(Context app, TxMetaData data, byte[] txHash) {
-//        if(ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
         String key = txKey(txHash);
         TxMetaData old = getTxMetaData(app, txHash);
 
@@ -321,11 +306,9 @@ public class KVStoreManager {
             BRReportsManager.reportBug(e);
             return;
         }
-        RemoteKVStore remoteKVStore = RemoteKVStore.getInstance(APIClient.getInstance(app));
-        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app, remoteKVStore);
+        ReplicatedKVStore kvStore = ReplicatedKVStore.getInstance(app);
         long localVer = kvStore.localVersion(key).version;
-        long removeVer = kvStore.remoteVersion(key);
-        CompletionObject compObj = kvStore.set(localVer, removeVer, key, compressed, System.currentTimeMillis(), 0);
+        CompletionObject compObj = kvStore.set(localVer, key, compressed, System.currentTimeMillis(), 0);
         if (compObj.err != null) {
             Log.e(TAG, "putTxMetaData: Error setting value for key: " + key + ", err: " + compObj.err);
         }
@@ -375,7 +358,6 @@ public class KVStoreManager {
             return newVal;
         }
     }
-
 
     public static String txKey(byte[] txHash) {
         if (Utils.isNullOrEmpty(txHash)) return null;

@@ -12,14 +12,6 @@ import io.digibyte.R;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.presenter.activities.InputWordsActivity;
 import io.digibyte.presenter.activities.SetPinActivity;
-import io.digibyte.presenter.activities.intro.IntroActivity;
-import io.digibyte.presenter.activities.intro.RecoverActivity;
-import io.digibyte.presenter.activities.intro.WriteDownActivity;
-import io.digibyte.tools.manager.InternetManager;
-import io.digibyte.tools.manager.BRApiManager;
-import io.digibyte.tools.security.AuthManager;
-import io.digibyte.tools.threads.BRExecutor;
-import com.platform.HTTPServer;
 
 import java.util.List;
 

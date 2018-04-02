@@ -10,27 +10,8 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.style.ClickableSpan;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
-
-import io.digibyte.R;
-import io.digibyte.exceptions.BRKeystoreErrorException;
-import io.digibyte.presenter.customviews.BRDialogView;
-import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.BRDialog;
-import io.digibyte.tools.manager.BRReportsManager;
-import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRConstants;
-import io.digibyte.tools.util.BytesUtil;
-import io.digibyte.tools.util.TypesConverter;
-import io.digibyte.tools.util.Utils;
-import io.digibyte.wallet.BRWalletManager;
 
 import com.platform.entities.WalletInfo;
 import com.platform.tools.KVStoreManager;
@@ -54,7 +35,6 @@ import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Handler;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -66,6 +46,17 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.IvParameterSpec;
+
+import io.digibyte.R;
+import io.digibyte.exceptions.BRKeystoreErrorException;
+import io.digibyte.presenter.customviews.BRDialogView;
+import io.digibyte.tools.animation.BRDialog;
+import io.digibyte.tools.manager.BRReportsManager;
+import io.digibyte.tools.manager.BRSharedPrefs;
+import io.digibyte.tools.util.BytesUtil;
+import io.digibyte.tools.util.TypesConverter;
+import io.digibyte.tools.util.Utils;
+import io.digibyte.wallet.BRWalletManager;
 
 /**
  * BreadWallet
@@ -155,17 +146,28 @@ public class BRKeyStore {
         aliasObjectMap = new HashMap<>();
         aliasObjectMap.put(PHRASE_ALIAS, new AliasObject(PHRASE_ALIAS, PHRASE_FILENAME, PHRASE_IV));
         aliasObjectMap.put(CANARY_ALIAS, new AliasObject(CANARY_ALIAS, CANARY_FILENAME, CANARY_IV));
-        aliasObjectMap.put(PUB_KEY_ALIAS, new AliasObject(PUB_KEY_ALIAS, PUB_KEY_FILENAME, PUB_KEY_IV));
-        aliasObjectMap.put(WALLET_CREATION_TIME_ALIAS, new AliasObject(WALLET_CREATION_TIME_ALIAS, WALLET_CREATION_TIME_FILENAME, WALLET_CREATION_TIME_IV));
-        aliasObjectMap.put(PASS_CODE_ALIAS, new AliasObject(PASS_CODE_ALIAS, PASS_CODE_FILENAME, PASS_CODE_IV));
-        aliasObjectMap.put(FAIL_COUNT_ALIAS, new AliasObject(FAIL_COUNT_ALIAS, FAIL_COUNT_FILENAME, FAIL_COUNT_IV));
-        aliasObjectMap.put(FAIL_COUNT_ALIAS, new AliasObject(FAIL_COUNT_ALIAS, FAIL_COUNT_FILENAME, FAIL_COUNT_IV));
-        aliasObjectMap.put(SPEND_LIMIT_ALIAS, new AliasObject(SPEND_LIMIT_ALIAS, SPEND_LIMIT_FILENAME, SPENT_LIMIT_IV));
-        aliasObjectMap.put(FAIL_TIMESTAMP_ALIAS, new AliasObject(FAIL_TIMESTAMP_ALIAS, FAIL_TIMESTAMP_FILENAME, FAIL_TIMESTAMP_IV));
-        aliasObjectMap.put(AUTH_KEY_ALIAS, new AliasObject(AUTH_KEY_ALIAS, AUTH_KEY_FILENAME, AUTH_KEY_IV));
+        aliasObjectMap.put(PUB_KEY_ALIAS,
+                new AliasObject(PUB_KEY_ALIAS, PUB_KEY_FILENAME, PUB_KEY_IV));
+        aliasObjectMap.put(WALLET_CREATION_TIME_ALIAS,
+                new AliasObject(WALLET_CREATION_TIME_ALIAS, WALLET_CREATION_TIME_FILENAME,
+                        WALLET_CREATION_TIME_IV));
+        aliasObjectMap.put(PASS_CODE_ALIAS,
+                new AliasObject(PASS_CODE_ALIAS, PASS_CODE_FILENAME, PASS_CODE_IV));
+        aliasObjectMap.put(FAIL_COUNT_ALIAS,
+                new AliasObject(FAIL_COUNT_ALIAS, FAIL_COUNT_FILENAME, FAIL_COUNT_IV));
+        aliasObjectMap.put(FAIL_COUNT_ALIAS,
+                new AliasObject(FAIL_COUNT_ALIAS, FAIL_COUNT_FILENAME, FAIL_COUNT_IV));
+        aliasObjectMap.put(SPEND_LIMIT_ALIAS,
+                new AliasObject(SPEND_LIMIT_ALIAS, SPEND_LIMIT_FILENAME, SPENT_LIMIT_IV));
+        aliasObjectMap.put(FAIL_TIMESTAMP_ALIAS,
+                new AliasObject(FAIL_TIMESTAMP_ALIAS, FAIL_TIMESTAMP_FILENAME, FAIL_TIMESTAMP_IV));
+        aliasObjectMap.put(AUTH_KEY_ALIAS,
+                new AliasObject(AUTH_KEY_ALIAS, AUTH_KEY_FILENAME, AUTH_KEY_IV));
         aliasObjectMap.put(TOKEN_ALIAS, new AliasObject(TOKEN_ALIAS, TOKEN_FILENAME, TOKEN_IV));
-        aliasObjectMap.put(PASS_TIME_ALIAS, new AliasObject(PASS_TIME_ALIAS, PASS_TIME_FILENAME, PASS_TIME_IV));
-        aliasObjectMap.put(TOTAL_LIMIT_ALIAS, new AliasObject(TOTAL_LIMIT_ALIAS, TOTAL_LIMIT_FILENAME, TOTAL_LIMIT_IV));
+        aliasObjectMap.put(PASS_TIME_ALIAS,
+                new AliasObject(PASS_TIME_ALIAS, PASS_TIME_FILENAME, PASS_TIME_IV));
+        aliasObjectMap.put(TOTAL_LIMIT_ALIAS,
+                new AliasObject(TOTAL_LIMIT_ALIAS, TOTAL_LIMIT_FILENAME, TOTAL_LIMIT_IV));
 
         Assert.assertEquals(aliasObjectMap.size(), 12);
 
@@ -173,8 +175,9 @@ public class BRKeyStore {
     }
 
 
-    private synchronized static boolean _setData(Context context, byte[] data, String alias, String alias_file, String alias_iv,
-                                                 int request_code, boolean auth_required) throws UserNotAuthenticatedException {
+    private synchronized static boolean _setData(Context context, byte[] data, String alias,
+            String alias_file, String alias_iv,
+            int request_code, boolean auth_required) throws UserNotAuthenticatedException {
 //        Log.e(TAG, "_setData: " + alias);
         validateSet(data, alias, alias_file, alias_iv, auth_required);
 
@@ -207,7 +210,8 @@ public class BRKeyStore {
 
             //the key cannot still be null
             if (secretKey == null) {
-                BRKeystoreErrorException ex = new BRKeystoreErrorException("secret is null on _setData: " + alias);
+                BRKeystoreErrorException ex = new BRKeystoreErrorException(
+                        "secret is null on _setData: " + alias);
                 BRReportsManager.reportBug(ex);
                 return false;
             }
@@ -243,8 +247,11 @@ public class BRKeyStore {
         }
     }
 
-    private static SecretKey createKeys(String alias, boolean auth_required) throws InvalidAlgorithmParameterException, KeyStoreException, NoSuchProviderException, NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
+    private static SecretKey createKeys(String alias, boolean auth_required)
+            throws InvalidAlgorithmParameterException, KeyStoreException, NoSuchProviderException,
+            NoSuchAlgorithmException {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,
+                ANDROID_KEY_STORE);
 
         // Set the alias of the entry in Android KeyStore where the key will appear
         // and the constrains (purposes) in the constructor of the Builder
@@ -260,7 +267,8 @@ public class BRKeyStore {
 
     }
 
-    private synchronized static byte[] _getData(final Context context, String alias, String alias_file, String alias_iv, int request_code)
+    private synchronized static byte[] _getData(final Context context, String alias,
+            String alias_file, String alias_iv, int request_code)
             throws UserNotAuthenticatedException {
         validateGet(alias, alias_file, alias_iv);//validate entries
         KeyStore keyStore = null;
@@ -275,8 +283,9 @@ public class BRKeyStore {
             if (encryptedData != null) {
                 //new format data is present, good
                 byte[] iv = retrieveEncryptedData(context, alias_iv);
-                if (iv == null)
+                if (iv == null) {
                     throw new NullPointerException("iv is missing when data isn't: " + alias);
+                }
                 Cipher outCipher;
 
                 outCipher = Cipher.getInstance(NEW_CIPHER_ALGORITHM);
@@ -301,7 +310,8 @@ public class BRKeyStore {
                 if (!fileExists) {
                     return null;/* file also not there, fine then */
                 }
-                BRKeystoreErrorException ex = new BRKeystoreErrorException("file is present but the key is gone: " + alias);
+                BRKeystoreErrorException ex = new BRKeystoreErrorException(
+                        "file is present but the key is gone: " + alias);
                 BRReportsManager.reportBug(ex);
                 return null;
             }
@@ -313,30 +323,39 @@ public class BRKeyStore {
                 removeAliasAndFiles(keyStore, alias, context);
                 //report it if one exists and not the other.
                 if (ivExists != aliasExists) {
-                    BRKeystoreErrorException ex = new BRKeystoreErrorException("alias or iv isn't on the disk: " + alias + ", aliasExists:" + aliasExists);
+                    BRKeystoreErrorException ex = new BRKeystoreErrorException(
+                            "alias or iv isn't on the disk: " + alias + ", aliasExists:"
+                                    + aliasExists);
                     BRReportsManager.reportBug(ex);
                     return null;
                 } else {
-                    BRKeystoreErrorException ex = new BRKeystoreErrorException("!ivExists && !aliasExists: " + alias);
+                    BRKeystoreErrorException ex = new BRKeystoreErrorException(
+                            "!ivExists && !aliasExists: " + alias);
                     BRReportsManager.reportBug(ex);
                     return null;
                 }
             }
 
             byte[] iv = readBytesFromFile(getFilePath(alias_iv, context));
-            if (Utils.isNullOrEmpty(iv))
+            if (Utils.isNullOrEmpty(iv)) {
                 throw new RuntimeException("iv is missing for " + alias);
+            }
             Cipher outCipher = Cipher.getInstance(CIPHER_ALGORITHM);
             outCipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
-            CipherInputStream cipherInputStream = new CipherInputStream(new FileInputStream(encryptedDataFilePath), outCipher);
+            CipherInputStream cipherInputStream = new CipherInputStream(
+                    new FileInputStream(encryptedDataFilePath), outCipher);
             byte[] result = BytesUtil.readBytesFromStream(cipherInputStream);
-            if (result == null)
-                throw new RuntimeException("Failed to read bytes from CipherInputStream for alias " + alias);
+            if (result == null) {
+                throw new RuntimeException(
+                        "Failed to read bytes from CipherInputStream for alias " + alias);
+            }
 
             //create the new format key
-            SecretKey newKey = createKeys(alias, (alias.equals(PHRASE_ALIAS) || alias.equals(CANARY_ALIAS)));
-            if (newKey == null)
+            SecretKey newKey = createKeys(alias,
+                    (alias.equals(PHRASE_ALIAS) || alias.equals(CANARY_ALIAS)));
+            if (newKey == null) {
                 throw new RuntimeException("Failed to create new key for alias " + alias);
+            }
             Cipher inCipher = Cipher.getInstance(NEW_CIPHER_ALGORITHM);
             //init the cipher
             inCipher.init(Cipher.ENCRYPT_MODE, newKey);
@@ -358,18 +377,23 @@ public class BRKeyStore {
             } else {
                 Log.e(TAG, "_getData: InvalidKeyException", e);
                 BRReportsManager.reportBug(e);
-                if (e instanceof KeyPermanentlyInvalidatedException)
+                if (e instanceof KeyPermanentlyInvalidatedException) {
                     showKeyInvalidated(context);
+                }
                 throw new UserNotAuthenticatedException(); //just to not go any further
             }
         } catch (IOException | CertificateException | KeyStoreException e) {
             /** keyStore.load(null) threw the Exception, meaning the keystore is unavailable */
-            Log.e(TAG, "_getData: keyStore.load(null) threw the Exception, meaning the keystore is unavailable", e);
+            Log.e(TAG,
+                    "_getData: keyStore.load(null) threw the Exception, meaning the keystore is "
+                            + "unavailable",
+                    e);
             BRReportsManager.reportBug(e);
             if (e instanceof FileNotFoundException) {
                 Log.e(TAG, "_getData: File not found exception", e);
 
-                RuntimeException ex = new RuntimeException("the key is present but the phrase on the disk no");
+                RuntimeException ex = new RuntimeException(
+                        "the key is present but the phrase on the disk no");
                 BRReportsManager.reportBug(ex);
                 throw new RuntimeException(e.getMessage());
             } else {
@@ -377,7 +401,8 @@ public class BRKeyStore {
                 throw new RuntimeException(e.getMessage());
             }
 
-        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
+        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException |
+                InvalidAlgorithmParameterException e) {
             /** if for any other reason the keystore fails, crash! */
             Log.e(TAG, "getData: error: " + e.getClass().getSuperclass().getName());
             BRReportsManager.reportBug(e);
@@ -390,42 +415,53 @@ public class BRKeyStore {
         }
     }
 
-    private static void validateGet(String alias, String alias_file, String alias_iv) throws IllegalArgumentException {
+    private static void validateGet(String alias, String alias_file, String alias_iv)
+            throws IllegalArgumentException {
         AliasObject obj = aliasObjectMap.get(alias);
-        if (!obj.alias.equals(alias) || !obj.datafileName.equals(alias_file) || !obj.ivFileName.equals(alias_iv)) {
-            String err = alias + "|" + alias_file + "|" + alias_iv + ", obj: " + obj.alias + "|" + obj.datafileName + "|" + obj.ivFileName;
+        if (!obj.alias.equals(alias) || !obj.datafileName.equals(alias_file)
+                || !obj.ivFileName.equals(alias_iv)) {
+            String err = alias + "|" + alias_file + "|" + alias_iv + ", obj: " + obj.alias + "|"
+                    + obj.datafileName + "|" + obj.ivFileName;
             throw new IllegalArgumentException("keystore insert inconsistency in names: " + err);
         }
 
     }
 
-    private static void validateSet(byte[] data, String alias, String alias_file, String alias_iv, boolean auth_required) throws IllegalArgumentException {
+    private static void validateSet(byte[] data, String alias, String alias_file, String alias_iv,
+            boolean auth_required) throws IllegalArgumentException {
         if (data == null) throw new IllegalArgumentException("keystore insert data is null");
         AliasObject obj = aliasObjectMap.get(alias);
-        if (!obj.alias.equals(alias) || !obj.datafileName.equals(alias_file) || !obj.ivFileName.equals(alias_iv)) {
-            String err = alias + "|" + alias_file + "|" + alias_iv + ", obj: " + obj.alias + "|" + obj.datafileName + "|" + obj.ivFileName;
+        if (!obj.alias.equals(alias) || !obj.datafileName.equals(alias_file)
+                || !obj.ivFileName.equals(alias_iv)) {
+            String err = alias + "|" + alias_file + "|" + alias_iv + ", obj: " + obj.alias + "|"
+                    + obj.datafileName + "|" + obj.ivFileName;
             throw new IllegalArgumentException("keystore insert inconsistency in names: " + err);
         }
 
-        if (auth_required)
-            if (!alias.equals(PHRASE_ALIAS) && !alias.equals(CANARY_ALIAS))
-                throw new IllegalArgumentException("keystore auth_required is true but alias is: " + alias);
+        if (auth_required) {
+            if (!alias.equals(PHRASE_ALIAS) && !alias.equals(CANARY_ALIAS)) {
+                throw new IllegalArgumentException(
+                        "keystore auth_required is true but alias is: " + alias);
+            }
+        }
     }
 
     public static void showKeyInvalidated(final Context app) {
-        BRDialog.showCustomDialog(app, app.getString(R.string.Alert_keystore_title_android), app.getString(R.string.Alert_keystore_invalidated_android), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismissWithAnimation();
-            }
-        }, null, new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                BRWalletManager.getInstance().wipeWalletButKeystore(app);
-                BRWalletManager.getInstance().wipeKeyStore(app);
-                dialog.dismiss();
-            }
-        }, 0);
+        BRDialog.showCustomDialog(app, app.getString(R.string.Alert_keystore_title_android),
+                app.getString(R.string.Alert_keystore_invalidated_android),
+                app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+                    @Override
+                    public void onClick(BRDialogView brDialogView) {
+                        brDialogView.dismissWithAnimation();
+                    }
+                }, null, new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        BRWalletManager.getInstance().wipeWalletButKeystore(app);
+                        BRWalletManager.getInstance().wipeKeyStore(app);
+                        dialog.dismiss();
+                    }
+                }, 0);
     }
 
     public synchronized static String getFilePath(String fileName, Context context) {
@@ -433,16 +469,19 @@ public class BRKeyStore {
         return filesDirectory + File.separator + fileName;
     }
 
-    public synchronized static boolean putPhrase(byte[] strToStore, Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static boolean putPhrase(byte[] strToStore, Context context,
+            int requestCode) throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
         }
         AliasObject obj = aliasObjectMap.get(PHRASE_ALIAS);
-        return !(strToStore == null || strToStore.length == 0) && _setData(context, strToStore, obj.alias, obj.datafileName, obj.ivFileName, requestCode, true);
+        return !(strToStore == null || strToStore.length == 0) && _setData(context, strToStore,
+                obj.alias, obj.datafileName, obj.ivFileName, requestCode, true);
     }
 
-    public synchronized static byte[] getPhrase(final Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static byte[] getPhrase(final Context context, int requestCode)
+            throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
@@ -451,7 +490,8 @@ public class BRKeyStore {
         return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
     }
 
-    public synchronized static boolean putCanary(String strToStore, Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static boolean putCanary(String strToStore, Context context,
+            int requestCode) throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
@@ -464,10 +504,12 @@ public class BRKeyStore {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return strBytes.length != 0 && _setData(context, strBytes, obj.alias, obj.datafileName, obj.ivFileName, requestCode, true);
+        return strBytes.length != 0 && _setData(context, strBytes, obj.alias, obj.datafileName,
+                obj.ivFileName, requestCode, true);
     }
 
-    public synchronized static String getCanary(final Context context, int requestCode) throws UserNotAuthenticatedException {
+    public synchronized static String getCanary(final Context context, int requestCode)
+            throws UserNotAuthenticatedException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
             throw new UserNotAuthenticatedException();
@@ -487,7 +529,8 @@ public class BRKeyStore {
     public synchronized static boolean putMasterPublicKey(byte[] masterPubKey, Context context) {
         AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);
         try {
-            return masterPubKey != null && masterPubKey.length != 0 && _setData(context, masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return masterPubKey != null && masterPubKey.length != 0 && _setData(context,
+                    masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -507,7 +550,8 @@ public class BRKeyStore {
     public synchronized static boolean putAuthKey(byte[] authKey, Context context) {
         AliasObject obj = aliasObjectMap.get(AUTH_KEY_ALIAS);
         try {
-            return authKey != null && authKey.length != 0 && _setData(context, authKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return authKey != null && authKey.length != 0 && _setData(context, authKey, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -527,7 +571,8 @@ public class BRKeyStore {
     public synchronized static boolean putToken(byte[] token, Context context) {
         AliasObject obj = aliasObjectMap.get(TOKEN_ALIAS);
         try {
-            return token != null && token.length != 0 && _setData(context, token, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return token != null && token.length != 0 && _setData(context, token, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -548,7 +593,8 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(WALLET_CREATION_TIME_ALIAS);
         byte[] bytesToStore = TypesConverter.intToBytes(creationTime);
         try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -570,8 +616,9 @@ public class BRKeyStore {
                 int creationDate = info.creationDate;
                 putWalletCreationTime(creationDate, context);
                 return creationDate;
-            } else
+            } else {
                 return 0;
+            }
         } else {
             return TypesConverter.bytesToInt(result);
         }
@@ -581,7 +628,8 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(PASS_CODE_ALIAS);
         byte[] bytesToStore = pinCode.getBytes();
         try {
-            return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0,
+                    false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -624,7 +672,8 @@ public class BRKeyStore {
         }
         byte[] bytesToStore = TypesConverter.intToBytes(failCount);
         try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -647,7 +696,8 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(SPEND_LIMIT_ALIAS);
         byte[] bytesToStore = TypesConverter.long2byteArray(spendLimit);
         try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -670,7 +720,8 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(FAIL_TIMESTAMP_ALIAS);
         byte[] bytesToStore = TypesConverter.long2byteArray(spendLimit);
         try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -693,7 +744,8 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(PASS_TIME_ALIAS);
         byte[] bytesToStore = TypesConverter.long2byteArray(time);
         try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -705,7 +757,8 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(TOTAL_LIMIT_ALIAS);
         byte[] bytesToStore = TypesConverter.long2byteArray(totalLimit);
         try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
+            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
+                    obj.datafileName, obj.ivFileName, 0, false);
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
@@ -766,11 +819,14 @@ public class BRKeyStore {
         return true;
     }
 
-    public synchronized static void removeAliasAndFiles(KeyStore keyStore, String alias, Context context) {
+    public synchronized static void removeAliasAndFiles(KeyStore keyStore, String alias,
+            Context context) {
         try {
             keyStore.deleteEntry(alias);
-            boolean b1 = new File(getFilePath(aliasObjectMap.get(alias).datafileName, context)).delete();
-            boolean b2 = new File(getFilePath(aliasObjectMap.get(alias).ivFileName, context)).delete();
+            boolean b1 = new File(
+                    getFilePath(aliasObjectMap.get(alias).datafileName, context)).delete();
+            boolean b2 = new File(
+                    getFilePath(aliasObjectMap.get(alias).ivFileName, context)).delete();
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
@@ -778,7 +834,8 @@ public class BRKeyStore {
     }
 
     public static void storeEncryptedData(Context ctx, byte[] data, String name) {
-        SharedPreferences pref = ctx.getSharedPreferences(KEY_STORE_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences pref = ctx.getSharedPreferences(KEY_STORE_PREFS_NAME,
+                Context.MODE_PRIVATE);
         String base64 = Base64.encodeToString(data, Base64.DEFAULT);
         SharedPreferences.Editor edit = pref.edit();
         edit.putString(name, base64);
@@ -787,7 +844,8 @@ public class BRKeyStore {
     }
 
     public static void destroyEncryptedData(Context ctx, String name) {
-        SharedPreferences pref = ctx.getSharedPreferences(KEY_STORE_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences pref = ctx.getSharedPreferences(KEY_STORE_PREFS_NAME,
+                Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = pref.edit();
         edit.remove(name);
         edit.apply();
@@ -795,24 +853,29 @@ public class BRKeyStore {
     }
 
     public static byte[] retrieveEncryptedData(Context ctx, String name) {
-        SharedPreferences pref = ctx.getSharedPreferences(KEY_STORE_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences pref = ctx.getSharedPreferences(KEY_STORE_PREFS_NAME,
+                Context.MODE_PRIVATE);
         String base64 = pref.getString(name, null);
         if (base64 == null) return null;
         return Base64.decode(base64, Base64.DEFAULT);
     }
 
-    public synchronized static void showAuthenticationScreen(Context context, int requestCode, String alias) {
+    public synchronized static void showAuthenticationScreen(Context context, int requestCode,
+            String alias) {
         // Create the Confirm Credentials screen. You can customize the title and description. Or
         // we will provide a generic one for you if you leave it null
         if (!alias.equalsIgnoreCase(PHRASE_ALIAS) && !alias.equalsIgnoreCase(CANARY_ALIAS)) {
-            BRReportsManager.reportBug(new IllegalArgumentException("requesting auth for: " + alias), true);
+            BRReportsManager.reportBug(
+                    new IllegalArgumentException("requesting auth for: " + alias), true);
         }
 //        Log.e(TAG, "showAuthenticationScreen: " + alias);
         if (context instanceof Activity) {
             Activity app = (Activity) context;
-            KeyguardManager mKeyguardManager = (KeyguardManager) app.getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager mKeyguardManager = (KeyguardManager) app.getSystemService(
+                    Context.KEYGUARD_SERVICE);
             if (mKeyguardManager == null) {
-                NullPointerException ex = new NullPointerException("KeyguardManager is null in showAuthenticationScreen");
+                NullPointerException ex = new NullPointerException(
+                        "KeyguardManager is null in showAuthenticationScreen");
                 BRReportsManager.reportBug(ex, true);
                 return;
             }
@@ -820,19 +883,24 @@ public class BRKeyStore {
             if (Utils.isEmulatorOrDebug(app)) {
                 message = alias;
             }
-            Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(context.getString(R.string.UnlockScreen_touchIdTitle_android), message);
+            Intent intent = mKeyguardManager.createConfirmDeviceCredentialIntent(
+                    context.getString(R.string.UnlockScreen_touchIdTitle_android), message);
 
-            if (Utils.isEmulatorOrDebug(context))
-                intent = mKeyguardManager.createConfirmDeviceCredentialIntent(alias, context.getString(R.string.UnlockScreen_touchIdPrompt_android));
+            if (Utils.isEmulatorOrDebug(context)) {
+                intent = mKeyguardManager.createConfirmDeviceCredentialIntent(alias,
+                        context.getString(R.string.UnlockScreen_touchIdPrompt_android));
+            }
             if (intent != null) {
                 app.startActivityForResult(intent, requestCode);
             } else {
                 Log.e(TAG, "showAuthenticationScreen: failed to create intent for auth");
-                BRReportsManager.reportBug(new RuntimeException("showAuthenticationScreen: failed to create intent for auth"));
+                BRReportsManager.reportBug(new RuntimeException(
+                        "showAuthenticationScreen: failed to create intent for auth"));
                 app.finish();
             }
         } else {
-            BRReportsManager.reportBug(new RuntimeException("showAuthenticationScreen: context is not activity!"));
+            BRReportsManager.reportBug(
+                    new RuntimeException("showAuthenticationScreen: context is not activity!"));
             Log.e(TAG, "showAuthenticationScreen: context is not activity!");
         }
     }
@@ -851,8 +919,9 @@ public class BRKeyStore {
     }
 
     //USE ONLY FOR TESTING
-    public synchronized static boolean _setOldData(Context context, byte[] data, String alias, String alias_file, String alias_iv,
-                                                   int request_code, boolean auth_required) throws UserNotAuthenticatedException {
+    public synchronized static boolean _setOldData(Context context, byte[] data, String alias,
+            String alias_file, String alias_iv,
+            int request_code, boolean auth_required) throws UserNotAuthenticatedException {
 //        Log.e(TAG, "_setData: " + alias);
         try {
             validateSet(data, alias, alias_file, alias_iv, auth_required);
@@ -899,12 +968,15 @@ public class BRKeyStore {
             boolean success = writeBytesToFile(path, iv);
             if (!success) {
                 Log.e(TAG, "_setOldData: " + "failed to writeBytesToFile: " + alias);
-                BRDialog.showCustomDialog(context, context.getString(R.string.Alert_keystore_title_android), "Failed to save the iv file for: " + alias, "close", null, new BRDialogView.BROnClickListener() {
-                    @Override
-                    public void onClick(BRDialogView brDialogView) {
-                        brDialogView.dismissWithAnimation();
-                    }
-                }, null, null, 0);
+                BRDialog.showCustomDialog(context,
+                        context.getString(R.string.Alert_keystore_title_android),
+                        "Failed to save the iv file for: " + alias, "close", null,
+                        new BRDialogView.BROnClickListener() {
+                            @Override
+                            public void onClick(BRDialogView brDialogView) {
+                                brDialogView.dismissWithAnimation();
+                            }
+                        }, null, null, 0);
                 keyStore.deleteEntry(alias);
                 return false;
             }
@@ -931,7 +1003,8 @@ public class BRKeyStore {
     }
 
     //USE ONLY FOR TESTING
-    public synchronized static byte[] _getOldData(final Context context, String alias, String alias_file, String alias_iv, int request_code)
+    public synchronized static byte[] _getOldData(final Context context, String alias,
+            String alias_file, String alias_iv, int request_code)
             throws UserNotAuthenticatedException {
 //        Log.e(TAG, "_getData: " + alias);
 
@@ -966,7 +1039,8 @@ public class BRKeyStore {
                 removeAliasAndFiles(keyStore, alias, context);
                 //report it if one exists and not the other.
                 if (ivExists != aliasExists) {
-                    Log.e(TAG, "_getOldData: " + "alias or iv isn't on the disk: " + alias + ", aliasExists:" + aliasExists);
+                    Log.e(TAG, "_getOldData: " + "alias or iv isn't on the disk: " + alias
+                            + ", aliasExists:" + aliasExists);
                     return null;
                 } else {
                     Log.e(TAG, "_getOldData: " + "!ivExists && !aliasExists: " + alias);
@@ -975,12 +1049,14 @@ public class BRKeyStore {
             }
 
             byte[] iv = readBytesFromFile(getFilePath(alias_iv, context));
-            if (Utils.isNullOrEmpty(iv))
+            if (Utils.isNullOrEmpty(iv)) {
                 throw new NullPointerException("iv is missing for " + alias);
+            }
             Cipher outCipher;
             outCipher = Cipher.getInstance(CIPHER_ALGORITHM);
             outCipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
-            CipherInputStream cipherInputStream = new CipherInputStream(new FileInputStream(encryptedDataFilePath), outCipher);
+            CipherInputStream cipherInputStream = new CipherInputStream(
+                    new FileInputStream(encryptedDataFilePath), outCipher);
             return BytesUtil.readBytesFromStream(cipherInputStream);
         } catch (InvalidKeyException e) {
             if (e instanceof UserNotAuthenticatedException) {
@@ -994,10 +1070,14 @@ public class BRKeyStore {
             }
         } catch (IOException | CertificateException | KeyStoreException e) {
             /** keyStore.load(null) threw the Exception, meaning the keystore is unavailable */
-            Log.e(TAG, "_getOldData: keyStore.load(null) threw the Exception, meaning the keystore is unavailable", e);
+            Log.e(TAG,
+                    "_getOldData: keyStore.load(null) threw the Exception, meaning the keystore "
+                            + "is unavailable",
+                    e);
             return null;
 
-        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
+        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException |
+                InvalidAlgorithmParameterException e) {
             /** if for any other reason the keystore fails, crash! */
             Log.e(TAG, "getData: error: " + e.getClass().getSuperclass().getName());
             return null;
@@ -1009,30 +1089,9 @@ public class BRKeyStore {
         bugMessageShowing = true;
         Log.e(TAG, "showLoopBugMessage: ");
         String mess = app.getString(R.string.ErrorMessages_loopingLockScreen_android);
-
-        SpannableString ss = new SpannableString(mess.replace("[", "").replace("]", ""));
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                Log.e(TAG, "onClick: clicked on span!");
-                BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        BRDialog.hideDialog();
-                        BRAnimator.showSupportFragment((Activity) app, BRConstants.loopBug);
-                    }
-                });
-
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-            }
-        };
-        ss.setSpan(clickableSpan, mess.indexOf("[") - 1, mess.indexOf("]") - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title), ss, app.getString(R.string.AccessibilityLabels_close), null,
+        mess = mess.substring(0, mess.indexOf("[") - 1);
+        BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title), mess,
+                app.getString(R.string.AccessibilityLabels_close), null,
                 new BRDialogView.BROnClickListener() {
                     @Override
                     public void onClick(BRDialogView brDialogView) {
@@ -1044,9 +1103,7 @@ public class BRKeyStore {
                         bugMessageShowing = false;
                     }
                 }, 0);
-
     }
-
 
     public static boolean writeBytesToFile(String path, byte[] data) {
         FileOutputStream fos = null;
@@ -1085,6 +1142,5 @@ public class BRKeyStore {
             this.datafileName = datafileName;
             this.ivFileName = ivFileName;
         }
-
     }
 }

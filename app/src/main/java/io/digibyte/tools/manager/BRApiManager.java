@@ -175,7 +175,7 @@ public class BRApiManager {
                 .header("User-agent", Utils.getAgentString(app, "android/HttpURLConnection"))
                 .get().build();
         String response = null;
-        Response resp = APIClient.getInstance(app).sendRequest(request, false, 0);
+        Response resp = APIClient.getInstance(app).sendRequest(request);
 
         try {
             if (resp == null) {

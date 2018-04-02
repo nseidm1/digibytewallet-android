@@ -7,11 +7,18 @@ import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
+import com.platform.APIClient;
+import com.platform.entities.TxMetaData;
+import com.platform.tools.KVStoreManager;
+
+import java.io.IOException;
+import java.util.Arrays;
+
 import io.digibyte.DigiByte;
 import io.digibyte.R;
-import io.digibyte.presenter.activities.SetPinActivity;
 import io.digibyte.presenter.activities.PaperKeyActivity;
 import io.digibyte.presenter.activities.PaperKeyProveActivity;
+import io.digibyte.presenter.activities.SetPinActivity;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
 import io.digibyte.presenter.activities.settings.WithdrawBchActivity;
 import io.digibyte.presenter.activities.util.ActivityUTILS;
@@ -27,15 +34,6 @@ import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.TypesConverter;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
-
-import com.platform.APIClient;
-import com.platform.entities.TxMetaData;
-import com.platform.tools.BRBitId;
-import com.platform.tools.KVStoreManager;
-
-import java.io.IOException;
-import java.util.Arrays;
-
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -140,10 +138,6 @@ public class PostAuth {
         intent.putExtra("phrase", cleanPhrase);
         app.startActivity(intent);
         app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-    }
-
-    public void onBitIDAuth(Activity app, boolean authenticated) {
-        BRBitId.completeBitID(app, authenticated);
     }
 
     public void onRecoverWalletAuth(Activity app, boolean authAsked) {
@@ -291,7 +285,7 @@ public class PostAuth {
                             .url(strUtl)
                             .header("Content-Type", "application/bchdata")
                             .post(requestBody).build();
-                    Response response = APIClient.getInstance(app).sendRequest(request, true, 0);
+                    Response response = APIClient.getInstance(app).sendRequest(request);
                     boolean success = true;
                     try {
                         String responseBody = null;

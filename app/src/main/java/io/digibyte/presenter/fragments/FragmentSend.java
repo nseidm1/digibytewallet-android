@@ -2,7 +2,6 @@ package io.digibyte.presenter.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,8 +11,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,10 +26,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import io.digibyte.R;
-import io.digibyte.presenter.activities.settings.WebViewActivity;
 import io.digibyte.presenter.customviews.BRButton;
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.customviews.BRKeyboard;
@@ -58,7 +53,6 @@ import io.digibyte.wallet.BRWalletManager;
 import java.math.BigDecimal;
 
 import static io.digibyte.tools.security.BitcoinUrlHandler.getRequestFromString;
-import static com.platform.HTTPServer.URL_SUPPORT;
 
 
 /**

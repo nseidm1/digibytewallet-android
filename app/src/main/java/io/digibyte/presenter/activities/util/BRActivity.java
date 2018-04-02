@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
-import com.platform.tools.BRBitId;
-
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.PostAuth;
@@ -73,13 +71,6 @@ public class BRActivity extends Activity {
                     });
                 }
                 break;
-            case BRConstants.REQUEST_PHRASE_BITID:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onBitIDAuth(BRActivity.this, true);
-
-                }
-                break;
-
             case BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     PostAuth.getInstance().onPaymentProtocolRequest(this, true);
@@ -120,13 +111,10 @@ public class BRActivity extends Activity {
                             String result = data.getStringExtra("result");
                             if (BitcoinUrlHandler.isBitcoinUrl(result))
                                 BitcoinUrlHandler.processRequest(BRActivity.this, result);
-                            else if (BRBitId.isBitId(result))
-                                BRBitId.signBitID(BRActivity.this, result, null);
                             else
                                 Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                         }
                     }, 500);
-
                 }
                 break;
             case BRConstants.SCANNER_BCH_REQUEST:
@@ -138,7 +126,6 @@ public class BRActivity extends Activity {
                             PostAuth.getInstance().onSendBch(BRActivity.this, true, result);
                         }
                     }, 500);
-
                 }
                 break;
 

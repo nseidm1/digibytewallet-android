@@ -81,7 +81,6 @@ public class AuthManager {
                 setWalletDisabled((Activity) context);
             }
         }
-
         return match;
     }
 
@@ -100,7 +99,6 @@ public class AuthManager {
                         + BRKeyStore.getSpendLimit(app));
             }
         });
-
         BRKeyStore.putFailCount(0, app);
         BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), app);
     }
@@ -160,7 +158,6 @@ public class AuthManager {
                     setTotalLimit(activity, totalLimit);
                 }
             });
-
         }
     }
 
@@ -198,7 +195,6 @@ public class AuthManager {
 
                 }
             }, 100);
-
         }
     }
 
@@ -278,11 +274,10 @@ public class AuthManager {
                         }
                     }, 0);
         }
-
     }
 
     public static boolean isFingerPrintAvailableAndSetup(Context context) {
-        return Utils.isFingerprintAvailable(context) && Utils.isFingerprintEnrolled(context) && BRSharedPrefs.getUseFingerprint(context);
+        return Utils.isFingerprintAvailable(context) && BRSharedPrefs.getUseFingerprint(context);
     }
 
     public interface OnPinSuccess {

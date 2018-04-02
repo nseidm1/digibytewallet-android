@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.platform.tools.BRBitId;
-
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.SpringAnimator;
@@ -90,9 +88,7 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
                 SpringAnimator.showExpandCameraGuide(cameraGuide);
             }
         }, 400);
-
     }
-
 
     @Override
     protected void onResume() {
@@ -166,7 +162,7 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
     public void onQRCodeRead(final String text, PointF[] points) {
 
         if (handlingCode) return;
-        if (BitcoinUrlHandler.isBitcoinUrl(text) || BRBitId.isBitId(text)) {
+        if (BitcoinUrlHandler.isBitcoinUrl(text)) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

@@ -5,10 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,31 +18,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
 import io.digibyte.R;
 import io.digibyte.presenter.customviews.BRButton;
 import io.digibyte.presenter.customviews.BRKeyboard;
 import io.digibyte.presenter.customviews.BRLinearLayoutWithCaret;
-import io.digibyte.tools.adapter.CurAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SlideDetector;
-import io.digibyte.tools.listeners.RecyclerItemClickListener;
 import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.qrcode.QRUtils;
-import io.digibyte.tools.sqlite.CurrencyDataSource;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.BRCurrency;
+import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.platform.HTTPServer.URL_SUPPORT;
-
 
 /**
  * BreadWallet
@@ -101,12 +90,14 @@ public class FragmentRequestAmount extends Fragment {
     private ImageButton close;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_receive, container, false);
         backgroundLayout = (LinearLayout) rootView.findViewById(R.id.background_layout);
         signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
-        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.share_buttons_layout);
+        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(
+                R.id.share_buttons_layout);
         copiedLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.copied_layout);
 //        currencyListLayout = (LinearLayout) rootView.findViewById(R.id.cur_spinner_layout);
 //        currencyListLayout.setVisibility(View.VISIBLE);
@@ -128,7 +119,8 @@ public class FragmentRequestAmount extends Fragment {
         shareButton = (BRButton) rootView.findViewById(R.id.share_button);
         shareEmail = (Button) rootView.findViewById(R.id.share_email);
         shareTextMessage = (Button) rootView.findViewById(R.id.share_text);
-        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.share_buttons_layout);
+        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(
+                R.id.share_buttons_layout);
         close = (ImageButton) rootView.findViewById(R.id.close_button);
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout);
 
@@ -140,7 +132,8 @@ public class FragmentRequestAmount extends Fragment {
                 if (!BRAnimator.isClickAllowed()) return;
                 Activity app = getActivity();
                 if (app == null) {
-                    Log.e(TAG, "onClick: app is null, can't start the webview with url: " + URL_SUPPORT);
+                    Log.e(TAG, "onClick: app is null, can't start the webview with url: " +
+                    URL_SUPPORT);
                     return;
                 }
 
@@ -156,7 +149,8 @@ public class FragmentRequestAmount extends Fragment {
         signalLayout.removeView(request);
 
         showCurrencyList(false);
-        selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(getContext());
+        selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(
+                getContext());
 
         signalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,8 +181,9 @@ public class FragmentRequestAmount extends Fragment {
             @Override
             public void onClick(View v) {
                 Activity app = getActivity();
-                if (app != null)
+                if (app != null) {
                     app.getFragmentManager().popBackStack();
+                }
             }
         });
 
@@ -217,9 +212,13 @@ public class FragmentRequestAmount extends Fragment {
                 showKeyboard(false);
                 String iso = selectedIso;
                 String strAmount = amountEdit.getText().toString();
-                BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
-                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null, null);
+                BigDecimal bigAmount = new BigDecimal(
+                        (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
+                                : strAmount);
+                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
+                        bigAmount).longValue();
+                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
+                        null);
                 QRUtils.share("mailto:", getActivity(), bitcoinUri);
 
             }
@@ -232,9 +231,13 @@ public class FragmentRequestAmount extends Fragment {
                 showKeyboard(false);
                 String iso = selectedIso;
                 String strAmount = amountEdit.getText().toString();
-                BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
-                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null, null);
+                BigDecimal bigAmount = new BigDecimal(
+                        (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
+                                : strAmount);
+                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
+                        bigAmount).longValue();
+                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
+                        null);
                 QRUtils.share("sms:", getActivity(), bitcoinUri);
             }
         });
@@ -273,9 +276,11 @@ public class FragmentRequestAmount extends Fragment {
                 } else {
                     selectedIso = BRSharedPrefs.getIso(getContext());
                 }
-                boolean generated = generateQrImage(receiveAddress, amountEdit.getText().toString(), selectedIso);
-                if (!generated)
+                boolean generated = generateQrImage(receiveAddress, amountEdit.getText().toString(),
+                        selectedIso);
+                if (!generated) {
                     throw new RuntimeException("failed to generate qr image for address");
+                }
                 updateText();
             }
         });
@@ -327,8 +332,9 @@ public class FragmentRequestAmount extends Fragment {
                     public void run() {
                         mAddress.setText(receiveAddress);
                         boolean generated = generateQrImage(receiveAddress, "0", "DGB");
-                        if (!generated)
+                        if (!generated) {
                             throw new RuntimeException("failed to generate qr image for address");
+                        }
                     }
                 });
             }
@@ -379,7 +385,8 @@ public class FragmentRequestAmount extends Fragment {
             handleSeparatorClick();
         }
 
-        boolean generated = generateQrImage(receiveAddress, amountEdit.getText().toString(), selectedIso);
+        boolean generated = generateQrImage(receiveAddress, amountEdit.getText().toString(),
+                selectedIso);
         if (!generated) throw new RuntimeException("failed to generate qr image for address");
     }
 
@@ -390,8 +397,10 @@ public class FragmentRequestAmount extends Fragment {
                 <= BRExchange.getMaxAmount(getActivity(), iso).doubleValue()) {
             //do not insert 0 if the balance is 0 now
             if (currAmount.equalsIgnoreCase("0")) amountBuilder = new StringBuilder("");
-            if ((currAmount.contains(".") && (currAmount.length() - currAmount.indexOf(".") > BRCurrency.getMaxDecimalPlaces(iso))))
+            if ((currAmount.contains(".") && (currAmount.length() - currAmount.indexOf(".")
+                    > BRCurrency.getMaxDecimalPlaces(iso)))) {
                 return;
+            }
             amountBuilder.append(dig);
             updateText();
         }
@@ -399,8 +408,9 @@ public class FragmentRequestAmount extends Fragment {
 
     private void handleSeparatorClick() {
         String currAmount = amountBuilder.toString();
-        if (currAmount.contains(".") || BRCurrency.getMaxDecimalPlaces(selectedIso) == 0)
+        if (currAmount.contains(".") || BRCurrency.getMaxDecimalPlaces(selectedIso) == 0) {
             return;
+        }
         amountBuilder.append(".");
         updateText();
     }
@@ -419,7 +429,9 @@ public class FragmentRequestAmount extends Fragment {
         String tmpAmount = amountBuilder.toString();
         amountEdit.setText(tmpAmount);
         isoText.setText(BRCurrency.getSymbolByIso(getActivity(), selectedIso));
-        isoButton.setText(String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso), BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
+        isoButton.setText(
+                String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso),
+                        BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
 
     }
 
@@ -429,10 +441,11 @@ public class FragmentRequestAmount extends Fragment {
         if (!b) {
             signalLayout.removeView(keyboardLayout);
         } else {
-            if (signalLayout.indexOfChild(keyboardLayout) == -1)
+            if (signalLayout.indexOfChild(keyboardLayout) == -1) {
                 signalLayout.addView(keyboardLayout, curIndex);
-            else
+            } else {
                 signalLayout.removeView(keyboardLayout);
+            }
 
         }
         new Handler().postDelayed(new Runnable() {
@@ -447,9 +460,13 @@ public class FragmentRequestAmount extends Fragment {
     private boolean generateQrImage(String address, String strAmount, String iso) {
         String amountArg = "";
         if (strAmount != null && !strAmount.isEmpty()) {
-            BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
-            String am = new BigDecimal(amount).divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString();
+            BigDecimal bigAmount = new BigDecimal(
+                    (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
+                            : strAmount);
+            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
+                    bigAmount).longValue();
+            String am = new BigDecimal(amount).divide(new BigDecimal(100000000), 8,
+                    BRConstants.ROUNDING_MODE).toPlainString();
             amountArg = "?amount=" + am;
         }
         return QRUtils.generateQR(getActivity(), "digibyte:" + address + amountArg, mQrImage);
@@ -481,12 +498,7 @@ public class FragmentRequestAmount extends Fragment {
                 signalLayout.addView(copiedLayout, signalLayout.indexOfChild(shareButton));
                 showShareButtons(false);
                 shareButtonsShown = false;
-                copyCloseHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        signalLayout.removeView(copiedLayout);
-                    }
-                }, 2000);
+                copyCloseHandler.postDelayed(() -> signalLayout.removeView(copiedLayout), 2000);
             } else {
                 copyCloseHandler.removeCallbacksAndMessages(null);
                 signalLayout.removeView(copiedLayout);

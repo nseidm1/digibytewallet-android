@@ -5,25 +5,19 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.platform.APIClient;
-
 import java.io.Serializable;
 
-import io.digibyte.BuildConfig;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.SetPinActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.security.BRKeyStore;
 import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.security.SmartValidator;
-import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -76,23 +70,6 @@ public class IntroActivity extends BRActivity implements Serializable {
         recoverWalletButton = (Button) findViewById(R.id.button_recover_wallet);
         splashScreen = findViewById(R.id.splash_screen);
         setListeners();
-        updateBundles();
-//        SyncManager.getInstance().updateAlarms(this);
-        /* faq = (ImageButton) findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(app, BRConstants.startView);
-            }
-        }); */
-
-        if (!BuildConfig.DEBUG && BRKeyStore.AUTH_DURATION_SEC != 300) {
-            Log.e(TAG, "onCreate: BRKeyStore.AUTH_DURATION_SEC != 300");
-            BRReportsManager.reportBug(new RuntimeException("AUTH_DURATION_SEC should be 300"), true);
-        }
-
         getWindowManager().getDefaultDisplay().getSize(screenParametersPoint);
 
         if (Utils.isEmulatorOrDebug(this))
@@ -116,21 +93,6 @@ public class IntroActivity extends BRActivity implements Serializable {
         }, 1000);
 
     }
-
-    private void updateBundles() {
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                Thread.currentThread().setName("updateBundle");
-                final long startTime = System.currentTimeMillis();
-                APIClient apiClient = APIClient.getInstance(IntroActivity.this);
-                apiClient.updateBundle();
-                long endTime = System.currentTimeMillis();
-                Log.d(TAG, "updateBundle DONE in " + (endTime - startTime) + "ms");
-            }
-        });
-    }
-
 
     private void setListeners() {
         newWalletButton.setOnClickListener(new View.OnClickListener() {

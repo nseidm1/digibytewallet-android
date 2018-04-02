@@ -25,11 +25,8 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
-import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v13.app.ActivityCompat;
 import android.support.v13.app.FragmentCompat;
@@ -42,10 +39,6 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.platform.middlewares.plugins.CameraPlugin;
-
-import java.io.File;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,10 +47,8 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.tools.threads.BRExecutor;
 
 
 /**
@@ -84,7 +75,8 @@ import io.digibyte.tools.threads.BRExecutor;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class CameraActivity extends BRActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
+public class CameraActivity extends BRActivity implements View.OnClickListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = CameraActivity.class.getName();
     private boolean imageTaken;
     /**
@@ -223,16 +215,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     };
 
     /**
-     * An additional thread for running tasks that shouldn't block the UI.
-     */
-    private HandlerThread mBackgroundThread;
-
-    /**
-     * A {@link Handler} for running tasks in the background.
-     */
-    private Handler mBackgroundHandler;
-
-    /**
      * An {@link ImageReader} that handles still image capture.
      */
     private ImageReader mImageReader;
@@ -249,7 +231,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
         public void onImageAvailable(ImageReader reader) {
             if (imageTaken) return;
             imageTaken = true;
-            mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage()));
         }
 
     };
@@ -340,15 +321,15 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
 
         @Override
         public void onCaptureProgressed(@NonNull CameraCaptureSession session,
-                                        @NonNull CaptureRequest request,
-                                        @NonNull CaptureResult partialResult) {
+                @NonNull CaptureRequest request,
+                @NonNull CaptureResult partialResult) {
             process(partialResult);
         }
 
         @Override
         public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-                                       @NonNull CaptureRequest request,
-                                       @NonNull TotalCaptureResult result) {
+                @NonNull CaptureRequest request,
+                @NonNull TotalCaptureResult result) {
             process(result);
         }
 
@@ -385,7 +366,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
      * @return The optimal {@code Size}, or an arbitrary one if none were big enough
      */
     private static Size chooseOptimalSize(Size[] choices, int textureViewWidth,
-                                          int textureViewHeight, int maxWidth, int maxHeight, Size aspectRatio) {
+            int textureViewHeight, int maxWidth, int maxHeight, Size aspectRatio) {
 
         // Collect the supported resolutions that are at least as big as the preview Surface
         List<Size> bigEnough = new ArrayList<>();
@@ -428,7 +409,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults.length != 1 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 ErrorDialog.newInstance("This sample needs camera permission.")
@@ -472,7 +453,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                 mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
                         ImageFormat.JPEG, /*maxImages*/2);
                 mImageReader.setOnImageAvailableListener(
-                        mOnImageAvailableListener, mBackgroundHandler);
+                        mOnImageAvailableListener, null);
 
                 // Find out if we need to swap dimension to get the preview size relative to sensor
                 // coordinate.
@@ -570,7 +551,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
                 throw new RuntimeException("Time out waiting to lock camera opening.");
             }
-            manager.openCamera(mCameraId, mStateCallback, mBackgroundHandler);
+            manager.openCamera(mCameraId, mStateCallback, null);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -604,29 +585,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     }
 
     /**
-     * Starts a background thread and its {@link Handler}.
-     */
-    private void startBackgroundThread() {
-        mBackgroundThread = new HandlerThread("CameraBackground");
-        mBackgroundThread.start();
-        mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
-    }
-
-    /**
-     * Stops the background thread and its {@link Handler}.
-     */
-    private void stopBackgroundThread() {
-        mBackgroundThread.quitSafely();
-        try {
-            mBackgroundThread.join();
-            mBackgroundThread = null;
-            mBackgroundHandler = null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Creates a new {@link CameraCaptureSession} for camera preview.
      */
     private void createCameraPreviewSession() {
@@ -650,7 +608,8 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                     new CameraCaptureSession.StateCallback() {
 
                         @Override
-                        public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
+                        public void onConfigured(
+                                @NonNull CameraCaptureSession cameraCaptureSession) {
                             // The camera is already closed
                             if (null == mCameraDevice) {
                                 return;
@@ -668,7 +627,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                                 // Finally, we start displaying the camera preview.
                                 mPreviewRequest = mPreviewRequestBuilder.build();
                                 mCaptureSession.setRepeatingRequest(mPreviewRequest,
-                                        mCaptureCallback, mBackgroundHandler);
+                                        mCaptureCallback, null);
                             } catch (CameraAccessException e) {
                                 e.printStackTrace();
                             }
@@ -737,7 +696,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
             // Tell #mCaptureCallback to wait for the lock.
             mState = STATE_WAITING_LOCK;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
+                    null);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -755,7 +714,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
             // Tell #mCaptureCallback to wait for the precapture sequence to be set.
             mState = STATE_WAITING_PRECAPTURE;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
+                    null);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -790,8 +749,8 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
 
                 @Override
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-                                               @NonNull CaptureRequest request,
-                                               @NonNull TotalCaptureResult result) {
+                        @NonNull CaptureRequest request,
+                        @NonNull TotalCaptureResult result) {
                     unlockFocus();
                 }
             };
@@ -827,12 +786,10 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
             setAutoFlash(mPreviewRequestBuilder);
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
+            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, null);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
-            mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback,
-                    mBackgroundHandler);
+            mCaptureSession.setRepeatingRequest(mPreviewRequest, mCaptureCallback, null);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -860,52 +817,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
             requestBuilder.set(CaptureRequest.CONTROL_AE_MODE,
                     CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH);
         }
-    }
-
-    /**
-     * Saves a JPEG {@link Image} into the specified {@link File}.
-     */
-    private class ImageSaver implements Runnable {
-
-        /**
-         * The JPEG image
-         */
-        private final Image mImage;
-
-        /**
-         * The file we save the image into.
-         */
-
-        public ImageSaver(Image image) {
-            mImage = image;
-        }
-
-        @Override
-        public void run() {
-            Log.e(TAG, "run: ");
-            ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
-            final byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
-            BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-                @Override
-                public void run() {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1000);
-                                CameraPlugin.handleCameraImageTaken(DigiByte.getContext(), bytes);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    CameraActivity.this.finish();
-                }
-            });
-
-        }
-
     }
 
     /**
@@ -997,7 +908,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
-        startBackgroundThread();
         imageTaken = false;
 
         // When the screen is turned off and turned back on, the SurfaceTexture is already
@@ -1014,7 +924,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     @Override
     protected void onPause() {
         closeCamera();
-        stopBackgroundThread();
         super.onPause();
     }
 

@@ -17,9 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.platform.APIClient;
-import com.platform.HTTPServer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,7 +167,6 @@ public class SettingsActivity extends BRActivity {
 
                         }
                     });
-
                 }
             }, false));
         }
@@ -192,7 +188,6 @@ public class SettingsActivity extends BRActivity {
 
                         }
                     });
-
                 }
             }, false));
         }
@@ -216,20 +211,6 @@ public class SettingsActivity extends BRActivity {
         }, false));
 
         items.add(new BRSettingsItem("", "", null, true));
-
-        boolean eaEnabled = APIClient.getInstance(this).isFeatureEnabled(APIClient.FeatureFlags.EARLY_ACCESS.toString());
-        eaEnabled = false;
-        if (eaEnabled)
-            items.add(new BRSettingsItem(getString(R.string.Settings_earlyAccess), "", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(SettingsActivity.this, WebViewActivity.class);
-                    intent.putExtra("url", HTTPServer.URL_EA);
-                    Activity app = SettingsActivity.this;
-                    app.startActivity(intent);
-                    app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-                }
-            }, false));
         items.add(new BRSettingsItem(getString(R.string.Settings_about), "", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

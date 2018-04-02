@@ -17,20 +17,19 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
-import io.digibyte.presenter.activities.intro.WriteDownActivity;
 import io.digibyte.presenter.activities.UpdatePinActivity;
+import io.digibyte.presenter.activities.intro.WriteDownActivity;
+import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.BRSecurityCenterItem;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SecurityCenterActivity extends BRActivity {
     private static final String TAG = SecurityCenterActivity.class.getName();
@@ -166,8 +165,7 @@ public class SecurityCenterActivity extends BRActivity {
             }
         }));
 
-        int resId = Utils.isFingerprintEnrolled(SecurityCenterActivity.this)
-                && BRSharedPrefs.getUseFingerprint(SecurityCenterActivity.this)
+        int resId = BRSharedPrefs.getUseFingerprint(SecurityCenterActivity.this)
                 ? R.drawable.ic_check_mark_blue
                 : R.drawable.ic_check_mark_grey;
 
