@@ -46,7 +46,7 @@ public class ListItemPromptViewHolder extends ListItemViewHolder
                 this.description.setText(R.string.Prompts_UpgradePin_body);
                 break;
             case RECOMMEND_RESCAN:
-                this.title.setText(R.string.Prompts_RecommendRescan_title);
+                this.title.setText(R.string.ReScan_header);
                 this.description.setText(R.string.Prompts_RecommendRescan_body);
                 break;
         }

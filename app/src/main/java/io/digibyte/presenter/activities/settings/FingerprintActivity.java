@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.math.BigDecimal;
+
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
@@ -28,23 +30,15 @@ import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 
-import java.math.BigDecimal;
-
 
 public class FingerprintActivity extends BRActivity {
     private static final String TAG = FingerprintActivity.class.getName();
 
     public RelativeLayout layout;
-    public static boolean appVisible = false;
-    private static FingerprintActivity app;
     private TextView limitExchange;
     private TextView limitInfo;
 
     private ToggleButton toggleButton;
-
-    public static FingerprintActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -146,8 +140,6 @@ public class FingerprintActivity extends BRActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        appVisible = true;
-        app = this;
     }
 
     @Override
@@ -156,11 +148,4 @@ public class FingerprintActivity extends BRActivity {
 //        BRAnimator.startBreadActivity(this, false);
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        appVisible = false;
-    }
-
 }

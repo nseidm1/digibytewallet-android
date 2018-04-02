@@ -1,5 +1,8 @@
 package io.digibyte.presenter.activities.settings;
 
+import static io.digibyte.R.layout.settings_list_item;
+import static io.digibyte.R.layout.settings_list_section;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,21 +17,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
-import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.entities.BRSettingsItem;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
-import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.security.AuthManager;
 import com.platform.APIClient;
 import com.platform.HTTPServer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.digibyte.R.layout.settings_list_item;
-import static io.digibyte.R.layout.settings_list_section;
+import io.digibyte.R;
+import io.digibyte.presenter.activities.util.BRActivity;
+import io.digibyte.presenter.entities.BRSettingsItem;
+import io.digibyte.presenter.interfaces.BRAuthCompletion;
+import io.digibyte.tools.manager.BRSharedPrefs;
+import io.digibyte.tools.security.AuthManager;
+import io.digibyte.tools.util.Utils;
 
 public class SettingsActivity extends BRActivity {
     private static final String TAG = SettingsActivity.class.getName();
@@ -151,6 +152,28 @@ public class SettingsActivity extends BRActivity {
 
             }
         }, false));
+
+        if (Utils.isFingerprintAvailable(SettingsActivity.this)) {
+            items.add(new BRSettingsItem(getString(R.string.TouchIdSettings_switchLabel_android), "", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AuthManager.getInstance().authPrompt(SettingsActivity.this, null, getString(R.string.VerifyPin_continueBody), true, false, new BRAuthCompletion() {
+                        @Override
+                        public void onComplete() {
+                            Intent intent = new Intent(SettingsActivity.this, FingerprintActivity.class);
+                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
+
+                }
+            }, false));
+        }
 
         if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
             items.add(new BRSettingsItem(getString(R.string.Settings_touchIdLimit_android), "", new View.OnClickListener() {

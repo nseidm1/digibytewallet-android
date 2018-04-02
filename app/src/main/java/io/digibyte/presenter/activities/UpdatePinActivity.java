@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRKeyboard;
 import io.digibyte.presenter.interfaces.BROnSignalCompletion;
@@ -17,7 +16,6 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.util.BRConstants;
 
 public class UpdatePinActivity extends BRActivity {
     private static final String TAG = UpdatePinActivity.class.getName();
@@ -41,12 +39,6 @@ public class UpdatePinActivity extends BRActivity {
     private ImageButton faq;
     private LinearLayout pinLayout;
     private String curNewPin = "";
-    public static boolean appVisible = false;
-    private static UpdatePinActivity app;
-
-    public static UpdatePinActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +84,6 @@ public class UpdatePinActivity extends BRActivity {
     protected void onResume() {
         super.onResume();
         updateDots();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     private void handleClick(String key) {

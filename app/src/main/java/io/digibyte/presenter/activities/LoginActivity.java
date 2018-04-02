@@ -1,8 +1,9 @@
 package io.digibyte.presenter.activities;
 
+import static io.digibyte.R.color.white;
+import static io.digibyte.tools.util.BRConstants.SCANNER_REQUEST;
+
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.GradientDrawable;
@@ -13,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.camera.ScanQRActivity;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.customviews.BRKeyboard;
@@ -37,12 +36,6 @@ import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
-import com.platform.APIClient;
-
-
-import static io.digibyte.R.color.white;
-import static io.digibyte.tools.util.BRConstants.PLATFORM_ON;
-import static io.digibyte.tools.util.BRConstants.SCANNER_REQUEST;
 
 public class LoginActivity extends BRActivity {
     private static final String TAG = LoginActivity.class.getName();
@@ -56,7 +49,6 @@ public class LoginActivity extends BRActivity {
     private View dot6;
     private StringBuilder pin = new StringBuilder();
     private int pinLimit = 6;
-    private static LoginActivity app;
 
     private ImageView unlockedImage;
     private TextView unlockedText;
@@ -64,16 +56,10 @@ public class LoginActivity extends BRActivity {
     private LinearLayout offlineButtonsLayout;
 
     private ImageButton fingerPrint;
-    public static boolean appVisible = false;
     private boolean inputAllowed = true;
 
     private Button leftButton;
     private Button rightButton;
-
-
-    public static LoginActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,13 +125,13 @@ public class LoginActivity extends BRActivity {
                 if (!BRAnimator.isClickAllowed()) return;
                 try {
                     // Check if the camera permission is granted
-                    if (ContextCompat.checkSelfPermission(app,
+                    if (ContextCompat.checkSelfPermission(LoginActivity.this,
                             Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
                         // Should we show an expgetString(R.string.ConfirmPaperPhrase_word)lanation?
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(app,
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
                                 Manifest.permission.CAMERA)) {
-                            BRDialog.showCustomDialog(app, getString(R.string.Send_cameraUnavailabeTitle_android),
+                            BRDialog.showCustomDialog(LoginActivity.this, getString(R.string.Send_cameraUnavailabeTitle_android),
                                     getString(R.string.Send_cameraUnavailabeMessage_android), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
                                         @Override
                                         public void onClick(BRDialogView brDialogView) {
@@ -154,15 +140,15 @@ public class LoginActivity extends BRActivity {
                                     }, null, null, 0);
                         } else {
                             // No explanation needed, we can request the permission.
-                            ActivityCompat.requestPermissions(app,
+                            ActivityCompat.requestPermissions(LoginActivity.this,
                                     new String[]{Manifest.permission.CAMERA},
                                     BRConstants.CAMERA_REQUEST_ID);
                         }
                     } else {
                         // Permission is granted, open camera
-                        Intent intent = new Intent(app, ScanQRActivity.class);
-                        app.startActivityForResult(intent, SCANNER_REQUEST);
-                        app.overridePendingTransition(R.anim.fade_up, 0);
+                        Intent intent = new Intent(LoginActivity.this, ScanQRActivity.class);
+                        startActivityForResult(intent, SCANNER_REQUEST);
+                        overridePendingTransition(R.anim.fade_up, 0);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -208,8 +194,6 @@ public class LoginActivity extends BRActivity {
         super.onResume();
         updateDots();
 
-        appVisible = true;
-        app = this;
         inputAllowed = true;
         if (!BRWalletManager.getInstance().isCreated()) {
             BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable() {
@@ -219,14 +203,6 @@ public class LoginActivity extends BRActivity {
                 }
             });
         }
-        if (PLATFORM_ON)
-            APIClient.getInstance(this).updatePlatform();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     private void handleClick(String key) {
@@ -271,29 +247,10 @@ public class LoginActivity extends BRActivity {
     }
 
     private void unlockWallet() {
-        pin = new StringBuilder("");
-        offlineButtonsLayout.animate().translationY(-600).setInterpolator(new AccelerateInterpolator());
-        pinLayout.animate().translationY(-2000).setInterpolator(new AccelerateInterpolator());
-        enterPinLabel.animate().translationY(-1800).setInterpolator(new AccelerateInterpolator());
-        keyboard.animate().translationY(2000).setInterpolator(new AccelerateInterpolator());
-        unlockedImage.animate().alpha(1f).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(LoginActivity.this, BreadActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
-                        if (!LoginActivity.this.isDestroyed()) {
-                            LoginActivity.this.finish();
-                        }
-                    }
-                }, 400);
-            }
-        });
-        unlockedText.animate().alpha(1f);
+        Intent intent = new Intent(LoginActivity.this, BreadActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        startActivity(intent);
     }
 
     private void showFailedToUnlock() {

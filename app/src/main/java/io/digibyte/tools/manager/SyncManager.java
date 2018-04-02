@@ -38,9 +38,14 @@ import io.digibyte.wallet.BRPeerManager;
  */
 public class SyncManager {
     public interface onStatusListener {
+
+        void onSyncManagerStarted();
+
         void onSyncManagerUpdate();
 
         void onSyncManagerFinished();
+
+        void onSyncFailed();
     }
 
     private static final String TAG = SyncManager.class.getName();
@@ -48,7 +53,7 @@ public class SyncManager {
 
     private double theProgress;
     private long theLastBlockTimestamp;
-    private boolean enabled;
+    public boolean enabled;
 
     public double getProgress() {
         return theProgress;
@@ -77,16 +82,21 @@ public class SyncManager {
         return instance;
     }
 
-    public synchronized void startSyncingProgressThread() {
+    public void startSyncingProgressThread() {
         Log.d(TAG, "startSyncingProgressThread:" + Thread.currentThread().getName());
         if (enabled) {
             return;
         }
         enabled = true;
-        handler.postDelayed(() -> executorService.execute(syncRunnable), 2500);
+        handler.postDelayed(() -> {
+            for (onStatusListener listener : theListeners) {
+                listener.onSyncManagerStarted();
+            }
+        }, 1000);
+        handler.postDelayed(() -> executorService.execute(syncRunnable), 1500);
     }
 
-    public synchronized void stopSyncingProgressThread() {
+    public void stopSyncingProgressThread() {
         Log.d(TAG, "stopSyncingProgressThread");
         if (!enabled) {
             return;
@@ -99,10 +109,18 @@ public class SyncManager {
         }, 2500);
     }
 
+    public void syncFailed() {
+        handler.post(() -> {
+            for (onStatusListener listener : theListeners) {
+                listener.onSyncFailed();
+            }
+        });
+    }
+
     private Runnable syncRunnable = new Runnable() {
         @Override
         public void run() {
-            SystemClock.sleep(500);
+            SystemClock.sleep(250);
             theProgress = BRPeerManager.syncProgress(
                     BRSharedPrefs.getStartHeight(DigiByte.getContext()));
             theLastBlockTimestamp = BRPeerManager.getInstance().getLastBlockTimestamp();
@@ -111,11 +129,15 @@ public class SyncManager {
                     listener.onSyncManagerUpdate();
                 }
             });
-            if (theProgress != 1 && enabled) {
+            if (Double.valueOf(theProgress).compareTo(1.0d) != 0 && enabled) {
                 executorService.execute(syncRunnable);
             } else {
                 stopSyncingProgressThread();
             }
         }
     };
+
+    public boolean isSyncing() {
+        return enabled;
+    }
 }

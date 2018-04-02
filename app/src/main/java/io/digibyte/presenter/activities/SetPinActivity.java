@@ -28,12 +28,6 @@ public class SetPinActivity extends BRActivity {
     private int pinLimit = 6;
     private boolean startingNextActivity;
     private TextView title;
-    public static boolean appVisible = false;
-    private static SetPinActivity app;
-
-    public static SetPinActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +68,6 @@ public class SetPinActivity extends BRActivity {
     protected void onResume() {
         super.onResume();
         updateDots();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     private void handleClick(String key) {

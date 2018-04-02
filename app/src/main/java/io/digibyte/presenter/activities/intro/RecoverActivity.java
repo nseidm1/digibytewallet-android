@@ -7,19 +7,11 @@ import android.widget.Button;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.InputWordsActivity;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.SpringAnimator;
 
 public class RecoverActivity extends BRActivity {
     private Button nextButton;
-    public static boolean appVisible = false;
-    private static RecoverActivity app;
-
-    public static RecoverActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +30,6 @@ public class RecoverActivity extends BRActivity {
             }
         });
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
-    }
-
 
     @Override
     public void onBackPressed() {

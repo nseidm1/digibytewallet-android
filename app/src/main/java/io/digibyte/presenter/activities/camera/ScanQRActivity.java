@@ -8,23 +8,20 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v13.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.platform.tools.BRBitId;
+
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.qrcode.QRCodeReaderView;
 import io.digibyte.tools.security.BitcoinUrlHandler;
-import com.platform.tools.BRBitId;
 
 
 /**
@@ -58,17 +55,11 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
     private long lastUpdated;
     private UIUpdateTask task;
     private boolean handlingCode;
-    public static boolean appVisible = false;
-    private static ScanQRActivity app;
     private static final int MY_PERMISSION_REQUEST_CAMERA = 56432;
 
     private ViewGroup mainLayout;
 
     private QRCodeReaderView qrCodeReaderView;
-
-    public static ScanQRActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -106,8 +97,6 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
     @Override
     protected void onResume() {
         super.onResume();
-        appVisible = true;
-        app = this;
         if (qrCodeReaderView != null) {
             qrCodeReaderView.startCamera();
         }
@@ -116,7 +105,6 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
     @Override
     protected void onPause() {
         super.onPause();
-        appVisible = false;
         if (qrCodeReaderView != null) {
             qrCodeReaderView.stopCamera();
         }

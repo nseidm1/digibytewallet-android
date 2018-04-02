@@ -7,24 +7,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
-import io.digibyte.tools.util.BRConstants;
 
 public class WriteDownActivity extends BRActivity {
     private static final String TAG = WriteDownActivity.class.getName();
     private Button writeButton;
     private ImageButton close;
-    public static boolean appVisible = false;
-    private static WriteDownActivity app;
-
-    public static WriteDownActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +57,6 @@ public class WriteDownActivity extends BRActivity {
 
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     @Override

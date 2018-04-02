@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+import java.util.Random;
+
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
@@ -27,11 +30,8 @@ import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.SmartValidator;
-import io.digibyte.tools.util.Utils;
 import io.digibyte.tools.util.Bip39Reader;
-
-import java.util.Locale;
-import java.util.Random;
+import io.digibyte.tools.util.Utils;
 
 
 public class PaperKeyProveActivity extends BRActivity {
@@ -44,15 +44,9 @@ public class PaperKeyProveActivity extends BRActivity {
     private ImageView checkMark1;
     private ImageView checkMark2;
     private SparseArray<String> sparseArrayWords = new SparseArray<>();
-    public static boolean appVisible = false;
-    private static PaperKeyProveActivity app;
     private ConstraintLayout constraintLayout;
     private ConstraintSet applyConstraintSet = new ConstraintSet();
     private ConstraintSet resetConstraintSet = new ConstraintSet();
-
-    public static PaperKeyProveActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,19 +156,6 @@ public class PaperKeyProveActivity extends BRActivity {
 
         }
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     @Override

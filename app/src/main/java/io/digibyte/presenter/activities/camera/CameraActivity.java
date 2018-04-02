@@ -86,8 +86,6 @@ import io.digibyte.tools.threads.BRExecutor;
  */
 public class CameraActivity extends BRActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = CameraActivity.class.getName();
-    public static boolean appVisible = false;
-    private static CameraActivity app;
     private boolean imageTaken;
     /**
      * Conversion from screen rotation to JPEG orientation.
@@ -867,7 +865,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.
      */
-    private static class ImageSaver implements Runnable {
+    private class ImageSaver implements Runnable {
 
         /**
          * The JPEG image
@@ -902,7 +900,7 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
                             }
                         }
                     });
-                    app.finish();
+                    CameraActivity.this.finish();
                 }
             });
 
@@ -987,10 +985,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
         }
     }
 
-    public static CameraActivity getApp() {
-        return app;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1003,8 +997,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
-        appVisible = true;
-        app = this;
         startBackgroundThread();
         imageTaken = false;
 
@@ -1024,7 +1016,6 @@ public class CameraActivity extends BRActivity implements View.OnClickListener, 
         closeCamera();
         stopBackgroundThread();
         super.onPause();
-        appVisible = false;
     }
 
     @Override

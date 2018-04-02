@@ -35,41 +35,36 @@ import io.digibyte.tools.util.Utils;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class PromptManager
-{
-    public enum PromptItem { SYNCING, FINGER_PRINT, PAPER_KEY, UPGRADE_PIN, RECOMMEND_RESCAN, NO_PASS_CODE }
+public class PromptManager {
+    public enum PromptItem {SYNCING, FINGER_PRINT, PAPER_KEY, UPGRADE_PIN, RECOMMEND_RESCAN,
+        NO_PASS_CODE}
 
     private static PromptManager instance;
-    public static PromptManager getInstance()
-    {
-        if (instance == null)
-        {
+
+    public static PromptManager getInstance() {
+        if (instance == null) {
             instance = new PromptManager();
         }
         return instance;
     }
 
-    private PromptManager() {}
+    private PromptManager() {
+    }
 
-    public PromptItem nextPrompt()
-    {
-        if (shouldPrompt(RECOMMEND_RESCAN) && !hasPromptBeenDismissed(RECOMMEND_RESCAN))
-        {
+    public PromptItem nextPrompt() {
+        if (shouldPrompt(RECOMMEND_RESCAN) && !hasPromptBeenDismissed(RECOMMEND_RESCAN)) {
             return RECOMMEND_RESCAN;
         }
 
-        if (shouldPrompt(UPGRADE_PIN) && !hasPromptBeenDismissed(UPGRADE_PIN))
-        {
+        if (shouldPrompt(UPGRADE_PIN) && !hasPromptBeenDismissed(UPGRADE_PIN)) {
             return UPGRADE_PIN;
         }
 
-        if (shouldPrompt(PAPER_KEY) && !hasPromptBeenDismissed(PAPER_KEY))
-        {
+        if (shouldPrompt(PAPER_KEY) && !hasPromptBeenDismissed(PAPER_KEY)) {
             return PAPER_KEY;
         }
 
-        if (shouldPrompt(FINGER_PRINT) && !hasPromptBeenDismissed(FINGER_PRINT))
-        {
+        if (shouldPrompt(FINGER_PRINT) && !hasPromptBeenDismissed(FINGER_PRINT)) {
             return FINGER_PRINT;
         }
         return null;
@@ -79,45 +74,51 @@ public class PromptManager
         switch (promptItem) {
             default:
             case RECOMMEND_RESCAN:
-                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(RECOMMEND_RESCAN));
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(),
+                        getPromptName(RECOMMEND_RESCAN));
             case UPGRADE_PIN:
-                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(UPGRADE_PIN));
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(),
+                        getPromptName(UPGRADE_PIN));
             case PAPER_KEY:
-                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(PAPER_KEY));
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(),
+                        getPromptName(PAPER_KEY));
             case FINGER_PRINT:
-                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(), getPromptName(FINGER_PRINT));
+                return BRSharedPrefs.hasPromptDismissed(DigiByte.getContext(),
+                        getPromptName(FINGER_PRINT));
         }
     }
 
-    private boolean shouldPrompt(PromptItem item)
-    {
+    private boolean shouldPrompt(PromptItem item) {
         final Context context = DigiByte.getContext();
-        switch (item)
-        {
+        switch (item) {
             case FINGER_PRINT:
-                return !BRSharedPrefs.getUseFingerprint(context) && Utils.isFingerprintAvailable(context);
+                return !BRSharedPrefs.getUseFingerprint(context) && Utils.isFingerprintAvailable(
+                        context);
             case PAPER_KEY:
                 return !BRSharedPrefs.getPhraseWroteDown(context);
             case UPGRADE_PIN:
                 return BRKeyStore.getPinCode(context).length() != 6;
             case RECOMMEND_RESCAN:
                 return BRSharedPrefs.getScanRecommended(context);
+            default:
+                return false;
         }
-        return false;
     }
 
     /**
-     * touchIdPrompt - Shown to the user to enable biometric authentication for purchases under a certain amount.
-     * paperKeyPrompt - Shown to the user if they have not yet written down their paper key. This is a persistent prompt and shows up until the user has gone through the paper key flow.
-     * upgradePinPrompt - Shown to recommend to the user they should upgrade their PIN from 4 digits to 6. Only shown once. If the user dismisses do not show again.
+     * touchIdPrompt - Shown to the user to enable biometric authentication for purchases under a
+     * certain amount.
+     * paperKeyPrompt - Shown to the user if they have not yet written down their paper key. This is
+     * a persistent prompt and shows up until the user has gone through the paper key flow.
+     * upgradePinPrompt - Shown to recommend to the user they should upgrade their PIN from 4 digits
+     * to 6. Only shown once. If the user dismisses do not show again.
      * recommendRescanPrompt - Shown when the user should rescan the blockchain
      * noPasscodePrompt - Shown when the user does not have a passcode set up for their device.
-     * shareDataPrompt - Shown when asking the user if they wish to share anonymous data. Lowest priority prompt. Only show once and if they dismiss do not show again.
+     * shareDataPrompt - Shown when asking the user if they wish to share anonymous data. Lowest
+     * priority prompt. Only show once and if they dismiss do not show again.
      */
-    public String getPromptName(PromptItem prompt)
-    {
-        switch (prompt)
-        {
+    public String getPromptName(PromptItem prompt) {
+        switch (prompt) {
             case FINGER_PRINT:
                 return "touchIdPrompt";
             case PAPER_KEY:

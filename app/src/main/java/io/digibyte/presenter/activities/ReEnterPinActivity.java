@@ -32,12 +32,6 @@ public class ReEnterPinActivity extends BRActivity {
     private String firstPIN;
     private boolean isPressAllowed = true;
     private LinearLayout pinLayout;
-    public static boolean appVisible = false;
-    private static ReEnterPinActivity app;
-
-    public static ReEnterPinActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +78,12 @@ public class ReEnterPinActivity extends BRActivity {
     protected void onResume() {
         super.onResume();
         updateDots();
-        appVisible = true;
-        app = this;
         isPressAllowed = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        appVisible = false;
     }
 
     private void handleClick(String key) {

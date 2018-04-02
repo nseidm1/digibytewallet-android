@@ -473,4 +473,16 @@ public class BRSharedPrefs {
         SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(promptName, false);
     }
+
+    public static long getSuspendTime(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getLong("suspendTime", 0);
+    }
+
+    public static void putSuspendTime(Context context, long suspendTime) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong("suspendTime", suspendTime);
+        editor.apply();
+    }
 }

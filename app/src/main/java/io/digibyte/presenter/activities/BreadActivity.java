@@ -105,7 +105,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
         listViewAdapter = new TransactionListAdapter(bindings.txList);
         bindings.syncContainer.addView(getSyncView());
+        bindings.coordinator.getLayoutTransition()
+                .enableTransitionType(LayoutTransition.CHANGING);
         bindings.mainContainer.getLayoutTransition()
+                .enableTransitionType(LayoutTransition.CHANGING);
+        bindings.promptContainer.getLayoutTransition()
+                .enableTransitionType(LayoutTransition.CHANGING);
+        bindings.promptContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
         slideInDownAnimator.setAddDuration(500);
@@ -241,20 +247,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         view.setOnClickListener(new PromptClickListener(listItemPromptData.promptItem));
         ListItemPromptViewHolder listItemPromptViewHolder = new ListItemPromptViewHolder(view,
                 new PromptCloseClickListener(listItemPromptData.promptItem));
-        bindings.promptContainer.getLayoutTransition()
-                .enableTransitionType(LayoutTransition.CHANGING);
         bindings.promptContainer.addView(view);
-        bindings.promptContainer.getLayoutTransition()
-                .disableTransitionType(LayoutTransition.CHANGING);
         listItemPromptViewHolder.process(listItemPromptData);
     }
 
     private void removePrompt() {
-        bindings.promptContainer.getLayoutTransition()
-                .enableTransitionType(LayoutTransition.CHANGING);
         bindings.promptContainer.removeAllViews();
-        bindings.promptContainer.getLayoutTransition()
-                .disableTransitionType(LayoutTransition.CHANGING);
     }
 
     public void closeSearchBar() {
@@ -313,14 +311,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                             R.anim.exit_to_left);
                     break;
                 case RECOMMEND_RESCAN:
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    BRSharedPrefs.putStartHeight(activity, 0);
-                                    BRPeerManager.getInstance().rescan();
-                                    BRSharedPrefs.putScanRecommended(activity, false);
-                                }
+                    BRWalletManager.getInstance().wipeBlockAndTrans(
+                            BreadActivity.this, () -> {
+                                BRSharedPrefs.putScanRecommended(BreadActivity.this, false);
+                                removePrompt();
+                                loadNextPromptItem();
+                                BRPeerManager.getInstance().rescan();
+                                SyncManager.getInstance().startSyncingProgressThread();
                             });
                     break;
                 case NO_PASS_CODE:
@@ -343,7 +340,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             BRSharedPrefs.putPromptDismissed(BreadActivity.this,
                     PromptManager.getInstance().getPromptName(promptItem));
             loadNextPromptItem();
-
         }
     }
 
@@ -352,26 +348,30 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     /// ////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @Override
+    public void onSyncManagerStarted() {
+        bindings.syncContainer.getChildAt(0).setVisibility(View.VISIBLE);
+        syncViewHolder.process(listItemSyncingData);
+    }
+
+    @Override
     public void onSyncManagerUpdate() {
-        if (bindings.syncContainer.getChildAt(0).getVisibility() != View.VISIBLE) {
-            bindings.syncContainer.getLayoutTransition()
-                    .enableTransitionType(LayoutTransition.CHANGING);
-            bindings.syncContainer.getChildAt(0).setVisibility(View.VISIBLE);
-            bindings.syncContainer.getLayoutTransition()
-                    .disableTransitionType(LayoutTransition.CHANGING);
-        }
         syncViewHolder.process(listItemSyncingData);
     }
 
     @Override
     public void onSyncManagerFinished() {
-        if (bindings.syncContainer.getChildAt(0).getVisibility() != View.GONE) {
-            bindings.syncContainer.getLayoutTransition()
-                    .enableTransitionType(LayoutTransition.CHANGING);
-            bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
-            bindings.syncContainer.getLayoutTransition()
-                    .disableTransitionType(LayoutTransition.CHANGING);
+        bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSyncFailed() {
+        if (BRSharedPrefs.getScanRecommended(this)) {
+            return;
         }
+        BRSharedPrefs.putScanRecommended(this, true);
+        loadNextPromptItem();
+        bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
     }
 
     @Override

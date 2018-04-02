@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
@@ -25,8 +27,6 @@ import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.util.Utils;
 
-import java.util.Locale;
-
 
 public class PaperKeyActivity extends BRActivity {
     private static final String TAG = PaperKeyActivity.class.getName();
@@ -36,13 +36,7 @@ public class PaperKeyActivity extends BRActivity {
     private LinearLayout buttonsLayout;
     private TextView itemIndexText;
     private SparseArray<String> wordMap;
-    public static boolean appVisible = false;
-    private static PaperKeyActivity app;
     private ImageButton close;
-
-    public static PaperKeyActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,19 +149,6 @@ public class PaperKeyActivity extends BRActivity {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, b ? 8 : 0, r.getDisplayMetrics());
         previousButton.setElevation(px);
         previousButton.setEnabled(b);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     private void updateItemIndexText() {

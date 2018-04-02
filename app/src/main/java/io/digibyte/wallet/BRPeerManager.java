@@ -96,11 +96,9 @@ public class BRPeerManager {
 
     public static void syncFailed() {
         Log.d(TAG, "syncFailed");
-        SyncManager.getInstance().stopSyncingProgressThread();
+        SyncManager.getInstance().syncFailed();
         Context ctx = DigiByte.getContext();
         if (ctx == null) return;
-
-        SyncManager.getInstance().stopSyncingProgressThread();
         if (onSyncFinished != null) onSyncFinished.onFinished();
     }
 

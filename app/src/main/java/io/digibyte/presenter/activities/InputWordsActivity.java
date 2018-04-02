@@ -45,12 +45,6 @@ public class InputWordsActivity extends BRActivity {
 
     private TextView title;
     private TextView description;
-    public static boolean appVisible = false;
-    private static InputWordsActivity app;
-
-    public static InputWordsActivity getApp() {
-        return app;
-    }
 
     //will be true if this screen was called from the restore screen
     private boolean restore = false;
@@ -241,14 +235,6 @@ public class InputWordsActivity extends BRActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     @Override

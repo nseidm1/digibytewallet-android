@@ -12,7 +12,7 @@ android {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         applicationId = 'io.digibyte'
         minSdkVersion 23
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1915
         versionName "2.0.0b1915"
         multiDexEnabled true
@@ -154,6 +154,7 @@ repositories {
     jcenter()
     mavenCentral()
     google()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -183,4 +184,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'jp.wasabeef:recyclerview-animators:2.3.0'
+    compile 'com.github.tajchert:WaitingDots:0.4.0'
 }

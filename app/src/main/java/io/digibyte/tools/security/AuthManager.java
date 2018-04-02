@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import java.util.concurrent.TimeUnit;
+
 import io.digibyte.R;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.presenter.activities.util.ActivityUTILS;
@@ -22,8 +24,6 @@ import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * BreadWallet
@@ -282,7 +282,7 @@ public class AuthManager {
     }
 
     public static boolean isFingerPrintAvailableAndSetup(Context context) {
-        return Utils.isFingerprintAvailable(context) && Utils.isFingerprintEnrolled(context);
+        return Utils.isFingerprintAvailable(context) && Utils.isFingerprintEnrolled(context) && BRSharedPrefs.getUseFingerprint(context);
     }
 
     public interface OnPinSuccess {

@@ -2,19 +2,11 @@ package io.digibyte;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.manager.BREventManager;
+import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
 
 
@@ -43,143 +35,86 @@ import io.digibyte.tools.security.BRKeyStore;
  * THE SOFTWARE.
  */
 
-public class DigiByte extends Application implements Application.ActivityLifecycleCallbacks
-{
+public class DigiByte extends Application implements Application.ActivityLifecycleCallbacks {
     private static final String TAG = DigiByte.class.getName();
 
     public static final String HOST = "digibyte.io";
     public static final String FEE_URL = "https://go.digibyte.co/bws/api/v2/feelevels";
-    public static final String LocalBroadcastOnEnterForeground = "OnEnterForeground";
-    public static final String LocalBroadcastOnEnterBackground = "OnEnterBackground";
 
     private static DigiByte application;
-    public static DigiByte getContext() { return application; }
 
-    private long suspendedTime;
-    private boolean isSuspendedFlag;
-    private ArrayList<Activity> activityList;
-    public boolean isSuspended() { return isSuspendedFlag; }
-
-    // TODO: Replace this with an atomic integer counter, we should avoid keeping references of activities
-    private Activity activeActivity;
-    public Activity getActivity() { return activeActivity; }
-
-    @Override
-    public void onCreate()
-    {
-        application = this;
-
-        activeActivity = null;
-        suspendedTime = 0;
-        isSuspendedFlag = false;
-        activityList = new ArrayList<>();
-
-        registerActivityLifecycleCallbacks(this);
-
-        super.onCreate();
-
-        // Register receivers
-        LocalBroadcastManager.getInstance(this).registerReceiver(onApplicationEnterForeground, new IntentFilter(LocalBroadcastOnEnterForeground));
-        LocalBroadcastManager.getInstance(this).registerReceiver(onApplicationEnterBackground, new IntentFilter(LocalBroadcastOnEnterBackground));
+    public static DigiByte getContext() {
+        return application;
     }
 
-    //////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////// Broadcast Receivers //////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////
-    private BroadcastReceiver onApplicationEnterForeground = new BroadcastReceiver()
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            Log.d(TAG, "onApplicationEnterForeground");
+    public boolean isSuspended() {
+        return activeActivity == null;
+    }
 
-            if(null != activeActivity && !(activeActivity instanceof DisabledActivity))
-            {
-                // lock wallet if 3 minutes passed
-                if (suspendedTime != 0 && (System.currentTimeMillis() - suspendedTime >= 180 * 1000))
-                {
-                    if (!BRKeyStore.getPinCode(activeActivity).isEmpty())
-                    {
-                        BRAnimator.startBreadActivity(activeActivity, true);
-                    }
-                }
-            }
-            suspendedTime = 0;
-        }
-    };
+    // TODO: Unfortunately there's some part of the app that use Activity context and need
+    // TODO: to be reworked accordingly; see getContext usages. This will not leak activity context
+    // TODO: as the reference is removed in the lifecycle callback onPause invokation
+    // activities
+    private Activity activeActivity;
 
-    private BroadcastReceiver onApplicationEnterBackground = new BroadcastReceiver()
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            Log.d(TAG, "onApplicationEnterBackground");
+    public Activity getActivity() {
+        return activeActivity;
+    }
 
-            BREventManager.getInstance().onEnterBackground();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        application = this;
+        activeActivity = null;
+        registerActivityLifecycleCallbacks(this);
+    }
 
-            suspendedTime = System.currentTimeMillis();
-        }
-    };
 
     //////////////////////////////////////////////////////////////////////////////////
     //////////// Implementation of ActivityLifecycleCallbacks interface //////////////
     //////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void onActivityCreated(Activity anActivity, Bundle aBundle)
-    {
-        addActivity(anActivity);
+    public void onActivityCreated(Activity anActivity, Bundle aBundle) {
     }
 
     @Override
-    public void onActivityStarted(Activity anActivity)
-    {
-        addActivity(anActivity);
+    public void onActivityStarted(Activity anActivity) {
     }
 
     @Override
-    public void onActivityResumed(Activity anActivity)
-    {
+    public void onActivityResumed(Activity anActivity) {
         activeActivity = anActivity;
+        // TODO: I don't fully understand the usefulness of the DisabledActivity
+        // TODO: maybe it's checking if the app has been modified?? But if it's been modified
+        // TODO: the modifier could easily remove this check also, thus what's the usefulness
+        // TODO: See ActivityUTILS.isAppSafe()
+        if (!(activeActivity instanceof DisabledActivity)) {
+            // lock wallet if 3 minutes passed
+            long suspendedTime = BRSharedPrefs.getSuspendTime(anActivity);
+            if (suspendedTime != 0 && (System.currentTimeMillis() - suspendedTime >= 180 * 1000)) {
+                if (!BRKeyStore.getPinCode(activeActivity).isEmpty()) {
+                    BRAnimator.startBreadActivity(activeActivity, true);
+                }
+            }
+        }
+        BRSharedPrefs.putSuspendTime(anActivity, 0);
     }
 
     @Override
-    public void onActivityStopped(Activity anActivity)
-    {
-        removeActivity(anActivity);
+    public void onActivityStopped(Activity anActivity) {
     }
 
     @Override
-    public void onActivityDestroyed(Activity anActivity)
-    {
-        removeActivity(anActivity);
+    public void onActivityDestroyed(Activity anActivity) {
     }
 
-    @Override public void onActivityPaused(Activity anActivity) {}
-    @Override public void onActivitySaveInstanceState(Activity anActivity, Bundle aBundle) {}
-
-    private void addActivity(Activity anActivity)
-    {
-        if(!activityList.contains(anActivity))
-        {
-            activityList.add(anActivity);
-        }
-
-        if(activityList.size() > 0 && isSuspendedFlag)
-        {
-            isSuspendedFlag = false;
-            activeActivity = anActivity;
-            LocalBroadcastManager.getInstance(anActivity).sendBroadcast(new Intent(LocalBroadcastOnEnterForeground));
-        }
+    @Override
+    public void onActivityPaused(Activity anActivity) {
+        activeActivity = null;
+        BRSharedPrefs.putSuspendTime(anActivity, System.currentTimeMillis());
     }
 
-    private void removeActivity(Activity anActivity)
-    {
-        activityList.remove(anActivity);
-        if(activityList.size() == 0 && !isSuspendedFlag)
-        {
-            activeActivity = null;
-            isSuspendedFlag = true;
-            LocalBroadcastManager.getInstance(anActivity).sendBroadcast(new Intent(LocalBroadcastOnEnterBackground));
-        }
+    @Override
+    public void onActivitySaveInstanceState(Activity anActivity, Bundle aBundle) {
     }
 }
