@@ -24,6 +24,7 @@ import android.view.View;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -105,8 +106,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
         listViewAdapter = new TransactionListAdapter(bindings.txList);
         bindings.syncContainer.addView(getSyncView());
-        bindings.coordinator.getLayoutTransition()
-                .enableTransitionType(LayoutTransition.CHANGING);
         bindings.mainContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         bindings.promptContainer.getLayoutTransition()
@@ -380,6 +379,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             return;
         }
         ArrayList<TxItem> transactionsData = new ArrayList<>(Arrays.asList(aTransactionList));
+        Collections.sort(transactionsData,
+                (t1, t2) -> Long.valueOf(t1.getTimeStamp()).compareTo(t2.getTimeStamp()));
         transactions.clear();
         for (TxItem tx : transactionsData) {
             transactions.add(new ListItemTransactionData(transactionsData.indexOf(tx),
@@ -410,7 +411,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     public void onTxAdded() {
         TxManager.getInstance().updateTxList();
-        BRWalletManager.getInstance().refreshBalance(BreadActivity.this);
+        handler.postDelayed(() -> BRWalletManager.getInstance().refreshBalance(BreadActivity.this),
+                2500);
     }
 
     @Override
