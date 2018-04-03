@@ -85,12 +85,8 @@ public class BRPeerManager {
         if (app == null) return;
         BRSharedPrefs.putLastSyncTime(app, System.currentTimeMillis());
         BRSharedPrefs.putAllowSpend(app, true);
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                BRSharedPrefs.putStartHeight(app, getCurrentBlockHeight());
-            }
-        });
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                () -> BRSharedPrefs.putStartHeight(app, getCurrentBlockHeight()));
         if (onSyncFinished != null) onSyncFinished.onFinished();
     }
 
@@ -108,12 +104,8 @@ public class BRPeerManager {
         for (OnTxStatusUpdate listener : statusUpdateListeners) {
             if (listener != null) listener.onStatusUpdate();
         }
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                updateLastBlockHeight(getCurrentBlockHeight());
-            }
-        });
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                () -> updateLastBlockHeight(getCurrentBlockHeight()));
     }
 
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
@@ -121,12 +113,9 @@ public class BRPeerManager {
 
         final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (replace) MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
-                MerkleBlockDataSource.getInstance(ctx).putMerkleBlocks(blockEntities);
-            }
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            if (replace) MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
+            MerkleBlockDataSource.getInstance(ctx).putMerkleBlocks(blockEntities);
         });
     }
 
@@ -134,12 +123,9 @@ public class BRPeerManager {
         Log.d(TAG, "savePeers: " + peerEntities.length);
         final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (replace) PeerDataSource.getInstance(ctx).deleteAllPeers();
-                PeerDataSource.getInstance(ctx).putPeers(peerEntities);
-            }
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            if (replace) PeerDataSource.getInstance(ctx).deleteAllPeers();
+            PeerDataSource.getInstance(ctx).putPeers(peerEntities);
         });
     }
 
@@ -152,26 +138,16 @@ public class BRPeerManager {
         Log.d(TAG, "deleteBlocks");
         final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
-            }
-        });
-
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                () -> MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks());
     }
 
     public static void deletePeers() {
         Log.d(TAG, "deletePeers");
         final Context ctx = DigiByte.getContext();
         if (ctx == null) return;
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                PeerDataSource.getInstance(ctx).deleteAllPeers();
-            }
-        });
-
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                () -> PeerDataSource.getInstance(ctx).deleteAllPeers());
     }
 
 
@@ -179,8 +155,6 @@ public class BRPeerManager {
         String node = BRSharedPrefs.getTrustNode(ctx);
         String host = TrustedNode.getNodeHost(node);
         int port = TrustedNode.getNodePort(node);
-//        Log.e(TAG, "trust onClick: host:" + host);
-//        Log.e(TAG, "trust onClick: port:" + port);
         boolean success = setFixedPeer(host, port);
         if (!success) {
             Log.e(TAG, "updateFixedPeer: Failed to updateFixedPeer with input: " + node);
@@ -192,12 +166,8 @@ public class BRPeerManager {
 
     public void networkChanged(boolean isOnline) {
         if (isOnline) {
-            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                @Override
-                public void run() {
-                    BRPeerManager.getInstance().connect();
-                }
-            });
+            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                    () -> BRPeerManager.getInstance().connect());
         }
     }
 

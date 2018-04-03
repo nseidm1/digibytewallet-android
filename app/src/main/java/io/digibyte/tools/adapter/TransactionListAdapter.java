@@ -1,6 +1,7 @@
 package io.digibyte.tools.adapter;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import io.digibyte.DigiByte;
-import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
@@ -64,25 +64,36 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
-            int indexOfPotentialChange = listItemData.indexOf(listItemTransactionData);
-            if (indexOfPotentialChange < 0 || indexOfPotentialChange >= transactions.size()) {
-                continue;
-            }
-            TxItem newTxItem = transactions.get(indexOfPotentialChange).getTransactionItem();
+            listItemTransactionData.update(findTransaction(listItemTransactionData, transactions));
             int confirms = BRSharedPrefs.getLastBlockHeight(DigiByte.getContext())
-                    - newTxItem.getBlockHeight() + 1;
-            if (confirms <= 4) {
-                listItemTransactionData.update(newTxItem);
+                    - listItemTransactionData.getTransactionItem().getBlockHeight() + 1;
+            if (confirms <= 5 && isPositionOnscreen(listItemData.indexOf(listItemTransactionData))) {
                 ListItemTransactionViewHolder listItemTransactionViewHolder =
                         (ListItemTransactionViewHolder) recyclerView
                                 .findViewHolderForAdapterPosition(
-                                indexOfPotentialChange);
-                if (listItemTransactionViewHolder != null &&
-                        isPositionOnscreen(indexOfPotentialChange)) {
-                    listItemTransactionViewHolder.process(listItemTransactionData);
-                }
+                                        listItemData.indexOf(listItemTransactionData));
+                listItemTransactionViewHolder.process(listItemTransactionData);
             }
         }
+    }
+
+    /**
+     *
+     * @param listItemTransactionData
+     * @param transactions
+     * @return while the method implementation can return null, in reality it will not because
+     * the adapter will always have a view holder for view that are currently on screen,
+     * and this method is only called after a check to ensure the view is onscreen
+     */
+
+    @Nullable
+    private ListItemTransactionData findTransaction(ListItemTransactionData listItemTransactionData, ArrayList<ListItemTransactionData> transactions) {
+        for (ListItemTransactionData checkTransaction : transactions) {
+            if (checkTransaction.equals(listItemTransactionData)) {
+                return checkTransaction;
+            }
+        }
+        return null;
     }
 
     private boolean isPositionOnscreen(int position) {

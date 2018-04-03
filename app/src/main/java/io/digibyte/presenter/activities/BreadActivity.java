@@ -94,7 +94,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSearchBar.OnSearchUpdateListener {
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
-    private ArrayList<ListItemTransactionData> transactions = new ArrayList<>();
     private Handler handler = new Handler(Looper.getMainLooper());
     private TransactionListAdapter listViewAdapter;
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
@@ -168,13 +167,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
             int switchesON = 0;
             for (boolean i : switches) if (i) switchesON++;
-            int transactionsCount = transactions.size();
+            int transactionsCount = listViewAdapter.getTransactions().size();
             boolean matchesHash;
             boolean matchesAddress;
             boolean matchesMemo;
             boolean willAdd;
             for (int index = 0; index < transactionsCount; index++) {
-                ListItemTransactionData transactionData = transactions.get(index);
+                ListItemTransactionData transactionData = listViewAdapter.getTransactions().get(
+                        index);
                 TxItem item = transactionData.transactionItem;
                 matchesHash =
                         item.getTxHashHexReversed() != null &&
@@ -374,28 +374,37 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     @Override
-    public void onTxManagerUpdate(TxItem[] aTransactionList) {
-        if (aTransactionList == null || isSearching()) {
+    public void onTxManagerUpdate(TxItem[] newTxItems) {
+        if (newTxItems == null || newTxItems.length == 0 || isSearching()) {
             return;
         }
-        ArrayList<TxItem> transactionsData = new ArrayList<>(Arrays.asList(aTransactionList));
-        Collections.sort(transactionsData,
-                (t1, t2) -> Long.valueOf(t1.getTimeStamp()).compareTo(t2.getTimeStamp()));
-        transactions.clear();
-        for (TxItem tx : transactionsData) {
-            transactions.add(new ListItemTransactionData(transactionsData.indexOf(tx),
-                    transactionsData.size(), tx));
-        }
-        ArrayList<ListItemTransactionData> transactionsCopy = new ArrayList(transactions);
-        ArrayList<ListItemTransactionData> currentlyDisplayedTransactions =
-                listViewAdapter.getTransactions();
-        transactionsCopy.removeAll(currentlyDisplayedTransactions);
-        if (transactionsCopy.size() > 0) {
-            listViewAdapter.addTransactions(transactionsCopy);
+        ArrayList<ListItemTransactionData> newTransactions = getNewTransactionsData(newTxItems);
+        ArrayList<ListItemTransactionData> transactionsToAdd = removeAllExistingEntries(
+                newTransactions);
+        if (transactionsToAdd.size() > 0) {
+            listViewAdapter.addTransactions(transactionsToAdd);
             bindings.txList.smoothScrollToPosition(0);
         } else {
-            listViewAdapter.updateTransactions(transactions);
+            listViewAdapter.updateTransactions(newTransactions);
         }
+    }
+
+    private ArrayList<ListItemTransactionData> getNewTransactionsData(TxItem[] newTxItems) {
+        ArrayList<ListItemTransactionData> newTransactionsData = new ArrayList();
+        ArrayList<TxItem> newTransactions = new ArrayList(Arrays.asList(newTxItems));
+        Collections.sort(newTransactions,
+                (t1, t2) -> Long.valueOf(t1.getTimeStamp()).compareTo(t2.getTimeStamp()));
+        for (TxItem tx : newTransactions) {
+            newTransactionsData.add(new ListItemTransactionData(newTransactions.indexOf(tx),
+                    newTransactions.size(), tx));
+        }
+        return newTransactionsData;
+    }
+
+    private ArrayList<ListItemTransactionData> removeAllExistingEntries(ArrayList<ListItemTransactionData> newTransactions) {
+        return new ArrayList<ListItemTransactionData>(newTransactions) {{
+            removeAll(listViewAdapter.getTransactions());
+        }};
     }
 
     @Override
@@ -411,8 +420,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     public void onTxAdded() {
         TxManager.getInstance().updateTxList();
-        handler.postDelayed(() -> BRWalletManager.getInstance().refreshBalance(BreadActivity.this),
-                2500);
+        BRWalletManager.getInstance().refreshBalance(BreadActivity.this);
     }
 
     @Override
@@ -519,7 +527,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         super.onNewIntent(intent);
         boolean clearTransactions = intent.getBooleanExtra("clear_transactions", false);
         if (clearTransactions) {
-            transactions.clear();
             listViewAdapter.clearTransactions();
         }
         Uri data = intent.getData();

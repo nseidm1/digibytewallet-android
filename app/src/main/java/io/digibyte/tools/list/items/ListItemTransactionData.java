@@ -5,8 +5,8 @@ import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.list.ListItemData;
 
 public class ListItemTransactionData extends ListItemData {
-    public final int transactionIndex;
-    public final int transactionsCount;
+    public int transactionIndex;
+    public int transactionsCount;
     public TxItem transactionItem;
 
     public ListItemTransactionData(int anIndex, int aTransactionsCount, TxItem aTransactionItem) {
@@ -37,7 +37,7 @@ public class ListItemTransactionData extends ListItemData {
         return transactionItem != null ? transactionItem.hashCode() : 0;
     }
 
-    public void update(TxItem transactionItem) {
-        this.transactionItem = transactionItem;
+    public void update(ListItemTransactionData transactionItem) {
+        this.transactionItem = transactionItem.getTransactionItem();
     }
 }

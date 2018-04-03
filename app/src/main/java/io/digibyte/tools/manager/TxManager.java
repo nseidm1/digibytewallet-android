@@ -41,6 +41,7 @@ public class TxManager {
 
     private static final String TAG = TxManager.class.getName();
     private static TxManager instance;
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
     private ArrayList<onStatusListener> theListeners;
 
@@ -63,14 +64,24 @@ public class TxManager {
         theListeners = new ArrayList<>();
     }
 
-    public synchronized void updateTxList() {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-            final TxItem[] transactions = BRWalletManager.getInstance().getTransactions();
-            new Handler(Looper.getMainLooper()).post(() -> {
-                for (onStatusListener listener : theListeners) {
-                    listener.onTxManagerUpdate(transactions);
-                }
-            });
-        });
+    public void updateTxList() {
+        //This callback from the native layer gets hammered.
+        //Post delay a callback and remove callbacks to prevent excessive invokation
+        handler.removeCallbacks(updateTxRunnable);
+        handler.postDelayed(updateTxRunnable, 1000);
     }
+
+    private Runnable updateTxRunnable = new Runnable() {
+        @Override
+        public void run() {
+            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+                final TxItem[] transactions = BRWalletManager.getInstance().getTransactions();
+                handler.post(() -> {
+                    for (onStatusListener listener : theListeners) {
+                        listener.onTxManagerUpdate(transactions);
+                    }
+                });
+            });
+        }
+    };
 }
