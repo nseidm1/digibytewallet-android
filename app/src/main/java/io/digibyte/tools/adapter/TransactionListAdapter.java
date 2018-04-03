@@ -131,6 +131,10 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public ArrayList<ListItemTransactionData> getTransactions() {
+        //If search holder isn't null then we're in search mode
+        if (searchHolder != null) {
+            return searchHolder;
+        }
         return listItemData;
     }
 
