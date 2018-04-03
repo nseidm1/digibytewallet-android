@@ -64,10 +64,17 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
+            String currentComment = listItemTransactionData.transactionItem.metaData != null
+                    ? listItemTransactionData.transactionItem.metaData.comment : "";
             listItemTransactionData.update(findTransaction(listItemTransactionData, transactions));
+            String newComment = listItemTransactionData.transactionItem.metaData != null
+                    ? listItemTransactionData.transactionItem.metaData.comment : "";
+            boolean commentUpdated = !currentComment.equals(newComment);
+
             int confirms = BRSharedPrefs.getLastBlockHeight(DigiByte.getContext())
                     - listItemTransactionData.getTransactionItem().getBlockHeight() + 1;
-            if (confirms <= 5 && isPositionOnscreen(listItemData.indexOf(listItemTransactionData))) {
+            if ((confirms <= 5 || commentUpdated) && isPositionOnscreen(
+                    listItemData.indexOf(listItemTransactionData))) {
                 ListItemTransactionViewHolder listItemTransactionViewHolder =
                         (ListItemTransactionViewHolder) recyclerView
                                 .findViewHolderForAdapterPosition(
@@ -78,16 +85,14 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     /**
-     *
-     * @param listItemTransactionData
-     * @param transactions
      * @return while the method implementation can return null, in reality it will not because
      * the adapter will always have a view holder for view that are currently on screen,
      * and this method is only called after a check to ensure the view is onscreen
      */
 
     @Nullable
-    private ListItemTransactionData findTransaction(ListItemTransactionData listItemTransactionData, ArrayList<ListItemTransactionData> transactions) {
+    private ListItemTransactionData findTransaction(ListItemTransactionData listItemTransactionData,
+            ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData checkTransaction : transactions) {
             if (checkTransaction.equals(listItemTransactionData)) {
                 return checkTransaction;
