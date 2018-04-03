@@ -3,7 +3,6 @@ package io.digibyte.tools.list.items;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +13,7 @@ import com.platform.tools.KVStoreManager;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.list.ListItemData;
@@ -23,6 +23,7 @@ import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRDateUtil;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.wallet.BRPeerManager;
+import io.digibyte.wallet.BRWalletManager;
 
 public class ListItemTransactionViewHolder extends ListItemViewHolder
 {
@@ -154,14 +155,17 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder
             case 2:
                 percentage = "40%";
                 availableForSpend = true;
+                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 break;
             case 3:
                 percentage = "60%";
                 availableForSpend = true;
+                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 break;
             case 4:
                 percentage = "80%";
                 availableForSpend = true;
+                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 break;
             case 5:
                 percentage = "100%";
@@ -171,6 +175,7 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder
 
         if (availableForSpend && received)
         {
+            this.status_2.setVisibility(View.VISIBLE);
             this.status_2.setText(context.getString(R.string.Transaction_available));
         }
         else
