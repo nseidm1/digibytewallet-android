@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import io.digibyte.R;
@@ -98,7 +100,7 @@ public class PaperKeyActivity extends BRActivity {
             throw new RuntimeException(TAG + ": cleanPhrase is null");
         }
 
-        String wordArray[] = cleanPhrase.split(" ");
+        List<String> wordArray = Arrays.asList(cleanPhrase.split(" "));
 
         if (cleanPhrase.charAt(cleanPhrase.length() - 1) == '\0') {
             BRDialog.showCustomDialog(this, getString(R.string.JailbreakWarnings_title),
@@ -108,16 +110,16 @@ public class PaperKeyActivity extends BRActivity {
                             brDialogView.dismissWithAnimation();
                         }
                     }, null, null, 0);
-            BRReportsManager.reportBug(new IllegalArgumentException("Paper Key error, please contact support at breadwallet.com: " + wordArray.length), true);
+            BRReportsManager.reportBug(new IllegalArgumentException("Paper Key error, please contact support at breadwallet.com: " + wordArray.size()), true);
         } else {
-            if (wordArray.length != 12) {
-                BRReportsManager.reportBug(new IllegalArgumentException("Wrong number of paper keys: " + wordArray.length + ", lang: " + Locale.getDefault().getLanguage()), true);
+            if (wordArray.size() != 12) {
+                BRReportsManager.reportBug(new IllegalArgumentException("Wrong number of paper keys: " + wordArray.size() + ", lang: " + Locale.getDefault().getLanguage()), true);
             }
             WordPagerAdapter adapter = new WordPagerAdapter(getFragmentManager());
             adapter.setWords(wordArray);
             wordViewPager.setAdapter(adapter);
-            for (int i = 0; i < wordArray.length; i++) {
-                wordMap.append(i, wordArray[i]);
+            for (int i = 0; i < wordArray.size(); i++) {
+                wordMap.append(i, wordArray.get(i));
             }
             updateItemIndexText();
         }
@@ -165,24 +167,24 @@ public class PaperKeyActivity extends BRActivity {
 
     private class WordPagerAdapter extends FragmentPagerAdapter {
 
-        private String[] words;
+        private List<String> words;
 
         public WordPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void setWords(String[] words) {
+        public void setWords(List<String> words) {
             this.words = words;
         }
 
         @Override
         public Fragment getItem(int pos) {
-            return FragmentPhraseWord.newInstance(words[pos]);
+            return FragmentPhraseWord.newInstance(words.get(pos));
         }
 
         @Override
         public int getCount() {
-            return words == null ? 0 : words.length;
+            return words == null ? 0 : words.size();
         }
 
     }
