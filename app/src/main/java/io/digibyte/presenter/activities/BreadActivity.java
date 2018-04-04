@@ -36,6 +36,7 @@ import io.digibyte.presenter.activities.settings.FingerprintActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRSearchBar;
 import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
 import io.digibyte.presenter.fragments.FragmentManage;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
@@ -111,6 +112,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 .enableTransitionType(LayoutTransition.CHANGING);
         bindings.promptContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
+        bindings.txList.addItemDecoration(new VerticalSpaceItemDecoration(4));
         SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
         slideInDownAnimator.setAddDuration(500);
         slideInDownAnimator.setChangeDuration(0);

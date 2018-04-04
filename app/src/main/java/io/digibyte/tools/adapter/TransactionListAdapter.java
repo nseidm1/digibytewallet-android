@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import io.digibyte.DigiByte;
+import io.digibyte.databinding.ListItemTransactionBinding;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.list.items.ListItemTransactionViewHolder;
 import io.digibyte.tools.manager.BRSharedPrefs;
+import io.digibyte.wallet.BRWalletManager;
 
 
 /**
@@ -73,8 +75,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
             int confirms = BRSharedPrefs.getLastBlockHeight(DigiByte.getContext())
                     - listItemTransactionData.getTransactionItem().getBlockHeight() + 1;
-            if ((confirms <= 5 || commentUpdated) && isPositionOnscreen(
+            if ((confirms <= 8 || commentUpdated) && isPositionOnscreen(
                     listItemData.indexOf(listItemTransactionData))) {
+                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 ListItemTransactionViewHolder listItemTransactionViewHolder =
                         (ListItemTransactionViewHolder) recyclerView
                                 .findViewHolderForAdapterPosition(
@@ -146,8 +149,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     @Override
     public ListItemTransactionViewHolder onCreateViewHolder(ViewGroup aParent, int aResourceId) {
         LayoutInflater layoutInflater = LayoutInflater.from(aParent.getContext());
-        View view = layoutInflater.inflate(aResourceId, aParent, false);
-        return new ListItemTransactionViewHolder(view);
+        ListItemTransactionBinding binding = ListItemTransactionBinding.inflate(layoutInflater);
+        return new ListItemTransactionViewHolder(binding);
     }
 
     @Override

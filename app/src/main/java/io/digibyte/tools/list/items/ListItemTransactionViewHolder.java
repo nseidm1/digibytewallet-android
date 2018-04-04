@@ -1,20 +1,17 @@
 package io.digibyte.tools.list.items;
 
-import android.content.Context;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.util.TypedValue;
+import android.databinding.BindingAdapter;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.platform.tools.KVStoreManager;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
+import io.digibyte.databinding.ListItemTransactionBinding;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
@@ -23,216 +20,218 @@ import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRDateUtil;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.wallet.BRPeerManager;
-import io.digibyte.wallet.BRWalletManager;
 
-public class ListItemTransactionViewHolder extends ListItemViewHolder
-{
-    private final TextView amount;
-    private final TextView toFrom;
-    private final TextView account;
-    private final TextView status;
-    private final TextView status_2;
-    private final TextView timestamp;
-    private final TextView comment;
-    private final ImageView arrowIcon;
-    private final TextView sentReceived;
-    private final ConstraintLayout constraintLayout;
+public class ListItemTransactionViewHolder extends ListItemViewHolder {
+    private ListItemTransactionBinding binding;
 
-    public ListItemTransactionViewHolder(View anItemView)
-    {
-        super(anItemView);
-
-        amount = anItemView.findViewById(R.id.amount);
-        toFrom = anItemView.findViewById(R.id.to_from);
-        account = anItemView.findViewById(R.id.account);
-        status = anItemView.findViewById(R.id.status);
-        status_2 = anItemView.findViewById(R.id.status_2);
-        timestamp = anItemView.findViewById(R.id.timestamp);
-        comment = anItemView.findViewById(R.id.comment);
-        arrowIcon = anItemView.findViewById(R.id.arrow_icon);
-        sentReceived = anItemView.findViewById(R.id.sent_received);
-        constraintLayout = anItemView.findViewById(R.id.constraintLayout);
+    public ListItemTransactionViewHolder(ListItemTransactionBinding binding) {
+        super(binding.getRoot());
+        this.binding = binding;
     }
 
     @Override
-    public void process(ListItemData aListItemData)
-    {
+    public void process(ListItemData aListItemData) {
         super.process(aListItemData);
+        binding.setData((ListItemTransactionData) aListItemData);
+    }
 
-        Context context = this.itemView.getContext();
-        ListItemTransactionData data = (ListItemTransactionData) aListItemData;
-        TxItem item = data.transactionItem;
+    @BindingAdapter("transactionComment")
+    public static void setTransactionComment(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        String commentString = (item.metaData == null || item.metaData.comment == null) ? ""
+                : item.metaData.comment;
 
-        item.metaData = KVStoreManager.getInstance().getTxMetaData(context, item.getTxHash());
-        String commentString = (item.metaData == null || item.metaData.comment == null) ? "" : item.metaData.comment;
-
-        this.comment.setText(commentString);
-
-        if (commentString.isEmpty())
-        {
-            this.comment.setVisibility(View.GONE);
-
-            ConstraintSet set = new ConstraintSet();
-            set.clone(this.constraintLayout);
-            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics());
-            set.connect(R.id.status, ConstraintSet.TOP, this.toFrom.getId(), ConstraintSet.BOTTOM, px);
-            // Apply the changes
-            set.applyTo(this.constraintLayout);
+        textView.setText(commentString);
+        if (commentString.isEmpty()) {
+            textView.setVisibility(View.GONE);
+        } else {
+            textView.setVisibility(View.VISIBLE);
         }
-        else
-        {
-            this.comment.setVisibility(View.VISIBLE);
+    }
 
-            ConstraintSet set = new ConstraintSet();
-            set.clone(this.constraintLayout);
-            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics());
-            set.connect(R.id.status, ConstraintSet.TOP, this.comment.getId(), ConstraintSet.BOTTOM, px);
-            // Apply the changes
-            set.applyTo(this.constraintLayout);
-            this.comment.requestLayout();
+    @BindingAdapter("account")
+    public static void setAccount(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        textView.setText(item.getTo()[0]);
+    }
+
+    @BindingAdapter("itemViewBackground")
+    public static void setItemViewBackground(View view,
+            ListItemTransactionData listItemTransactionData) {
+        view.setBackgroundResource(getResourceByPos(listItemTransactionData.transactionIndex,
+                listItemTransactionData.transactionsCount));
+    }
+
+    private static int getResourceByPos(int aPosition, int aTotal) {
+        if (aTotal == 1) {
+            return R.drawable.tx_rounded;
+        } else if (aPosition == 0) {
+            return R.drawable.tx_rounded_up;
+        } else if (aPosition == aTotal - 1) {
+            return R.drawable.tx_rounded_down;
         }
+        return R.drawable.tx_not_rounded;
+    }
 
+    @BindingAdapter("arrowIcon")
+    public static void setArrowIcon(ImageView imageView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
         boolean received = item.getSent() == 0;
+        imageView.setImageResource(
+                received ? R.drawable.arrow_down_bold_circle : R.drawable.arrow_up_bold_circle);
+    }
 
-        this.account.setText(item.getTo()[0]);
+    @BindingAdapter("sentReceived")
+    public static void setSentReceived(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        boolean received = item.getSent() == 0;
+        textView.setText(
+                received ? textView.getContext().getString(R.string.TransactionDetails_received, "")
+                        : textView.getContext().getString(R.string.TransactionDetails_sent, ""));
+    }
 
-        this.itemView.setBackgroundResource(this.getResourceByPos(data.transactionIndex, data.transactionsCount));
-        this.arrowIcon.setImageResource(received ? R.drawable.arrow_down_bold_circle : R.drawable.arrow_up_bold_circle);
-        this.sentReceived.setText(received ? context.getString(R.string.TransactionDetails_received, "") : context.getString(R.string.TransactionDetails_sent, ""));
-        this.toFrom.setText(received ? String.format(context.getString(R.string.TransactionDetails_from), "") : String.format(context.getString(R.string.TransactionDetails_to), ""));
+    @BindingAdapter("toFrom")
+    public static void setToFrom(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        boolean received = item.getSent() == 0;
+        textView.setText(
+                received ? String.format(
+                        textView.getContext().getString(R.string.TransactionDetails_from), "")
+                        : String.format(
+                                textView.getContext().getString(R.string.TransactionDetails_to),
+                                ""));
+    }
 
+    private static int getLevel(TxItem item) {
         int blockHeight = item.getBlockHeight();
-        int confirms = blockHeight == Integer.MAX_VALUE ? 0 : BRSharedPrefs.getLastBlockHeight(context) - blockHeight + 1;
+        int confirms = blockHeight == Integer.MAX_VALUE ? 0 : BRSharedPrefs.getLastBlockHeight(
+                DigiByte.getContext()) - blockHeight + 1;
 
         int level;
-        if (confirms <= 0)
-        {
+        if (confirms <= 0) {
             int relayCount = BRPeerManager.getRelayCount(item.getTxHash());
-            if (relayCount <= 0)
-            {
+            if (relayCount <= 0) {
                 level = 0;
-            }
-            else if (relayCount == 1)
-            {
+            } else if (relayCount == 1) {
                 level = 1;
-            }
-            else
-            {
+            } else {
                 level = 2;
             }
-        }
-        else
-        {
-            if (confirms == 1)
-            {
+        } else {
+            if (confirms == 1) {
                 level = 3;
-            }
-            else if (confirms == 2)
-            {
+            } else if (confirms == 2) {
                 level = 4;
-            }
-            else if (confirms == 3)
-            {
+            } else if (confirms == 3) {
                 level = 5;
-            }
-            else
-            {
+            } else if (confirms == 4) {
                 level = 6;
+            } else if (confirms == 5) {
+                level = 7;
+            } else if (confirms == 6) {
+                level = 8;
+            } else {
+                level = 9;
             }
         }
+        return level;
+    }
 
+    private static Pair<Boolean, String> getAvailableForSpendAndPercentageText(int level) {
         boolean availableForSpend = false;
-        String sentReceived = received ? "Receiving" : "Sending";
         String percentage = "";
-        switch (level)
-        {
+        switch (level) {
             case 0:
+            case 1:
+            case 2:
                 percentage = "0%";
                 break;
-            case 1:
+            case 3: //1 confirm
                 percentage = "20%";
+                availableForSpend = true;
                 break;
-            case 2:
+            case 4: //2 confirm
                 percentage = "40%";
                 availableForSpend = true;
-                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 break;
-            case 3:
+            case 5: //3 confirm
                 percentage = "60%";
                 availableForSpend = true;
-                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 break;
-            case 4:
+            case 6: //4 confirm
+                percentage = "60%";
+                availableForSpend = true;
+                break;
+            case 7: //5 confirm
                 percentage = "80%";
                 availableForSpend = true;
-                BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 break;
-            case 5:
+            case 8: //6 confirm
                 percentage = "100%";
                 availableForSpend = true;
                 break;
         }
-
-        if (availableForSpend && received)
-        {
-            this.status_2.setVisibility(View.VISIBLE);
-            this.status_2.setText(context.getString(R.string.Transaction_available));
-        }
-        else
-        {
-            this.status_2.setVisibility(View.GONE);
-
-            ConstraintSet set = new ConstraintSet();
-            set.clone(this.constraintLayout);
-            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
-
-            set.connect(R.id.status, ConstraintSet.BOTTOM, this.constraintLayout.getId(), ConstraintSet.BOTTOM, px);
-            // Apply the changes
-            set.applyTo(this.constraintLayout);
-        }
-
-        if (level == 6)
-        {
-            this.status.setText(context.getString(R.string.Transaction_complete));
-        }
-        else
-        {
-            this.status.setText(String.format("%s - %s", sentReceived, percentage));
-        }
-
-        if (!item.isValid())
-        {
-            this.status.setText(context.getString(R.string.Transaction_invalid));
-        }
-
-
-        boolean isBTCPreferred = BRSharedPrefs.getPreferredBTC(context);
-        String iso = isBTCPreferred ? "DGB" : BRSharedPrefs.getIso(context);
-        long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
-        this.amount.setText(BRCurrency.getFormattedCurrencyString(context, iso, BRExchange.getAmountFromSatoshis(context, iso, new BigDecimal(satoshisAmount))));
-
-        //if it's 0 we use the current time.
-        long timeStamp = item.getTimeStamp() == 0 ? System.currentTimeMillis() : item.getTimeStamp() * 1000;
-        CharSequence timeSpan = BRDateUtil.getCustomSpan(new Date(timeStamp));
-
-        this.timestamp.setText(timeSpan);
+        return new Pair<>(availableForSpend, percentage);
     }
 
-    private int getResourceByPos(int aPosition, int aTotal)
-    {
-        if (aTotal == 1)
-        {
-            return R.drawable.tx_rounded;
+    @BindingAdapter("status2")
+    public static void setStatus2(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        boolean received = item.getSent() == 0;
+        Pair<Boolean, String> availableForSpend = getAvailableForSpendAndPercentageText(
+                getLevel(item));
+        if (availableForSpend.first && received) {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText(textView.getContext().getString(R.string.Transaction_available));
+        } else {
+            textView.setVisibility(View.GONE);
         }
-        else if (aPosition == 0)
-        {
-            return R.drawable.tx_rounded_up;
-        }
-        else if (aPosition == aTotal - 1)
-        {
-            return R.drawable.tx_rounded_down;
-        }
+    }
 
-        return R.drawable.tx_not_rounded;
+    @BindingAdapter("status")
+    public static void setStatus(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        boolean received = item.getSent() == 0;
+        String sentReceived = received ? "Receiving" : "Sending";
+        Pair<Boolean, String> percentage = getAvailableForSpendAndPercentageText(getLevel(item));
+        int level = getLevel(item);
+        if (level >= 9) {
+            textView.setText(textView.getContext().getString(R.string.Transaction_complete));
+        } else {
+            textView.setText(String.format("%s - %s", sentReceived, percentage.second));
+        }
+        if (!item.isValid()) {
+            textView.setText(textView.getContext().getString(R.string.Transaction_invalid));
+        }
+    }
+
+    @BindingAdapter("amount")
+    public static void setAmount(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        boolean isBTCPreferred = BRSharedPrefs.getPreferredBTC(textView.getContext());
+        boolean received = item.getSent() == 0;
+        String iso = isBTCPreferred ? "DGB" : BRSharedPrefs.getIso(textView.getContext());
+        long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
+        textView.setText(BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
+                BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
+                        new BigDecimal(satoshisAmount))));
+    }
+
+    @BindingAdapter("timestamp")
+    public static void setTimeStamp(TextView textView,
+            ListItemTransactionData listItemTransactionData) {
+        TxItem item = listItemTransactionData.transactionItem;
+        long timeStamp =
+                item.getTimeStamp() == 0 ? System.currentTimeMillis() : item.getTimeStamp() * 1000;
+        CharSequence timeSpan = BRDateUtil.getCustomSpan(new Date(timeStamp));
+        textView.setText(timeSpan);
     }
 }

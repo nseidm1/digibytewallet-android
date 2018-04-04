@@ -2,8 +2,11 @@ package io.digibyte.presenter.entities;
 
 
 import com.platform.entities.TxMetaData;
+import com.platform.tools.KVStoreManager;
 
 import java.util.Arrays;
+
+import io.digibyte.DigiByte;
 
 /**
  * BreadWallet
@@ -66,6 +69,8 @@ public class TxItem {
         this.outAmounts = outAmounts;
         this.isValid = isValid;
         this.txSize = txSize;
+        this.metaData = KVStoreManager.getInstance().getTxMetaData(DigiByte.getContext(), txHash);
+
     }
 
     public int getBlockHeight() {
