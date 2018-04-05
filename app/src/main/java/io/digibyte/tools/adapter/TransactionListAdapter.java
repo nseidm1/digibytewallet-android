@@ -140,12 +140,14 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
             @Override
             public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                return listItemData.get(oldItemPosition).transactionItem.txReversed.equals(searchTransactions.get(newItemPosition).transactionItem.txReversed);
+                return listItemData.get(oldItemPosition).transactionItem.txReversed.equals(
+                        searchTransactions.get(newItemPosition).transactionItem.txReversed);
             }
 
             @Override
             public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                return listItemData.get(oldItemPosition).transactionItem.txReversed.equals(searchTransactions.get(newItemPosition).transactionItem.txReversed);
+                return listItemData.get(oldItemPosition).transactionItem.txReversed.equals(
+                        searchTransactions.get(newItemPosition).transactionItem.txReversed);
             }
         }, true);
         listItemData = searchTransactions;
@@ -158,6 +160,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
             searchHolder = null;
         }
         notifyDataSetChanged();
+        recyclerView.smoothScrollToPosition(0);
     }
 
     public ArrayList<ListItemTransactionData> getTransactions() {
