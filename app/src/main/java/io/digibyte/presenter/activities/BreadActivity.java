@@ -16,7 +16,6 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +37,7 @@ import io.digibyte.presenter.customviews.BRSearchBar;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
 import io.digibyte.presenter.fragments.FragmentManage;
+import io.digibyte.tools.adapter.SlowerLinearLayoutManager;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemViewHolder;
@@ -123,7 +123,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     private void initializeViews() {
-        bindings.txList.setLayoutManager(new LinearLayoutManager(this));
+        bindings.txList.setLayoutManager(new SlowerLinearLayoutManager(this));
         bindings.txList.setAdapter(listViewAdapter);
         bindings.primaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 t1Size);//make it the size it should be after animation to get the X
