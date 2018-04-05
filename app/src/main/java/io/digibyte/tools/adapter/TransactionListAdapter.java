@@ -2,6 +2,7 @@ package io.digibyte.tools.adapter;
 
 import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -126,8 +127,29 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
         if (searchHolder == null) {
             searchHolder = listItemData;
         }
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return listItemData.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return searchTransactions.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return listItemData.get(oldItemPosition).transactionItem.txReversed.equals(searchTransactions.get(newItemPosition).transactionItem.txReversed);
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return listItemData.get(oldItemPosition).transactionItem.txReversed.equals(searchTransactions.get(newItemPosition).transactionItem.txReversed);
+            }
+        }, true);
         listItemData = searchTransactions;
-        notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public void clearSearchResults() {
