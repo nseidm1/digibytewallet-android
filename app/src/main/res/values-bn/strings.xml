@@ -740,6 +740,4 @@
   <string name="WritePaperPhrase.previous">পূর্ববর্তী</string>
   <!-- 1 of 3 -->
   <string name="WritePaperPhrase.step">%২$d এর %১$d</string>
-    <string name="AccountHeader.equals">=</string>
-    <string name="AccountHeader.manageButtonName">Manage</string>
 </resources>

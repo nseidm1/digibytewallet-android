@@ -107,7 +107,7 @@
   <!-- OK button label -->
   <string name="Button.ok">Εντάξει</string>
   <!-- receive button -->
-  <string name="Button.receive">Λήψη</string>
+  <string name="Button.receive">ΛΗΨΗ</string>
   <!-- send button -->
   <string name="Button.send">ΑΠΟΣΤΟΛΗ</string>
   <!-- Settings button label -->
@@ -333,7 +333,7 @@
   <!-- Request button label -->
   <string name="Receive.request">Αίτηση Ποσού</string>
   <!-- Share button label -->
-  <string name="Receive.share">Μερίδιο</string>
+  <string name="Receive.share">Κοινοποίηση</string>
   <!-- Share via text message (SMS) -->
   <string name="Receive.textButton">Γραπτό Μύνημα</string>
   <!-- Receive modal title -->

@@ -5,7 +5,7 @@
   <!-- About screen blog label -->
   <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
-  <string name="About.footer">Sviluppato da global DigiWallet team. Versione %1$s</string>
+  <string name="About.footer">Sviluppato da Global DigiWallet Team. Versione %1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Privacy</string>
   <!-- About screen reddit label -->
@@ -13,7 +13,7 @@
   <!-- Terms of Use button label -->
   <string name="About.terms">Termini di utilizzo https://github.com/Racecraft/digibytewallet-android</string>
   <!-- About screen title -->
-  <string name="About.title">Veloce, semplice e sicuro!: DigiWallet per Android è il modo più semplice per iniziare a inviare e ricevere digibyte. Progettato considerando sia utenti nuovi che esperti, DigiWallet per Android è abbastanza semplice da essere utilizzato per la prima volta, ma abbastanza potente per utenti esperti. \n</string>
+  <string name="About.title">DigiWallet per Android, il Portafoglio per DigiByte.\n</string>
   <!-- About screen twitter label -->
   <string name="About.twitter">https://twitter.com/digibytecoin</string>
   <!-- Close modal button accessibility label -->
@@ -289,7 +289,7 @@
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">Blocca schermo disabilitato</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">La tua personale chiave di recupero deve essere salvata in caso di smarrimento o cambio del telefono. Tocca qui per continuare.</string>
+  <string name="Prompts.PaperKey.body">La tua Chiave personale di recupero deve essere salvata in caso di smarrimento o cambio del telefono. Tocca qui per continuare.</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">Azione Richiesta</string>
   <!-- Transaction rejected prompt body -->
@@ -315,7 +315,7 @@
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">Aggiorna PIN</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">Attiva le notifiche per ricevere dal DigiWallet messaggi speciali in futuro.</string>
+  <string name="PushNotifications.body">Attiva le notifiche per ricevere dal DigiWallet messaggi importanti in futuro.</string>
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">Notifiche Push</string>
   <!-- Push notifications are off label -->
@@ -327,13 +327,13 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Copiato negli appunti.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Email</string>
+  <string name="Receive.emailButton">Email e Social</string>
   <!-- Request button label -->
   <string name="Receive.request">Richiedi un Importo</string>
   <!-- Share button label -->
   <string name="Receive.share">Condividi</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Testo Mesaggio</string>
+  <string name="Receive.textButton">Messaggio di Testo</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Ricevi</string>
   <!-- Done button text -->
@@ -343,11 +343,11 @@
   <!-- Reset PIN with paper key: header -->
   <string name="RecoverWallet.header_reset_pin">Resetta PIN</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">Inserisci la Chiave di recupero personale</string>
+  <string name="RecoverWallet.instruction">Inserisci la Chiave personale di recupero</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Recupera il tuo DigiWallet con la tua Chiave di recupero personale.</string>
+  <string name="RecoverWallet.intro">Recupera il tuo DigiWallet con la tua Chiave personale di recupero.</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">La Chiave di recupero personale inserita non è valida. Si prega di ricontrollare ogni parola e riprovare.</string>
+  <string name="RecoverWallet.invalid">La Chiave personale di recupero inserita non è valida. Si prega di ricontrollare ogni parola e riprovare.</string>
   <!-- Previous button accessibility label -->
   <string name="RecoverWallet.leftArrow">Freccia Sinistra</string>
   <!-- Next button label -->
@@ -357,9 +357,9 @@
   <!-- Next button accessibility label -->
   <string name="RecoverWallet.rightArrow">Freccia destra</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">Inserisci la Chiave di recupero personale per il DigiWallet che vuoi recuperare.</string>
+  <string name="RecoverWallet.subheader">Inserisci la Chiave personale di recupero per il DigiWallet che vuoi recuperare.</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">Per reimpostare il PIN, inserisci le parole dalla Chiave di recupero personale nelle caselle sottostanti.</string>
+  <string name="RecoverWallet.subheader_reset_pin">Per reimpostare il PIN, inserisci le parole dalla Chiave personale di recupero nelle caselle sottostanti.</string>
   <!-- No amount entered error message. -->
   <string name="RequestAnAmount.noAmount">Si prega di inserire prima un importo.</string>
   <!-- Request a specific amount of bitcoin -->
@@ -401,7 +401,7 @@
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">L\'unico modo per accedere al tuo DigiByte se perdi o aggiorni il tuo telefono.</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">Chiave di recupero personale</string>
+  <string name="SecurityCenter.paperKeyTitle">Chiave personale di recupero</string>
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">Protegge il tuo DigiWallet da utenti non autorizzati.</string>
   <!-- PIN button title -->
@@ -459,7 +459,7 @@
   <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">Impossibile caricare la richiesta di pagamento</string>
   <!-- Scan button label -->
-  <string name="Send.scanLabel">Scan</string>
+  <string name="Send.scanLabel">Scansiona</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Inviare</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
@@ -487,11 +487,11 @@
   <!-- Import wallet right message -->
   <string name="Settings.importRightMessage">Il tuo DigiWallet</string>
   <!-- Import wallet label -->
-  <string name="Settings.importTitle">Importa portafoglio</string>
+  <string name="Settings.importTitle">Importa Portafoglio</string>
   <!-- Manage settings section header -->
   <string name="Settings.manage">Gestire </string>
   <!-- Notifications label -->
-  <string name="Settings.notifications">Notificazioni </string>
+  <string name="Settings.notifications">Notifiche</string>
   <!-- Restore screen lower label. -->
   <string name="Settings.restore_label">Il tuo DigiWallet su questo dispositivo</string>
   <!-- Leave review button label -->
@@ -517,13 +517,13 @@
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">Condividere dati anonimi?</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">Annota di Nuovo la Chiave di recupero personale</string>
+  <string name="StartPaperPhrase.againButtonTitle">Annota di Nuovo la Chiave personale di recupero</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">La Chiave di recupero personale è l\'unico modo per ripristinare il DigiWallet se il telefono viene smarrito, rubato, rotto o aggiornato.\n\nTi mostreremo un elenco di parole da scrivere su un pezzo di carta e tenerlo al sicuro.</string>
+  <string name="StartPaperPhrase.body">La Chiave personale di recupero è l\'unico modo per ripristinare il DigiWallet se il telefono viene smarrito, rubato, rotto o aggiornato.\n\nTi mostreremo un elenco di parole da scrivere su un pezzo di carta e tenerlo al sicuro.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">Scrivi la Chiave di recupero personale</string>
+  <string name="StartPaperPhrase.buttonTitle">Scrivi la Chiave Personale di Recupero</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">L\'ultima volta che hai scritto la tua Chiave di recupero personale è stato %1$s</string>
+  <string name="StartPaperPhrase.date">L\'ultima volta che hai scritto la tua Chiave personale di recupero è stato %1$s</string>
   <!-- Start view message -->
   <string name="StartViewController.message">Il modo più sicuro per utilizzare DigiByte.</string>
   <!-- Syncing view connectiong state header text -->
@@ -571,11 +571,11 @@
   <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">Richiedi sempre codice di accesso</string>
   <!-- Touch ID spending limit screen body -->
-  <string name="TouchIdSpendingLimit.body">Ti verrà chiesto di inserire il tuo PIN di 6 cifre per inviare qualsiasi transazione oltre il limite di spesa e ogni 48 ore dall\'ultima volta che hai inserito il tuo PIN di 6 cifre.</string>
+  <string name="TouchIdSpendingLimit.body">Ti verrà chiesto di inserire il tuo PIN a 6 cifre per operare qualsiasi transazione oltre il limite di spesa e inoltre ogni 48 ore dall\'ultima volta che lo hai inserito.</string>
   <!-- Touch Id spending limit screen title -->
   <string name="TouchIdSpendingLimit.title">Limite Spesa Touch ID</string>
   <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">Limite Spesa autorizzazione con impronta</string>
+  <string name="TouchIdSpendingLimit.title.android">Limite di Spesa con impronta</string>
   <!-- Availability status text -->
   <string name="Transaction.available">Disponibile da spendere</string>
   <!-- Transaction complete label -->
@@ -719,11 +719,11 @@
   <!-- Failed wipe wallet alert title -->
   <string name="WipeWallet.failedTitle">Fallito</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">Per avviare un nuovo Portafoglio o ripristinarne uno esistente, devi prima cancellare il Portafoglio attualmente installato. Per continuare, inserisci l\'attuale Chiave di recupero personale.</string>
+  <string name="WipeWallet.instruction">Per avviare un nuovo Portafoglio o ripristinarne uno esistente, devi prima cancellare il Portafoglio attualmente installato. Per continuare, inserisci l\'attuale Chiave personale di recupero.</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">avviare o recuperare un altro portafoglio ti permette di accedere e gestire differenti DigiWallet su questo dispositivo.</string>
+  <string name="WipeWallet.startMessage">L\'avvio o il ripristino di un altro portafoglio consente di accedere e gestire un altro DigiWallet su questo dispositivo.</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">Il Portafoglio corrente verrà rimosso dal dispositivo. Se desiderassi ripristinarlo in futuro, avrai bisogno della tua Chiave di recupero personale.</string>
+  <string name="WipeWallet.startWarning">Il Portafoglio corrente verrà rimosso dal dispositivo. Se desiderassi ripristinarlo in futuro, avrai bisogno della tua Chiave personale di recupero.</string>
   <!-- Wipe wallet navigation item title. -->
   <string name="WipeWallet.title">Avvia o Recupera un Altro Portafoglio</string>
   <!-- Wipe wallet button title -->
