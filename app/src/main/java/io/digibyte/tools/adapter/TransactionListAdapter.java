@@ -1,8 +1,6 @@
 package io.digibyte.tools.adapter;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,13 +51,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     private ArrayList<ListItemTransactionData> listItemData = new ArrayList<>();
     private ArrayList<ListItemTransactionData> searchHolder = null;
-    private static Handler handler = new Handler(Looper.getMainLooper());
 
     private RecyclerView recyclerView;
 
     public TransactionListAdapter(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
-        this.recyclerView.setOnTouchListener(recyclerViewTouchListener);
         setHasStableIds(true);
     }
 
@@ -156,20 +152,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
         }, true);
         listItemData = searchTransactions;
         diffResult.dispatchUpdatesTo(this);
-        handler.postDelayed(smoothScrollRunnable, 2000);
     }
-
-    private Runnable smoothScrollRunnable = new Runnable() {
-        @Override
-        public void run() {
-            recyclerView.smoothScrollToPosition(0);
-        }
-    };
-
-    View.OnTouchListener recyclerViewTouchListener = (v, event) -> {
-        handler.removeCallbacks(smoothScrollRunnable);
-        return false;
-    };
 
     public void clearSearchResults() {
         if (searchHolder != null) {
