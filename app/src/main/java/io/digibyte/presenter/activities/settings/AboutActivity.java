@@ -5,33 +5,22 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.BRAnimator;
 
-import java.util.Locale;
-
 public class AboutActivity extends BRActivity {
-    private static final String TAG = AboutActivity.class.getName();
-//    private TextView termsText;
     private TextView policyText;
     private TextView infoText;
-
     private ImageView redditShare;
     private ImageView twitterShare;
     private ImageView blogShare;
-    private static AboutActivity app;
-
-    public static AboutActivity getApp() {
-        return app;
-    }
-
-    public static boolean appVisible = false;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -42,9 +31,8 @@ public class AboutActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        infoText = (TextView) findViewById(R.id.info_text);
-//        termsText = (TextView) findViewById(R.id.terms_text);
-        policyText = (TextView) findViewById(R.id.policy_text);
+        infoText = findViewById(R.id.info_text);
+        policyText = findViewById(R.id.policy_text);
 
         PackageInfo pInfo = null;
         try {
@@ -54,67 +42,37 @@ public class AboutActivity extends BRActivity {
         }
         int verCode = pInfo != null ? pInfo.versionCode : 0;
 
-        infoText.setText(String.format(Locale.getDefault(), getString(R.string.About_footer), verCode));
+        infoText.setText(
+                String.format(Locale.getDefault(), getString(R.string.About_footer), verCode));
 
-        redditShare = (ImageView) findViewById(R.id.reddit_share_button);
-        twitterShare = (ImageView) findViewById(R.id.twitter_share_button);
-        blogShare = (ImageView) findViewById(R.id.blog_share_button);
+        redditShare = findViewById(R.id.reddit_share_button);
+        twitterShare = findViewById(R.id.twitter_share_button);
+        blogShare = findViewById(R.id.blog_share_button);
 
-        redditShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://reddit.com/r/digibyte/"));
-                startActivity(browserIntent);
-                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-            }
+        redditShare.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://reddit.com/r/digibyte/"));
+            startActivity(browserIntent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         });
 
-        twitterShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/digibytecoin"));
-                startActivity(browserIntent);
-                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-            }
+        twitterShare.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://twitter.com/digibytecoin"));
+            startActivity(browserIntent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         });
-        blogShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://digibyte.io"));
-                startActivity(browserIntent);
-                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-            }
+        blogShare.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://digibyte.io"));
+            startActivity(browserIntent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         });
-        policyText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://digibyte.io/digibyte-privacy-policy"));
-                startActivity(browserIntent);
-                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-            }
+        policyText.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://digibyte.io/digibyte-privacy-policy"));
+            startActivity(browserIntent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         });
-//        termsText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://DigiByte.com/privacy-policy"));
-//                startActivity(browserIntent);
-//                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-//            }
-//        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     @Override
@@ -126,5 +84,4 @@ public class AboutActivity extends BRActivity {
         }
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
-
 }
