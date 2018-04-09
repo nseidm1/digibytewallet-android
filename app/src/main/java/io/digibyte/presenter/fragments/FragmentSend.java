@@ -1,5 +1,7 @@
 package io.digibyte.presenter.fragments;
 
+import static io.digibyte.tools.security.BitcoinUrlHandler.getRequestFromString;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.res.Configuration;
@@ -26,6 +28,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
+
+import java.math.BigDecimal;
 
 import io.digibyte.R;
 import io.digibyte.presenter.customviews.BRButton;
@@ -41,18 +46,14 @@ import io.digibyte.tools.animation.SlideDetector;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.BRSender;
+import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
-import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.BRCurrency;
+import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
-
-import java.math.BigDecimal;
-
-import static io.digibyte.tools.security.BitcoinUrlHandler.getRequestFromString;
 
 
 /**
@@ -109,8 +110,8 @@ public class FragmentSend extends Fragment {
     private boolean feeButtonsShown = false;
     private BRText feeDescription;
     private BRText warningText;
-    public static boolean isEconomyFee;
     private boolean amountLabelOn = true;
+    private ViewAnimator sendingWait;
 
     private static String savedMemo;
     private static String savedIso;
@@ -119,36 +120,36 @@ public class FragmentSend extends Fragment {
     private boolean ignoreCleanup;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_send, container, false);
-        backgroundLayout = (ScrollView) rootView.findViewById(R.id.background_layout);
-        signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
-        keyboard = (BRKeyboard) rootView.findViewById(R.id.keyboard);
+        backgroundLayout = rootView.findViewById(R.id.background_layout);
+        signalLayout = rootView.findViewById(R.id.signal_layout);
+        keyboard = rootView.findViewById(R.id.keyboard);
         keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
         keyboard.setBRKeyboardColor(R.color.white);
-        isoText = (TextView) rootView.findViewById(R.id.iso_text);
-        addressEdit = (EditText) rootView.findViewById(R.id.address_edit);
-        scan = (Button) rootView.findViewById(R.id.scan);
-        paste = (Button) rootView.findViewById(R.id.paste_button);
-        send = (Button) rootView.findViewById(R.id.send_button);
-        commentEdit = (EditText) rootView.findViewById(R.id.comment_edit);
-        amountEdit = (EditText) rootView.findViewById(R.id.amount_edit);
-        balanceText = (TextView) rootView.findViewById(R.id.balance_text);
-        feeText = (TextView) rootView.findViewById(R.id.fee_text);
-        edit = (ImageView) rootView.findViewById(R.id.edit);
-        isoButton = (Button) rootView.findViewById(R.id.iso_button);
-        keyboardLayout = (LinearLayout) rootView.findViewById(R.id.keyboard_layout);
-        amountLayout = (ConstraintLayout) rootView.findViewById(R.id.amount_layout);
-        feeLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.fee_buttons_layout);
-        feeDescription = (BRText) rootView.findViewById(R.id.fee_description);
-        warningText = (BRText) rootView.findViewById(R.id.warning_text);
-
-        regular = (BRButton) rootView.findViewById(R.id.left_button);
-        economy = (BRButton) rootView.findViewById(R.id.right_button);
-        close = (ImageButton) rootView.findViewById(R.id.close_button);
-        selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(getContext());
-
+        isoText = rootView.findViewById(R.id.iso_text);
+        addressEdit = rootView.findViewById(R.id.address_edit);
+        scan = rootView.findViewById(R.id.scan);
+        paste = rootView.findViewById(R.id.paste_button);
+        send = rootView.findViewById(R.id.send_button);
+        commentEdit = rootView.findViewById(R.id.comment_edit);
+        amountEdit = rootView.findViewById(R.id.amount_edit);
+        balanceText = rootView.findViewById(R.id.balance_text);
+        feeText = rootView.findViewById(R.id.fee_text);
+        edit = rootView.findViewById(R.id.edit);
+        isoButton = rootView.findViewById(R.id.iso_button);
+        keyboardLayout = rootView.findViewById(R.id.keyboard_layout);
+        amountLayout = rootView.findViewById(R.id.amount_layout);
+        feeLayout = rootView.findViewById(R.id.fee_buttons_layout);
+        feeDescription = rootView.findViewById(R.id.fee_description);
+        warningText = rootView.findViewById(R.id.warning_text);
+        regular = rootView.findViewById(R.id.left_button);
+        economy = rootView.findViewById(R.id.right_button);
+        close = rootView.findViewById(R.id.close_button);
+        sendingWait = rootView.findViewById(R.id.sending_wait);
+        selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(
+                getContext());
         amountBuilder = new StringBuilder(0);
         setListeners();
         isoText.setText(getString(R.string.Send_amountLabel));
@@ -156,330 +157,261 @@ public class FragmentSend extends Fragment {
         isoText.setTextColor(getContext().getColor(R.color.light_gray));
         isoText.requestLayout();
         signalLayout.setOnTouchListener(new SlideDetector(getContext(), signalLayout));
-
-        signalLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
+        signalLayout.setOnClickListener(v -> {
         });
-
-
         showFeeSelectionButtons(feeButtonsShown);
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                feeButtonsShown = !feeButtonsShown;
-                showFeeSelectionButtons(feeButtonsShown);
-            }
+        edit.setOnClickListener(v -> {
+            feeButtonsShown = !feeButtonsShown;
+            showFeeSelectionButtons(feeButtonsShown);
         });
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout);
-
-        /* ImageButton faq = (ImageButton) rootView.findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                Activity app = getActivity();
-                if (app == null) {
-                    Log.e(TAG, "onClick: app is null, can't start the webview with url: " + URL_SUPPORT);
-                    return;
-                }
-                BRAnimator.showSupportFragment(app, BRConstants.send);
-            }
-        }); */
-
         showKeyboard(false);
         setButton(true);
-
         signalLayout.setLayoutTransition(BRAnimator.getDefaultTransition());
-
         return rootView;
     }
 
     private void setListeners() {
-        amountEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showKeyboard(true);
-                if (amountLabelOn) { //only first time
-                    amountLabelOn = false;
-                    amountEdit.setHint("0");
-                    amountEdit.setTextSize(24);
-                    balanceText.setVisibility(View.VISIBLE);
-                    feeText.setVisibility(View.VISIBLE);
-                    edit.setVisibility(View.VISIBLE);
-                    isoText.setTextColor(getContext().getColor(R.color.almost_black));
-                    isoText.setText(BRCurrency.getSymbolByIso(getActivity(), selectedIso));
-                    isoText.setTextSize(28);
-                    final float scaleX = amountEdit.getScaleX();
-                    amountEdit.setScaleX(0);
+        amountEdit.setOnClickListener(v -> {
+            showKeyboard(true);
+            if (amountLabelOn) { //only first time
+                amountLabelOn = false;
+                amountEdit.setHint("0");
+                amountEdit.setTextSize(24);
+                balanceText.setVisibility(View.VISIBLE);
+                feeText.setVisibility(View.VISIBLE);
+                edit.setVisibility(View.VISIBLE);
+                isoText.setTextColor(getContext().getColor(R.color.almost_black));
+                isoText.setText(BRCurrency.getSymbolByIso(getActivity(), selectedIso));
+                isoText.setTextSize(28);
+                final float scaleX = amountEdit.getScaleX();
+                amountEdit.setScaleX(0);
 
-                    AutoTransition tr = new AutoTransition();
-                    tr.setInterpolator(new OvershootInterpolator());
-                    tr.addListener(new android.support.transition.Transition.TransitionListener() {
-                        @Override
-                        public void onTransitionStart(@NonNull android.support.transition.Transition transition) {
+                AutoTransition tr = new AutoTransition();
+                tr.setInterpolator(new OvershootInterpolator());
+                tr.addListener(new android.support.transition.Transition.TransitionListener() {
+                    @Override
+                    public void onTransitionStart(
+                            @NonNull android.support.transition.Transition transition) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onTransitionEnd(@NonNull android.support.transition.Transition transition) {
-                            amountEdit.requestLayout();
-                            amountEdit.animate().setDuration(100).scaleX(scaleX);
-                        }
+                    @Override
+                    public void onTransitionEnd(
+                            @NonNull android.support.transition.Transition transition) {
+                        amountEdit.requestLayout();
+                        amountEdit.animate().setDuration(100).scaleX(scaleX);
+                    }
 
-                        @Override
-                        public void onTransitionCancel(@NonNull android.support.transition.Transition transition) {
+                    @Override
+                    public void onTransitionCancel(
+                            @NonNull android.support.transition.Transition transition) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onTransitionPause(@NonNull android.support.transition.Transition transition) {
+                    @Override
+                    public void onTransitionPause(
+                            @NonNull android.support.transition.Transition transition) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onTransitionResume(@NonNull android.support.transition.Transition transition) {
+                    @Override
+                    public void onTransitionResume(
+                            @NonNull android.support.transition.Transition transition) {
 
-                        }
-                    });
+                    }
+                });
 
-                    ConstraintSet set = new ConstraintSet();
-                    set.clone(amountLayout);
-                    TransitionManager.beginDelayedTransition(amountLayout, tr);
+                ConstraintSet set = new ConstraintSet();
+                set.clone(amountLayout);
+                TransitionManager.beginDelayedTransition(amountLayout, tr);
 
-                    int px4 = Utils.getPixelsFromDps(getContext(), 4);
+                int px4 = Utils.getPixelsFromDps(getContext(), 4);
 //                    int px8 = Utils.getPixelsFromDps(getContext(), 8);
-                    set.connect(balanceText.getId(), ConstraintSet.TOP, isoText.getId(), ConstraintSet.BOTTOM, px4);
-                    set.connect(feeText.getId(), ConstraintSet.TOP, balanceText.getId(), ConstraintSet.BOTTOM, px4);
-                    set.connect(feeText.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, px4);
-                    set.connect(isoText.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, px4);
-                    set.connect(isoText.getId(), ConstraintSet.BOTTOM, -1, ConstraintSet.TOP, -1);
-                    set.applyTo(amountLayout);
-
-                }
+                set.connect(balanceText.getId(), ConstraintSet.TOP, isoText.getId(),
+                        ConstraintSet.BOTTOM, px4);
+                set.connect(feeText.getId(), ConstraintSet.TOP, balanceText.getId(),
+                        ConstraintSet.BOTTOM, px4);
+                set.connect(feeText.getId(), ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID,
+                        ConstraintSet.BOTTOM, px4);
+                set.connect(isoText.getId(), ConstraintSet.TOP, ConstraintSet.PARENT_ID,
+                        ConstraintSet.TOP, px4);
+                set.connect(isoText.getId(), ConstraintSet.BOTTOM, -1, ConstraintSet.TOP, -1);
+                set.applyTo(amountLayout);
 
             }
+
         });
 
         //needed to fix the overlap bug
-        commentEdit.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    amountLayout.requestLayout();
-                    return true;
-                }
-                return false;
+        commentEdit.setOnKeyListener((v, keyCode, event) -> {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode
+                    == KeyEvent.KEYCODE_ENTER)) {
+                amountLayout.requestLayout();
+                return true;
             }
+            return false;
         });
 
-//        commentEdit.addTextChangedListener(new BRTextWatcher());
-//        addressEdit.addTextChangedListener(new BRTextWatcher());
+        paste.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            String bitcoinUrl = BRClipboardManager.getClipboard(getActivity());
+            if (Utils.isNullOrEmpty(bitcoinUrl) || !isInputValid(bitcoinUrl)) {
+                showClipboardError();
+                return;
+            }
+            String address = null;
 
-        paste.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                String bitcoinUrl = BRClipboardManager.getClipboard(getActivity());
-                if (Utils.isNullOrEmpty(bitcoinUrl) || !isInputValid(bitcoinUrl)) {
-                    showClipboardError();
+            RequestObject obj = getRequestFromString(bitcoinUrl);
+
+            if (obj == null || obj.address == null) {
+                showClipboardError();
+                return;
+            }
+            address = obj.address;
+            final BRWalletManager wm = BRWalletManager.getInstance();
+
+            if (BRWalletManager.validateAddress(address)) {
+                final String finalAddress = address;
+                final Activity app = getActivity();
+                if (app == null) {
+                    Log.e(TAG, "paste onClick: app is null");
                     return;
                 }
-                String address = null;
-
-                RequestObject obj = getRequestFromString(bitcoinUrl);
-
-                if (obj == null || obj.address == null) {
-                    showClipboardError();
-                    return;
-                }
-                address = obj.address;
-                final BRWalletManager wm = BRWalletManager.getInstance();
-
-                if (BRWalletManager.validateAddress(address)) {
-                    final String finalAddress = address;
-                    final Activity app = getActivity();
-                    if (app == null) {
-                        Log.e(TAG, "paste onClick: app is null");
-                        return;
-                    }
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
+                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                        () -> {
                             if (wm.addressContainedInWallet(finalAddress)) {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BRDialog.showCustomDialog(getActivity(), "", getResources().getString(R.string.Send_containsAddress), getResources().getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                            }
-                                        }, null, null, 0);
-                                        BRClipboardManager.putClipboard(getActivity(), "");
-                                    }
+                                app.runOnUiThread(() -> {
+                                    BRDialog.showCustomDialog(getActivity(), "",
+                                            getResources().getString(
+                                                    R.string.Send_containsAddress),
+                                            getResources().getString(
+                                                    R.string.AccessibilityLabels_close),
+                                            null, new BRDialogView.BROnClickListener() {
+                                                @Override
+                                                public void onClick(
+                                                        BRDialogView brDialogView) {
+                                                    brDialogView.dismiss();
+                                                }
+                                            }, null, null, 0);
+                                    BRClipboardManager.putClipboard(getActivity(), "");
                                 });
 
                             } else if (wm.addressIsUsed(finalAddress)) {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BRDialog.showCustomDialog(getActivity(), getString(R.string.Send_UsedAddress_firstLine), getString(R.string.Send_UsedAddress_secondLIne), "Ignore", "Cancel", new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                                addressEdit.setText(finalAddress);
-                                            }
-                                        }, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismiss();
-                                            }
-                                        }, null, 0);
-                                    }
-                                });
+                                app.runOnUiThread(() -> BRDialog.showCustomDialog(getActivity(),
+                                        getString(
+                                                R.string.Send_UsedAddress_firstLine),
+                                        getString(
+                                                R.string.Send_UsedAddress_secondLIne),
+                                        "Ignore", "Cancel",
+                                        brDialogView -> {
+                                            brDialogView.dismiss();
+                                            addressEdit.setText(finalAddress);
+                                        }, brDialogView -> brDialogView.dismiss(), null, 0));
 
                             } else {
-                                app.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        addressEdit.setText(finalAddress);
-
-                                    }
-                                });
+                                app.runOnUiThread(() -> addressEdit.setText(finalAddress));
                             }
-                        }
-                    });
+                        });
 
-                } else {
-                    showClipboardError();
-                }
-
+            } else {
+                showClipboardError();
             }
+
         });
 
-        isoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedIso.equalsIgnoreCase(BRSharedPrefs.getIso(getContext()))) {
-                    selectedIso = "DGB";
-                } else {
-                    selectedIso = BRSharedPrefs.getIso(getContext());
-                }
-                updateText();
-
+        isoButton.setOnClickListener(v -> {
+            if (selectedIso.equalsIgnoreCase(BRSharedPrefs.getIso(getContext()))) {
+                selectedIso = "DGB";
+            } else {
+                selectedIso = BRSharedPrefs.getIso(getContext());
             }
+            updateText();
+
         });
 
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                saveMetaData();
-                BRAnimator.openScanner(getActivity(), BRConstants.SCANNER_REQUEST);
+        scan.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            saveMetaData();
+            BRAnimator.openScanner(getActivity(), BRConstants.SCANNER_REQUEST);
 
-            }
         });
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //not allowed now
-                if (!BRAnimator.isClickAllowed()) {
-                    return;
-                }
-
-                boolean allFilled = true;
-                String address = addressEdit.getText().toString();
-                String amountStr = amountBuilder.toString();
-                String iso = selectedIso;
-                String comment = commentEdit.getText().toString();
-
-                //get amount in satoshis from any isos
-                BigDecimal bigAmount = new BigDecimal(Utils.isNullOrEmpty(amountStr) ? "0" : amountStr);
-                BigDecimal satoshiAmount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount);
-
-                if (address.isEmpty() || !BRWalletManager.validateAddress(address)) {
-                    allFilled = false;
-                    Activity app = getActivity();
-                    BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error), app.getString(R.string.Send_noAddress), app.getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            brDialogView.dismissWithAnimation();
-                        }
-                    }, null, null, 0);
-                }
-                if (satoshiAmount.doubleValue() < 1) {
-                    allFilled = false;
-                    SpringAnimator.failShakeAnimation(getActivity(), amountEdit);
-                }
-                if (satoshiAmount.longValue() > BRWalletManager.getInstance().getBalance(getActivity())) {
-                    allFilled = false;
-                    SpringAnimator.failShakeAnimation(getActivity(), balanceText);
-                    SpringAnimator.failShakeAnimation(getActivity(), feeText);
-                }
-
-                if (allFilled)
-                    BRSender.getInstance().sendTransaction(getContext(), new PaymentItem(new String[]{address}, null, satoshiAmount.longValue(), null, false, comment));
+        send.setOnClickListener(v -> {
+            //not allowed now
+            if (!BRAnimator.isClickAllowed()) {
+                return;
             }
-        });
+            sendingWait.setDisplayedChild(1);
+            send.setEnabled(false);
+            boolean allFilled = true;
+            String address = addressEdit.getText().toString();
+            String amountStr = amountBuilder.toString();
+            String iso = selectedIso;
+            String comment = commentEdit.getText().toString();
 
-        backgroundLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                getActivity().onBackPressed();
-            }
-        });
+            //get amount in satoshis from any isos
+            BigDecimal bigAmount = new BigDecimal(
+                    Utils.isNullOrEmpty(amountStr) ? "0" : amountStr);
+            BigDecimal satoshiAmount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
+                    bigAmount);
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            if (address.isEmpty() || !BRWalletManager.validateAddress(address)) {
+                allFilled = false;
                 Activity app = getActivity();
-                if (app != null)
-                    app.getFragmentManager().popBackStack();
+                BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error),
+                        app.getString(R.string.Send_noAddress),
+                        app.getString(R.string.AccessibilityLabels_close), null,
+                        new BRDialogView.BROnClickListener() {
+                            @Override
+                            public void onClick(BRDialogView brDialogView) {
+                                brDialogView.dismissWithAnimation();
+                            }
+                        }, null, null, 0);
+            }
+            if (satoshiAmount.doubleValue() < 1) {
+                allFilled = false;
+                SpringAnimator.failShakeAnimation(getActivity(), amountEdit);
+            }
+            if (satoshiAmount.longValue() > BRWalletManager.getInstance().getBalance(
+                    getActivity())) {
+                allFilled = false;
+                SpringAnimator.failShakeAnimation(getActivity(), balanceText);
+                SpringAnimator.failShakeAnimation(getActivity(), feeText);
+            }
+
+            if (allFilled) {
+                BRSender.getInstance().sendTransaction(getContext(),
+                        new PaymentItem(new String[]{address}, null, satoshiAmount.longValue(),
+                                null, false, comment),
+                        () -> sendingWait.setDisplayedChild(0));
             }
         });
 
+        backgroundLayout.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            getActivity().onBackPressed();
+        });
 
-        addressEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE) || (actionId == EditorInfo.IME_ACTION_NEXT)) {
-                    Utils.hideKeyboard(getActivity());
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showKeyboard(true);
-                        }
-                    }, 500);
-
-                }
-                return false;
+        close.setOnClickListener(v -> {
+            Activity app = getActivity();
+            if (app != null) {
+                app.getFragmentManager().popBackStack();
             }
         });
 
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleClick(key);
-            }
-        });
+        addressEdit.setOnEditorActionListener((v, actionId, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId
+                    == EditorInfo.IME_ACTION_DONE) || (actionId
+                    == EditorInfo.IME_ACTION_NEXT)) {
+                Utils.hideKeyboard(getActivity());
+                new Handler().postDelayed(() -> showKeyboard(true), 500);
 
-        regular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setButton(true);
             }
+            return false;
         });
-        economy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setButton(false);
-            }
-        });
-//        updateText();
-
+        keyboard.addOnInsertListener(key -> handleClick(key));
+        regular.setOnClickListener(v -> setButton(true));
+        economy.setOnClickListener(v -> setButton(false));
     }
 
     private void showKeyboard(boolean b) {
@@ -490,21 +422,20 @@ public class FragmentSend extends Fragment {
 
         } else {
             Utils.hideKeyboard(getActivity());
-            if (signalLayout.indexOfChild(keyboardLayout) == -1)
+            if (signalLayout.indexOfChild(keyboardLayout) == -1) {
                 signalLayout.addView(keyboardLayout, curIndex);
-            else
+            } else {
                 signalLayout.removeView(keyboardLayout);
+            }
 
         }
     }
 
     private void showClipboardError() {
-        BRDialog.showCustomDialog(getActivity(), getString(R.string.Send_emptyPasteboard), getResources().getString(R.string.Send_invalidAddressTitle), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismiss();
-            }
-        }, null, null, 0);
+        BRDialog.showCustomDialog(getActivity(), getString(R.string.Send_emptyPasteboard),
+                getResources().getString(R.string.Send_invalidAddressTitle),
+                getString(R.string.AccessibilityLabels_close), null,
+                brDialogView -> brDialogView.dismiss(), null, null, 0);
         BRClipboardManager.putClipboard(getActivity(), "");
     }
 
@@ -518,36 +449,29 @@ public class FragmentSend extends Fragment {
             public void onGlobalLayout() {
                 observer.removeGlobalOnLayoutListener(this);
                 BRAnimator.animateBackgroundDim(backgroundLayout, false);
-                BRAnimator.animateSignalSlide(signalLayout, false, new BRAnimator.OnSlideAnimationEnd() {
-                    @Override
-                    public void onAnimationEnd() {
-                        Bundle bundle = getArguments();
-                        if (bundle != null && bundle.getString("url") != null)
-                            setUrl(bundle.getString("url"));
+                BRAnimator.animateSignalSlide(signalLayout, false, () -> {
+                    Bundle bundle = getArguments();
+                    if (bundle != null && bundle.getString("url") != null) {
+                        setUrl(bundle.getString("url"));
                     }
                 });
             }
         });
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
         BRAnimator.animateBackgroundDim(backgroundLayout, true);
-        BRAnimator.animateSignalSlide(signalLayout, true, new BRAnimator.OnSlideAnimationEnd() {
-            @Override
-            public void onAnimationEnd() {
-                if (getActivity() != null) {
-                    try {
-                        getActivity().getFragmentManager().popBackStack();
-                    } catch (Exception ignored) {
-
-                    }
+        BRAnimator.animateSignalSlide(signalLayout, true, () -> {
+            if (getActivity() != null) {
+                try {
+                    getActivity().getFragmentManager().popBackStack();
+                } catch (Exception ignored) {
+                    //Drives me nuts, such flagrant disregard for how Android works
                 }
             }
         });
-        isEconomyFee = false;
     }
 
     @Override
@@ -590,8 +514,10 @@ public class FragmentSend extends Fragment {
                 <= BRExchange.getMaxAmount(getActivity(), iso).doubleValue()) {
             //do not insert 0 if the balance is 0 now
             if (currAmount.equalsIgnoreCase("0")) amountBuilder = new StringBuilder("");
-            if ((currAmount.contains(".") && (currAmount.length() - currAmount.indexOf(".") > BRCurrency.getMaxDecimalPlaces(iso))))
+            if ((currAmount.contains(".") && (currAmount.length() - currAmount.indexOf(".")
+                    > BRCurrency.getMaxDecimalPlaces(iso)))) {
                 return;
+            }
             amountBuilder.append(dig);
             updateText();
         }
@@ -599,8 +525,9 @@ public class FragmentSend extends Fragment {
 
     private void handleSeparatorClick() {
         String currAmount = amountBuilder.toString();
-        if (currAmount.contains(".") || BRCurrency.getMaxDecimalPlaces(selectedIso) == 0)
+        if (currAmount.contains(".") || BRCurrency.getMaxDecimalPlaces(selectedIso) == 0) {
             return;
+        }
         amountBuilder.append(".");
         updateText();
     }
@@ -621,44 +548,58 @@ public class FragmentSend extends Fragment {
         String balanceString;
         String iso = selectedIso;
         curBalance = BRWalletManager.getInstance().getBalance(getActivity());
-        if (!amountLabelOn)
+        if (!amountLabelOn) {
             isoText.setText(BRCurrency.getSymbolByIso(getActivity(), selectedIso));
-        isoButton.setText(String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso), BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
+        }
+        isoButton.setText(
+                String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso),
+                        BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
         //Balance depending on ISO
         long satoshis = (Utils.isNullOrEmpty(tmpAmount) || tmpAmount.equalsIgnoreCase(".")) ? 0 :
-                (selectedIso.equalsIgnoreCase("dgb") ? BRExchange.getSatoshisForBitcoin(getActivity(), new BigDecimal(tmpAmount)).longValue() : BRExchange.getSatoshisFromAmount(getActivity(), selectedIso, new BigDecimal(tmpAmount)).longValue());
-        BigDecimal balanceForISO = BRExchange.getAmountFromSatoshis(getActivity(), iso, new BigDecimal(curBalance));
+                (selectedIso.equalsIgnoreCase("dgb") ? BRExchange.getSatoshisForBitcoin(
+                        getActivity(), new BigDecimal(tmpAmount)).longValue()
+                        : BRExchange.getSatoshisFromAmount(getActivity(), selectedIso,
+                                new BigDecimal(tmpAmount)).longValue());
+        BigDecimal balanceForISO = BRExchange.getAmountFromSatoshis(getActivity(), iso,
+                new BigDecimal(curBalance));
 
         //formattedBalance
-        String formattedBalance = BRCurrency.getFormattedCurrencyString(getActivity(), iso, balanceForISO);
+        String formattedBalance = BRCurrency.getFormattedCurrencyString(getActivity(), iso,
+                balanceForISO);
         //Balance depending on ISO
         long fee = 0;
         if (satoshis == 0) {
             fee = 0;
         } else {
             String address = addressEdit.getText().toString();
-            if (!address.isEmpty() && BRWalletManager.validateAddress(address))
-                fee = BRWalletManager.getInstance().feeForTransaction(addressEdit.getText().toString(), satoshis);
+            if (!address.isEmpty() && BRWalletManager.validateAddress(address)) {
+                fee = BRWalletManager.getInstance().feeForTransaction(
+                        addressEdit.getText().toString(), satoshis);
+            }
             if (fee == 0) {
                 fee = BRWalletManager.getInstance().feeForTransactionAmount(satoshis);
             }
         }
 
-        BigDecimal feeForISO = BRExchange.getAmountFromSatoshis(getActivity(), iso, new BigDecimal(fee));
+        BigDecimal feeForISO = BRExchange.getAmountFromSatoshis(getActivity(), iso,
+                new BigDecimal(fee));
         //formattedBalance
         String aproxFee = BRCurrency.getFormattedCurrencyString(getActivity(), iso, feeForISO);
-        if (new BigDecimal((tmpAmount.isEmpty() || tmpAmount.equalsIgnoreCase(".")) ? "0" : tmpAmount).doubleValue() > balanceForISO.doubleValue()) {
+        if (new BigDecimal((tmpAmount.isEmpty() || tmpAmount.equalsIgnoreCase(".")) ? "0"
+                : tmpAmount).doubleValue() > balanceForISO.doubleValue()) {
             balanceText.setTextColor(getContext().getColor(R.color.warning_color));
             feeText.setTextColor(getContext().getColor(R.color.warning_color));
             amountEdit.setTextColor(getContext().getColor(R.color.warning_color));
-            if (!amountLabelOn)
+            if (!amountLabelOn) {
                 isoText.setTextColor(getContext().getColor(R.color.warning_color));
+            }
         } else {
             balanceText.setTextColor(getContext().getColor(R.color.light_gray));
             feeText.setTextColor(getContext().getColor(R.color.light_gray));
             amountEdit.setTextColor(getContext().getColor(R.color.almost_black));
-            if (!amountLabelOn)
+            if (!amountLabelOn) {
                 isoText.setTextColor(getContext().getColor(R.color.almost_black));
+            }
         }
         balanceString = String.format(getString(R.string.Send_balance), formattedBalance);
         balanceText.setText(String.format("%s", balanceString));
@@ -677,8 +618,10 @@ public class FragmentSend extends Fragment {
         }
         if (obj.amount != null) {
             String iso = selectedIso;
-            BigDecimal satoshiAmount = new BigDecimal(obj.amount).multiply(new BigDecimal(100000000));
-            amountBuilder = new StringBuilder(BRExchange.getAmountFromSatoshis(getActivity(), iso, satoshiAmount).toPlainString());
+            BigDecimal satoshiAmount = new BigDecimal(obj.amount).multiply(
+                    new BigDecimal(100000000));
+            amountBuilder = new StringBuilder(BRExchange.getAmountFromSatoshis(getActivity(), iso,
+                    satoshiAmount).toPlainString());
             updateText();
 
         }
@@ -711,22 +654,24 @@ public class FragmentSend extends Fragment {
 
     private void setButton(boolean isRegular) {
         if (isRegular) {
-            isEconomyFee = false;
-            BRWalletManager.getInstance().setFeePerKb(BRSharedPrefs.getFeePerKb(getContext()), false);
+            BRWalletManager.getInstance().setFeePerKb(BRSharedPrefs.getFeePerKb(getContext()),
+                    false);
             regular.setTextColor(getContext().getColor(R.color.white));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue));
             economy.setTextColor(getContext().getColor(R.color.dark_blue));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue_stroke));
-            feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver), getString(R.string.FeeSelector_regularTime)));
+            feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver),
+                    getString(R.string.FeeSelector_regularTime)));
             warningText.getLayoutParams().height = 0;
         } else {
-            isEconomyFee = true;
-            BRWalletManager.getInstance().setFeePerKb(BRSharedPrefs.getEconomyFeePerKb(getContext()), false);
+            BRWalletManager.getInstance().setFeePerKb(
+                    BRSharedPrefs.getEconomyFeePerKb(getContext()), false);
             regular.setTextColor(getContext().getColor(R.color.dark_blue));
             regular.setBackground(getContext().getDrawable(R.drawable.b_half_left_blue_stroke));
             economy.setTextColor(getContext().getColor(R.color.white));
             economy.setBackground(getContext().getDrawable(R.drawable.b_half_right_blue));
-            feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver), getString(R.string.FeeSelector_economyTime)));
+            feeDescription.setText(String.format(getString(R.string.FeeSelector_estimatedDeliver),
+                    getString(R.string.FeeSelector_economyTime)));
             warningText.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
         }
         warningText.requestLayout();
@@ -753,20 +698,24 @@ public class FragmentSend extends Fragment {
     }
 
     private void saveMetaData() {
-        if (!commentEdit.getText().toString().isEmpty())
+        if (!commentEdit.getText().toString().isEmpty()) {
             savedMemo = commentEdit.getText().toString();
-        if (!amountBuilder.toString().isEmpty())
+        }
+        if (!amountBuilder.toString().isEmpty()) {
             savedAmount = amountBuilder.toString();
+        }
         savedIso = selectedIso;
         ignoreCleanup = true;
     }
 
     private void loadMetaData() {
         ignoreCleanup = false;
-        if (!Utils.isNullOrEmpty(savedMemo))
+        if (!Utils.isNullOrEmpty(savedMemo)) {
             commentEdit.setText(savedMemo);
-        if (!Utils.isNullOrEmpty(savedIso))
+        }
+        if (!Utils.isNullOrEmpty(savedIso)) {
             selectedIso = savedIso;
+        }
         if (!Utils.isNullOrEmpty(savedAmount)) {
             amountBuilder = new StringBuilder(savedAmount);
             new Handler().postDelayed(new Runnable() {
@@ -776,8 +725,6 @@ public class FragmentSend extends Fragment {
                     updateText();
                 }
             }, 500);
-
         }
     }
-
 }

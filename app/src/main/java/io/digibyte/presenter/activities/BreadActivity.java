@@ -312,13 +312,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                             R.anim.exit_to_left);
                     break;
                 case RECOMMEND_RESCAN:
-                    BRWalletManager.getInstance().wipeBlockAndTrans(
-                            BreadActivity.this, () -> {
+                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                            () -> {
                                 BRSharedPrefs.putScanRecommended(BreadActivity.this, false);
-                                removePrompt();
-                                loadNextPromptItem();
-                                BRPeerManager.getInstance().rescan();
-                                SyncManager.getInstance().startSyncingProgressThread();
+                                BRWalletManager.getInstance().walletFreeEverything();
+                                BRPeerManager.getInstance().peerManagerFreeEverything();
+                                recreate();
                             });
                     break;
                 case NO_PASS_CODE:
@@ -367,11 +366,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncFailed() {
-        if (BRSharedPrefs.getScanRecommended(this)) {
-            return;
-        }
-        BRSharedPrefs.putScanRecommended(this, true);
-        loadNextPromptItem();
         bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
     }
 
@@ -403,7 +397,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         return newTransactionsData;
     }
 
-    private ArrayList<ListItemTransactionData> removeAllExistingEntries(ArrayList<ListItemTransactionData> newTransactions) {
+    private ArrayList<ListItemTransactionData> removeAllExistingEntries(
+            ArrayList<ListItemTransactionData> newTransactions) {
         return new ArrayList<ListItemTransactionData>(newTransactions) {{
             removeAll(listViewAdapter.getTransactions());
         }};
@@ -526,10 +521,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        boolean clearTransactions = intent.getBooleanExtra("clear_transactions", false);
-        if (clearTransactions) {
-            listViewAdapter.clearTransactions();
-        }
         Uri data = intent.getData();
         if (data != null) {
             String scheme = data.getScheme();
@@ -543,7 +534,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onResume() {
         super.onResume();
         updateDigibyteDollarValues();
-        BRWalletManager.openWalletIfNecessary(this);
         BRWalletManager.getInstance().addBalanceChangedListener(this);
         BRPeerManager.getInstance().addStatusUpdateListener(this);
         BRSharedPrefs.addIsoChangedListener(this);
@@ -552,9 +542,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRWalletManager.getInstance().refreshBalance(this);
         SyncService.scheduleBackgroundSync(this);
         TxManager.getInstance().updateTxList();
-        BRApiManager.getInstance().updateCurrencyData(this);
+        BRApiManager.getInstance().asyncUpdateCurrencyData(this);
+        BRApiManager.getInstance().asyncUpdateFeeData(this);
         bindings.searchBar.setOnUpdateListener(this);
-        SyncManager.getInstance().startSyncingProgressThread();
+        SyncManager.getInstance().startSyncingProgressThread(null);
     }
 
     @Override

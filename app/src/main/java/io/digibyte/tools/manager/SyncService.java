@@ -11,7 +11,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
@@ -39,14 +38,8 @@ public class SyncService extends JobService implements BRPeerManager.OnSyncSucce
     public boolean onStartJob(JobParameters jobParameters)
     {
         this.jobParameters = jobParameters;
-        BRExecutor.getInstance().forBackgroundTasks().execute(new Runnable()
-        {
-            @Override
-            public void run() {
-                BRWalletManager.getInstance().initWallet(SyncService.this);
-            }
-        });
         BRPeerManager.setOnSyncFinished(this);
+        BRWalletManager.getInstance().smartInit(null);
         return true;
     }
 
@@ -84,14 +77,10 @@ public class SyncService extends JobService implements BRPeerManager.OnSyncSucce
 
     @Override
     public void onFinished() {
-        onFinishedExecutor.execute(new Runnable()
-        {
-            @Override
-            public void run() {
-                int startHeight = BRSharedPrefs.getStartHeight(SyncService.this);
-                double progressStatus = BRPeerManager.syncProgress(startHeight);
-                jobFinished(jobParameters, progressStatus != 1);
-            }
+        onFinishedExecutor.execute(() -> {
+            int startHeight = BRSharedPrefs.getStartHeight(SyncService.this);
+            double progressStatus = BRPeerManager.syncProgress(startHeight);
+            jobFinished(jobParameters, progressStatus != 1);
         });
     }
 }

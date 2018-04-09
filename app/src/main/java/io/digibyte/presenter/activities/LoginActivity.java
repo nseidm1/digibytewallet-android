@@ -30,7 +30,6 @@ import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
@@ -143,10 +142,7 @@ public class LoginActivity extends BRActivity {
         updateDots();
 
         inputAllowed = true;
-        if (!BRWalletManager.getInstance().isCreated()) {
-            BRExecutor.getInstance().forBackgroundTasks().execute(
-                    () -> BRWalletManager.getInstance().initWallet(LoginActivity.this));
-        }
+        BRWalletManager.getInstance().smartInit(null);
     }
 
     private void handleClick(String key) {

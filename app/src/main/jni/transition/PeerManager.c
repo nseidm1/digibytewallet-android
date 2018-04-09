@@ -266,6 +266,19 @@ JNIEXPORT void JNICALL
 Java_io_digibyte_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
                                                  int earliestKeyTime,
                                                  int blocksCount, int peersCount) {
+    return CreateInternal(env, thiz, earliestKeyTime, blocksCount, peersCount, (*env)->NewStringUTF(env, ""), 0, 0, 0);
+}
+
+JNIEXPORT void JNICALL
+Java_io_digibyte_wallet_BRPeerManager_createNew(JNIEnv *env, jobject thiz,
+                                             int earliestKeyTime,
+                                             int blocksCount, int peersCount, jstring blockhash, int height, long timestamp, int target) {
+    return CreateInternal(env, thiz, earliestKeyTime, blocksCount, peersCount, blockhash, height, timestamp, target);
+}
+
+void CreateInternal(JNIEnv *env, jobject thiz,
+            int earliestKeyTime,
+            int blocksCount, int peersCount, jstring blockhash, int height, long timestamp, int target) {
     __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ",
                         "create| blocksCount: %d, peersCount: %d, earliestKeyTime: %d",
                         blocksCount, peersCount, earliestKeyTime);
@@ -296,10 +309,24 @@ Java_io_digibyte_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
         if (earliestKeyTime < BIP39_CREATION_TIME) earliestKeyTime = BIP39_CREATION_TIME;
         __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "earliestKeyTime: %d",
                             earliestKeyTime);
-        _peerManager = BRPeerManagerNew(&BR_CHAIN_PARAMS, _wallet, (uint32_t) earliestKeyTime,
-                                        _blocks,
-                                        (size_t) blocksCount,
-                                        _peers, (size_t) peersCount);
+
+        assert(blockhash);
+        const char * blockHashCharacters;
+        jboolean isCopy;
+        blockHashCharacters = (*env)->GetStringUTFChars(env, blockhash, &isCopy);
+        BRMerkleBlock* brMerkleBlockNew = NULL;
+        if (sizeof(blockHashCharacters) > 0 && height > 0 && timestamp > 0) {
+            brMerkleBlockNew = BRMerkleBlockNew();
+            brMerkleBlockNew->blockHash = UInt256Reverse(uint256(blockHashCharacters));
+            brMerkleBlockNew->height = height;
+            brMerkleBlockNew->timestamp = timestamp;
+            brMerkleBlockNew->target = target;
+        }
+
+        _peerManager = BRPeerManagerNewEx(&BR_CHAIN_PARAMS, _wallet, (uint32_t) earliestKeyTime,
+                                          _blocks,
+                                          (size_t) blocksCount,
+                                          _peers, (size_t) peersCount, brMerkleBlockNew);
         BRPeerManagerSetCallbacks(_peerManager, NULL, syncStarted, syncStopped,
                                   txStatusUpdate,
                                   saveBlocks, savePeers, networkIsReachable, threadCleanup);

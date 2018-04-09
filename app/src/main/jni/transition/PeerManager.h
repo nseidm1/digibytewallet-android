@@ -47,6 +47,16 @@ Java_io_digibyte_wallet_BRPeerManager_create(JNIEnv *env, jobject thiz,
                                                  int earliestKeyTime,
                                                  int blocksCount, int peersCount);
 
+JNIEXPORT void JNICALL
+Java_io_digibyte_wallet_BRPeerManager_createNew(JNIEnv *env, jobject thiz,
+                                             int earliestKeyTime,
+                                             int blocksCount, int peersCount, jstring blockhash,
+                                             int height, long timestamp, int target);
+
+void CreateInternal(JNIEnv *env, jobject thiz, int earliestKeyTime, int blocksCount,
+                    int peersCount, jstring blockhash, int height, long timestamp, int target);
+
+
 JNIEXPORT void JNICALL Java_io_digibyte_wallet_BRPeerManager_connect(JNIEnv *env, jobject thiz);
 
 JNIEXPORT void JNICALL Java_io_digibyte_wallet_BRPeerManager_rescan(JNIEnv *env, jobject thiz);

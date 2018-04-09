@@ -91,6 +91,9 @@ JNIEXPORT jboolean JNICALL Java_io_digibyte_wallet_BRWalletManager_isCreated(JNI
 JNIEXPORT jstring JNICALL Java_io_digibyte_wallet_BRWalletManager_getReceiveAddress(JNIEnv *env,
                                                                                         jobject thiz);
 
+JNIEXPORT jobjectArray JNICALL Java_io_digibyte_wallet_BRWalletManager_getPublicAddresses(JNIEnv *env,
+                                                                               jobject thiz);
+
 JNIEXPORT jobjectArray JNICALL Java_io_digibyte_wallet_BRWalletManager_getTransactions(
         JNIEnv *env, jobject thiz);
 

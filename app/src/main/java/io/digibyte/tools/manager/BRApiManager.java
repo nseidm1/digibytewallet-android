@@ -1,12 +1,9 @@
 package io.digibyte.tools.manager;
 
-import static io.digibyte.presenter.fragments.FragmentSend.isEconomyFee;
-
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.crash.FirebaseCrash;
 import com.platform.APIClient;
 
 import org.json.JSONArray;
@@ -75,7 +72,8 @@ public class BRApiManager {
         Set<CurrencyEntity> set = new LinkedHashSet<>();
         try {
             JSONArray arr = fetchRates(context);
-            updateFeePerKb(context);
+            //Previously the fee per kb was updated here
+            //No need, this is just for rates, and fee/kb will be updated when sending
             if (arr != null) {
                 int length = arr.length();
                 for (int i = 1; i < length; i++) {
@@ -106,12 +104,21 @@ public class BRApiManager {
         return new LinkedHashSet<>(set);
     }
 
-    public void updateCurrencyData(final Context context) {
+    public void asyncUpdateCurrencyData(final Context context) {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
                 Set<CurrencyEntity> tmp = getCurrencies((Activity) context);
                 CurrencyDataSource.getInstance(context).putCurrencies(tmp);
+            }
+        });
+    }
+
+    public void asyncUpdateFeeData(final Context context) {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
+            @Override
+            public void run() {
+                updateFeePerKb(context);
             }
         });
     }
@@ -128,12 +135,8 @@ public class BRApiManager {
         return jsonArray;
     }
 
-    public static void updateFeePerKb(Context app) {
+    public static boolean updateFeePerKb(Context app) {
         String jsonString = urlGET(app, DigiByte.FEE_URL);
-        if (jsonString == null || jsonString.isEmpty()) {
-            Log.e(TAG, "updateFeePerKb: failed to update fee, response string: " + jsonString);
-            return;
-        }
         long fee = 0;
         long economyFee = 0;
         try {
@@ -149,22 +152,18 @@ public class BRApiManager {
                         break;
                 }
             }
-            if (fee != 0 && fee < BRWalletManager.getInstance().maxFee()) {
-                BRSharedPrefs.putFeePerKb(app, fee);
-                BRWalletManager.getInstance().setFeePerKb(fee, isEconomyFee); //todo improve that logic
-                BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
-            } else {
-                FirebaseCrash.report(new NullPointerException("Fee is weird:" + fee));
-            }
-            if (economyFee != 0 && economyFee < BRWalletManager.getInstance().maxFee()) {
-                BRSharedPrefs.putEconomyFeePerKb(app, economyFee);
-            } else {
-                FirebaseCrash.report(new NullPointerException("Economy fee is weird:" + economyFee));
-            }
+            BRSharedPrefs.putFeePerKb(app, fee);
+            BRSharedPrefs.putEconomyFeePerKb(app, economyFee);
+            BRWalletManager.getInstance().setFeePerKb(fee, false); //todo improve that logic
+            BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
+            return true;
         } catch (JSONException e) {
-            BRReportsManager.reportBug(e);
-            BRReportsManager.reportBug(new IllegalArgumentException("JSON ERR: " + jsonString));
+            return false;
         }
+    }
+
+    public String getBlockInfo(Context app, String blockUrl) {
+        return urlGET(app, blockUrl);
     }
 
     private static String urlGET(Context app, String myURL) {

@@ -3,6 +3,14 @@ package io.digibyte.tools.security;
 import android.app.Activity;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.digibyte.R;
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.entities.PaymentItem;
@@ -14,14 +22,6 @@ import io.digibyte.tools.manager.BREventManager;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.threads.PaymentProtocolTask;
 import io.digibyte.wallet.BRWalletManager;
-
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -203,7 +203,7 @@ public class BitcoinUrlHandler {
         } else {
             if (app != null) {
                 BRAnimator.killAllFragments(app);
-                BRSender.getInstance().sendTransaction(app, new PaymentItem(addresses, null, new BigDecimal(amount).longValue(), null, true));
+                BRSender.getInstance().sendTransaction(app, new PaymentItem(addresses, null, new BigDecimal(amount).longValue(), null, true), null);
             } else {
                 BRReportsManager.reportBug(new NullPointerException("tryBitcoinURL, app is null!"));
             }

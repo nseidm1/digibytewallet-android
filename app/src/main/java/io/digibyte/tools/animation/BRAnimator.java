@@ -318,17 +318,6 @@ public class BRAnimator {
         from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
     }
 
-    public static void startBreadActivity(Activity from, boolean auth, boolean clearTransactions) {
-        if (from == null) return;
-        Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
-        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
-        Intent intent = new Intent(from, toStart);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("clear_transactions", true);
-        from.startActivity(intent);
-        from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
-    }
-
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse,
             final OnSlideAnimationEnd listener) {
         float translationY = signalLayout.getTranslationY();

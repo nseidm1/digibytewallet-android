@@ -14,7 +14,6 @@ import io.digibyte.wallet.BRWalletManager;
 
 public class SyncBlockchainActivity extends BRActivity {
     private Button scanButton;
-    public static boolean appVisible = false;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -25,17 +24,7 @@ public class SyncBlockchainActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync_blockchain);
 
-        /* ImageButton faq = (ImageButton) findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(app, BRConstants.reScan);
-            }
-        }); */
-
-        scanButton = (Button) findViewById(R.id.button_scan);
+        scanButton = findViewById(R.id.button_scan);
         scanButton.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             BRDialog.showCustomDialog(SyncBlockchainActivity.this,
@@ -43,35 +32,18 @@ public class SyncBlockchainActivity extends BRActivity {
                     getString(R.string.ReScan_footer), getString(R.string.ReScan_alertAction),
                     getString(R.string.Button_cancel),
                     brDialogView -> {
+                        scanButton.setEnabled(false);
                         brDialogView.dismissWithAnimation();
                         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BRWalletManager.getInstance().wipeBlockAndTrans(
-                                                SyncBlockchainActivity.this, () -> {
-                                                    BRPeerManager.getInstance().rescan();
-                                                    BRAnimator.startBreadActivity(
-                                                            SyncBlockchainActivity.this,
-                                                            false, true);
-                                                });
-                                    }
+                                () -> {
+                                    BRWalletManager.getInstance().walletFreeEverything();
+                                    BRPeerManager.getInstance().peerManagerFreeEverything();
+                                    BRAnimator.startBreadActivity(SyncBlockchainActivity.this,
+                                            false);
                                 });
                     }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
         });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 
 import io.digibyte.DigiByte;
 import io.digibyte.wallet.BRPeerManager;
+import io.digibyte.wallet.BRWalletManager;
 
 /**
  * BreadWallet
@@ -82,7 +83,11 @@ public class SyncManager {
         return instance;
     }
 
-    public void startSyncingProgressThread() {
+    public interface InitListener {
+        void onInited();
+    }
+
+    public void startSyncingProgressThread(InitListener initListener) {
         Log.d(TAG, "startSyncingProgressThread:" + Thread.currentThread().getName());
         if (enabled) {
             return;
@@ -92,8 +97,9 @@ public class SyncManager {
             for (onStatusListener listener : theListeners) {
                 listener.onSyncManagerStarted();
             }
-        }, 1000);
-        handler.postDelayed(() -> executorService.execute(syncRunnable), 1500);
+        }, 2000);
+        handler.postDelayed(() -> executorService.execute(syncRunnable), 2500);
+        BRWalletManager.getInstance().smartInit(null);
     }
 
     public void stopSyncingProgressThread() {
@@ -106,7 +112,7 @@ public class SyncManager {
             for (onStatusListener listener : theListeners) {
                 listener.onSyncManagerFinished();
             }
-        }, 2500);
+        }, 2000);
     }
 
     public void syncFailed() {

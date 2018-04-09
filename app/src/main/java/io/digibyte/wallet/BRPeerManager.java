@@ -164,13 +164,6 @@ public class BRPeerManager {
         connect();
     }
 
-    public void networkChanged(boolean isOnline) {
-        if (isOnline) {
-            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                    () -> BRPeerManager.getInstance().connect());
-        }
-    }
-
     public void addStatusUpdateListener(OnTxStatusUpdate listener) {
         if (statusUpdateListeners == null) {
             return;
@@ -209,6 +202,8 @@ public class BRPeerManager {
     public native String getCurrentPeerName();
 
     public native void create(int earliestKeyTime, int blockCount, int peerCount);
+
+    public native void createNew(int earliestKeyTime, int blockCount, int peerCount, String hash, int height, long timestamp, int target);
 
     public native void connect();
 

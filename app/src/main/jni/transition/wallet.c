@@ -31,6 +31,7 @@
 #include <BRBIP38Key.h>
 #include <BRInt.h>
 #include <BRTransaction.h>
+#include <BRAddress.h>
 
 static JavaVM *_jvmW;
 BRWallet *_wallet;
@@ -343,6 +344,24 @@ JNIEXPORT jstring JNICALL Java_io_digibyte_wallet_BRWalletManager_getReceiveAddr
     __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "receiveAddress: %s",
                         receiveAddress.s);
     return (*env)->NewStringUTF(env, receiveAddress.s);
+}
+
+JNIEXPORT jobjectArray JNICALL Java_io_digibyte_wallet_BRWalletManager_getPublicAddresses(JNIEnv *env,
+                                                                                    jobject thiz) {
+    __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "getAllPublicAddresses");
+    if (!_wallet) return NULL;
+
+    size_t addrsCount = BRWalletAllAddrs(_wallet, NULL, 0);
+    BRAddress *addrs = malloc(addrsCount*sizeof(*addrs));
+    BRWalletAllAddrs(_wallet, addrs, 0);
+    addrsCount = BRWalletAllAddrs(_wallet, addrs, addrsCount);
+
+    jclass stringClass = (*env)->FindClass(env, "java/lang/String");
+    jobjectArray jAddresses = (jobjectArray)(*env)->NewObjectArray(env, (jsize) addrsCount, stringClass, 0);
+    for(int i = 0; i<addrsCount; i++) {
+        (*env)->SetObjectArrayElement(env, jAddresses, i, (*env)->NewStringUTF(env, addrs[i].s));
+    }
+    return jAddresses;
 }
 
 JNIEXPORT jobjectArray JNICALL Java_io_digibyte_wallet_BRWalletManager_getTransactions(
