@@ -63,12 +63,8 @@ public class BRActivity extends Activity {
 
             case BRConstants.PAY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            PostAuth.getInstance().onPublishTxAuth(BRActivity.this, true);
-                        }
-                    });
+                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                            () -> PostAuth.getInstance().onPublishTxAuth(BRActivity.this, true));
                 }
                 break;
             case BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE:

@@ -1,21 +1,20 @@
 package io.digibyte.tools.qrcode;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.WHITE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import io.digibyte.BuildConfig;
-import io.digibyte.R;
-import io.digibyte.tools.util.Utils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -26,15 +25,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static android.R.attr.path;
-import static android.R.attr.width;
-import static android.graphics.Color.BLACK;
-import static android.graphics.Color.WHITE;
+import io.digibyte.R;
 
 /**
  * BreadWallet
@@ -117,7 +111,18 @@ public class QRUtils {
         if (bitmap == null) return false;
         qrcode.setImageBitmap(bitmap);
         return true;
+    }
 
+    public static Bitmap getQRImage(Context ctx, String bitcoinURL) {
+        WindowManager manager = (WindowManager) ctx.getSystemService(Activity.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        int width = point.x;
+        int height = point.y;
+        int smallerDimension = width < height ? width : height;
+        smallerDimension = (int) (smallerDimension * 0.45f);
+        return QRUtils.encodeAsBitmap(bitcoinURL, smallerDimension);
     }
 
     private static String guessAppropriateEncoding(CharSequence contents) {
@@ -130,33 +135,37 @@ public class QRUtils {
         return null;
     }
 
-    public static void share(String via, Activity app, String bitcoinUri) {
-        if (app == null) {
-            Log.e(TAG, "share: app is null");
-            return;
-        }
-
-//        File file = saveToExternalStorage(QRUtils.encodeAsBitmap(bitcoinUri, 500), app);
-//        Uri uri = Uri.fromFile(file);
-
+    public static void share(String via, Activity app, Uri qrImageUri, String digibyteUri) {
         Intent intent = new Intent();
         if (via.equalsIgnoreCase("sms:")) {
             intent.setAction(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("sms:"));
-            intent.putExtra("sms_body", bitcoinUri);
+            intent.putExtra("sms_body", digibyteUri);
             intent.putExtra("exit_on_sent", true);
             app.startActivity(intent);
-
         } else {
             intent.setAction(android.content.Intent.ACTION_SEND);
-            intent.setType("plain/text");
             intent.putExtra(Intent.EXTRA_SUBJECT, "DigiByte Address");
-            intent.putExtra(Intent.EXTRA_TEXT, bitcoinUri);
-            app.startActivity(Intent.createChooser(intent, "Open mail app"));
+            intent.putExtra(Intent.EXTRA_STREAM,qrImageUri);
+            intent.setType("application/image");
+            app.startActivity(Intent.createChooser(intent, app.getString(R.string.Receive_share)));
         }
-//        if (uri != null)
-//            intent.putExtra(Intent.EXTRA_STREAM, uri);
+    }
 
+    public static Uri getQRImageUri(Context context, String digibyteUri) {
+        try {
+            Bitmap qrImage = getQRImage(context, digibyteUri);
+            File qrImageDirectory = new File(context.getFilesDir(), "qraddresses");
+            qrImageDirectory.mkdirs();
+            File qrImageFile = new File(qrImageDirectory, "public_address.jpg");
+            qrImageFile.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(qrImageFile);
+            qrImage.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
+            return FileProvider.getUriForFile(context, "io.digibyte.fileprovider", qrImageFile);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static File saveToExternalStorage(Bitmap bitmapImage, Activity app) {

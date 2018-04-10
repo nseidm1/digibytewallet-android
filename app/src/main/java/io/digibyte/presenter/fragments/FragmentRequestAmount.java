@@ -2,6 +2,7 @@ package io.digibyte.presenter.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -86,205 +87,133 @@ public class FragmentRequestAmount extends Fragment {
     private BRLinearLayoutWithCaret shareButtonsLayout;
     private BRLinearLayoutWithCaret copiedLayout;
     private int keyboardIndex;
-    //    private int currListIndex;
     private ImageButton close;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_receive, container, false);
-        backgroundLayout = (LinearLayout) rootView.findViewById(R.id.background_layout);
-        signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
-        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(
+        backgroundLayout = rootView.findViewById(R.id.background_layout);
+        signalLayout = rootView.findViewById(R.id.signal_layout);
+        shareButtonsLayout = rootView.findViewById(
                 R.id.share_buttons_layout);
-        copiedLayout = (BRLinearLayoutWithCaret) rootView.findViewById(R.id.copied_layout);
-//        currencyListLayout = (LinearLayout) rootView.findViewById(R.id.cur_spinner_layout);
-//        currencyListLayout.setVisibility(View.VISIBLE);
-        request = (Button) rootView.findViewById(R.id.request_button);
-        keyboardLayout = (LinearLayout) rootView.findViewById(R.id.keyboard_layout);
+        copiedLayout = rootView.findViewById(R.id.copied_layout);
+        request = rootView.findViewById(R.id.request_button);
+        keyboardLayout = rootView.findViewById(R.id.keyboard_layout);
         keyboardLayout.setVisibility(View.VISIBLE);
-        amountLayout = (RelativeLayout) rootView.findViewById(R.id.amount_layout);
+        amountLayout = rootView.findViewById(R.id.amount_layout);
         amountLayout.setVisibility(View.VISIBLE);
-        keyboard = (BRKeyboard) rootView.findViewById(R.id.keyboard);
+        keyboard = rootView.findViewById(R.id.keyboard);
         keyboard.setBRButtonBackgroundResId(R.drawable.keyboard_white_button);
         keyboard.setBRKeyboardColor(R.color.white);
-        isoText = (TextView) rootView.findViewById(R.id.iso_text);
-        amountEdit = (EditText) rootView.findViewById(R.id.amount_edit);
+        isoText = rootView.findViewById(R.id.iso_text);
+        amountEdit = rootView.findViewById(R.id.amount_edit);
         amountBuilder = new StringBuilder(0);
-        isoButton = (Button) rootView.findViewById(R.id.iso_button);
-        mTitle = (TextView) rootView.findViewById(R.id.title);
-        mAddress = (TextView) rootView.findViewById(R.id.address_text);
-        mQrImage = (ImageView) rootView.findViewById(R.id.qr_image);
-        shareButton = (BRButton) rootView.findViewById(R.id.share_button);
-        shareEmail = (Button) rootView.findViewById(R.id.share_email);
-        shareTextMessage = (Button) rootView.findViewById(R.id.share_text);
-        shareButtonsLayout = (BRLinearLayoutWithCaret) rootView.findViewById(
+        isoButton = rootView.findViewById(R.id.iso_button);
+        mTitle = rootView.findViewById(R.id.title);
+        mAddress = rootView.findViewById(R.id.address_text);
+        mQrImage = rootView.findViewById(R.id.qr_image);
+        shareButton = rootView.findViewById(R.id.share_button);
+        shareEmail = rootView.findViewById(R.id.share_email);
+        shareTextMessage = rootView.findViewById(R.id.share_text);
+        shareButtonsLayout = rootView.findViewById(
                 R.id.share_buttons_layout);
-        close = (ImageButton) rootView.findViewById(R.id.close_button);
+        close = rootView.findViewById(R.id.close_button);
         keyboardIndex = signalLayout.indexOfChild(keyboardLayout);
-
-        /* ImageButton faq = (ImageButton) rootView.findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                Activity app = getActivity();
-                if (app == null) {
-                    Log.e(TAG, "onClick: app is null, can't start the webview with url: " +
-                    URL_SUPPORT);
-                    return;
-                }
-
-                BRAnimator.showSupportFragment(app, BRConstants.requestAmount);
-            }
-        }); */
-
         mTitle.setText(getString(R.string.Receive_request));
         setListeners();
-
         signalLayout.removeView(shareButtonsLayout);
         signalLayout.removeView(copiedLayout);
         signalLayout.removeView(request);
-
-        showCurrencyList(false);
         selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(
                 getContext());
-
-        signalLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                removeCurrencySelector();
-            }
-        });
         updateText();
-
         signalLayout.setLayoutTransition(BRAnimator.getDefaultTransition());
-
         signalLayout.setOnTouchListener(new SlideDetector(getContext(), signalLayout));
-
         return rootView;
     }
 
     private void setListeners() {
-        amountEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                showKeyboard(true);
-                showShareButtons(false);
+        amountEdit.setOnClickListener(v -> {
+            showKeyboard(true);
+            showShareButtons(false);
+        });
+
+        close.setOnClickListener(v -> {
+            Activity app = getActivity();
+            if (app != null) {
+                app.getFragmentManager().popBackStack();
             }
         });
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity app = getActivity();
-                if (app != null) {
-                    app.getFragmentManager().popBackStack();
-                }
-            }
+        mQrImage.setOnClickListener(v -> {
+            showKeyboard(false);
         });
 
-        mQrImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                showKeyboard(false);
-            }
+        keyboard.addOnInsertListener(key -> {
+            handleClick(key);
         });
 
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                removeCurrencySelector();
-                handleClick(key);
-            }
+        shareEmail.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            showKeyboard(false);
+            String iso = selectedIso;
+            String strAmount = amountEdit.getText().toString();
+            BigDecimal bigAmount = new BigDecimal(
+                    (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
+                            : strAmount);
+            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
+                    bigAmount).longValue();
+            String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
+                    null);
+            Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
+            QRUtils.share("mailto:", getActivity(), qrImageUri, bitcoinUri);
+
+        });
+        shareTextMessage.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            showKeyboard(false);
+            String iso = selectedIso;
+            String strAmount = amountEdit.getText().toString();
+            BigDecimal bigAmount = new BigDecimal(
+                    (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
+                            : strAmount);
+            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
+                    bigAmount).longValue();
+            String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
+                    null);
+            Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
+            QRUtils.share("sms:", getActivity(), qrImageUri, bitcoinUri);
+        });
+        shareButton.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            shareButtonsShown = !shareButtonsShown;
+            showShareButtons(shareButtonsShown);
+            showKeyboard(false);
+        });
+        mAddress.setOnClickListener(v -> {
+            copyText();
+            showKeyboard(false);
         });
 
-
-        shareEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                if (!BRAnimator.isClickAllowed()) return;
-                showKeyboard(false);
-                String iso = selectedIso;
-                String strAmount = amountEdit.getText().toString();
-                BigDecimal bigAmount = new BigDecimal(
-                        (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
-                                : strAmount);
-                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
-                        bigAmount).longValue();
-                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
-                        null);
-                QRUtils.share("mailto:", getActivity(), bitcoinUri);
-
-            }
-        });
-        shareTextMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                if (!BRAnimator.isClickAllowed()) return;
-                showKeyboard(false);
-                String iso = selectedIso;
-                String strAmount = amountEdit.getText().toString();
-                BigDecimal bigAmount = new BigDecimal(
-                        (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
-                                : strAmount);
-                long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
-                        bigAmount).longValue();
-                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
-                        null);
-                QRUtils.share("sms:", getActivity(), bitcoinUri);
-            }
-        });
-        shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                shareButtonsShown = !shareButtonsShown;
-                showShareButtons(shareButtonsShown);
-                showKeyboard(false);
-            }
-        });
-        mAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                copyText();
-                showKeyboard(false);
-            }
+        backgroundLayout.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            getActivity().onBackPressed();
         });
 
-        backgroundLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeCurrencySelector();
-                if (!BRAnimator.isClickAllowed()) return;
-                getActivity().onBackPressed();
+        isoButton.setOnClickListener(v -> {
+            if (selectedIso.equalsIgnoreCase(BRSharedPrefs.getIso(getContext()))) {
+                selectedIso = "DGB";
+            } else {
+                selectedIso = BRSharedPrefs.getIso(getContext());
             }
-        });
-
-        isoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedIso.equalsIgnoreCase(BRSharedPrefs.getIso(getContext()))) {
-                    selectedIso = "DGB";
-                } else {
-                    selectedIso = BRSharedPrefs.getIso(getContext());
-                }
-                boolean generated = generateQrImage(receiveAddress, amountEdit.getText().toString(),
-                        selectedIso);
-                if (!generated) {
-                    throw new RuntimeException("failed to generate qr image for address");
-                }
-                updateText();
+            boolean generated = generateQrImage(receiveAddress, amountEdit.getText().toString(),
+                    selectedIso);
+            if (!generated) {
+                throw new RuntimeException("failed to generate qr image for address");
             }
+            updateText();
         });
-
     }
 
     private void copyText() {
@@ -301,7 +230,6 @@ public class FragmentRequestAmount extends Fragment {
             signalLayout.addView(shareButtonsLayout, signalLayout.getChildCount());
             shareButtonsShown = true;
         }
-
     }
 
     @Override
@@ -319,57 +247,36 @@ public class FragmentRequestAmount extends Fragment {
             }
         });
 
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                boolean success = BRWalletManager.refreshAddress(getActivity());
-                if (!success) throw new RuntimeException("failed to retrieve address");
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            boolean success = BRWalletManager.refreshAddress(getActivity());
+            if (!success) throw new RuntimeException("failed to retrieve address");
 
-                receiveAddress = BRSharedPrefs.getReceiveAddress(getActivity());
+            receiveAddress = BRSharedPrefs.getReceiveAddress(getActivity());
 
-                BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAddress.setText(receiveAddress);
-                        boolean generated = generateQrImage(receiveAddress, "0", "DGB");
-                        if (!generated) {
-                            throw new RuntimeException("failed to generate qr image for address");
-                        }
-                    }
-                });
-            }
+            BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
+                mAddress.setText(receiveAddress);
+                boolean generated = generateQrImage(receiveAddress, "0", "DGB");
+                if (!generated) {
+                    throw new RuntimeException("failed to generate qr image for address");
+                }
+            });
         });
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
         BRAnimator.animateBackgroundDim(backgroundLayout, true);
-        BRAnimator.animateSignalSlide(signalLayout, true, new BRAnimator.OnSlideAnimationEnd() {
-            @Override
-            public void onAnimationEnd() {
-                if (getActivity() != null) {
-                    try {
-                        getActivity().getFragmentManager().popBackStack();
-                    } catch (Exception ignored) {
+        BRAnimator.animateSignalSlide(signalLayout, true, () -> {
+            if (getActivity() != null) {
+                try {
+                    getActivity().getFragmentManager().popBackStack();
+                } catch (Exception ignored) {
 
-                    }
                 }
             }
         });
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
 
     private void handleClick(String key) {
         if (key == null) {
@@ -421,7 +328,6 @@ public class FragmentRequestAmount extends Fragment {
             amountBuilder.deleteCharAt(currAmount.length() - 1);
             updateText();
         }
-
     }
 
     private void updateText() {
@@ -432,7 +338,6 @@ public class FragmentRequestAmount extends Fragment {
         isoButton.setText(
                 String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso),
                         BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
-
     }
 
     private void showKeyboard(boolean b) {
@@ -472,11 +377,6 @@ public class FragmentRequestAmount extends Fragment {
         return QRUtils.generateQR(getActivity(), "digibyte:" + address + amountArg, mQrImage);
     }
 
-
-    private void removeCurrencySelector() {
-//        showCurrencyList(false);
-    }
-
     private void showShareButtons(boolean b) {
         if (!b) {
             signalLayout.removeView(shareButtonsLayout);
@@ -487,7 +387,6 @@ public class FragmentRequestAmount extends Fragment {
             showCopiedLayout(false);
         }
     }
-
 
     private void showCopiedLayout(boolean b) {
         if (!b) {
@@ -505,9 +404,4 @@ public class FragmentRequestAmount extends Fragment {
             }
         }
     }
-
-    private void showCurrencyList(boolean b) {
-    }
-
-
 }
