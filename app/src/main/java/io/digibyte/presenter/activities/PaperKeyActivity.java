@@ -154,8 +154,9 @@ public class PaperKeyActivity extends BRActivity {
     }
 
     private void updateItemIndexText() {
-        String text = String.format(Locale.getDefault(), getString(R.string.WritePaperPhrase_step), wordViewPager.getCurrentItem() + 1, wordMap.size());
-        itemIndexText.setText(text);
+        int wordNumber = wordViewPager.getCurrentItem() + 1;
+        int totalWords = wordMap.size();
+        itemIndexText.setText(wordNumber + " / " + totalWords);
     }
 
 
