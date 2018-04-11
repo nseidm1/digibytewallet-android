@@ -7,8 +7,6 @@ import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 
 
@@ -34,13 +32,9 @@ public class SyncBlockchainActivity extends BRActivity {
                     brDialogView -> {
                         scanButton.setEnabled(false);
                         brDialogView.dismissWithAnimation();
-                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                                () -> {
-                                    BRWalletManager.getInstance().walletFreeEverything();
-                                    BRPeerManager.getInstance().peerManagerFreeEverything();
-                                    BRAnimator.startBreadActivity(SyncBlockchainActivity.this,
-                                            false);
-                                });
+                        BRWalletManager.getInstance().wipeBlockAndTrans(SyncBlockchainActivity.this,
+                                () -> BRAnimator.startBreadActivity(SyncBlockchainActivity.this,
+                                        false));
                     }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
         });
 

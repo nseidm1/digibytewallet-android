@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.security.keystore.UserNotAuthenticatedException;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +31,7 @@ import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -98,6 +98,8 @@ public class BRWalletManager {
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners;
     private static Handler handler = new Handler(Looper.getMainLooper());
+    private boolean initingWallet = false;
+    private boolean initingPeerManager = false;
 
     public void setBalance(final Context context, long balance) {
         BRSharedPrefs.putCatchedBalance(context, balance);
@@ -579,9 +581,10 @@ public class BRWalletManager {
     }
 
     private void createBRWalletManager() {
-        if (isCreated()) {
+        if (isCreated() || initingWallet) {
             return;
         }
+        initingWallet = true;
         List<BRTransactionEntity> transactions = TransactionDataSource.getInstance(
                 DigiByte.getContext()).getAllTransactions();
         int transactionsCount = transactions.size();
@@ -606,12 +609,14 @@ public class BRWalletManager {
             fee = defaultFee();
         }
         setFeePerKb(fee, false);
+        initingWallet = false;
     }
 
     private void createBRPeerManager() throws JSONException {
-        if (BRPeerManager.getInstance().isCreated()) {
+        if (BRPeerManager.getInstance().isCreated() || initingPeerManager) {
             return;
         }
+        initingPeerManager = true;
         List<BRMerkleBlockEntity> blocks = MerkleBlockDataSource.getInstance(
                 DigiByte.getContext()).getAllMerkleBlocks();
         List<BRPeerEntity> peers = PeerDataSource.getInstance(DigiByte.getContext()).getAllPeers();
@@ -643,8 +648,8 @@ public class BRWalletManager {
         // and if there's no transactions sync from the head of the DigiByte blockchain
         // otherwise sync from the oldest block associated with the transactions
         if (MerkleBlockDataSource.getInstance(DigiByte.getContext()).getAllMerkleBlocks().size() == 0) {
-            JSONArray transactionsData = getAllPublicAddresses();
-            if (transactionsData.length() == 0) {
+            LinkedList<String> transactionsData = getAllTransactions();
+            if (transactionsData.size() == 0) {
                 createPeerManagerFromCurrentHeadBlock(walletTime, blocksCount, peersCount);
             } else {
                 createPeerManagerFromOldestBlock(transactionsData, walletTime, blocksCount, peersCount);
@@ -658,16 +663,22 @@ public class BRWalletManager {
                     () -> BRSharedPrefs.putStartHeight(DigiByte.getContext(),
                             BRPeerManager.getCurrentBlockHeight()));
         }
+        initingPeerManager = false;
     }
 
-    private JSONArray getAllPublicAddresses() throws JSONException {
+    private LinkedList<String> getAllTransactions() throws JSONException {
         String[] addresses = getPublicAddresses();
+        LinkedList<String> transactions = new LinkedList<>();
         if (BuildConfig.DEBUG) { Log.d(BRWalletManager.class.getSimpleName(), Arrays.toString(addresses)); }
-        JSONArray transactionsData = new JSONArray(BRApiManager.getInstance().getBlockInfo(
-                DigiByte.getContext(),
-                "https://digiexplorer.info/api/addrs/" + TextUtils.join(",", addresses)
-                        + "/utxo"));
-        return transactionsData;
+        for (String address : addresses) {
+            JSONObject transactionsData = new JSONObject(BRApiManager.getInstance().getBlockInfo(
+                    DigiByte.getContext(), "https://digiexplorer.info/api/addr/" + address));
+            JSONArray transactionsJson = transactionsData.getJSONArray("transactions");
+            for (int i = 0; i < transactionsJson.length(); i++) {
+                transactions.add(transactionsJson.getString(i));
+            }
+        }
+        return transactions;
     }
 
     private void createPeerManagerFromCurrentHeadBlock(int walletTime, int blocksCount,
@@ -686,15 +697,13 @@ public class BRWalletManager {
                 latestBlockData.getInt("height"), latestBlockData.getLong("time"), 0);
     }
 
-    private void createPeerManagerFromOldestBlock(JSONArray transactionsData, int walletTime,
+    private void createPeerManagerFromOldestBlock(LinkedList<String> transactions, int walletTime,
             int blocksCount, int peersCount) throws JSONException {
         String oldestBlockHash = "";
         long oldestBlockTime = System.currentTimeMillis();
-        for (int i = 0; i < transactionsData.length(); i++) {
+        for (String transaction : transactions) {
             String transactionData = BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(),
-                    "https://digiexplorer.info/api/tx/" + transactionsData.getJSONObject(
-                            i).getString("txid"));
+                    DigiByte.getContext(),"https://digiexplorer.info/api/tx/" + transaction);
             JSONObject transactionDataJson = new JSONObject(transactionData);
             long blockTime = transactionDataJson.getLong("blocktime");
             if (blockTime < oldestBlockTime) {
@@ -706,9 +715,11 @@ public class BRWalletManager {
                 DigiByte.getContext(),
                 "https://digiexplorer.info/api/block/" + oldestBlockHash);
         JSONObject blockJson = new JSONObject(transactionData);
+        String blockHash = blockJson.getString("hash");
+        int blockHeight = blockJson.getInt("height");
+        long blockTime = blockJson.getLong("time");
         BRPeerManager.getInstance().createNew(walletTime, blocksCount, peersCount,
-                blockJson.getString("hash"),
-                blockJson.getInt("height"), blockJson.getLong("time"), 0);
+                blockHash, blockHeight, blockTime, 0);
     }
 
     public void addBalanceChangedListener(OnBalanceChanged listener) {
