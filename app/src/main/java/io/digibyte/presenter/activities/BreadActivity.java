@@ -29,6 +29,7 @@ import java.util.Collections;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
@@ -371,6 +372,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onTxManagerUpdate(TxItem[] newTxItems) {
+        BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
         if (newTxItems == null || newTxItems.length == 0 || isSearching()) {
             return;
         }
