@@ -78,7 +78,7 @@ public class BRBitId {
             @Override
             public void onComplete() {
                 try {
-                    byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
+                    byte[] phrase = BRKeyStore.getPhrase(app, /*TODO: FIX ME I'M MISSING-->BRConstants.REQUEST_PHRASE_BITID*/0);
                     byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
                     byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
                     final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, "digiid");
