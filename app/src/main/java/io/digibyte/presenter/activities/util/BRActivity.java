@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 
+import com.platform.tools.BRBitId;
+
+import io.digibyte.presenter.activities.LoginActivity;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.PostAuth;
@@ -50,9 +53,11 @@ public class BRActivity extends Activity {
 
     @Override
     protected void onResume() {
-        if (!ActivityUTILS.isAppSafe(this))
-            if (AuthManager.getInstance().isWalletDisabled(this))
+        if (!ActivityUTILS.isAppSafe(this)) {
+            if (AuthManager.getInstance().isWalletDisabled(this)) {
                 AuthManager.getInstance().setWalletDisabled(this);
+            }
+        }
         super.onResume();
     }
 
@@ -105,10 +110,13 @@ public class BRActivity extends Activity {
                         @Override
                         public void run() {
                             String result = data.getStringExtra("result");
-                            if (BitcoinUrlHandler.isBitcoinUrl(result))
+                            if (BitcoinUrlHandler.isBitcoinUrl(result)) {
                                 BitcoinUrlHandler.processRequest(BRActivity.this, result);
-                            else
+                            } else if (BRBitId.isBitId(result)) {
+                                BRBitId.signAndRespond(BRActivity.this, result, false);
+                            } else {
                                 Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
+                            }
                         }
                     }, 500);
                 }

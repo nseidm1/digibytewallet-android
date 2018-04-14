@@ -51,7 +51,6 @@ public class IntroActivity extends BRActivity implements Serializable {
     private static final String TAG = IntroActivity.class.getName();
     public Button newWalletButton;
     public Button recoverWalletButton;
-    public static boolean appVisible = false;
     private View splashScreen;
     private ImageButton faq;
 
@@ -116,18 +115,6 @@ public class IntroActivity extends BRActivity implements Serializable {
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 
     @Override

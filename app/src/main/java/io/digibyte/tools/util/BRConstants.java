@@ -52,6 +52,7 @@ public class BRConstants {
     public static final int PUT_PHRASE_NEW_WALLET_REQUEST_CODE = 114;
     public static final int PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE = 115;
     public static final int PAYMENT_PROTOCOL_REQUEST_CODE = 116;
+    public static final int REQUEST_PHRASE_BITID = 117;
     public static final int SEND_BCH_REQUEST = 118;
     public static final int PROVE_PHRASE_REQUEST = 119;
 
@@ -71,9 +72,6 @@ public class BRConstants {
     public static final String ECONOMY_FEE_KB_PREFS = "EconomyFeeKb";
     public static final String LITTLE_CIRCLE = "\u2022";
     public static String SUPPORT_EMAIL = "support@digibyte.io";
-
-    public static final int ONE_BITCOIN = 100000000;
-    public static final int HUNDRED_BITS = 10000000;
 
 //    /**
 //     * BRWalletManager

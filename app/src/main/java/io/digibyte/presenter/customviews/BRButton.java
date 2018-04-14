@@ -111,6 +111,9 @@ public class BRButton extends Button {
         int paddingRight = arr.hasValue(2) ? arr.getDimensionPixelOffset(2, -1) : (int) px16;
         int paddingBottom = arr.hasValue(3) ? arr.getDimensionPixelOffset(3, -1) + (isBreadButton ? (int) px16 : 0) : (isBreadButton ? (int) px16 : 0);
 
+        boolean shadow = a.getBoolean(R.styleable.BRButton_shadow, true);
+        shadowOffSet = shadow ? SHADOW_UNPRESSED : 0;
+
         int type = a.getInteger(R.styleable.BRButton_buttonType, 0);
         setType(type);
 

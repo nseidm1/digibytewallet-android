@@ -32,6 +32,7 @@ import butterknife.Unbinder;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
+import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
 import io.digibyte.presenter.activities.settings.FingerprintActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
@@ -152,12 +153,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                     iso, amount);
             final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(
                     BreadActivity.this, iso, curAmount);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    bindings.primaryPrice.setText(formattedBTCAmount);
-                    bindings.secondaryPrice.setText(String.format("%s", formattedCurAmount));
-                }
+            runOnUiThread(() -> {
+                bindings.primaryPrice.setText(formattedBTCAmount);
+                bindings.secondaryPrice.setText(String.format("%s", formattedCurAmount));
             });
         });
     }
@@ -478,6 +476,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         if (BRAnimator.isClickAllowed()) {
             openSearchBar();
         }
+    }
+
+    @OnClick(R.id.digiid_button)
+    void onDigiIDButtonClick(View view) {
+        ScanQRActivity.openScanner(this);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

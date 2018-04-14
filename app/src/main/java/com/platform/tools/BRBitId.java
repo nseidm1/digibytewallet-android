@@ -1,9 +1,12 @@
 package com.platform.tools;
 
 import android.app.Activity;
-import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.jniwrappers.BRBIP32Sequence;
 import com.jniwrappers.BRKey;
@@ -25,6 +28,7 @@ import io.digibyte.R;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.TypesConverter;
 import io.digibyte.wallet.BRWalletManager;
@@ -59,7 +63,8 @@ import okhttp3.Response;
  */
 public class BRBitId {
     public static final String TAG = BRBitId.class.getName();
-    public static final String BITCOIN_SIGNED_MESSAGE_HEADER = "Digibyte Signed Message:\n";
+    public static final String BITCOIN_SIGNED_MESSAGE_HEADER = "DigiByte Signed Message:\n";
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
     public static boolean isBitId(String uri) {
         try {
@@ -73,42 +78,64 @@ public class BRBitId {
         return false;
     }
 
-    public static void signAndRespond(Activity app, final String bitID) {
-        AuthManager.getInstance().authPrompt(app, null, app.getString(R.string.VerifyPin_continueBody), true, false, new BRAuthCompletion() {
-            @Override
-            public void onComplete() {
-                try {
-                    byte[] phrase = BRKeyStore.getPhrase(app, /*TODO: FIX ME I'M MISSING-->BRConstants.REQUEST_PHRASE_BITID*/0);
-                    byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
-                    byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
-                    final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, "digiid");
-                    final String sig = signMessage(bitID, new BRKey(key));
-                    final String address = new BRKey(key).address();
-                    JSONObject postJson = new JSONObject();
-                    postJson.put("uri", bitID);
-                    postJson.put("address", address);
-                    postJson.put("signature", sig);
-                    String u = Uri.parse(bitID).getQueryParameter("u");
-                    String callbackUrl = bitID.replace("digiid://", u != null && u.equalsIgnoreCase("1") ? "http://" : "https://");
-                    RequestBody requestBody = RequestBody.create(null, postJson.toString());
-                    Request request = new Request.Builder()
-                            .url(callbackUrl)
-                            .post(requestBody)
-                            .header("Content-Type", "application/json")
-                            .build();
-                    Response res = APIClient.getInstance(app).sendRequest(request);
-                    Log.d(BRBitId.class.getSimpleName(), "Response: " + res.code() + ", Message: " + res.message());
+    public static void signAndRespond(@NonNull final Activity app, @NonNull final String bitID,
+            boolean isDeepLink) {
+        AuthManager.getInstance().authPrompt(app, null,
+                app.getString(R.string.VerifyPin_continueBody), new BRAuthCompletion() {
+                    @Override
+                    public void onComplete() {
+                        internalSignAndRespond(app, bitID, isDeepLink);
+                    }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
+    }
+
+    private static void internalSignAndRespond(@NonNull final Activity app,
+            @NonNull final String bitID, boolean isDeepLink) {
+        try {
+            byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
+            byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
+            byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
+            final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, "digiid");
+            final String sig = signMessage(bitID, new BRKey(key));
+            final String address = new BRKey(key).address();
+            final JSONObject postJson = new JSONObject();
+            postJson.put("uri", bitID);
+            postJson.put("address", address);
+            postJson.put("signature", sig);
+            final String callbackUrl = bitID.replace("digiid://", "https://");
+            final RequestBody requestBody = RequestBody.create(null, postJson.toString());
+            final Request request = new Request.Builder()
+                    .url(callbackUrl)
+                    .post(requestBody)
+                    .header("Content-Type", "application/json")
+                    .build();
+            BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+                final Response res = APIClient.getInstance(app).sendRequest(request);
+                Log.d(BRBitId.class.getSimpleName(),
+                        "Response: " + res.code() + ", Message: " + res.message());
+                if (res.code() == 200) {
+                    handler.post(
+                            () -> Toast.makeText(app, "DigiID Success", Toast.LENGTH_SHORT).show());
+                } else {
+                    handler.post(() -> Toast.makeText(app,
+                            app.getString(R.string.Import_Error_signing) + ": " + res.message(),
+                            Toast.LENGTH_SHORT).show());
                 }
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        });
+                if (isDeepLink) {
+                    app.finish();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing),
+                    Toast.LENGTH_SHORT).show());
+            app.finish();
+        }
     }
 
     public static String signMessage(String message, BRKey key) {

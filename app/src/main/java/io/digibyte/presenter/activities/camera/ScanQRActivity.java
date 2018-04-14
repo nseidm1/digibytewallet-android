@@ -1,5 +1,7 @@
 package io.digibyte.presenter.activities.camera;
 
+import static io.digibyte.tools.util.BRConstants.SCANNER_REQUEST;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,17 +11,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v13.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.platform.tools.BRBitId;
+
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
+import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.qrcode.QRCodeReaderView;
 import io.digibyte.tools.security.BitcoinUrlHandler;
+import io.digibyte.tools.util.BRConstants;
 
 
 /**
@@ -162,7 +169,7 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
     public void onQRCodeRead(final String text, PointF[] points) {
 
         if (handlingCode) return;
-        if (BitcoinUrlHandler.isBitcoinUrl(text)) {
+        if (BitcoinUrlHandler.isBitcoinUrl(text) || BRBitId.isBitId(text)) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -201,5 +208,32 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+    }
+
+    public static void openScanner(Activity activity) {
+        try {
+            // Check if the camera permission is granted
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                // Should we show an expgetString(R.string.ConfirmPaperPhrase_word)lanation?
+                if (android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)) {
+                    BRDialog.showCustomDialog(activity,
+                            activity.getString(R.string.Send_cameraUnavailabeTitle_android),
+                            activity.getString(R.string.Send_cameraUnavailabeMessage_android),
+                            activity.getString(R.string.AccessibilityLabels_close), null,
+                            brDialogView -> brDialogView.dismiss(), null, null, 0);
+                } else {
+                    // No explanation needed, we can request the permission.
+                    android.support.v4.app.ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},
+                            BRConstants.CAMERA_REQUEST_ID);
+                }
+            } else {
+                // Permission is granted, open camera
+                Intent intent = new Intent(activity, ScanQRActivity.class);
+                activity.startActivityForResult(intent, SCANNER_REQUEST);
+                activity.overridePendingTransition(R.anim.fade_up, 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

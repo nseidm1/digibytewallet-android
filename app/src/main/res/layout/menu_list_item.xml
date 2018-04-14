@@ -3,8 +3,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:filterTouchesWhenObscured="true"
-                android:orientation="horizontal"
-    >
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="horizontal">
 
     <io.digibyte.presenter.customviews.BRText
         android:id="@+id/item_text"

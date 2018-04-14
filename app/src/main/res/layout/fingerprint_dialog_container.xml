@@ -31,7 +31,6 @@
         android:orientation="vertical">
 
         <io.digibyte.presenter.customviews.BRText
-            app:customTFont="CircularPro-Bold.otf"
             android:id="@+id/fingerprint_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +43,8 @@
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Subhead"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            app:customTFont="CircularPro-Bold.otf"/>
 
         <io.digibyte.presenter.customviews.BRText
             android:id="@+id/fingerprint_description"
@@ -63,8 +63,8 @@
                         android:id="@+id/fingerprint_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:filterTouchesWhenObscured="true"
-                        android:paddingBottom="8dp"
                         android:paddingEnd="24dp"
                         android:paddingStart="24dp">
 
@@ -101,8 +101,7 @@
             android:orientation="horizontal"
             android:paddingBottom="4dp"
             android:paddingEnd="12dp"
-            android:paddingStart="12dp"
-            android:paddingTop="4dp">
+            android:paddingStart="12dp">
 
             <Space
                 android:id="@+id/spacer"

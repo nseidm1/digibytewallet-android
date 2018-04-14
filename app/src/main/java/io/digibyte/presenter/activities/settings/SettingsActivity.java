@@ -26,35 +26,27 @@ import io.digibyte.presenter.entities.BRSettingsItem;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
-import io.digibyte.tools.util.Utils;
 
 public class SettingsActivity extends BRActivity {
     private static final String TAG = SettingsActivity.class.getName();
     private ListView listView;
     public List<BRSettingsItem> items;
-    public static boolean appVisible = false;
-    private static SettingsActivity app;
-
-    public static SettingsActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        listView = (ListView) findViewById(R.id.settings_list);
-
+        listView = findViewById(R.id.settings_list);
     }
-
 
     public class SettingsListAdapter extends ArrayAdapter<String> {
 
         private List<BRSettingsItem> items;
         private Context mContext;
 
-        public SettingsListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<BRSettingsItem> items) {
+        public SettingsListAdapter(@NonNull Context context, @LayoutRes int resource,
+                @NonNull List<BRSettingsItem> items) {
             super(context, resource);
             this.items = items;
             this.mContext = context;
@@ -72,12 +64,12 @@ public class SettingsActivity extends BRActivity {
                 v = inflater.inflate(settings_list_section, parent, false);
             } else {
                 v = inflater.inflate(settings_list_item, parent, false);
-                TextView addon = (TextView) v.findViewById(R.id.item_addon);
+                TextView addon = v.findViewById(R.id.item_addon);
                 addon.setText(item.addonText);
                 v.setOnClickListener(item.listener);
             }
 
-            TextView title = (TextView) v.findViewById(R.id.item_title);
+            TextView title = v.findViewById(R.id.item_title);
             title.setText(item.title);
             return v;
 
@@ -97,14 +89,11 @@ public class SettingsActivity extends BRActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        appVisible = true;
-        app = this;
-        if (items == null)
+        if (items == null) {
             items = new ArrayList<>();
+        }
         items.clear();
-
         populateItems();
-
         listView.setAdapter(new SettingsListAdapter(this, R.layout.settings_list_item, items));
     }
 
@@ -118,114 +107,66 @@ public class SettingsActivity extends BRActivity {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_wallet), "", null, true));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_importTitle), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, ImportActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+        items.add(new BRSettingsItem(getString(R.string.Settings_importTitle), "", v -> {
+            Intent intent = new Intent(SettingsActivity.this, ImportActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
 
-            }
         }, false));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_wipe), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, WipeActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
-            }
+        items.add(new BRSettingsItem(getString(R.string.Settings_wipe), "", v -> {
+            Intent intent = new Intent(SettingsActivity.this, WipeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         }, false));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null, true));
 
-//        items.add(new BRSettingsItem(getString(R.string.Settings_notifications), BRSharedPrefs.getShowNotification(this) ?
-//                getString(R.string.PushNotifications_on) : getString(R.string.PushNotifications_off), new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(SettingsActivity.this, NotificationActivity.class);
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-//
-//            }
-//        }, false));
-
-        if (Utils.isFingerprintAvailable(SettingsActivity.this)) {
-            items.add(new BRSettingsItem(getString(R.string.TouchIdSettings_switchLabel_android), "", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AuthManager.getInstance().authPrompt(SettingsActivity.this, null, getString(R.string.VerifyPin_continueBody), true, false, new BRAuthCompletion() {
-                        @Override
-                        public void onComplete() {
-                            Intent intent = new Intent(SettingsActivity.this, FingerprintActivity.class);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onCancel() {
-
-                        }
-                    });
-                }
-            }, false));
-        }
-
         if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
-            items.add(new BRSettingsItem(getString(R.string.Settings_touchIdLimit_android), "", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AuthManager.getInstance().authPrompt(SettingsActivity.this, null, getString(R.string.VerifyPin_continueBody), true, false, new BRAuthCompletion() {
-                        @Override
-                        public void onComplete() {
-                            Intent intent = new Intent(SettingsActivity.this, SpendLimitActivity.class);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                            startActivity(intent);
-                        }
+            items.add(new BRSettingsItem(getString(R.string.Settings_touchIdLimit_android), "",
+                    v -> AuthManager.getInstance().authPrompt(SettingsActivity.this, null,
+                            getString(R.string.VerifyPin_continueBody),
+                            new BRAuthCompletion() {
+                                @Override
+                                public void onComplete() {
+                                    Intent intent = new Intent(SettingsActivity.this,
+                                            SpendLimitActivity.class);
+                                    overridePendingTransition(R.anim.enter_from_right,
+                                            R.anim.exit_to_left);
+                                    startActivity(intent);
+                                }
 
-                        @Override
-                        public void onCancel() {
+                                @Override
+                                public void onCancel() {
 
-                        }
-                    });
-                }
-            }, false));
+                                }
+                            }), false));
         }
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_currency), BRSharedPrefs.getIso(this), new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, DisplayCurrencyActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
+        items.add(new BRSettingsItem(getString(R.string.Settings_currency),
+                BRSharedPrefs.getIso(this), v -> {
+            Intent intent = new Intent(SettingsActivity.this, DisplayCurrencyActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_sync), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, SyncBlockchainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
+        items.add(new BRSettingsItem(getString(R.string.Settings_sync), "", v -> {
+            Intent intent = new Intent(SettingsActivity.this,
+                    SyncBlockchainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
 
         items.add(new BRSettingsItem("", "", null, true));
-        items.add(new BRSettingsItem(getString(R.string.Settings_about), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
+        items.add(new BRSettingsItem(getString(R.string.Settings_about), "", v -> {
+            Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
-        items.add(new BRSettingsItem(getString(R.string.Settings_advancedTitle), "", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, AdvancedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            }
+        items.add(new BRSettingsItem(getString(R.string.Settings_advancedTitle), "", v -> {
+            Intent intent = new Intent(SettingsActivity.this, AdvancedActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
 
         items.add(new BRSettingsItem("", "", null, true)); //just for a blank space
@@ -234,11 +175,5 @@ public class SettingsActivity extends BRActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
     }
 }

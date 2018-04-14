@@ -1,20 +1,19 @@
 package io.digibyte.presenter.activities;
 
 import static io.digibyte.R.color.white;
-import static io.digibyte.tools.util.BRConstants.SCANNER_REQUEST;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+
+import com.platform.tools.BRBitId;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,7 +24,6 @@ import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
@@ -68,27 +66,40 @@ public class LoginActivity extends BRActivity {
         final boolean useFingerprint = AuthManager.isFingerPrintAvailableAndSetup(this)
                 && BRSharedPrefs.getUseFingerprint(this);
         binding.fingerprintIcon.setVisibility(useFingerprint ? View.VISIBLE : View.GONE);
-        if (useFingerprint) {
-            binding.fingerprintIcon.setOnClickListener(
-                    v -> AuthManager.getInstance().authPrompt(LoginActivity.this,
-                            "", "", false,
-                            true, new BRAuthCompletion() {
-                                @Override
-                                public void onComplete() {
-                                    unlockWallet();
-                                }
+        binding.fingerprintIcon.setOnClickListener(v -> AuthManager.getInstance().
+                authPrompt(LoginActivity.this, "", "", new BRAuthCompletion() {
+                    @Override
+                    public void onComplete() {
+                        unlockWallet();
+                    }
 
-                                @Override
-                                public void onCancel() {
+                    @Override
+                    public void onCancel() {
 
-                                }
-                            }));
-        }
-        new Handler().postDelayed(() -> {
+                    }
+                }));
+        Intent intent = getIntent();
+        Uri data = intent.getData();
+        if (data != null && BRBitId.isBitId(data.toString())) {
+            BRBitId.signAndRespond(this, data.toString(), true);
+        } else {
             if (binding.fingerprintIcon != null && useFingerprint) {
-                binding.fingerprintIcon.performClick();
+                new Handler().postDelayed(() -> {
+                    if (binding.fingerprintIcon != null && useFingerprint) {
+                        binding.fingerprintIcon.performClick();
+                    }
+                }, 500);
             }
-        }, 500);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Uri data = intent.getData();
+        if (data != null && BRBitId.isBitId(data.toString())) {
+            BRBitId.signAndRespond(this, data.toString(), true);
+        }
     }
 
     @Override
@@ -106,34 +117,8 @@ public class LoginActivity extends BRActivity {
     @OnClick(R.id.right_button)
     public void rightButtonClick(View view) {
         if (!BRAnimator.isClickAllowed()) return;
-        try {
-            // Check if the camera permission is granted
-            if (ContextCompat.checkSelfPermission(LoginActivity.this,
-                    Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // Should we show an expgetString(R.string.ConfirmPaperPhrase_word)lanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
-                        Manifest.permission.CAMERA)) {
-                    BRDialog.showCustomDialog(LoginActivity.this,
-                            getString(R.string.Send_cameraUnavailabeTitle_android),
-                            getString(R.string.Send_cameraUnavailabeMessage_android),
-                            getString(R.string.AccessibilityLabels_close), null,
-                            brDialogView -> brDialogView.dismiss(), null, null, 0);
-                } else {
-                    // No explanation needed, we can request the permission.
-                    ActivityCompat.requestPermissions(LoginActivity.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            BRConstants.CAMERA_REQUEST_ID);
-                }
-            } else {
-                // Permission is granted, open camera
-                Intent intent = new Intent(LoginActivity.this, ScanQRActivity.class);
-                startActivityForResult(intent, SCANNER_REQUEST);
-                overridePendingTransition(R.anim.fade_up, 0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ScanQRActivity.openScanner(this);
+
     }
 
     @Override

@@ -713,7 +713,8 @@ public class BRKeyStore {
             e.printStackTrace();
         }
 
-        return result != null && result.length > 0 ? TypesConverter.byteArray2long(result) : 0;
+        long limit = TypesConverter.byteArray2long(result);
+        return result != null && result.length > 0 ? limit : 0;
     }
 
     public synchronized static boolean putFailTimeStamp(long spendLimit, Context context) {
@@ -750,32 +751,6 @@ public class BRKeyStore {
             e.printStackTrace();
         }
         return false;
-    }
-
-    // WARNING use AuthManager to get the limit
-    public synchronized static boolean putTotalLimit(long totalLimit, Context context) {
-        AliasObject obj = aliasObjectMap.get(TOTAL_LIMIT_ALIAS);
-        byte[] bytesToStore = TypesConverter.long2byteArray(totalLimit);
-        try {
-            return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
-                    obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-    // WARNING use AuthManager to set the limit
-    public synchronized static long getTotalLimit(final Context context) {
-        AliasObject obj = aliasObjectMap.get(TOTAL_LIMIT_ALIAS);
-        byte[] result = new byte[0];
-        try {
-            result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
-            e.printStackTrace();
-        }
-        return (result != null && result.length > 0) ? TypesConverter.byteArray2long(result) : 0;
     }
 
     public synchronized static long getLastPinUsedTime(final Context context) {

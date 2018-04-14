@@ -1,5 +1,7 @@
 package io.digibyte.presenter.activities.settings;
 
+import static io.digibyte.tools.util.BRConstants.SCANNER_BCH_REQUEST;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -33,8 +35,6 @@ import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
-
-import static io.digibyte.tools.util.BRConstants.SCANNER_BCH_REQUEST;
 
 public class WithdrawBchActivity extends BRActivity {
     private static final String TAG = WithdrawBchActivity.class.getName();
@@ -72,7 +72,8 @@ public class WithdrawBchActivity extends BRActivity {
         addressEdit = (EditText) findViewById(R.id.address_edit);
         byte[] pubkey = BRKeyStore.getMasterPublicKey(this);
         if (Utils.isNullOrEmpty(pubkey)) {
-            BRReportsManager.reportBug(new NullPointerException("WithdrawBchActivity: onCreate: pubkey is missing!"));
+            BRReportsManager.reportBug(
+                    new NullPointerException("WithdrawBchActivity: onCreate: pubkey is missing!"));
         }
         long satoshis = BRWalletManager.getBCashBalance(pubkey);
         BigDecimal amount = BRExchange.getBitcoinForSatoshis(this, new BigDecimal(satoshis));
@@ -83,24 +84,31 @@ public class WithdrawBchActivity extends BRActivity {
             @Override
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
-                BRClipboardManager.putClipboard(WithdrawBchActivity.this, txHash.getText().toString().trim());
+                BRClipboardManager.putClipboard(WithdrawBchActivity.this,
+                        txHash.getText().toString().trim());
                 int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-                BRToast.showCustomToast(WithdrawBchActivity.this, getString(R.string.BCH_hashCopiedMessage), screenHeight / 2, Toast.LENGTH_LONG, 0);
+                BRToast.showCustomToast(WithdrawBchActivity.this,
+                        getString(R.string.BCH_hashCopiedMessage), screenHeight / 2,
+                        Toast.LENGTH_LONG, 0);
             }
         });
 
         paste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                final AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawBchActivity.this);
+//                final AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawBchActivity
+// .this);
                 if (BRAnimator.isClickAllowed()) {
 
-                    final String bitcoinUrl = BRClipboardManager.getClipboard(WithdrawBchActivity.this);
+                    final String bitcoinUrl = BRClipboardManager.getClipboard(
+                            WithdrawBchActivity.this);
 //                    String ifAddress = null;
 //                    RequestObject obj = BitcoinUrlHandler.getRequestFromString(bitcoinUrl);
 //                    if (obj == null) {
 //                        //builder.setTitle(getResources().getString(R.string.alert));
-//                        BRDialog.showCustomDialog(WithdrawBchActivity.this, getResources().getString(R.string.Send_invalidAddressOnPasteboard), "", getResources().getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+//                        BRDialog.showCustomDialog(WithdrawBchActivity.this, getResources()
+// .getString(R.string.Send_invalidAddressOnPasteboard), "", getResources().getString(R.string
+// .Button_ok), null, new BRDialogView.BROnClickListener() {
 //                            @Override
 //                            public void onClick(BRDialogView brDialogView) {
 //                                brDialogView.dismissWithAnimation();
@@ -112,20 +120,25 @@ public class WithdrawBchActivity extends BRActivity {
 //                    ifAddress = obj.address;
                     if (bitcoinUrl == null) {
                         //builder.setTitle(getResources().getString(R.string.alert));
-                        BRDialog.showCustomDialog(WithdrawBchActivity.this, getResources().getString(R.string.Send_invalidAddressOnPasteboard), "", getResources().getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, null, 0);
+                        BRDialog.showCustomDialog(WithdrawBchActivity.this,
+                                getResources().getString(R.string.Send_invalidAddressOnPasteboard),
+                                "", getResources().getString(R.string.Button_ok), null,
+                                new BRDialogView.BROnClickListener() {
+                                    @Override
+                                    public void onClick(BRDialogView brDialogView) {
+                                        brDialogView.dismissWithAnimation();
+                                    }
+                                }, null, null, 0);
                         BRClipboardManager.putClipboard(WithdrawBchActivity.this, "");
                         return;
                     }
 //                    final String finalAddress = tempAddress;
                     BRWalletManager wm = BRWalletManager.getInstance();
 
-                    if (wm.isValidBitcoinPrivateKey(bitcoinUrl) || wm.isValidBitcoinBIP38Key(bitcoinUrl)) {
-                        BRWalletManager.getInstance().confirmSweep(WithdrawBchActivity.this, bitcoinUrl);
+                    if (wm.isValidBitcoinPrivateKey(bitcoinUrl) || wm.isValidBitcoinBIP38Key(
+                            bitcoinUrl)) {
+                        BRWalletManager.getInstance().confirmSweep(WithdrawBchActivity.this,
+                                bitcoinUrl);
                         return;
                     }
 
@@ -136,19 +149,26 @@ public class WithdrawBchActivity extends BRActivity {
                         public void run() {
                             final boolean contained = m.addressContainedInWallet(bitcoinUrl);
                             final boolean used = m.addressIsUsed(bitcoinUrl);
-                            if (used)
-                                throw new RuntimeException("address used for BCH? can't happen, we don't keep track");
+                            if (used) {
+                                throw new RuntimeException(
+                                        "address used for BCH? can't happen, we don't keep track");
+                            }
                             BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (contained) {
-                                        BRDialog.showCustomDialog(WithdrawBchActivity.this, getResources().getString(R.string.Send_UsedAddress_firstLine), "", getResources().getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-                                            @Override
-                                            public void onClick(BRDialogView brDialogView) {
-                                                brDialogView.dismissWithAnimation();
-                                            }
-                                        }, null, null, 0);
-                                        BRClipboardManager.putClipboard(WithdrawBchActivity.this, "");
+                                        BRDialog.showCustomDialog(WithdrawBchActivity.this,
+                                                getResources().getString(
+                                                        R.string.Send_UsedAddress_firstLine), "",
+                                                getResources().getString(R.string.Button_ok), null,
+                                                new BRDialogView.BROnClickListener() {
+                                                    @Override
+                                                    public void onClick(BRDialogView brDialogView) {
+                                                        brDialogView.dismissWithAnimation();
+                                                    }
+                                                }, null, null, 0);
+                                        BRClipboardManager.putClipboard(WithdrawBchActivity.this,
+                                                "");
 
                                     } else {
                                         confirmSendingBCH(WithdrawBchActivity.this, bitcoinUrl);
@@ -159,7 +179,9 @@ public class WithdrawBchActivity extends BRActivity {
                     });
 
 //                    } else {
-//                        BRDialog.showCustomDialog(WithdrawBchActivity.this, getResources().getString(R.string.Send_invalidAddressOnPasteboard), "", getResources().getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
+//                        BRDialog.showCustomDialog(WithdrawBchActivity.this, getResources()
+// .getString(R.string.Send_invalidAddressOnPasteboard), "", getResources().getString(R.string
+// .Button_ok), null, new BRDialogView.BROnClickListener() {
 //                            @Override
 //                            public void onClick(BRDialogView brDialogView) {
 //                                brDialogView.dismissWithAnimation();
@@ -176,7 +198,8 @@ public class WithdrawBchActivity extends BRActivity {
             public void onClick(View v) {
                 if (!BRAnimator.isClickAllowed()) return;
                 if (BRWalletManager.getBCashBalance(BRKeyStore.getMasterPublicKey(app)) == 0) {
-                    BRDialog.showCustomDialog(app, "", app.getString(R.string.BCH_genericError), app.getString(R.string.AccessibilityLabels_close), null,
+                    BRDialog.showCustomDialog(app, "", app.getString(R.string.BCH_genericError),
+                            app.getString(R.string.AccessibilityLabels_close), null,
                             new BRDialogView.BROnClickListener() {
                                 @Override
                                 public void onClick(BRDialogView brDialogView) {
@@ -227,36 +250,29 @@ public class WithdrawBchActivity extends BRActivity {
 
     public static void confirmSendingBCH(final Activity app, final String theAddress) {
         if (BRPeerManager.getCurrentBlockHeight() < 478559) {
-            BRDialog.showCustomDialog(app, "", app.getString(R.string.Send_isRescanning), app.getString(R.string.AccessibilityLabels_close), null,
-                    new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            brDialogView.dismissWithAnimation();
-                        }
-                    }, null, null, 0);
+            BRDialog.showCustomDialog(app, "", app.getString(R.string.Send_isRescanning),
+                    app.getString(R.string.AccessibilityLabels_close), null,
+                    brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
         } else {
             address = theAddress;
             if (BRWalletManager.getBCashBalance(BRKeyStore.getMasterPublicKey(app)) == 0) {
-                BRDialog.showCustomDialog(app, "", app.getString(R.string.BCH_genericError), app.getString(R.string.AccessibilityLabels_close), null,
-                        new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, null, 0);
+                BRDialog.showCustomDialog(app, "", app.getString(R.string.BCH_genericError),
+                        app.getString(R.string.AccessibilityLabels_close), null,
+                        brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
             } else {
-                AuthManager.getInstance().authPrompt(app, app.getString(R.string.BCH_confirmationTitle), theAddress, true, false, new BRAuthCompletion() {
-                    @Override
-                    public void onComplete() {
-                        PostAuth.getInstance().onSendBch(getApp(), false, address);
-                    }
+                AuthManager.getInstance().authPrompt(app,
+                        app.getString(R.string.BCH_confirmationTitle),
+                        theAddress, new BRAuthCompletion() {
+                            @Override
+                            public void onComplete() {
+                                PostAuth.getInstance().onSendBch(getApp(), false, address);
+                            }
 
-                    @Override
-                    public void onCancel() {
+                            @Override
+                            public void onCancel() {
 
-                    }
-                });
-
+                            }
+                        });
             }
         }
 

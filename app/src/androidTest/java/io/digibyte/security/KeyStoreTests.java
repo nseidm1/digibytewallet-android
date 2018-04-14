@@ -1,13 +1,10 @@
 package io.digibyte.security;
 
+import static io.digibyte.tools.security.BRKeyStore.aliasObjectMap;
+
 import android.security.keystore.UserNotAuthenticatedException;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-
-import io.digibyte.presenter.activities.BreadActivity;
-import io.digibyte.presenter.activities.settings.TestActivity;
-import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.threads.BRExecutor;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -16,7 +13,9 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-import static io.digibyte.tools.security.BRKeyStore.aliasObjectMap;
+import io.digibyte.presenter.activities.settings.TestActivity;
+import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.threads.BRExecutor;
 
 
 /**
@@ -292,7 +291,6 @@ public class KeyStoreTests {
         BRKeyStore.putFailTimeStamp(1479686841, mActivityRule.getActivity());
         BRKeyStore.putSpendLimit(10000000, mActivityRule.getActivity());
         BRKeyStore.putLastPinUsedTime(1479686841, mActivityRule.getActivity());
-        BRKeyStore.putTotalLimit(1479686841, mActivityRule.getActivity());
 
         for (String a : aliasObjectMap.keySet()) {
             assertFilesExist(a);

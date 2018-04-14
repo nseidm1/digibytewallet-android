@@ -68,10 +68,12 @@ public class BRSender {
     public interface UpdateTxFeeCallback {
         void onTxFeeUpdated();
     }
+
     /**
      * Create tx from the PaymentItem object and try to send it
      */
-    public void sendTransaction(final Context app, final PaymentItem request, UpdateTxFeeCallback updateTxFeeCallback) {
+    public void sendTransaction(final Context app, final PaymentItem request,
+            UpdateTxFeeCallback updateTxFeeCallback) {
         //array in order to be able to modify the first element from an inner block (can't be final)
         final String[] errTitle = {null};
         final String[] errMessage = {null};
@@ -81,15 +83,21 @@ public class BRSender {
                 //if the fee was updated more than 24 hours ago then try updating the fee
                 if (now - BRSharedPrefs.getFeeTime(app) >= FEE_EXPIRATION_MILLIS) {
                     if (BRApiManager.updateFeePerKb(app)) {
-                        if (updateTxFeeCallback != null) { handler.post(() -> updateTxFeeCallback.onTxFeeUpdated()); }
+                        if (updateTxFeeCallback != null) {
+                            handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
+                        }
                         tryPay(app, request);
                     } else {
-                        if (updateTxFeeCallback != null) { handler.post(() -> updateTxFeeCallback.onTxFeeUpdated()); }
+                        if (updateTxFeeCallback != null) {
+                            handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
+                        }
                         throw new FeeOutOfDate(BRSharedPrefs.getFeeTime(app),
                                 System.currentTimeMillis());
                     }
                 } else {
-                    if (updateTxFeeCallback != null) { handler.post(() -> updateTxFeeCallback.onTxFeeUpdated()); }
+                    if (updateTxFeeCallback != null) {
+                        handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
+                    }
                     tryPay(app, request);
                 }
                 return; //return so no error is shown
@@ -275,37 +283,31 @@ public class BRSender {
             });
             return;
         }
-        boolean forcePin = false;
+        String selectedIso = BRSharedPrefs.getPreferredBTC(ctx) ? "DGB" : BRSharedPrefs.getIso(ctx);
+        long limit = BRExchange.getSatoshisFromAmount(ctx, selectedIso, new BigDecimal(BRKeyStore.getSpendLimit(ctx))).longValue();
+        long requestAmount = request.amount;
 
-        Log.e(TAG, "confirmPay: totalSent: " + BRWalletManager.getInstance().getTotalSent());
-        Log.e(TAG, "confirmPay: request.amount: " + request.amount);
-        Log.e(TAG, "confirmPay: total limit: " + AuthManager.getInstance().getTotalLimit(ctx));
-        Log.e(TAG, "confirmPay: limit: " + BRKeyStore.getSpendLimit(ctx));
-
-        if (BRWalletManager.getInstance().getTotalSent() + request.amount
-                > AuthManager.getInstance().getTotalLimit(ctx)) {
-            forcePin = true;
-        }
+        boolean fingerprintEnabled = (
+                AuthManager.isFingerPrintAvailableAndSetup(ctx) && limit == 0) || (AuthManager.isFingerPrintAvailableAndSetup(ctx) && requestAmount < limit);
 
         //successfully created the transaction, authenticate user
-        AuthManager.getInstance().authPrompt(ctx, "", message, forcePin, false,
-                new BRAuthCompletion() {
-                    @Override
-                    public void onComplete() {
-                        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-                            PostAuth.getInstance().onPublishTxAuth(ctx, false);
-                            BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-                                BRAnimator.killAllFragments((Activity) ctx);
-                                BRAnimator.startBreadIfNotStarted((Activity) ctx);
-                            });
-                        });
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        //nothing
-                    }
+        AuthManager.getInstance().authPromptWithFingerprint(ctx, "", message, fingerprintEnabled, new BRAuthCompletion() {
+            @Override
+            public void onComplete() {
+                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+                    PostAuth.getInstance().onPublishTxAuth(ctx, false);
+                    BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
+                        BRAnimator.killAllFragments((Activity) ctx);
+                        BRAnimator.startBreadIfNotStarted((Activity) ctx);
+                    });
                 });
+            }
+
+            @Override
+            public void onCancel() {
+                //nothing
+            }
+        });
     }
 
     public String createConfirmation(Context ctx, PaymentItem request) {

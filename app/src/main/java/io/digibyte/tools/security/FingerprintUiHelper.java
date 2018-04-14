@@ -16,13 +16,13 @@
 
 package io.digibyte.tools.security;
 
-import io.digibyte.R;
-
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import io.digibyte.R;
 
 /**
  * Small helper class to manage text/icon around fingerprint authentication UI.
@@ -52,7 +52,8 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
             mFingerPrintManager = fingerprintManager;
         }
 
-        public FingerprintUiHelper build(ImageView icon, TextView errorTextView, Callback callback, Context context) {
+        public FingerprintUiHelper build(ImageView icon, TextView errorTextView, Callback callback,
+                Context context) {
             return new FingerprintUiHelper(mFingerPrintManager, icon, errorTextView,
                     callback, context);
         }
@@ -63,13 +64,14 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
      * only the {@link FingerprintUiHelperBuilder} class.
      */
     private FingerprintUiHelper(FingerprintManager fingerprintManager,
-                                ImageView icon, TextView errorTextView, Callback callback, Context context) {
+            ImageView icon, TextView errorTextView, Callback callback, Context context) {
         mFingerprintManager = fingerprintManager;
         mIcon = icon;
         mErrorTextView = errorTextView;
         mCallback = callback;
         this.mContext = context;
     }
+
     @SuppressWarnings("MissingPermission")
     public boolean isFingerprintAuthAvailable() {
         return mFingerprintManager.isHardwareDetected()
@@ -148,7 +150,8 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         public void run() {
             mErrorTextView.setTextColor(
                     mErrorTextView.getResources().getColor(R.color.hint_color, null));
-            mErrorTextView.setText(mContext.getString(R.string.UnlockScreen_touchIdInstructions_android));
+            mErrorTextView.setText(
+                    mContext.getString(R.string.UnlockScreen_touchIdInstructions_android));
             mIcon.setImageResource(R.drawable.ic_fp_40px);
         }
     };

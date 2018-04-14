@@ -342,7 +342,6 @@ public class FragmentSend extends Fragment {
                 return;
             }
             sendingWait.setDisplayedChild(1);
-            send.setEnabled(false);
             boolean allFilled = true;
             String address = addressEdit.getText().toString();
             String amountStr = amountBuilder.toString();

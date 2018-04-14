@@ -1,6 +1,5 @@
 package io.digibyte.presenter.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import io.digibyte.R;
 import io.digibyte.presenter.customviews.BRKeyboard;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
+import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.DecelerateOvershootInterpolator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
@@ -212,11 +212,8 @@ public class FragmentPin extends Fragment {
                 }
                 authSucceeded = true;
                 completion.onComplete();
-                Activity app = getActivity();
-                AuthManager.getInstance().authSuccess(app);
-                if (app != null)
-                    app.getFragmentManager().popBackStack();
-
+                AuthManager.getInstance().authSuccess(getActivity());
+                BRAnimator.killAllFragments(getActivity());
             }
         });
     }
@@ -244,14 +241,7 @@ public class FragmentPin extends Fragment {
         mainLayout.animate().alpha(0);
         if (!authSucceeded)
             completion.onCancel();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (getActivity() != null)
-                    getActivity().getFragmentManager().beginTransaction().remove(FragmentPin.this).commit();
-            }
-        }, 1000);
-
+        new Handler().postDelayed(() -> BRAnimator.killAllFragments(getActivity()), 1000);
     }
 
     @Override

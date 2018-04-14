@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,8 +49,7 @@ import io.digibyte.tools.util.Utils;
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
  * authentication if fingerprint is not available.
  */
-public class FragmentFingerprint extends Fragment
-        implements FingerprintUiHelper.Callback {
+public class FragmentFingerprint extends Fragment implements FingerprintUiHelper.Callback {
     public static final String TAG = FragmentFingerprint.class.getName();
     public static final int ANIMATION_DURATION = 300;
     FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder;
@@ -72,11 +70,9 @@ public class FragmentFingerprint extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Do not create a new Fragment when the Activity is re-created such as orientation
         // changes.
         setRetainInstance(true);
-//        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog);
     }
 
     @Override
@@ -84,65 +80,53 @@ public class FragmentFingerprint extends Fragment
             Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fingerprint_dialog_container, container, false);
-//        getDialog().setTitle(R.string.fingerprint_auth);
-        message = (TextView) v.findViewById(R.id.fingerprint_description);
-        title = (TextView) v.findViewById(R.id.fingerprint_title);
-        fingerPrintLayout = (LinearLayout) v.findViewById(R.id.fingerprint_layout);
-        fingerprintBackground = (RelativeLayout) v.findViewById(R.id.fingerprint_background);
+        message = v.findViewById(R.id.fingerprint_description);
+        title = v.findViewById(R.id.fingerprint_title);
+        fingerPrintLayout = v.findViewById(R.id.fingerprint_layout);
+        fingerprintBackground = v.findViewById(R.id.fingerprint_background);
         Bundle bundle = getArguments();
         String titleString = bundle.getString("title");
         String messageString = bundle.getString("message");
         if (!Utils.isNullOrEmpty(titleString)) {
             customTitle = titleString;
             title.setText(customTitle);
+        } else {
+            title.setVisibility(View.GONE);
         }
         if (!Utils.isNullOrEmpty(messageString)) {
             customMessage = messageString;
             message.setText(customMessage);
+        } else {
+            message.setVisibility(View.GONE);
         }
         FingerprintManager mFingerprintManager =
                 (FingerprintManager) getActivity().getSystemService(Activity.FINGERPRINT_SERVICE);
         mFingerprintUiHelperBuilder = new FingerprintUiHelper.FingerprintUiHelperBuilder(
                 mFingerprintManager);
         mFingerprintUiHelper = mFingerprintUiHelperBuilder.build(
-                (ImageView) v.findViewById(R.id.fingerprint_icon),
-                (TextView) v.findViewById(R.id.fingerprint_status), this, getContext());
+                v.findViewById(R.id.fingerprint_icon),
+                v.findViewById(R.id.fingerprint_status), this, getContext());
         View mFingerprintContent = v.findViewById(R.id.fingerprint_container);
-
-        Button mCancelButton = (Button) v.findViewById(R.id.cancel_button);
-        Button mSecondDialogButton = (Button) v.findViewById(R.id.second_dialog_button);
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!BRAnimator.isClickAllowed()) return;
-//                if (!BRAnimator.scanResultFragmentOn && mode == BRConstants.AUTH_FOR_PAY &&
-// request.isAmountRequested) {
-////                    FragmentScanResult.address = request.address[0];
-//                    BRWalletManager.getInstance().offerToChangeTheAmount(getActivity(), "");
-//                }
-//                dismiss();
-                closeMe();
-            }
+        Button mCancelButton = v.findViewById(R.id.cancel_button);
+        Button mSecondDialogButton = v.findViewById(R.id.second_dialog_button);
+        mCancelButton.setOnClickListener(view -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            closeMe();
         });
         mCancelButton.setText(R.string.Button_cancel);
         mSecondDialogButton.setText(getString(R.string.Prompts_TouchId_usePin_android));
         mFingerprintContent.setVisibility(View.VISIBLE);
-        mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!BRAnimator.isClickAllowed()) return;
-                closeMe();
-                goToBackup();
-            }
+        mSecondDialogButton.setOnClickListener(view -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            closeMe();
+            goToBackup();
         });
-
         return v;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         final ViewTreeObserver observer = fingerPrintLayout.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -157,7 +141,6 @@ public class FragmentFingerprint extends Fragment
     @Override
     public void onStop() {
         super.onStop();
-
         animateBackgroundDim(true);
         animateSignalSlide(true);
         if (!authSucceeded) {
@@ -186,30 +169,23 @@ public class FragmentFingerprint extends Fragment
     private void goToBackup() {
         final Context app = getContext();
         closeMe();
-
         if (mFingerprintUiHelper != null) {
             mFingerprintUiHelper.stopListening();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AuthManager.getInstance().authPrompt(app, customTitle, customMessage, true, false,
-                        completion);
-            }
-        }, ANIMATION_DURATION + 100);
+        new Handler().
+                postDelayed(() -> AuthManager.getInstance().
+                                authPromptWithFingerprint(app, customTitle, customMessage, false,
+                                        completion),
+                        ANIMATION_DURATION + 100);
     }
 
     @Override
     public void onAuthenticated() {
         final Activity app = getActivity();
         authSucceeded = true;
-
         if (completion != null) completion.onComplete();
         BRAnimator.killAllFragments(app);
-        BRAnimator.startBreadIfNotStarted(app);
-
         closeMe();
-
     }
 
     public void setCompletion(BRAuthCompletion completion) {
@@ -224,18 +200,11 @@ public class FragmentFingerprint extends Fragment
     private void animateBackgroundDim(boolean reverse) {
         int transColor = reverse ? R.color.black_trans : android.R.color.transparent;
         int blackTransColor = reverse ? android.R.color.transparent : R.color.black_trans;
-
         ValueAnimator anim = new ValueAnimator();
         anim.setIntValues(transColor, blackTransColor);
         anim.setEvaluator(new ArgbEvaluator());
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                fingerprintBackground.setBackgroundColor(
-                        (Integer) valueAnimator.getAnimatedValue());
-            }
-        });
-
+        anim.addUpdateListener(valueAnimator -> fingerprintBackground.setBackgroundColor(
+                (Integer) valueAnimator.getAnimatedValue()));
         anim.setDuration(ANIMATION_DURATION);
         anim.start();
     }
@@ -254,8 +223,7 @@ public class FragmentFingerprint extends Fragment
             fingerPrintLayout.animate()
                     .translationY(1500)
                     .setDuration(ANIMATION_DURATION)
-                    .withLayer().setInterpolator(new AnticipateInterpolator(2f)).setListener(
-                    new AnimatorListenerAdapter() {
+                    .withLayer().setInterpolator(new AnticipateInterpolator(2f)).setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
@@ -265,14 +233,11 @@ public class FragmentFingerprint extends Fragment
                             }
                         }
                     });
-
         }
-
     }
 
     private void closeMe() {
         animateBackgroundDim(true);
         animateSignalSlide(true);
     }
-
 }

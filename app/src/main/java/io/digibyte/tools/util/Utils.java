@@ -1,5 +1,7 @@
 package io.digibyte.tools.util;
 
+import static android.content.Context.FINGERPRINT_SERVICE;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -10,20 +12,14 @@ import android.graphics.Point;
 import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
-import io.digibyte.presenter.activities.intro.IntroActivity;
-import io.digibyte.tools.manager.SyncManager;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -32,7 +28,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import static android.content.Context.FINGERPRINT_SERVICE;
+import io.digibyte.presenter.activities.intro.IntroActivity;
 
 
 /**
@@ -120,15 +116,13 @@ public class Utils {
         }
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        String result = formatter.format(calendar.getTime()).toLowerCase().replace("am", "a").replace("pm", "p");
+        String result = formatter.format(calendar.getTime()).toLowerCase().replace("am", "a").
+                replace("pm", "p");
         if (is24HoursFormat) result += "h";
         return result;
     }
 
     public static String formatTimeStamp(long time, String pattern) {
-//        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.getDefault());
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(time);
         return android.text.format.DateFormat.format(pattern, time).toString();
     }
 
@@ -174,22 +168,15 @@ public class Utils {
         if (address != null && !address.isEmpty())
             builder = builder.appendPath(address);
         if (satoshiAmount != 0)
-            builder = builder.appendQueryParameter("amount", new BigDecimal(satoshiAmount).divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString());
+            builder = builder.appendQueryParameter("amount", new BigDecimal(satoshiAmount).
+                    divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString());
         if (label != null && !label.isEmpty())
             builder = builder.appendQueryParameter("label", label);
         if (message != null && !message.isEmpty())
             builder = builder.appendQueryParameter("message", message);
         if (rURL != null && !rURL.isEmpty())
             builder = builder.appendQueryParameter("r", rURL);
-
         return builder.build().toString().replaceFirst("/", "");
-
-    }
-
-    public static boolean isFingerprintEnrolled(Context app) {
-        FingerprintManager fingerprintManager = (FingerprintManager) app.getSystemService(FINGERPRINT_SERVICE);
-        // Device doesn't support fingerprint authentication
-        return ActivityCompat.checkSelfPermission(app, Manifest.permission.USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED && fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
     }
 
     public static boolean isFingerprintAvailable(Context app) {
@@ -212,7 +199,6 @@ public class Utils {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
-
     }
 
     public static String getAgentString(Context app, String cfnetwork) {

@@ -2,7 +2,6 @@ package io.digibyte.presenter.activities.intro;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -23,39 +22,24 @@ public class WriteDownActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_down);
 
-        writeButton = (Button) findViewById(R.id.button_write_down);
-        close = (ImageButton) findViewById(R.id.close_button);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                close();
-            }
-        });
-        /* ImageButton faq = (ImageButton) findViewById(R.id.faq_button);
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(app, BRConstants.paperKey);
-            }
-        }); */
-        writeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                AuthManager.getInstance().authPrompt(WriteDownActivity.this, null, getString(R.string.VerifyPin_continueBody), true, false, new BRAuthCompletion() {
-                    @Override
-                    public void onComplete() {
-                        PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this, false);
-                    }
+        writeButton = findViewById(R.id.button_write_down);
+        close = findViewById(R.id.close_button);
+        close.setOnClickListener(v -> close());
+        writeButton.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            AuthManager.getInstance().authPrompt(WriteDownActivity.this, null,
+                    getString(R.string.VerifyPin_continueBody), new BRAuthCompletion() {
+                        @Override
+                        public void onComplete() {
+                            PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this,
+                                    false);
+                        }
 
-                    @Override
-                    public void onCancel() {
+                        @Override
+                        public void onCancel() {
 
-                    }
-                });
-
-            }
+                        }
+                    });
         });
     }
 
@@ -79,5 +63,4 @@ public class WriteDownActivity extends BRActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
     }
-
 }
