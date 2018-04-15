@@ -1,5 +1,6 @@
 package io.digibyte.tools.manager;
 
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -83,11 +84,7 @@ public class SyncManager {
         return instance;
     }
 
-    public interface InitListener {
-        void onInited();
-    }
-
-    public void startSyncingProgressThread(InitListener initListener) {
+    public void startSyncingProgressThread(Activity activity) {
         Log.d(TAG, "startSyncingProgressThread:" + Thread.currentThread().getName());
         if (enabled) {
             return;
@@ -99,7 +96,7 @@ public class SyncManager {
             }
         }, 2000);
         handler.postDelayed(() -> executorService.execute(syncRunnable), 2500);
-        BRWalletManager.getInstance().smartInit(null);
+        BRWalletManager.getInstance().smartInit(activity, BRWalletManager.SmartInitType.BreadActivity);
     }
 
     public void stopSyncingProgressThread() {

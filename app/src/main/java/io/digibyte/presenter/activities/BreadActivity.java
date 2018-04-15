@@ -547,7 +547,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
         BRApiManager.getInstance().asyncUpdateFeeData(this);
         bindings.searchBar.setOnUpdateListener(this);
-        SyncManager.getInstance().startSyncingProgressThread(null);
+        SyncManager.getInstance().startSyncingProgressThread(this);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class SyncService extends JobService implements BRPeerManager.OnSyncSucce
     {
         this.jobParameters = jobParameters;
         BRPeerManager.setOnSyncFinished(this);
-        BRWalletManager.getInstance().smartInit(null);
+        BRWalletManager.getInstance().smartInit(null, BRWalletManager.SmartInitType.SyncService);
         return true;
     }
 

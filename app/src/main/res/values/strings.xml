@@ -745,4 +745,5 @@
 
   <string name="digiid">DigiID</string>
   <string name="no_limit">No Limit</string>
+  <string name="restarting">Restarting</string>
 </resources>

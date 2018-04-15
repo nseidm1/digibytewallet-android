@@ -39,6 +39,7 @@ import io.digibyte.BuildConfig;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
+import io.digibyte.presenter.activities.RestartService;
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.customviews.BRToast;
 import io.digibyte.presenter.entities.BRMerkleBlockEntity;
@@ -292,8 +293,6 @@ public class BRWalletManager {
 
     public void wipeBlockAndTrans(Context ctx, ClearedListener clearedListener) {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-            BRPeerManager.getInstance().peerManagerFreeEverything();
-            walletFreeEverything();
             TransactionDataSource.getInstance(ctx).deleteAllTransactions();
             MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
             PeerDataSource.getInstance(ctx).deleteAllPeers();
@@ -551,25 +550,39 @@ public class BRWalletManager {
         }
     }
 
-    public interface InitListener {
-        void onInited();
+    public enum SmartInitType {
+        LoginActivity, BreadActivity, SyncService
     }
 
-    public void smartInit(InitListener initListener) {
+    public void smartInit(Activity activity, SmartInitType smartInitType) {
         BRExecutor.getInstance().forBackgroundTasks().execute(() -> {
-            //If the native component is not connected to peers
-            //De-allocate and init
-            if (BRPeerManager.getInstance().connectionStatus() != 2) {
-                BRPeerManager.getInstance().peerManagerFreeEverything();
+            initWalletAndConnectPeers();
+            if (smartInitType == SmartInitType.SyncService) {
+                return;
             }
-            initWalletAndConnectPeers(DigiByte.getContext());
-            handler.post(() -> {
-                if (initListener != null) initListener.onInited();
-            });
+            handler.postDelayed(() -> {
+                if (activity.isFinishing()) {
+                    return;
+                }
+                //If the native component is not connected or connecting restart the process
+                if (!(BRPeerManager.getInstance().connectionStatus() == 2 ||
+                        BRPeerManager.getInstance().connectionStatus() == 1)) {
+                   Toast.makeText(activity, activity.getString(R.string.NodeSelector_statusLabel) + ": "
+                            + activity.getString(R.string.restarting), Toast.LENGTH_LONG).show();
+                    handler.postDelayed(() -> {
+                        activity.finish();
+                    }, 500);
+                    handler.postDelayed(() -> {
+                        RestartService.restart(smartInitType);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }, 1500);
+
+                }
+            }, 5000);
         });
     }
 
-    private void initWalletAndConnectPeers(final Context ctx) {
+    private void initWalletAndConnectPeers() {
         try {
             Log.d(TAG, "initWallet:" + Thread.currentThread().getName());
             createBRWalletManager();
@@ -647,12 +660,14 @@ public class BRWalletManager {
         // If there's no stored blocks query public keys for transactions
         // and if there's no transactions sync from the head of the DigiByte blockchain
         // otherwise sync from the oldest block associated with the transactions
-        if (MerkleBlockDataSource.getInstance(DigiByte.getContext()).getAllMerkleBlocks().size() == 0) {
+        if (MerkleBlockDataSource.getInstance(DigiByte.getContext()).getAllMerkleBlocks().size()
+                == 0) {
             LinkedList<String> transactionsData = getAllTransactions();
             if (transactionsData.size() == 0) {
                 createPeerManagerFromCurrentHeadBlock(walletTime, blocksCount, peersCount);
             } else {
-                createPeerManagerFromOldestBlock(transactionsData, walletTime, blocksCount, peersCount);
+                createPeerManagerFromOldestBlock(transactionsData, walletTime, blocksCount,
+                        peersCount);
             }
         } else {
             BRPeerManager.getInstance().create(walletTime, blocksCount, peersCount);
@@ -669,7 +684,9 @@ public class BRWalletManager {
     private LinkedList<String> getAllTransactions() throws JSONException {
         String[] addresses = getPublicAddresses();
         LinkedList<String> transactions = new LinkedList<>();
-        if (BuildConfig.DEBUG) { Log.d(BRWalletManager.class.getSimpleName(), Arrays.toString(addresses)); }
+        if (BuildConfig.DEBUG) {
+            Log.d(BRWalletManager.class.getSimpleName(), Arrays.toString(addresses));
+        }
         for (String address : addresses) {
             JSONObject transactionsData = new JSONObject(BRApiManager.getInstance().getBlockInfo(
                     DigiByte.getContext(), "https://digiexplorer.info/api/addr/" + address));
@@ -703,7 +720,7 @@ public class BRWalletManager {
         long oldestBlockTime = System.currentTimeMillis();
         for (String transaction : transactions) {
             String transactionData = BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(),"https://digiexplorer.info/api/tx/" + transaction);
+                    DigiByte.getContext(), "https://digiexplorer.info/api/tx/" + transaction);
             JSONObject transactionDataJson = new JSONObject(transactionData);
             long blockTime = transactionDataJson.getLong("blocktime");
             if (blockTime < oldestBlockTime) {

@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible|adjustResize"
-        >
+        android:process=":DigiProcess">
 
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
@@ -218,6 +218,9 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
+
+        <service android:name=".presenter.activities.RestartService"
+                  android:process=":RestartProcess"/>
 
         <service android:name=".tools.manager.SyncService"
                  android:permission="android.permission.BIND_JOB_SERVICE" >

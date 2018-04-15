@@ -124,7 +124,7 @@ public class LoginActivity extends BRActivity {
         updateDots();
 
         inputAllowed = true;
-        BRWalletManager.getInstance().smartInit(null);
+        BRWalletManager.getInstance().smartInit(this, BRWalletManager.SmartInitType.LoginActivity);
     }
 
     private void handleClick(String key) {
