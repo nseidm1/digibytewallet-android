@@ -2,12 +2,14 @@ package io.digibyte.presenter.activities.util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.platform.tools.BRBitId;
 
-import io.digibyte.presenter.activities.LoginActivity;
+import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.PostAuth;
@@ -143,6 +145,21 @@ public class BRActivity extends Activity {
                     finish();
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case BRConstants.CAMERA_REQUEST_ID: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                }
+                break;
+            }
         }
     }
 }

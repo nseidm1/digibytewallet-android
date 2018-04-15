@@ -94,8 +94,8 @@ public class BRBitId {
                 });
     }
 
-    private static void internalSignAndRespond(@NonNull final Activity app,
-            @NonNull final String bitID, boolean isDeepLink) {
+    private static void internalSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
+            boolean isDeepLink) {
         try {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
@@ -132,9 +132,10 @@ public class BRBitId {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing),
-                    Toast.LENGTH_SHORT).show());
-            app.finish();
+            Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show();
+            if (isDeepLink) {
+                app.finish();
+            }
         }
     }
 

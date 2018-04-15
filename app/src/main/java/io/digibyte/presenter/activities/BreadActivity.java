@@ -7,13 +7,11 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,7 +56,6 @@ import io.digibyte.tools.manager.TxManager.onStatusListener;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
@@ -69,8 +66,8 @@ import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 /**
  * BreadWallet
  * <p/>
- * Created by Mihail Gutan <mihail@breadwallet.com> on 8/4/15.
- * Copyright (c) 2016 breadwallet LLC
+ * Created by Noah Seidman <noah@noahseidman.com> on 4/14/18.
+ * Copyright (c) 2018 DigiByte Holdings
  * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -569,21 +566,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case BRConstants.CAMERA_REQUEST_ID: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
-                }
-                break;
-            }
-        }
     }
 
     @Override
