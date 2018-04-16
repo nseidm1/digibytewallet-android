@@ -293,6 +293,8 @@ public class BRWalletManager {
 
     public void wipeBlockAndTrans(Context ctx, ClearedListener clearedListener) {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            BRPeerManager.getInstance().peerManagerFreeEverything();
+            walletFreeEverything();
             TransactionDataSource.getInstance(ctx).deleteAllTransactions();
             MerkleBlockDataSource.getInstance(ctx).deleteAllBlocks();
             PeerDataSource.getInstance(ctx).deleteAllPeers();
