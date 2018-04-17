@@ -580,7 +580,7 @@ public class BRWalletManager {
                     }, 1500);
 
                 }
-            }, 5000);
+            }, 15000);
         });
     }
 
