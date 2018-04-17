@@ -720,15 +720,23 @@ public class BRWalletManager {
                 oldestBlockHash = transactionDataJson.getString("blockhash");
             }
         }
-        String transactionData = BRApiManager.getInstance().getBlockInfo(
-                DigiByte.getContext(),
-                "https://digiexplorer.info/api/block/" + oldestBlockHash);
-        JSONObject blockJson = new JSONObject(transactionData);
+        JSONObject blockJson = goBack5Blocks(oldestBlockHash);
         String blockHash = blockJson.getString("hash");
         int blockHeight = blockJson.getInt("height");
         long blockTime = blockJson.getLong("time");
         BRPeerManager.getInstance().createNew(walletTime, blocksCount, peersCount,
                 blockHash, blockHeight, blockTime, 0);
+    }
+
+    private JSONObject goBack5Blocks(String oldestBlockHash) throws JSONException {
+        JSONObject blockJson = new JSONObject(BRApiManager.getInstance().getBlockInfo(
+                DigiByte.getContext(), "https://digiexplorer.info/api/block/" + oldestBlockHash));
+        for (int i = 0; i < 5; i++) {
+            oldestBlockHash = blockJson.getString("previousblockhash");
+            blockJson = new JSONObject(BRApiManager.getInstance().getBlockInfo(
+                    DigiByte.getContext(), "https://digiexplorer.info/api/block/" + oldestBlockHash));
+        }
+        return blockJson;
     }
 
     public void addBalanceChangedListener(OnBalanceChanged listener) {
