@@ -164,19 +164,12 @@ public class AuthManager {
                     (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
             if (keyguardManager.isKeyguardSecure()) {
                 if (fingerprint) {
-                    FragmentFingerprint fingerprintFragment = new FragmentFingerprint();
-                    Bundle args = new Bundle();
-                    args.putString("title", title);
-                    args.putString("message", message);
-                    fingerprintFragment.setArguments(args);
+                    FragmentFingerprint fingerprintFragment = FragmentFingerprint.newInstance(title, message);
                     fingerprintFragment.setCompletion(completion);
                     FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
-                    transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     transaction.add(android.R.id.content, fingerprintFragment, FragmentFingerprint.class.getName());
-                    transaction.addToBackStack(null);
-                    if (!app.isDestroyed()) {
-                        transaction.commit();
-                    }
+                    transaction.commit();
                 } else {
                     FragmentPin breadPin = new FragmentPin();
                     Bundle args = new Bundle();
