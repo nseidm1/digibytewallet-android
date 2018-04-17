@@ -686,7 +686,9 @@ public class BRKeyStore {
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }
-
+        if (result == null) {
+            return 0;
+        }
         long limit = TypesConverter.byteArray2long(result);
         return result != null && result.length > 0 ? limit : 0;
     }

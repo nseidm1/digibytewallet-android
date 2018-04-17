@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 
 import java.math.BigDecimal;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
@@ -118,6 +119,11 @@ public class FingerprintActivity extends BRActivity {
         String iso = BRSharedPrefs.getIso(this);
         //amount in satoshis
         BigDecimal digibyte = new BigDecimal(BRKeyStore.getSpendLimit(this));
+        if (digibyte.equals(BigDecimal.ZERO)) {
+            return String.format(getString(R.string.TouchIdSettings_spendingLimit),
+                    BRCurrency.getFormattedCurrencyString(this, "DGB", digibyte),
+                    DigiByte.getContext().getString(R.string.no_limit));
+        }
         BigDecimal curAmount = BRExchange.getAmountFromSatoshis(this, iso, digibyte);
         //formatted string for the label
         return String.format(getString(R.string.TouchIdSettings_spendingLimit),
