@@ -532,17 +532,7 @@ public class BRWalletManager {
             BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
                     app.getString(R.string.Prompts_NoScreenLock_body_android),
                     app.getString(R.string.AccessibilityLabels_close), null,
-                    new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            app.finish();
-                        }
-                    }, null, new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            app.finish();
-                        }
-                    }, 0);
+                    brDialogView -> app.finish(), null, dialog -> app.finish(), 0);
         } else {
             if (!m.noWallet(app)) {
                 BRAnimator.startBreadActivity(app, true);
@@ -563,7 +553,8 @@ public class BRWalletManager {
                 return;
             }
             handler.postDelayed(() -> {
-                if (activity.isFinishing()) {
+                //Is the activity currently finishing, or is the entire app in the background
+                if (activity.isFinishing() || DigiByte.getContext().getActivity() == null) {
                     return;
                 }
                 //If the native component is not connected or connecting restart the process
@@ -580,7 +571,7 @@ public class BRWalletManager {
                     }, 1500);
 
                 }
-            }, 15000);
+            }, 20000);
         });
     }
 
