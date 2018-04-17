@@ -47,7 +47,7 @@
   <!-- Alert Subheader label (playfully positive) -->
   <string name="Alerts.paperKeySetSubheader">太好了！</string>
   <!-- Alert Header label (the PIN was set) -->
-  <string name="Alerts.pinSet">PIN码设置成功</string>
+  <string name="Alerts.pinSet">密码设置成功</string>
   <!-- Send failure alert header label (the send failed to happen) -->
   <string name="Alerts.sendFailure">发送失败</string>
   <!-- Send success alert header label (confirmation that the send happened) -->
@@ -257,7 +257,7 @@
   <!-- Switch to manual mode button label -->
   <string name="NodeSelector.manualButton">切换到手动模式</string>
   <!-- Node address label -->
-  <string name="NodeSelector.nodeLabel">当前主要节点</string>
+  <string name="NodeSelector.nodeLabel">当前主节点</string>
   <!-- Node is not connected label -->
   <string name="NodeSelector.notConnected">未连接</string>
   <!-- Node status label -->
@@ -293,7 +293,7 @@
   <!-- Warning about paper key. -->
   <string name="Prompts.PaperKey.body">您的纸键必须被妥善保存，以免手机丢失或者换手机。点此继续。</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">需要采取行动</string>
+  <string name="Prompts.PaperKey.title">请采取措施</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">您的钱包可能没有同步。通常修复的办法是重新扫描区块链。</string>
   <!-- Transaction rejected prompt title -->
@@ -303,19 +303,19 @@
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">分享匿名数据</string>
   <!-- Enable touch ID prompt body -->
-  <string name="Prompts.TouchId.body">点此开启Touch ID</string>
+  <string name="Prompts.TouchId.body">点此开启触控 ID</string>
   <!-- Enable Fingerprint prompt body -->
   <string name="Prompts.TouchId.body.android">点此开启指纹验证</string>
   <!-- Enable touch ID prompt title -->
-  <string name="Prompts.TouchId.title">开启Touch ID</string>
+  <string name="Prompts.TouchId.title">开启触控 ID</string>
   <!-- Enable Fingerprint prompt title -->
   <string name="Prompts.TouchId.title.android">开启指纹验证</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
-  <string name="Prompts.TouchId.usePin.android">PIN</string>
+  <string name="Prompts.TouchId.usePin.android">密码</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">极特钱包已经升级到一个6位数的PIN码。点此升级PIN码</string>
+  <string name="Prompts.UpgradePin.body">极特钱包已经升级到一个6位数的密码。点此升级密码。</string>
   <!-- Upgrade PIN prompt title. -->
-  <string name="Prompts.UpgradePin.title">升级PIN码</string>
+  <string name="Prompts.UpgradePin.title">升级密码</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
   <string name="PushNotifications.body">开启推送提示来接受极特钱包未来的资讯</string>
   <!-- Push notifications toggle switch label -->
@@ -343,7 +343,7 @@
   <!-- Recover wallet header -->
   <string name="RecoverWallet.header">恢复钱包</string>
   <!-- Reset PIN with paper key: header -->
-  <string name="RecoverWallet.header_reset_pin">重置PIN码</string>
+  <string name="RecoverWallet.header_reset_pin">重置密码</string>
   <!-- Enter paper key instruction -->
   <string name="RecoverWallet.instruction">输入纸键</string>
   <!-- Recover wallet intro -->
@@ -361,7 +361,7 @@
   <!-- Recover wallet sub-header -->
   <string name="RecoverWallet.subheader">输入您想恢复的钱包的纸键</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">请输入您纸键的字到以下方格里来重置PIN码</string>
+  <string name="RecoverWallet.subheader_reset_pin">请输入您纸键的字到以下方格里来重置密码</string>
   <!-- No amount entered error message. -->
   <string name="RequestAnAmount.noAmount">请先输入一个金额</string>
   <!-- Request a specific amount of bitcoin -->
@@ -377,7 +377,7 @@
   <!-- Syncing explanation -->
   <string name="ReScan.body2">如果一个交易在极特币网络上显示已经完成但并没有显示在您的钱包里。</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">重复的得到“交易被拒绝”的错误信息。</string>
+  <string name="ReScan.body3">或重复的得到“交易被拒绝”的错误提醒。</string>
   <!-- Start Sync button label -->
   <string name="ReScan.buttonTitle">开始同步</string>
   <!-- Sync blockchain view footer -->
@@ -387,7 +387,7 @@
   <!-- Subheader label -->
   <string name="ReScan.subheader1">预计完成时间</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader2">何时开始同步？</string>
+  <string name="ReScan.subheader2">请尝试用重新同步修复以下问题</string>
   <!-- Scan bitcoin address camera flash toggle -->
   <string name="Scanner.flashButtonLabel">照相机闪光灯</string>
   <!-- Complete filter label -->
@@ -405,15 +405,15 @@
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">纸键</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">保护你的极特币不被其他用户接触。</string>
+  <string name="SecurityCenter.pinDescription">保护你的极特币不被非法用户获取。</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6位数字PIN码</string>
+  <string name="SecurityCenter.pinTitle">6位数字密码</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">安全中心</string>
   <!-- Touch ID button description -->
   <string name="SecurityCenter.touchIdDescription">更方便的解锁极特钱包和设定发送上限。</string>
   <!-- Touch ID button title -->
-  <string name="SecurityCenter.touchIdTitle">Touch ID</string>
+  <string name="SecurityCenter.touchIdTitle">触控 ID</string>
   <!-- Security center fingerprint authentication button -->
   <string name="SecurityCenter.touchIdTitle.android">指纹验证</string>
   <!-- Send money amount label -->
@@ -505,7 +505,7 @@
   <!-- Settings title -->
   <string name="Settings.title">设置</string>
   <!-- Touch ID spending limit label -->
-  <string name="Settings.touchIdLimit">Touch ID 发送上限</string>
+  <string name="Settings.touchIdLimit">触控 ID 发送上限</string>
   <!-- The fingerprint spending limit -->
   <string name="Settings.touchIdLimit.android">指纹验证发送上限</string>
   <!-- Wallet Settings section header -->
@@ -545,7 +545,7 @@
   <!-- 6 s (6 seconds) -->
   <string name="TimeSince.seconds">%1$s秒</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-  <string name="TouchIdSettings.customizeText">你可以从%1$s设置触动认证的支出限额</string>
+  <string name="TouchIdSettings.customizeText">你可以从%1$s设置触控认证的支出限额</string>
   <!-- Fingerprint enabling description body -->
   <string name="TouchIdSettings.customizeText.android">您可以在指纹认证发送上限界面里设置支出限额</string>
   <!-- Instruction for the fingerprint setup -->
@@ -555,27 +555,27 @@
   <!-- Touch Id screen label -->
   <string name="TouchIdSettings.label">使用您的指纹解锁极特钱包和发起限额内的交易</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <string name="TouchIdSettings.linkText">触动认证支出限额</string>
+  <string name="TouchIdSettings.linkText">触控认证支出限额</string>
   <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">支出限额：%1$s（%2$s）</string>
   <!-- Touch id switch label. -->
-  <string name="TouchIdSettings.switchLabel">开启极特钱包Touch ID 指纹认证</string>
+  <string name="TouchIdSettings.switchLabel">开启极特钱包触控 ID 指纹认证</string>
   <!-- Enable fingerprint for this wallet called Bread -->
   <string name="TouchIdSettings.switchLabel.android">开启指纹验证</string>
   <!-- Touch ID settings view title -->
-  <string name="TouchIdSettings.title">Touch ID</string>
+  <string name="TouchIdSettings.title">触控 ID</string>
   <!-- Fingerprint authentication label -->
   <string name="TouchIdSettings.title.android">指纹验证</string>
   <!-- Touch ID unavailable alert message -->
-  <string name="TouchIdSettings.unavailableAlertMessage">这个设备没有开启Touch ID。请在设定-&gt;Touch ID 和密码栏里开启。</string>
+  <string name="TouchIdSettings.unavailableAlertMessage">这个设备没有开启触控 ID。请在设定-&gt;触控 ID 和密码栏里开启。</string>
   <!-- Touch ID unavailable alert title -->
-  <string name="TouchIdSettings.unavailableAlertTitle">Touch ID 还没设置</string>
+  <string name="TouchIdSettings.unavailableAlertTitle">触控 ID 还没设置</string>
   <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">总是要求密码</string>
   <!-- Touch ID spending limit screen body -->
-  <string name="TouchIdSpendingLimit.body">当支出额大于支出限制的时候，或者距上次输入PIN码超过48小时的时候，都需要再次输入6位PIN码。</string>
+  <string name="TouchIdSpendingLimit.body">当支出额大于支出限制的时候，或者距上次输入密码超过48小时的时候，都需要再次输入6位密码。</string>
   <!-- Touch Id spending limit screen title -->
-  <string name="TouchIdSpendingLimit.title">Touch ID 支付上限</string>
+  <string name="TouchIdSpendingLimit.title">触控 ID 支付上限</string>
   <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">指纹验证支付上限</string>
   <!-- Availability status text -->
@@ -647,11 +647,11 @@
   <!-- My Address button title -->
   <string name="UnlockScreen.myAddress">我的地址</string>
   <!-- Reset PIN with Paper Key button label. -->
-  <string name="UnlockScreen.resetPin">重置PIN码</string>
+  <string name="UnlockScreen.resetPin">重置密码</string>
   <!-- Scan button title -->
   <string name="UnlockScreen.scan">扫描</string>
   <!-- Unlock Screen sub-header -->
-  <string name="UnlockScreen.subheader">输入PIN码</string>
+  <string name="UnlockScreen.subheader">输入密码</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">请触摸指纹感应器</string>
   <!-- TouchID prompt text -->
@@ -659,31 +659,31 @@
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">请解锁您的安卓设备以继续。</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">用Touch ID 来解锁</string>
+  <string name="UnlockScreen.touchIdText">用触控 ID 来解锁</string>
   <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">需要验证</string>
   <!-- Wallet unlocked message -->
   <string name="UnlockScreen.unlocked">钱包已解锁</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">请牢记这个PIN码。如果忘记，您将无法获取您的极特币。</string>
+  <string name="UpdatePin.caption">请牢记这个密码。如果忘记，您将无法获取您的极特币。</string>
   <!-- PIN creation info. -->
-  <string name="UpdatePin.createInstruction">您的PIN码将被用来解锁极特钱包和发送极特币。</string>
+  <string name="UpdatePin.createInstruction">您的密码将被用来解锁极特钱包和发送极特币。</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitle">设置PIN码</string>
+  <string name="UpdatePin.createTitle">设置密码</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitleConfirm">再次输入PIN码</string>
+  <string name="UpdatePin.createTitleConfirm">再次输入密码</string>
   <!-- Enter current PIN instruction -->
-  <string name="UpdatePin.enterCurrent">请输入当前的PIN码。</string>
+  <string name="UpdatePin.enterCurrent">请输入当前的密码。</string>
   <!-- Enter new PIN instruction -->
-  <string name="UpdatePin.enterNew">请输入新的PIN码。</string>
+  <string name="UpdatePin.enterNew">请输入新的密码。</string>
   <!-- Re-Enter new PIN instruction -->
-  <string name="UpdatePin.reEnterNew">重新输入新的PIN码。</string>
+  <string name="UpdatePin.reEnterNew">重新输入新的密码。</string>
   <!-- Update PIN failure error message. -->
-  <string name="UpdatePin.setPinError">对不起，更新PIN码失败。</string>
+  <string name="UpdatePin.setPinError">对不起，更新密码失败。</string>
   <!-- Update PIN failure alert view title -->
-  <string name="UpdatePin.setPinErrorTitle">更新PIN码错误</string>
+  <string name="UpdatePin.setPinErrorTitle">更新密码错误</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">更新PIN码</string>
+  <string name="UpdatePin.updateTitle">更新密码</string>
   <!-- Authorize to copy wallet addresses alert message -->
   <string name="URLHandling.addressaddressListAlertMessage">确定复制钱包地址到剪切板里吗？</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
@@ -693,11 +693,11 @@
   <!-- Copy wallet addresses alert button label -->
   <string name="URLHandling.copy">复制</string>
   <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">请输入PIN码来授权这次转账。</string>
+  <string name="VerifyPin.authorize">请输入密码来授权这次转账。</string>
   <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">请输入您的PIN码以继续。</string>
+  <string name="VerifyPin.continueBody">请输入您的密码以继续。</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">需要PIN码</string>
+  <string name="VerifyPin.title">需要密码</string>
   <!-- Authorize transaction with touch id message -->
   <string name="VerifyPin.touchIdMessage">授权这次转账</string>
   <!-- 'No wallet' warning for watch app -->
@@ -721,7 +721,7 @@
   <!-- Failed wipe wallet alert title -->
   <string name="WipeWallet.failedTitle">失败</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">新建或者恢复一个已有的钱包，您需要首先删除现有的钱包。请输入现有钱包的纸键已继续。</string>
+  <string name="WipeWallet.instruction">新建或者恢复一个钱包，您需要首先删除现有的钱包。请输入现有钱包的纸键已继续。</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">通过新建或者恢复一个已有的钱包，可以使您在这个设备上管理多个钱包。</string>
   <!-- Start wipe wallet view warning -->
@@ -739,5 +739,5 @@
   <!-- button label -->
   <string name="WritePaperPhrase.previous">上一个</string>
   <!-- 1 of 3 -->
-  <string name="WritePaperPhrase.step">%2$d里的%1$d</string>
+  <string name="WritePaperPhrase.step">%2$d个中的第%1$d个</string>
 </resources>

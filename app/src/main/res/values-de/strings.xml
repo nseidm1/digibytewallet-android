@@ -119,7 +119,7 @@
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Positionieren Sie die ID mittig in der angezeigten Box</string>
   <!-- Amount to Send: ($1.00) -->
-  <string name="Confirmation.amountLabel">Betrag: </string>
+  <string name="Confirmation.amountLabel">"Betrag: "</string>
   <!-- Network Fee: ($1.00) -->
   <string name="Confirmation.feeLabel">Netzwerk-Gebühr:</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
@@ -665,7 +665,7 @@
   <!-- Wallet unlocked message -->
   <string name="UnlockScreen.unlocked">Wallet entsperrt</string>
   <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">Merke dir diese PIN. Wenn du sie vergisst, bist du nicht mehr in der Lage auf dein DigiByte zuzugreifen.</string>
+  <string name="UpdatePin.caption">Merke dir diese PIN. Wenn du sie vergisst, bist du nicht mehr in der Lage auf deine DigiByte zuzugreifen.</string>
   <!-- PIN creation info. -->
   <string name="UpdatePin.createInstruction">Deine PIN wird verwendet, um deine DigiWallet zu entsperren und Geld zu versenden.</string>
   <!-- Update PIN title -->

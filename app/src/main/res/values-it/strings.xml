@@ -381,7 +381,7 @@
   <!-- Sync blockchain view footer -->
   <string name="ReScan.footer">Non sarai in grado di inviare DigiByte durante la sincronizzazione con la blockchain.</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header"> Sincronizzazione Blockchain</string>
+  <string name="ReScan.header">" Sincronizzazione Blockchain"</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader1">Tempo stimato</string>
   <!-- Subheader label -->
@@ -489,7 +489,7 @@
   <!-- Import wallet label -->
   <string name="Settings.importTitle">Importa Portafoglio</string>
   <!-- Manage settings section header -->
-  <string name="Settings.manage">Gestire </string>
+  <string name="Settings.manage">"Gestire "</string>
   <!-- Notifications label -->
   <string name="Settings.notifications">Notifiche</string>
   <!-- Restore screen lower label. -->
@@ -567,7 +567,7 @@
   <!-- Touch ID unavailable alert message -->
   <string name="TouchIdSettings.unavailableAlertMessage">Non hai impostato Touch ID su questo dispositivo. Vai in Impostazioni-&gt; Touch ID &amp; codice di accesso per configurarlo ora.</string>
   <!-- Touch ID unavailable alert title -->
-  <string name="TouchIdSettings.unavailableAlertTitle">Touch ID no attivato </string>
+  <string name="TouchIdSettings.unavailableAlertTitle">"Touch ID no attivato "</string>
   <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">Richiedi sempre codice di accesso</string>
   <!-- Touch ID spending limit screen body -->

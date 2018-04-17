@@ -287,7 +287,7 @@
   <!-- No Passcode set warning title -->
   <string name="Prompts.NoPasscode.title">암호 활성화 하기</string>
   <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">A device screen lock is needed to safeguard your wallet. Go to \"Settings\" &gt; \"Security\" &gt; \"Screen lock\" and enable to continue.</string>
+  <string name="Prompts.NoScreenLock.body.android">지갑을 보호하려면 장치 화면 잠금 장치가 필요합니다. \'설정\'&gt; \'보안\'&gt; \'화면 잠금\'으로 이동하여 계속 진행합니다.</string>
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">화면 잠금 사용 중지됨</string>
   <!-- Warning about paper key. -->
@@ -421,7 +421,7 @@
   <!-- Balance: $4.00 -->
   <string name="Send.balance">잔액:%1$s</string>
   <!-- Instructions how to allow the camera access for the app -->
-  <string name="Send.cameraUnavailabeMessage.android">Allow camera access in \"Settings\" &gt; \"Apps\" &gt; \"DigiWallet\" &gt; \"Permissions\"</string>
+  <string name="Send.cameraUnavailabeMessage.android">디지월렛의 카메라 접근이 허용되어 있지 않습니다. 세팅화면으로 가서 카메라 접근을 허용해주세요.</string>
   <!-- Permission required to access camera -->
   <string name="Send.cameraUnavailabeTitle.android">디지월렛의 카메라 접근이 허용되어 있지 않습니다.</string>
   <!-- Camera not allowed message -->
@@ -521,7 +521,7 @@
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">페이퍼키를 재입력 해주세요.</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Your Personal Recovery Key is the only way to restore your DigiWallet if your phone is lost, stolen, broken, or upgraded.\n\nWe will show you a list of words to write down on a piece of paper and keep safe.</string>
+  <string name="StartPaperPhrase.body">페이퍼키는 휴대폰분실,파손,업그레이드시 당신의 기지월렛을 복구할 수 있는 유일한 방법입니다.\n\n종이에 쓰고 안전하게 보관할 수 있는 단어 목록을 보여 드리겠습니다.</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">페이퍼키 입력하기</string>
   <!-- Argument is date -->
@@ -549,7 +549,7 @@
   <!-- Fingerprint enabling description body -->
   <string name="TouchIdSettings.customizeText.android">지문 인증 지출 한도 화면에서 지문 인증 지출 한도를 사용자 정의 할 수 있습니다</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">You have not enabled fingerprint authentication on this device. Go to Settings -&gt; Security to set up fingerprint authentication.</string>
+  <string name="TouchIdSettings.disabledWarning.body.android">이 기기에 터치 ID가 설정되어 있지않습니다. 설정으로가서 터치 ID와 패스코드를 설정하세요.</string>
   <!-- Fingerprint Is Not Setup -->
   <string name="TouchIdSettings.disabledWarning.title.android">지문 인증을 사용할 수 없음</string>
   <!-- Touch Id screen label -->
@@ -589,7 +589,7 @@
   <!-- Exchange rate on date header -->
   <string name="Transaction.exchangeOnDaySent">전송 시 환율:</string>
   <!-- (b600 fee) -->
-  <string name="Transaction.fee">(%1$s fee)</string>
+  <string name="Transaction.fee">%1$s 요금</string>
   <!-- Invalid transaction -->
   <string name="Transaction.invalid">유효하지않습니다.</string>
   <!-- Timestamp label for event that just happened -->
@@ -635,7 +635,7 @@
   <!-- Transaction Details Title -->
   <string name="TransactionDetails.title">거래 내역</string>
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
-  <string name="TransactionDetails.to">to %1$s</string>
+  <string name="TransactionDetails.to">%1$s 로</string>
   <!-- Transaction ID header -->
   <string name="TransactionDetails.txHashHeader">DigiByte 거래 ID</string>
   <!-- (this transaction was) Received at this address: -->
@@ -709,7 +709,7 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">업데이트중</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">DigiWallet has a brand new look and some new features.\n\nIf you need help, look for the (?) in the top right of most screens.</string>
+  <string name="Welcome.body">의 디지바이트는 디지월렛으로 이름이 바뀌었으며, 새로운 화면과 몇몇 새로운 기능들이 있습니다. \n\도움이 필요하시면, 대부분의 화면 오른쪽 상단에 있는(?)를 찾으세요.</string>
   <!-- Top title of welcome screen -->
   <string name="Welcome.title">디지월렛에 오신것을 환영합니다!</string>
   <!-- Wipe wallet alert message -->
@@ -721,11 +721,11 @@
   <!-- Failed wipe wallet alert title -->
   <string name="WipeWallet.failedTitle">실패</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">To start a new wallet or restore an existing wallet, you must first erase the wallet that is currently installed. To continue, enter the current wallet\'s Personal Recovery Key.</string>
+  <string name="WipeWallet.instruction">이 지갑을 지우고 다른 지갑을 열거나 복구하려면 복구 문구를 입력합니다. 당신의 현재 잔고는 이 문구에 남아 있습니다.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">다른 지갑을 열거나 복구하면 이 장치의 다른 DigiWallet에 액세스하고 관리할 수 있습니다.</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">Your current wallet will be removed from this device. If you wish to restore it in the future, you will need to enter your Personal Recovery Key.</string>
+  <string name="WipeWallet.startWarning">더 이상 이 기기에서 현재 DigiWallet에 액세스 할 수 없습니다. 잔액은 문구에 남아있을 것입니다.</string>
   <!-- Wipe wallet navigation item title. -->
   <string name="WipeWallet.title">다른 월렛 시작 또는 복구</string>
   <!-- Wipe wallet button title -->
@@ -739,5 +739,5 @@
   <!-- button label -->
   <string name="WritePaperPhrase.previous">뒤로</string>
   <!-- 1 of 3 -->
-  <string name="WritePaperPhrase.step">%1$d of %2$d</string>
+  <string name="WritePaperPhrase.step">%2$d 중에 %1$d</string>
 </resources>

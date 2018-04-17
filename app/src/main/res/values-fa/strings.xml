@@ -129,7 +129,7 @@
   <!-- Confirmation Screen title -->
   <string name="Confirmation.title">تایید</string>
   <!-- To: (address) -->
-  <string name="Confirmation.to">به </string>
+  <string name="Confirmation.to">"به "</string>
   <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">هزینه کل:</string>
   <!-- Confirm paper phrase view label. -->
@@ -487,7 +487,7 @@
   <!-- Import wallet left message -->
   <string name="Settings.importLeftMessage">کیف پول مورد نظر برای واردن کردن</string>
   <!-- Import wallet right message -->
-  <string name="Settings.importRightMessage">کیف پول دیجی شما </string>
+  <string name="Settings.importRightMessage">"کیف پول دیجی شما "</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">واردن کردن کیف پول</string>
   <!-- Manage settings section header -->
@@ -617,11 +617,11 @@
   <!-- More button title -->
   <string name="TransactionDetails.more">بیشتر...</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-  <string name="TransactionDetails.moved">%1$sمنتقل شد </string>
+  <string name="TransactionDetails.moved">"%1$sمنتقل شد "</string>
   <!-- Moved $5.00 -->
   <string name="TransactionDetails.movedAmountDescription">منتقل شد %1$s<b>%1$s</b></string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
-  <string name="TransactionDetails.notConfirmedBlockHeightLabel">تایید نشده </string>
+  <string name="TransactionDetails.notConfirmedBlockHeightLabel">"تایید نشده "</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">دریافت شد %1$s</string>
   <!-- Received $5.00 -->

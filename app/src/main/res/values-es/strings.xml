@@ -21,7 +21,7 @@
   <!-- Support center accessibiliy label -->
   <string name="AccessibilityLabels.faq">Centro de asistencia técnica\n</string>
   <!-- Loading Wallet Message -->
-  <string name="Account.loadingMessage">Cargando el monedero. </string>
+  <string name="Account.loadingMessage">"Cargando el monedero. "</string>
   <!-- Default wallet name -->
   <string name="AccountHeader.defaultWalletName">Mi DigiWallet</string>
   <!-- Third party keyboard warning -->
@@ -33,13 +33,13 @@
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">La información cifrada de su DigiWallet ha sido invalidada  recientemente porque el bloqueo de pantalla  de su  Android estaba desactivado.</string>
   <!-- Keystore error title -->
-  <string name="Alert.keystore.title.android">Error en el KeyStore (depósito de claves) del Android </string>
+  <string name="Alert.keystore.title.android">"Error en el KeyStore (depósito de claves) del Android "</string>
   <!-- No internet alert message -->
   <string name="Alert.noInternet">No hay conexión a internet. Compruebe su conexión e inténtelo de nuevo.</string>
   <!-- Warning alert title -->
   <string name="Alert.warning">Advertencia</string>
   <!-- 'the addresses were copied'' Alert title -->
-  <string name="Alerts.copiedAddressesHeader"> Direcciones copiadas</string>
+  <string name="Alerts.copiedAddressesHeader">" Direcciones copiadas"</string>
   <!-- Addresses Copied Alert sub header -->
   <string name="Alerts.copiedAddressesSubheader">Todas las direcciones fueron copiadas con éxito.</string>
   <!-- Alert Header Label (the paper key was set) -->
@@ -85,7 +85,7 @@
   <!-- Approve button label -->
   <string name="BitID.approve">Aprobar</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
-  <string name="BitID.authenticationRequest">%1$s solicita la autenticación usando su DigiWallet </string>
+  <string name="BitID.authenticationRequest">"%1$s solicita la autenticación usando su DigiWallet "</string>
   <!-- Deny button label -->
   <string name="BitID.deny">Rechazar</string>
   <!-- BitID error alert title -->
@@ -165,7 +165,7 @@
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
   <string name="FeeSelector.regularTime">Tiempo estimado de envío: 15 - 30 segundos</string>
   <!-- Fee Selector title -->
-  <string name="FeeSelector.title">Velocidad de procesamiento </string>
+  <string name="FeeSelector.title">"Velocidad de procesamiento "</string>
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">Se está verificando el saldo  de la clave privada...</string>
   <!-- Sweep private key confirmation message -->
@@ -185,7 +185,7 @@
   <!-- Importing wallet progress view label -->
   <string name="Import.importing">Importando Monedero</string>
   <!-- Caption for graphics -->
-  <string name="Import.leftCaption">Monedero que se va a importar </string>
+  <string name="Import.leftCaption">"Monedero que se va a importar "</string>
   <!-- Import wallet intro screen message -->
   <string name="Import.message">Al importar un monedero  se transfieren todos los DigiByte desde su monedero a su DigiWallet en una sola transacción.</string>
   <!-- Enter password alert view title -->
@@ -239,7 +239,7 @@
   <!-- Menu button title -->
   <string name="MenuButton.settings">Ajustes</string>
   <!-- Menu button title -->
-  <string name="MenuButton.support">Soporte </string>
+  <string name="MenuButton.support">"Soporte "</string>
   <!-- button label -->
   <string name="MenuViewController.createButton">Crear un monedero nuevo</string>
   <!-- Menu modal title -->
@@ -281,7 +281,7 @@
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Tipo de firma no está respaldada</string>
   <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">Certificado no confiable </string>
+  <string name="PaymentProtocol.Errors.untrustedCertificate">"Certificado no confiable "</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Es necesario un código de acceso para proteger su monedero. Vaya a Ajustes y active el código de acceso</string>
   <!-- No Passcode set warning title -->
@@ -377,11 +377,11 @@
   <!-- Syncing explanation -->
   <string name="ReScan.body2">Si una transacción aparece finalizada en la red de Digibyte pero no aparece igual en su DigiWallet</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">Usted recibe  repetidamente un mensaje erróneo que dice que su transacción ha sido rechazada </string>
+  <string name="ReScan.body3">"Usted recibe  repetidamente un mensaje erróneo que dice que su transacción ha sido rechazada "</string>
   <!-- Start Sync button label -->
   <string name="ReScan.buttonTitle">Iniciar la sincronización</string>
   <!-- Sync blockchain view footer -->
-  <string name="ReScan.footer">Usted no podrá enviar DigiByte mientras se sincroniza la blockchain </string>
+  <string name="ReScan.footer">"Usted no podrá enviar DigiByte mientras se sincroniza la blockchain "</string>
   <!-- Sync Blockchain view header -->
   <string name="ReScan.header">Sincronizar la Blockchain</string>
   <!-- Subheader label -->
@@ -403,15 +403,15 @@
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">La única forma para tener acceso a su DigiWallet si pierde o actualiza su teléfono</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">clave personal de recuperación </string>
+  <string name="SecurityCenter.paperKeyTitle">"clave personal de recuperación "</string>
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">Protege su DigiWallet de usuarios no autorizados</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">el  PIN de 6-Dígitos </string>
+  <string name="SecurityCenter.pinTitle">"el  PIN de 6-Dígitos "</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Centro de seguridad</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">Desbloquee su Monedero fácilmente y envíe los Digibyte  hasta un límite pre-establecido </string>
+  <string name="SecurityCenter.touchIdDescription">"Desbloquee su Monedero fácilmente y envíe los Digibyte  hasta un límite pre-establecido "</string>
   <!-- Touch ID button title -->
   <string name="SecurityCenter.touchIdTitle">Identificación tactil</string>
   <!-- Security center fingerprint authentication button -->
@@ -427,9 +427,9 @@
   <!-- Camera not allowed message -->
   <string name="Send.cameraunavailableMessage">Vaya a Ajustes para permitir el acceso a la cámara</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">DigiWallet no tiene permiso de acceso a la cámara </string>
+  <string name="Send.cameraUnavailableTitle">"DigiWallet no tiene permiso de acceso a la cámara "</string>
   <!-- Warning when sending to self. -->
-  <string name="Send.containsAddress">La dirección de destino es su misma dirección. No se lo puede enviar a usted mismo </string>
+  <string name="Send.containsAddress">"La dirección de destino es su misma dirección. No se lo puede enviar a usted mismo "</string>
   <!-- Could not create transaction alert title -->
   <string name="Send.creatTransactionError">No se pudo crear la transacción</string>
   <!-- Description for sending money label -->
@@ -495,7 +495,7 @@
   <!-- Notifications label -->
   <string name="Settings.notifications">Notificaciones</string>
   <!-- Restore screen lower label. -->
-  <string name="Settings.restore_label">Su DigiWallet en este Dispositivo </string>
+  <string name="Settings.restore_label">"Su DigiWallet en este Dispositivo "</string>
   <!-- Leave review button label -->
   <string name="Settings.review">Déjenos su opinión</string>
   <!-- Share anonymous data label -->
@@ -523,7 +523,7 @@
   <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">Su clave personal de recuperación es la única manera de restaurar su Digiwallet si su teléfono se pierde, lo roban, lo rompen o lo actualizan.\n\nLe mostraremos una lista de palabras. Escríbalas en un trozo de papel y manténgalas en un lugar seguro</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">Escriba su clave personal de recuperación </string>
+  <string name="StartPaperPhrase.buttonTitle">"Escriba su clave personal de recuperación "</string>
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">Usted escribió su clave personal de recuperación la última vez en %1$s</string>
   <!-- Start view message -->
@@ -561,17 +561,17 @@
   <!-- Touch id switch label. -->
   <string name="TouchIdSettings.switchLabel">Activar Identificación Tactil para el DigiWallet</string>
   <!-- Enable fingerprint for this wallet called Bread -->
-  <string name="TouchIdSettings.switchLabel.android">Activar la autenticación con la huella digital </string>
+  <string name="TouchIdSettings.switchLabel.android">"Activar la autenticación con la huella digital "</string>
   <!-- Touch ID settings view title -->
   <string name="TouchIdSettings.title">Identificación Tactil</string>
   <!-- Fingerprint authentication label -->
   <string name="TouchIdSettings.title.android">Autenticación con la huella digital</string>
   <!-- Touch ID unavailable alert message -->
-  <string name="TouchIdSettings.unavailableAlertMessage">No ha configurado su Identificación Tactil en este dispositivo. Vaya a Ajustes-&gt;Identificación Tactil &amp; Contraseña y configúrela ahora </string>
+  <string name="TouchIdSettings.unavailableAlertMessage">"No ha configurado su Identificación Tactil en este dispositivo. Vaya a Ajustes-&gt;Identificación Tactil &amp; Contraseña y configúrela ahora "</string>
   <!-- Touch ID unavailable alert title -->
   <string name="TouchIdSettings.unavailableAlertTitle">La identificación Tactil no se ha configurado</string>
   <!-- Always require passcode option -->
-  <string name="TouchIdSpendingLimit">Pedir la clave de acceso siempre </string>
+  <string name="TouchIdSpendingLimit">"Pedir la clave de acceso siempre "</string>
   <!-- Touch ID spending limit screen body -->
   <string name="TouchIdSpendingLimit.body">Se le pedirá que ingrese su PIN de 6 dígitos para enviar cualquier transacción por encima de su límite de gasto, y cada 48 horas desde la última vez que ingresó su PIN de 6 dígitos.</string>
   <!-- Touch Id spending limit screen title -->
@@ -619,7 +619,7 @@
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
   <string name="TransactionDetails.moved">Transferido %1$s</string>
   <!-- Moved $5.00 -->
-  <string name="TransactionDetails.movedAmountDescription">Tansferido %1$s</string>
+  <string name="TransactionDetails.movedAmountDescription">Tansferido <b>%1$s</b></string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
   <string name="TransactionDetails.notConfirmedBlockHeightLabel">No está confirmado</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
@@ -653,13 +653,13 @@
   <!-- Unlock Screen sub-header -->
   <string name="UnlockScreen.subheader">Ingrese su PIN</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
-  <string name="UnlockScreen.touchIdInstructions.android">Sensor tactil </string>
+  <string name="UnlockScreen.touchIdInstructions.android">"Sensor tactil "</string>
   <!-- TouchID prompt text -->
   <string name="UnlockScreen.touchIdPrompt">Desbloquear su DigiWallet</string>
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">Por favor desbloquee su dispositivo Android para continuar</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">Desbloquear con Identificación Tactil </string>
+  <string name="UnlockScreen.touchIdText">"Desbloquear con Identificación Tactil "</string>
   <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">Se requiere autenticación</string>
   <!-- Wallet unlocked message -->

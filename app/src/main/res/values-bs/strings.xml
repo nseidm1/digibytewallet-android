@@ -299,7 +299,7 @@
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Transakcija odbijena</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Pomozite unapređenju DigiWallet-a dijeljenjem Vaših anonimnih podataka </string>
+  <string name="Prompts.ShareData.body">"Pomozite unapređenju DigiWallet-a dijeljenjem Vaših anonimnih podataka "</string>
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">Dijeli anonimne podatke</string>
   <!-- Enable touch ID prompt body -->

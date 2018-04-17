@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <!-- App name -->
-  <string name="About.appName.android">DigiWallet </string>
+  <string name="About.appName.android">"DigiWallet "</string>
   <!-- About screen blog label -->
   <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
@@ -203,7 +203,7 @@
   <!-- Import Wallet screen title -->
   <string name="Import.title">Импортирай Портфейл</string>
   <!-- Unlocking Private key activity view message. -->
-  <string name="Import.unlockingActivity">Отключване на  Ключ </string>
+  <string name="Import.unlockingActivity">"Отключване на  Ключ "</string>
   <!-- Import wallet intro warning message -->
   <string name="Import.warning">Импортирането на Портфейл не включва историята на транзакциите или други подробности.</string>
   <!-- Wrong password alert message -->
@@ -515,7 +515,7 @@
   <!-- Share data view body -->
   <string name="ShareData.body">Помогнете ни да подобрим DigiWallet, като споделите анонимните си данни с нас. Това не включва финансова информация. Ние зачитаме финансовата ви неприкосновеност.</string>
   <!-- Share data header -->
-  <string name="ShareData.header">Споделена информация </string>
+  <string name="ShareData.header">"Споделена информация "</string>
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">Анонимно Споделяне на Информация?</string>
   <!-- button label -->

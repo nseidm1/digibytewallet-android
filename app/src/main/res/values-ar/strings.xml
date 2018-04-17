@@ -57,7 +57,7 @@
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">تم التعرف على البصمة</string>
   <!-- JSON Serialization error message -->
-  <string name="ApiClient.jsonError"> خطأ في تسلسل JSON</string>
+  <string name="ApiClient.jsonError">" خطأ في تسلسل JSON"</string>
   <!-- Wallet not ready error message -->
   <string name="ApiClient.notReady">المحفظة ليست جاهزة</string>
   <!-- API Token error message -->
@@ -227,7 +227,7 @@
   <!-- Manage wallet description text -->
   <string name="ManageWallet.description">يظهر اسم المحفظة فقط في سجل معاملات حسابك ولا يمكن رؤيته بواسطة أي شخص آخر.</string>
   <!-- Change Wallet name textfield label -->
-  <string name="ManageWallet.textFeildLabel"> اسم المحفظة</string>
+  <string name="ManageWallet.textFeildLabel">" اسم المحفظة"</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">إدارة المحفظة</string>
   <!-- Buy bitcoin title -->
@@ -319,9 +319,9 @@
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
   <string name="PushNotifications.body">تشغيل الإشعارات لتلقي رسائل خاصة من ديجيولت في المستقبل.</string>
   <!-- Push notifications toggle switch label -->
-  <string name="PushNotifications.label">دفع \"ضغط\"  الإشعارات </string>
+  <string name="PushNotifications.label">"دفع \"ضغط\"  الإشعارات "</string>
   <!-- Push notifications are off label -->
-  <string name="PushNotifications.off">إيقاف </string>
+  <string name="PushNotifications.off">"إيقاف "</string>
   <!-- Push notifications are on label -->
   <string name="PushNotifications.on">تشغيل</string>
   <!-- Push notifications settings view title label -->
@@ -329,7 +329,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">نسخ إلى حافظة النظام.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">البريد الإلكتروني </string>
+  <string name="Receive.emailButton">"البريد الإلكتروني "</string>
   <!-- Request button label -->
   <string name="Receive.request">طلب مبلغ</string>
   <!-- Share button label -->
@@ -349,13 +349,13 @@
   <!-- Recover wallet intro -->
   <string name="RecoverWallet.intro">استرداد ديجيولت الخاصة بك بواسطة مفتاحك الشخصي</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid"> المفتاح الشخصي الذي أدخلته غير صالح. يرجى التحقق مرة أخرى من كل كلمة وإعادة المحاولة.</string>
+  <string name="RecoverWallet.invalid">" المفتاح الشخصي الذي أدخلته غير صالح. يرجى التحقق مرة أخرى من كل كلمة وإعادة المحاولة."</string>
   <!-- Previous button accessibility label -->
-  <string name="RecoverWallet.leftArrow">سهم لليسار. </string>
+  <string name="RecoverWallet.leftArrow">"سهم لليسار. "</string>
   <!-- Next button label -->
-  <string name="RecoverWallet.next">التالي </string>
+  <string name="RecoverWallet.next">"التالي "</string>
   <!-- Reset PIN with paper key: more information button. -->
-  <string name="RecoverWallet.reset_pin_more_info">قم بالضغط هنا لمزيد من المعلومات. </string>
+  <string name="RecoverWallet.reset_pin_more_info">"قم بالضغط هنا لمزيد من المعلومات. "</string>
   <!-- Next button accessibility label -->
   <string name="RecoverWallet.rightArrow">سهم لليمين</string>
   <!-- Recover wallet sub-header -->
@@ -363,11 +363,11 @@
   <!-- Reset PIN with paper key: sub-header -->
   <string name="RecoverWallet.subheader_reset_pin">لإعادة تعيين رقم المعرف الشخصي الخاص بك ، أدخل الكلمات من مفتاحك الورقي في المربعات أدناه.</string>
   <!-- No amount entered error message. -->
-  <string name="RequestAnAmount.noAmount">المرجو إدخال مبلغ اولا. </string>
+  <string name="RequestAnAmount.noAmount">"المرجو إدخال مبلغ اولا. "</string>
   <!-- Request a specific amount of bitcoin -->
   <string name="RequestAnAmount.title">طلب مبلغ</string>
   <!-- Alert action button label -->
-  <string name="ReScan.alertAction">المزامنة </string>
+  <string name="ReScan.alertAction">"المزامنة "</string>
   <!-- Alert message body -->
   <string name="ReScan.alertMessage">لن تتمكن من إرسال الديجيبايت أثناء المزامنة.</string>
   <!-- Alert message title -->
@@ -375,11 +375,11 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 دقيقة</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">إذا ظهرت معاملة ما على أنها اكتملت على شبكة الديجيبايت لكن ليس على الديجيولت الخاصة بك. </string>
+  <string name="ReScan.body2">"إذا ظهرت معاملة ما على أنها اكتملت على شبكة الديجيبايت لكن ليس على الديجيولت الخاصة بك. "</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">يظهر لك خطأ متكرر على ان المعاملة الخاصة بك ثم رفضها. </string>
+  <string name="ReScan.body3">"يظهر لك خطأ متكرر على ان المعاملة الخاصة بك ثم رفضها. "</string>
   <!-- Start Sync button label -->
-  <string name="ReScan.buttonTitle">بدء المزامنة </string>
+  <string name="ReScan.buttonTitle">"بدء المزامنة "</string>
   <!-- Sync blockchain view footer -->
   <string name="ReScan.footer">لن تتمكن من إرسال الديجيبايت أثناء المزامنة مع سلسلة الكتل.</string>
   <!-- Sync Blockchain view header -->
@@ -389,19 +389,19 @@
   <!-- Subheader label -->
   <string name="ReScan.subheader2">متى المزامنة ؟</string>
   <!-- Scan bitcoin address camera flash toggle -->
-  <string name="Scanner.flashButtonLabel">فلاش الكاميرا </string>
+  <string name="Scanner.flashButtonLabel">"فلاش الكاميرا "</string>
   <!-- Complete filter label -->
   <string name="Search.complete">تم</string>
   <!-- Pending filter label -->
-  <string name="Search.pending">قيد الإنتظار </string>
+  <string name="Search.pending">"قيد الإنتظار "</string>
   <!-- Received filter label -->
   <string name="Search.received">مستلمة</string>
   <!-- Sent filter label -->
-  <string name="Search.sent">مرسلة </string>
+  <string name="Search.sent">"مرسلة "</string>
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">تفعيل جميع مميزات الأمان للحصول على أقصى قدر من الحماية.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">الطريقة الوحيدة للوصول إلى الديجيبايت الخاص بك في حالة فقدان أو ترقية هاتفك. </string>
+  <string name="SecurityCenter.paperKeyDescription">"الطريقة الوحيدة للوصول إلى الديجيبايت الخاص بك في حالة فقدان أو ترقية هاتفك. "</string>
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">المفتاح الشخصي</string>
   <!-- PIN button description -->
@@ -411,31 +411,31 @@
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">مركز الأمن</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">سهولة فتح ديجيولت الخاصة بك وإرسال الديجيبايت إلى الحد الذي حددته. </string>
+  <string name="SecurityCenter.touchIdDescription">"سهولة فتح ديجيولت الخاصة بك وإرسال الديجيبايت إلى الحد الذي حددته. "</string>
   <!-- Touch ID button title -->
   <string name="SecurityCenter.touchIdTitle">معرف البصمة</string>
   <!-- Security center fingerprint authentication button -->
   <string name="SecurityCenter.touchIdTitle.android">مصادقة بالبصمة</string>
   <!-- Send money amount label -->
-  <string name="Send.amountLabel">الكمية </string>
+  <string name="Send.amountLabel">"الكمية "</string>
   <!-- Balance: $4.00 -->
   <string name="Send.balance">الرصيد: %1$s</string>
   <!-- Instructions how to allow the camera access for the app -->
   <string name="Send.cameraUnavailabeMessage.android">السماح بوصول الكاميرا  في \"الإعدادات\"&gt; \"التطبيقات\"&gt; \"ديجيولت\"&gt; \"الأذونات\"</string>
   <!-- Permission required to access camera -->
-  <string name="Send.cameraUnavailabeTitle.android">ليس مسموح لديجيولت للوصول إلى الكاميرا </string>
+  <string name="Send.cameraUnavailabeTitle.android">"ليس مسموح لديجيولت للوصول إلى الكاميرا "</string>
   <!-- Camera not allowed message -->
   <string name="Send.cameraunavailableMessage">انتقل إلى الإعدادات للسماح بالدخول إلى الكاميرا.</string>
   <!-- Camera not allowed alert title -->
-  <string name="Send.cameraUnavailableTitle">ليس مسموح لديجيولت للوصول إلى الكاميرا </string>
+  <string name="Send.cameraUnavailableTitle">"ليس مسموح لديجيولت للوصول إلى الكاميرا "</string>
   <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">الوجهة هي عنوانك الخاص. لا يمكن الارسال إلى نفسك.</string>
   <!-- Could not create transaction alert title -->
-  <string name="Send.creatTransactionError">لا يمكن إنشاء المعاملة. </string>
+  <string name="Send.creatTransactionError">"لا يمكن إنشاء المعاملة. "</string>
   <!-- Description for sending money label -->
   <string name="Send.descriptionLabel">مذكرة</string>
   <!-- Emtpy pasteboard error message -->
-  <string name="Send.emptyPasteboard">لوحه النسخ فارغه </string>
+  <string name="Send.emptyPasteboard">"لوحه النسخ فارغه "</string>
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">عمولة الشبكة: %1$s</string>
   <!-- Payee identity not certified alert title. -->
@@ -445,15 +445,15 @@
   <!-- Invalid address on pasteboard message -->
   <string name="Send.invalidAddressOnPasteboard">لا تحتوي حافظة النصوص على عنوان ديجيبايت صحيح.</string>
   <!-- Invalid address alert title -->
-  <string name="Send.invalidAddressTitle">عنوان غير صحيح </string>
+  <string name="Send.invalidAddressTitle">"عنوان غير صحيح "</string>
   <!-- Is rescanning error message -->
-  <string name="Send.isRescanning"> الإرسال غير متاح أثناء إعادة المسح الكامل.</string>
+  <string name="Send.isRescanning">" الإرسال غير متاح أثناء إعادة المسح الكامل."</string>
   <!-- We are loading the request (now) -->
-  <string name="Send.loadingRequest">تحميل الطلب </string>
+  <string name="Send.loadingRequest">"تحميل الطلب "</string>
   <!-- Empty address alert message -->
-  <string name="Send.noAddress">المرجو إدخال عنوان المستلم. </string>
+  <string name="Send.noAddress">"المرجو إدخال عنوان المستلم. "</string>
   <!-- Emtpy amount alert message -->
-  <string name="Send.noAmount">المرجو إدخال الكمية المراد ارسالها. </string>
+  <string name="Send.noAmount">"المرجو إدخال الكمية المراد ارسالها. "</string>
   <!-- Paste button label -->
   <string name="Send.pasteLabel">لصق</string>
   <!-- Could not publish transaction alert title -->
@@ -461,33 +461,33 @@
   <!-- Could not load remote request error message -->
   <string name="Send.remoteRequestError">تعذر تحميل طلب الدفع</string>
   <!-- Scan button label -->
-  <string name="Send.scanLabel">مسح  </string>
+  <string name="Send.scanLabel">"مسح  "</string>
   <!-- Send button label (the action, "press here to send") -->
-  <string name="Send.sendLabel">إرسال </string>
+  <string name="Send.sendLabel">"إرسال "</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
-  <string name="Send.title">إرسال </string>
+  <string name="Send.title">"إرسال "</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">إلى </string>
+  <string name="Send.toLabel">"إلى "</string>
   <!-- Adress already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">عناوين الديجيبايت معدة للاستخدام مرة واحدة فقط.</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">إعادة الاستخدام يقلل الخصوصية لكما الاثنين انت والمستلم ويمكن أن يؤدي إلى خسارة إذا كان المستلم  لا يستطيع السيطرة  بشكل مباشر على العنوان. </string>
+  <string name="Send.UsedAddress.secondLIne">"إعادة الاستخدام يقلل الخصوصية لكما الاثنين انت والمستلم ويمكن أن يؤدي إلى خسارة إذا كان المستلم  لا يستطيع السيطرة  بشكل مباشر على العنوان. "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">العنوان مستخدم من قبل</string>
   <!-- About label -->
   <string name="Settings.about">عن</string>
   <!-- Advanced Settings title -->
-  <string name="Settings.advancedTitle">إعدادات متقدمة </string>
+  <string name="Settings.advancedTitle">"إعدادات متقدمة "</string>
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">عرض العملة</string>
   <!-- Join Early access label -->
   <string name="Settings.earlyAccess">الانضمام إلى مجموعه الوصول المبكر للخدمه</string>
   <!-- Are you enjoying bread alert message body -->
-  <string name="Settings.enjoying">هل انت راض بتطبيق ديجيولت </string>
+  <string name="Settings.enjoying">"هل انت راض بتطبيق ديجيولت "</string>
   <!-- Import wallet left message -->
   <string name="Settings.importLeftMessage">المحفظة المراد استيرادها</string>
   <!-- Import wallet right message -->
-  <string name="Settings.importRightMessage">محفظة ديجيولت </string>
+  <string name="Settings.importRightMessage">"محفظة ديجيولت "</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">استيراد محفظة</string>
   <!-- Manage settings section header -->
@@ -503,7 +503,7 @@
   <!-- Sync blockchain label -->
   <string name="Settings.sync">مزامنة  سلسلة الكتلة</string>
   <!-- Settings title -->
-  <string name="Settings.title">الإعدادات </string>
+  <string name="Settings.title">"الإعدادات "</string>
   <!-- Touch ID spending limit label -->
   <string name="Settings.touchIdLimit">حد الإنفاق بمعرف البصمة</string>
   <!-- The fingerprint spending limit -->
@@ -515,9 +515,9 @@
   <!-- Share data view body -->
   <string name="ShareData.body">المساعدة في تحسين ديجيولت من خلال تبادل البيانات المجهولة معنا. هذا لا يتضمن أي معلومات مالية. نحن نحترم خصوصيتك المالية.</string>
   <!-- Share data header -->
-  <string name="ShareData.header">مشاركة البيانات؟ </string>
+  <string name="ShareData.header">"مشاركة البيانات؟ "</string>
   <!-- Share data switch label. -->
-  <string name="ShareData.toggleLabel">مشاركة البيانات المجهولة؟ </string>
+  <string name="ShareData.toggleLabel">"مشاركة البيانات المجهولة؟ "</string>
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">اكتب المفتاح الورقي مرة أخرى</string>
   <!-- Paper key explanation text. -->
@@ -527,15 +527,15 @@
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">آخر مرة كتبت مفتاحك الورقي في %1$s</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">الطريقة الأكثر حماية وامان باستخدام الديجيبايت. </string>
+  <string name="StartViewController.message">"الطريقة الأكثر حماية وامان باستخدام الديجيبايت. "</string>
   <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">اتصال</string>
   <!-- Syncing view header text -->
-  <string name="SyncingView.header">المزامنة </string>
+  <string name="SyncingView.header">"المزامنة "</string>
   <!-- Retry button label -->
   <string name="SyncingView.retry">إعادة المحاولة</string>
   <!-- Syncing view syncing state header text -->
-  <string name="SyncingView.syncing">المزامنة </string>
+  <string name="SyncingView.syncing">"المزامنة "</string>
   <!-- 6 d (6 days) -->
   <string name="TimeSince.days">%1$s ي</string>
   <!-- 6 h (6 hours) -->
@@ -557,7 +557,7 @@
   <!-- Link Text (see TouchIdSettings.customizeText) -->
   <string name="TouchIdSettings.linkText">شاشة حد الإنفاق بمعرف البصمة</string>
   <!-- Spending Limit: b100,000 ($100) -->
-  <string name="TouchIdSettings.spendingLimit">حد الإنفاق: %1$s (%2$s) </string>
+  <string name="TouchIdSettings.spendingLimit">"حد الإنفاق: %1$s (%2$s) "</string>
   <!-- Touch id switch label. -->
   <string name="TouchIdSettings.switchLabel">تمكين معرف البصمة  للديجيولت</string>
   <!-- Enable fingerprint for this wallet called Bread -->
@@ -577,23 +577,23 @@
   <!-- Touch Id spending limit screen title -->
   <string name="TouchIdSpendingLimit.title">حد الإنفاق بمعرف البصمة</string>
   <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">حد إنفاق بصمه الاصبع </string>
+  <string name="TouchIdSpendingLimit.title.android">"حد إنفاق بصمه الاصبع "</string>
   <!-- Availability status text -->
-  <string name="Transaction.available">متاح للإنفاق </string>
+  <string name="Transaction.available">"متاح للإنفاق "</string>
   <!-- Transaction complete label -->
-  <string name="Transaction.complete">اكتمل </string>
+  <string name="Transaction.complete">"اكتمل "</string>
   <!-- eg. Ending balance: $50.00 -->
   <string name="Transaction.ending">الرصيد النهائي: %1$s</string>
   <!-- Exchange rate on date header -->
   <string name="Transaction.exchangeOnDayReceived">سعر الصرف عند الاستلام:</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">سعر الصرف عند الإرسال: </string>
+  <string name="Transaction.exchangeOnDaySent">"سعر الصرف عند الإرسال: "</string>
   <!-- (b600 fee) -->
   <string name="Transaction.fee">(رسوم %1$s)</string>
   <!-- Invalid transaction -->
   <string name="Transaction.invalid">غير صالحة</string>
   <!-- Timestamp label for event that just happened -->
-  <string name="Transaction.justNow">حاليا </string>
+  <string name="Transaction.justNow">"حاليا "</string>
   <!-- Receive status text: 'In progress: 20%' -->
   <string name="Transaction.receivedStatus">جاري: %1$s</string>
   <!-- Send status text: 'In progress: 20%' -->
@@ -603,11 +603,11 @@
   <!-- Waiting to be confirmed string -->
   <string name="Transaction.waiting">في انتظار التأكيد. يحتاج بعض التجار إلى تأكيد العملية لإتمام الصفقة. الوقت المقدر: 1-2 دقائق.</string>
   <!-- e.g. I received money from an account. -->
-  <string name="TransactionDetails.account">الحساب </string>
+  <string name="TransactionDetails.account">"الحساب "</string>
   <!-- Amount section header -->
   <string name="TransactionDetails.amountHeader">المبلغ</string>
   <!-- Block height label -->
-  <string name="TransactionDetails.blockHeightLabel">مؤكدة في بلوك \"Block\" </string>
+  <string name="TransactionDetails.blockHeightLabel">"مؤكدة في بلوك \"Block\" "</string>
   <!-- Memo section header -->
   <string name="TransactionDetails.commentsHeader">مذكرة</string>
   <!-- Empty transaction list message. -->
@@ -615,7 +615,7 @@
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
   <string name="TransactionDetails.from">عند %1$s</string>
   <!-- More button title -->
-  <string name="TransactionDetails.more">المزيد.. </string>
+  <string name="TransactionDetails.more">"المزيد.. "</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
   <string name="TransactionDetails.moved">تم نقل %1$s</string>
   <!-- Moved $5.00 -->
@@ -631,9 +631,9 @@
   <!-- Sent $5.00 -->
   <string name="TransactionDetails.sentAmountDescription">تم إرسال <b>%1$s</b></string>
   <!-- Status section header -->
-  <string name="TransactionDetails.statusHeader">الحالة </string>
+  <string name="TransactionDetails.statusHeader">"الحالة "</string>
   <!-- Transaction Details Title -->
-  <string name="TransactionDetails.title">تفاصيل المعاملة </string>
+  <string name="TransactionDetails.title">"تفاصيل المعاملة "</string>
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
   <string name="TransactionDetails.to">إلى %1$s</string>
   <!-- Transaction ID header -->
@@ -649,13 +649,13 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">إعادة تعيين  رقم التعريف الشخصي</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">نسخ </string>
+  <string name="UnlockScreen.scan">"نسخ "</string>
   <!-- Unlock Screen sub-header -->
-  <string name="UnlockScreen.subheader">يرجى إدخال رقم التعريف الشخصي الخاص بك </string>
+  <string name="UnlockScreen.subheader">"يرجى إدخال رقم التعريف الشخصي الخاص بك "</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">مستشعر البصمة</string>
   <!-- TouchID prompt text -->
-  <string name="UnlockScreen.touchIdPrompt">فتح ديجيولت الخاصة بك. </string>
+  <string name="UnlockScreen.touchIdPrompt">"فتح ديجيولت الخاصة بك. "</string>
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">يرجى إلغاء قفل جهازالأندرويد للمتابعة.</string>
   <!-- Unlock with TouchID accessibility label -->
@@ -673,11 +673,11 @@
   <!-- Update PIN title -->
   <string name="UpdatePin.createTitleConfirm">اعد إدخال رقم التعريف الشخصي</string>
   <!-- Enter current PIN instruction -->
-  <string name="UpdatePin.enterCurrent">قم بإدخال رقم التعريف الشخصي الحالي. </string>
+  <string name="UpdatePin.enterCurrent">"قم بإدخال رقم التعريف الشخصي الحالي. "</string>
   <!-- Enter new PIN instruction -->
   <string name="UpdatePin.enterNew">اعد إدخال رقم التعريف الشخصي الجديد.</string>
   <!-- Re-Enter new PIN instruction -->
-  <string name="UpdatePin.reEnterNew">اعد إدخال رقم التعريف الشخصي الجديد مرة أخرى. </string>
+  <string name="UpdatePin.reEnterNew">"اعد إدخال رقم التعريف الشخصي الجديد مرة أخرى. "</string>
   <!-- Update PIN failure error message. -->
   <string name="UpdatePin.setPinError">عذرا، تعذر تحديث رقم التعريف الشخصي.</string>
   <!-- Update PIN failure alert view title -->
@@ -733,7 +733,7 @@
   <!-- Wiping activity message -->
   <string name="WipeWallet.wiping">جاري المسح...</string>
   <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">قم بكتابة كل كلمة و تاكد انها مرتبة وقم بتخزينها في مكان آمن. </string>
+  <string name="WritePaperPhrase.instruction">"قم بكتابة كل كلمة و تاكد انها مرتبة وقم بتخزينها في مكان آمن. "</string>
   <!-- button label -->
   <string name="WritePaperPhrase.next">السابق</string>
   <!-- button label -->

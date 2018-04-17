@@ -21,7 +21,7 @@
   <!-- Support center accessibiliy label -->
   <string name="AccessibilityLabels.faq">Centre d\'aide</string>
   <!-- Loading Wallet Message -->
-  <string name="Account.loadingMessage">chargement du portefeuille </string>
+  <string name="Account.loadingMessage">"chargement du portefeuille "</string>
   <!-- Default wallet name -->
   <string name="AccountHeader.defaultWalletName">Mon DigiWallet</string>
   <!-- Third party keyboard warning -->
@@ -43,9 +43,9 @@
   <!-- Addresses Copied Alert sub header -->
   <string name="Alerts.copiedAddressesSubheader">Toutes adresses copié</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">Clé Personnelle de Récupération Créée </string>
+  <string name="Alerts.paperKeySet">"Clé Personnelle de Récupération Créée "</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">Genial </string>
+  <string name="Alerts.paperKeySetSubheader">"Genial "</string>
   <!-- Alert Header label (the PIN was set) -->
   <string name="Alerts.pinSet">Code PIN configuré</string>
   <!-- Send failure alert header label (the send failed to happen) -->
@@ -83,23 +83,23 @@
   <!-- Tx Hash button header -->
   <string name="BCH.txHashHeader">ID de transaction DGB</string>
   <!-- Approve button label -->
-  <string name="BitID.approve">Approuver </string>
+  <string name="BitID.approve">"Approuver "</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
   <string name="BitID.authenticationRequest">%1$s demande l\'authentication par l\'utilisation de votre DigiWallet</string>
   <!-- Deny button label -->
-  <string name="BitID.deny">Rejeté </string>
+  <string name="BitID.deny">"Rejeté "</string>
   <!-- BitID error alert title -->
-  <string name="BitID.error">Erreur d\'authentication </string>
+  <string name="BitID.error">"Erreur d\'authentication "</string>
   <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
   <string name="BitID.errorMessage">Verifier votre service. Vous devrez éventuellement reessayer</string>
   <!-- BitID success alert title -->
-  <string name="BitID.success">Authentication réussi </string>
+  <string name="BitID.success">"Authentication réussi "</string>
   <!-- BitID Authentication Request alert view title -->
   <string name="BitID.title">Demande de BitID</string>
   <!-- Cancel button label -->
-  <string name="Button.cancel">Annuler </string>
+  <string name="Button.cancel">"Annuler "</string>
   <!-- Ignore button label -->
-  <string name="Button.ignore">Ignorer </string>
+  <string name="Button.ignore">"Ignorer "</string>
   <!-- menu button -->
   <string name="Button.menu">menu</string>
   <!-- No button -->
@@ -107,13 +107,13 @@
   <!-- OK button label -->
   <string name="Button.ok">Ok</string>
   <!-- receive button -->
-  <string name="Button.receive">recevoir </string>
+  <string name="Button.receive">"recevoir "</string>
   <!-- send button -->
   <string name="Button.send">envoyer</string>
   <!-- Settings button label -->
-  <string name="Button.settings">Paramètres </string>
+  <string name="Button.settings">"Paramètres "</string>
   <!-- Settings button label -->
-  <string name="Button.submit">Soumettre </string>
+  <string name="Button.submit">"Soumettre "</string>
   <!-- Yes button -->
   <string name="Button.yes">Oui</string>
   <!-- Camera plugin instruction -->
@@ -151,7 +151,7 @@
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">Messagerie indisponible.</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
-  <string name="ErrorMessages.touchIdFailed.android">Empreinte non reconnue. Veuillez réessayer. </string>
+  <string name="ErrorMessages.touchIdFailed.android">"Empreinte non reconnue. Veuillez réessayer. "</string>
   <!-- Economy fee -->
   <string name="FeeSelector.economy">économie</string>
   <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
@@ -163,7 +163,7 @@
   <!-- Regular fee -->
   <string name="FeeSelector.regular">ordinaire.</string>
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-  <string name="FeeSelector.regularTime">estimation de livraison: 15-30 secondes </string>
+  <string name="FeeSelector.regularTime">"estimation de livraison: 15-30 secondes "</string>
   <!-- Fee Selector title -->
   <string name="FeeSelector.title">vitesse de traitement.</string>
   <!-- Checking private key balance progress view text -->
@@ -175,7 +175,7 @@
   <!-- empty private key error message -->
   <string name="Import.Error.empty">Cette clef privé est vide.</string>
   <!-- High fees error message -->
-  <string name="Import.Error.highFees">Les frais de transaction vont coûter plus cher que le montant disponible sur cette clef privé. </string>
+  <string name="Import.Error.highFees">"Les frais de transaction vont coûter plus cher que le montant disponible sur cette clef privé. "</string>
   <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">Pas une clef privé valide.</string>
   <!-- Import signing error message -->
@@ -227,7 +227,7 @@
   <!-- Manage wallet description text -->
   <string name="ManageWallet.description">Le nom de votre portefeuille apparaît seulement sur votre historique de transactions et ne peut être vu que par vous.</string>
   <!-- Change Wallet name textfield label -->
-  <string name="ManageWallet.textFeildLabel">Nom du portefeuille </string>
+  <string name="ManageWallet.textFeildLabel">"Nom du portefeuille "</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Gestion de portefeuille</string>
   <!-- Buy bitcoin title -->
@@ -257,9 +257,9 @@
   <!-- Switch to manual mode button label -->
   <string name="NodeSelector.manualButton">passer au mode manuel.</string>
   <!-- Node address label -->
-  <string name="NodeSelector.nodeLabel">Node primaire courant </string>
+  <string name="NodeSelector.nodeLabel">"Node primaire courant "</string>
   <!-- Node is not connected label -->
-  <string name="NodeSelector.notConnected">Pas connecté </string>
+  <string name="NodeSelector.notConnected">"Pas connecté "</string>
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">Status de la connexion du node</string>
   <!-- Node Selector view title -->
@@ -271,17 +271,17 @@
   <!-- Missing certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.missingCertificate">Certificat manquant</string>
   <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">Requête expiré </string>
+  <string name="PaymentProtocol.Errors.requestExpired">"Requête expiré "</string>
   <!-- Payment too small alert title -->
-  <string name="PaymentProtocol.Errors.smallOutputError">Impossible de procéder au paiement. </string>
+  <string name="PaymentProtocol.Errors.smallOutputError">"Impossible de procéder au paiement. "</string>
   <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">Les payements de DigiByte ne peuvent être inférieur à %1$s</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">Les sorties de transaction DigiByte ne peuvent pas être inférieures à</string>
   <!-- Unsupported signature type payment protocol error message -->
-  <string name="PaymentProtocol.Errors.unsupportedSignatureType">Type de signature non pris en charge. </string>
+  <string name="PaymentProtocol.Errors.unsupportedSignatureType">"Type de signature non pris en charge. "</string>
   <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">Certificat non approuvé. </string>
+  <string name="PaymentProtocol.Errors.untrustedCertificate">"Certificat non approuvé. "</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Un mot de passe d\'appareil est nécessaire pour protéger votre portefeuille. Aller aux paramètres et activer le code d\'accès ..</string>
   <!-- No Passcode set warning title -->
@@ -289,7 +289,7 @@
   <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">Un verrouillage d\'écran de votre appareil est nécessaire pour protéger votre portefeuille. Allez dans \"Options\" &gt; \"Sécurité\" &gt; \"Verrouillage d\'écran\" et activez le pour continuer.</string>
   <!-- Device encryption prompt title -->
-  <string name="Prompts.NoScreenLock.title.android">Verrouillage de l\'écran désactivé. </string>
+  <string name="Prompts.NoScreenLock.title.android">"Verrouillage de l\'écran désactivé. "</string>
   <!-- Warning about paper key. -->
   <string name="Prompts.PaperKey.body">Votre clé de papier doit être sauvegardée au cas où vous perdiez ou changiez votre téléphone. Appuyez ici pour continuer.</string>
   <!-- An action is required (You must do this action). -->
@@ -345,7 +345,7 @@
   <!-- Reset PIN with paper key: header -->
   <string name="RecoverWallet.header_reset_pin">Réinitialiser PIN</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">Entrer la Clé de Récupération Personnelle </string>
+  <string name="RecoverWallet.instruction">"Entrer la Clé de Récupération Personnelle "</string>
   <!-- Recover wallet intro -->
   <string name="RecoverWallet.intro">Récupérer votre DigiWallet avec la clef papier</string>
   <!-- Invalid paper key message -->
@@ -417,7 +417,7 @@
   <!-- Security center fingerprint authentication button -->
   <string name="SecurityCenter.touchIdTitle.android">Authentification par Empreinte</string>
   <!-- Send money amount label -->
-  <string name="Send.amountLabel">Montant </string>
+  <string name="Send.amountLabel">"Montant "</string>
   <!-- Balance: $4.00 -->
   <string name="Send.balance">Balance</string>
   <!-- Instructions how to allow the camera access for the app -->
@@ -429,7 +429,7 @@
   <!-- Camera not allowed alert title -->
   <string name="Send.cameraUnavailableTitle">DigiWallet n\'est pas autorisé à accéder à la caméra</string>
   <!-- Warning when sending to self. -->
-  <string name="Send.containsAddress">L\'adresse destinataire est votre propre adresse. Vous ne pouvez envoyer à vous même. </string>
+  <string name="Send.containsAddress">"L\'adresse destinataire est votre propre adresse. Vous ne pouvez envoyer à vous même. "</string>
   <!-- Could not create transaction alert title -->
   <string name="Send.creatTransactionError">N\'a pas pu créer la transaction.</string>
   <!-- Description for sending money label -->
@@ -439,7 +439,7 @@
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">Frais du Réseau: %1$s</string>
   <!-- Payee identity not certified alert title. -->
-  <string name="Send.identityNotCertified">L\'identité du bénéficiaire n\'est pas certifiée. </string>
+  <string name="Send.identityNotCertified">"L\'identité du bénéficiaire n\'est pas certifiée. "</string>
   <!-- Invalid address alert message -->
   <string name="Send.invalidAddressMessage">L\'adresse de destination n\'est pas une adresse DigiByte valide.</string>
   <!-- Invalid address on pasteboard message -->
@@ -449,7 +449,7 @@
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">L\'envoi est désactivé pendant un scan complet.</string>
   <!-- We are loading the request (now) -->
-  <string name="Send.loadingRequest">Demande de chargement </string>
+  <string name="Send.loadingRequest">"Demande de chargement "</string>
   <!-- Empty address alert message -->
   <string name="Send.noAddress">Veuillez saisir l\'adresse du bénéficiaire</string>
   <!-- Emtpy amount alert message -->
@@ -459,7 +459,7 @@
   <!-- Could not publish transaction alert title -->
   <string name="Send.publishTransactionError">Publication de transaction non achevée.</string>
   <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Impossible de charger la demande de paiement. </string>
+  <string name="Send.remoteRequestError">"Impossible de charger la demande de paiement. "</string>
   <!-- Scan button label -->
   <string name="Send.scanLabel">Scanner</string>
   <!-- Send button label (the action, "press here to send") -->
@@ -529,13 +529,13 @@
   <!-- Start view message -->
   <string name="StartViewController.message">Le moyen le plus sûr et le plus sécurisé d\'utiliser DigiByte.</string>
   <!-- Syncing view connectiong state header text -->
-  <string name="SyncingView.connecting">connexion </string>
+  <string name="SyncingView.connecting">"connexion "</string>
   <!-- Syncing view header text -->
-  <string name="SyncingView.header">synchronisation </string>
+  <string name="SyncingView.header">"synchronisation "</string>
   <!-- Retry button label -->
   <string name="SyncingView.retry">recommencez</string>
   <!-- Syncing view syncing state header text -->
-  <string name="SyncingView.syncing">synchronisation </string>
+  <string name="SyncingView.syncing">"synchronisation "</string>
   <!-- 6 d (6 days) -->
   <string name="TimeSince.days">%1$s j</string>
   <!-- 6 h (6 hours) -->
@@ -577,9 +577,9 @@
   <!-- Touch Id spending limit screen title -->
   <string name="TouchIdSpendingLimit.title">Limite des dépenses avec Touch ID</string>
   <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">Plafond de dépense par empreinte </string>
+  <string name="TouchIdSpendingLimit.title.android">"Plafond de dépense par empreinte "</string>
   <!-- Availability status text -->
-  <string name="Transaction.available">Disponible à dépenser </string>
+  <string name="Transaction.available">"Disponible à dépenser "</string>
   <!-- Transaction complete label -->
   <string name="Transaction.complete">Achevée</string>
   <!-- eg. Ending balance: $50.00 -->
@@ -587,7 +587,7 @@
   <!-- Exchange rate on date header -->
   <string name="Transaction.exchangeOnDayReceived">Taux d\'échange lors de la réception:</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">Taux d\'échange lors de l\'envoi: </string>
+  <string name="Transaction.exchangeOnDaySent">"Taux d\'échange lors de l\'envoi: "</string>
   <!-- (b600 fee) -->
   <string name="Transaction.fee">(%1$s frais)</string>
   <!-- Invalid transaction -->
@@ -595,9 +595,9 @@
   <!-- Timestamp label for event that just happened -->
   <string name="Transaction.justNow">Juste maintenant</string>
   <!-- Receive status text: 'In progress: 20%' -->
-  <string name="Transaction.receivedStatus">En cours </string>
+  <string name="Transaction.receivedStatus">"En cours "</string>
   <!-- Send status text: 'In progress: 20%' -->
-  <string name="Transaction.sendingStatus">En cours </string>
+  <string name="Transaction.sendingStatus">"En cours "</string>
   <!-- eg. Starting balance: $50.00 -->
   <string name="Transaction.starting">Balance de départ: %1$s</string>
   <!-- Waiting to be confirmed string -->
@@ -605,7 +605,7 @@
   <!-- e.g. I received money from an account. -->
   <string name="TransactionDetails.account">Compte</string>
   <!-- Amount section header -->
-  <string name="TransactionDetails.amountHeader">Montant </string>
+  <string name="TransactionDetails.amountHeader">"Montant "</string>
   <!-- Block height label -->
   <string name="TransactionDetails.blockHeightLabel">Bloc confirmé</string>
   <!-- Memo section header -->
@@ -645,13 +645,13 @@
   <!-- Disabled until date -->
   <string name="UnlockScreen.disabled">Désactiver jusqu\'à %1$s</string>
   <!-- My Address button title -->
-  <string name="UnlockScreen.myAddress">Mon adresse </string>
+  <string name="UnlockScreen.myAddress">"Mon adresse "</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Réinitialiser code PIN</string>
   <!-- Scan button title -->
   <string name="UnlockScreen.scan">Scanner</string>
   <!-- Unlock Screen sub-header -->
-  <string name="UnlockScreen.subheader">saisissez code PIN </string>
+  <string name="UnlockScreen.subheader">"saisissez code PIN "</string>
   <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Capteur Tactile</string>
   <!-- TouchID prompt text -->
@@ -671,7 +671,7 @@
   <!-- Update PIN title -->
   <string name="UpdatePin.createTitle">Activer le PIN</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitleConfirm">Ressaisissez code PIN </string>
+  <string name="UpdatePin.createTitleConfirm">"Ressaisissez code PIN "</string>
   <!-- Enter current PIN instruction -->
   <string name="UpdatePin.enterCurrent">Entrez votre code PIN actuel</string>
   <!-- Enter new PIN instruction -->
@@ -683,7 +683,7 @@
   <!-- Update PIN failure alert view title -->
   <string name="UpdatePin.setPinErrorTitle">Mettre à jour l\'erreur du code PIN</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">Mettre à jour le code PIN </string>
+  <string name="UpdatePin.updateTitle">"Mettre à jour le code PIN "</string>
   <!-- Authorize to copy wallet addresses alert message -->
   <string name="URLHandling.addressaddressListAlertMessage">Copier l\'adresse du portefeuille?</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
@@ -695,7 +695,7 @@
   <!-- Verify PIN for transaction view body -->
   <string name="VerifyPin.authorize">Veuillez entrer votre code PIN pour autoriser cette transaction.</string>
   <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">Entrer votre PIN pour continuer. </string>
+  <string name="VerifyPin.continueBody">"Entrer votre PIN pour continuer. "</string>
   <!-- Verify PIN view title -->
   <string name="VerifyPin.title">PIN requis</string>
   <!-- Authorize transaction with touch id message -->
@@ -703,7 +703,7 @@
   <!-- 'No wallet' warning for watch app -->
   <string name="Watch.noWalletWarning">Ouvrez l\'application Android DigiWallet  pour créer votre portefeuille.</string>
   <!-- Dismiss button label -->
-  <string name="Webview.dismiss">Ignorer </string>
+  <string name="Webview.dismiss">"Ignorer "</string>
   <!-- Webview loading error message -->
   <string name="Webview.errorMessage">Il y a eu une erreur pendant le chargement. Veuillez s\'il vous plait réessayer.</string>
   <!-- Updating webview message -->
@@ -713,19 +713,19 @@
   <!-- Top title of welcome screen -->
   <string name="Welcome.title">Bienvenue sur DigiWallet!</string>
   <!-- Wipe wallet alert message -->
-  <string name="WipeWallet.alertMessage">Êtes-vous certain de vouloir supprimer ce portefeuille? </string>
+  <string name="WipeWallet.alertMessage">"Êtes-vous certain de vouloir supprimer ce portefeuille? "</string>
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">Effacer le Portefeuille?</string>
   <!-- Failed wipe wallet alert message -->
   <string name="WipeWallet.failedMessage">Échec de la suppression du portefeuille.</string>
   <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Échec </string>
+  <string name="WipeWallet.failedTitle">"Échec "</string>
   <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Pour créer un nouveau portefeuille ou en restaurer un existant, vous devez d\'abord effacer celui actuellement installé. Pour continuer, entrez la Clé Personnelle de Récupération de ce portefeuille.</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">Créer ou récupérer un autre portefeuille, vous permet d\'accéder et de gérer un DigiWallet différent sur cet appareil. </string>
+  <string name="WipeWallet.startMessage">"Créer ou récupérer un autre portefeuille, vous permet d\'accéder et de gérer un DigiWallet différent sur cet appareil. "</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">Votre portefeuille actuel va être supprimé de cet appareil. Si vous souhaitez le restaurer dans le futur, vous devrez entrer la Clé Personnelle de Récupération rattachée. </string>
+  <string name="WipeWallet.startWarning">"Votre portefeuille actuel va être supprimé de cet appareil. Si vous souhaitez le restaurer dans le futur, vous devrez entrer la Clé Personnelle de Récupération rattachée. "</string>
   <!-- Wipe wallet navigation item title. -->
   <string name="WipeWallet.title">Créer ou Restaurer un autre Portefeuille</string>
   <!-- Wipe wallet button title -->

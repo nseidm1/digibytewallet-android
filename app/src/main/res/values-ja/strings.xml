@@ -587,7 +587,7 @@
   <!-- Exchange rate on date header -->
   <string name="Transaction.exchangeOnDayReceived">受取り時の取引レート：</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">送金時の取引レート : </string>
+  <string name="Transaction.exchangeOnDaySent">"送金時の取引レート : "</string>
   <!-- (b600 fee) -->
   <string name="Transaction.fee">(手数料 %1$s )</string>
   <!-- Invalid transaction -->

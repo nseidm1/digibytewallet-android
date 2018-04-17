@@ -275,7 +275,7 @@
   <!-- Payment too small alert title -->
   <string name="PaymentProtocol.Errors.smallOutputError">भुगतान नहीं किया जा सका</string>
   <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">DigiByte भुगतान %1$s से कम नहीं हो सकता </string>
+  <string name="PaymentProtocol.Errors.smallPayment">"DigiByte भुगतान %1$s से कम नहीं हो सकता "</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">DigiByte लेनदेन आउटपुट %1$s से कम नहीं हो सकता</string>
   <!-- Unsupported signature type payment protocol error message -->
@@ -525,7 +525,7 @@
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">व्यक्तिगत रिकवरी कुंजी को लिखें</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">आपने पिछली बार अपनी व्यक्तिगत रिकवरी कुंजी को %1$s लिखा था </string>
+  <string name="StartPaperPhrase.date">"आपने पिछली बार अपनी व्यक्तिगत रिकवरी कुंजी को %1$s लिखा था "</string>
   <!-- Start view message -->
   <string name="StartViewController.message">DigiByte का उपयोग करने के लिए सबसे सुरक्षित और सबसे सुरक्षित तरीका</string>
   <!-- Syncing view connectiong state header text -->
@@ -607,7 +607,7 @@
   <!-- Amount section header -->
   <string name="TransactionDetails.amountHeader">राशि</string>
   <!-- Block height label -->
-  <string name="TransactionDetails.blockHeightLabel">ब्लॉक में पुष्टीकृत </string>
+  <string name="TransactionDetails.blockHeightLabel">"ब्लॉक में पुष्टीकृत "</string>
   <!-- Memo section header -->
   <string name="TransactionDetails.commentsHeader">स्मृतिपत्र</string>
   <!-- Empty transaction list message. -->
@@ -629,7 +629,7 @@
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">%1$s भेजा गया</string>
   <!-- Sent $5.00 -->
-  <string name="TransactionDetails.sentAmountDescription"> <b>%1$s</b> भेजा गया</string>
+  <string name="TransactionDetails.sentAmountDescription">" <b>%1$s</b> भेजा गया"</string>
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">स्थिति</string>
   <!-- Transaction Details Title -->

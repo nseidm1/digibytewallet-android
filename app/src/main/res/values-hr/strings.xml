@@ -119,9 +119,9 @@
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Centrirajte svoj ID unutar okvira</string>
   <!-- Amount to Send: ($1.00) -->
-  <string name="Confirmation.amountLabel">Iznos za slanje: </string>
+  <string name="Confirmation.amountLabel">"Iznos za slanje: "</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">Mrežna naknada: </string>
+  <string name="Confirmation.feeLabel">"Mrežna naknada: "</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
   <string name="Confirmation.processingTime">Vrijeme izvršavanja: Ovoj transakciji je predviđeno da završi za %1$s.</string>
   <!-- Label for "send" button on final confirmation screen -->
@@ -273,7 +273,7 @@
   <!-- Request expired payment protocol error message -->
   <string name="PaymentProtocol.Errors.requestExpired">zahtijev istekao</string>
   <!-- Payment too small alert title -->
-  <string name="PaymentProtocol.Errors.smallOutputError">Plaćanje nije moguće </string>
+  <string name="PaymentProtocol.Errors.smallOutputError">"Plaćanje nije moguće "</string>
   <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">DigiByte transakcije ne mogu iznositi manje od %1$s.</string>
   <!-- Output too small error message. -->
@@ -299,7 +299,7 @@
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Transakcija odbijena</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Pomozite unaprijeđenju DigiWallet-a dijeljenjem Vaših anonimnih podataka </string>
+  <string name="Prompts.ShareData.body">"Pomozite unaprijeđenju DigiWallet-a dijeljenjem Vaših anonimnih podataka "</string>
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">Dijeli anonimne podatke</string>
   <!-- Enable touch ID prompt body -->
@@ -685,7 +685,7 @@
   <!-- Update PIN title -->
   <string name="UpdatePin.updateTitle">Obnovi PIN</string>
   <!-- Authorize to copy wallet addresses alert message -->
-  <string name="URLHandling.addressaddressListAlertMessage">Kopiraj adrese novčanika u međuspremnik? </string>
+  <string name="URLHandling.addressaddressListAlertMessage">"Kopiraj adrese novčanika u međuspremnik? "</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
   <string name="URLHandling.addressList">Dozvoli kopiranje adrese novčanika u međurspremnik</string>
   <!-- Authorize to copy wallet address alert title -->
