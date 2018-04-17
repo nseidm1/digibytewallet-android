@@ -40,7 +40,6 @@ import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.activities.RestartService;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.customviews.BRToast;
 import io.digibyte.presenter.entities.BRMerkleBlockEntity;
 import io.digibyte.presenter.entities.BRPeerEntity;
@@ -430,7 +429,7 @@ public class BRWalletManager {
     }
 
     public static void onTxAdded(byte[] tx, int blockHeight, long timestamp, final long amount,
-            String hash) {
+                                 String hash) {
         Log.d(TAG, "onTxAdded: " + String.format(
                 "tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length,
                 blockHeight, timestamp, amount, hash));
@@ -558,19 +557,19 @@ public class BRWalletManager {
                     return;
                 }
                 //If the native component is not connected or connecting restart the process
-                if (!(BRPeerManager.getInstance().connectionStatus() == 2 ||
-                        BRPeerManager.getInstance().connectionStatus() == 1)) {
-                   Toast.makeText(activity, activity.getString(R.string.NodeSelector_statusLabel) + ": "
-                            + activity.getString(R.string.restarting), Toast.LENGTH_LONG).show();
-                    handler.postDelayed(() -> {
-                        activity.finish();
-                    }, 500);
-                    handler.postDelayed(() -> {
-                        RestartService.restart(smartInitType);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                    }, 1500);
-
+                if (BRPeerManager.getInstance().connectionStatus() == 2 || BRPeerManager.getInstance().connectionStatus() == 1) {
+                    return;
                 }
+                Toast.makeText(activity, activity.getString(R.string.NodeSelector_statusLabel) + ": "
+                        + activity.getString(R.string.restarting), Toast.LENGTH_LONG).show();
+                handler.postDelayed(() -> {
+                    activity.finish();
+                }, 1000);
+                handler.postDelayed(() -> {
+                    RestartService.restart(smartInitType);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }, 2000);
+
             }, 20000);
         });
     }
@@ -692,7 +691,7 @@ public class BRWalletManager {
     }
 
     private void createPeerManagerFromCurrentHeadBlock(int walletTime, int blocksCount,
-            int peersCount) throws JSONException {
+                                                       int peersCount) throws JSONException {
         JSONObject latestBlockHashJson = new JSONObject(
                 BRApiManager.getInstance().getBlockInfo(
                         DigiByte.getContext(),
@@ -708,7 +707,7 @@ public class BRWalletManager {
     }
 
     private void createPeerManagerFromOldestBlock(LinkedList<String> transactions, int walletTime,
-            int blocksCount, int peersCount) throws JSONException {
+                                                  int blocksCount, int peersCount) throws JSONException {
         String oldestBlockHash = "";
         long oldestBlockTime = System.currentTimeMillis();
         for (String transaction : transactions) {
