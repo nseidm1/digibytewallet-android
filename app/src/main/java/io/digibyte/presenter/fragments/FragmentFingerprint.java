@@ -111,6 +111,9 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
      * button. This can also happen when the user had too many fingerprint attempts.
      */
     private void goToBackup() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
         AuthManager.getInstance().authPromptWithFingerprint(getContext(), getArguments().getString("title"),
                 getArguments().getString("message"), false, completion);
     }
