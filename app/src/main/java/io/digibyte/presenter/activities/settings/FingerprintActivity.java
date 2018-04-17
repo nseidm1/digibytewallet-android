@@ -124,7 +124,7 @@ public class FingerprintActivity extends BRActivity {
                     BRCurrency.getFormattedCurrencyString(this, "DGB", digibyte),
                     DigiByte.getContext().getString(R.string.no_limit));
         }
-        BigDecimal curAmount = BRExchange.getAmountFromSatoshis(this, iso, digibyte);
+        BigDecimal curAmount = BRExchange.getAmountFromSatoshis(this, iso, digibyte.multiply(new BigDecimal(100000000)));
         //formatted string for the label
         return String.format(getString(R.string.TouchIdSettings_spendingLimit),
                 BRCurrency.getFormattedCurrencyString(this, "DGB", digibyte),
