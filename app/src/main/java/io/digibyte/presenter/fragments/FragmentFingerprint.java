@@ -24,6 +24,8 @@ import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     private FingerprintUiHelper mFingerprintUiHelper;
     private FingerprintFragmentViewModel viewModel;
     private BRAuthCompletion completion;
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
     private final FingerprintManager mFingerprintManager =
             (FingerprintManager) DigiByte.getContext().getSystemService(
@@ -60,7 +63,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     private FingerprintFragmentCallback callback = new FingerprintFragmentCallback() {
         @Override
         public void onCancelClick() {
-            fadeOutRemove();
+            fadeOutRemove(false, false);
         }
 
         @Override
@@ -107,7 +110,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         super.onActivityCreated(savedInstanceState);
         ObjectAnimator colorFade =
                 ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
-                        Color.argb(0,0,0,0), Color.argb(127,0,0,0));
+                        Color.argb(0, 0, 0, 0), Color.argb(127, 0, 0, 0));
         colorFade.setStartDelay(350);
         colorFade.setDuration(500);
         colorFade.start();
@@ -131,21 +134,18 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
      * button. This can also happen when the user had too many fingerprint attempts.
      */
     private void goToBackup() {
-        remove();
-        AuthManager.getInstance().authPromptWithFingerprint(getContext(), getArguments().getString("title"),
-                getArguments().getString("message"), false, completion);
+        fadeOutRemove(false, true);
     }
 
     @Override
     public void onAuthenticated() {
-        remove();
-        if (completion != null) completion.onComplete();
+        fadeOutRemove(true, false);
     }
 
-    private void fadeOutRemove() {
+    private void fadeOutRemove(boolean authenticated, boolean goToBackup) {
         ObjectAnimator colorFade =
                 ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
-                        Color.argb(127,0,0,0), Color.argb(0,0,0,0));
+                        Color.argb(127, 0, 0, 0), Color.argb(0, 0, 0, 0));
         colorFade.setDuration(500);
         colorFade.addListener(new Animator.AnimatorListener() {
             @Override
@@ -156,6 +156,17 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
             @Override
             public void onAnimationEnd(Animator animation) {
                 remove();
+                if (authenticated) {
+                    handler.postDelayed(() -> {
+                        if (completion != null) completion.onComplete();
+                    }, 350);
+                }
+                if (goToBackup) {
+                    handler.postDelayed(() -> {
+                        AuthManager.getInstance().authPromptWithFingerprint(getContext(), getArguments().getString("title"),
+                                getArguments().getString("message"), false, completion);
+                    }, 350);
+                }
             }
 
             @Override
