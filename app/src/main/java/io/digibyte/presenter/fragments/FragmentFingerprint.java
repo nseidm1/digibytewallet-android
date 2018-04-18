@@ -14,11 +14,16 @@ package io.digibyte.presenter.fragments;/*
  * limitations under the License
  */
 
+import android.animation.Animator;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +59,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     private FingerprintFragmentCallback callback = new FingerprintFragmentCallback() {
         @Override
         public void onCancelClick() {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
+            fadeOutRemove();
         }
 
         @Override
@@ -65,20 +68,24 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         }
     };
 
-    public static FragmentFingerprint newInstance(String title, String message) {
+    public static void show(Activity activity, String title, String message, BRAuthCompletion completion) {
         FragmentFingerprint fingerprintFragment = new FragmentFingerprint();
+        fingerprintFragment.setCompletion(completion);
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("message", message);
         fingerprintFragment.setArguments(args);
-        return fingerprintFragment;
+        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom);
+        transaction.add(android.R.id.content, fingerprintFragment, FragmentFingerprint.class.getName());
+        transaction.commit();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         binding = FingerprintDialogContainerBinding.inflate(inflater);
-         viewModel = new FingerprintFragmentViewModel();
+        viewModel = new FingerprintFragmentViewModel();
         binding.setData(viewModel);
         binding.setCallback(callback);
         binding.executePendingBindings();
@@ -91,6 +98,17 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         mFingerprintUiHelper = mFingerprintUiHelperBuilder.build(binding.fingerprintIcon,
                 binding.fingerprintStatus, this, getContext());
         return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ObjectAnimator colorFade =
+                ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
+                        Color.argb(0,0,0,0), Color.argb(127,0,0,0));
+        colorFade.setStartDelay(300);
+        colorFade.setDuration(500);
+        colorFade.start();
     }
 
     @Override
@@ -111,19 +129,50 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
      * button. This can also happen when the user had too many fingerprint attempts.
      */
     private void goToBackup() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
+        remove();
         AuthManager.getInstance().authPromptWithFingerprint(getContext(), getArguments().getString("title"),
                 getArguments().getString("message"), false, completion);
     }
 
     @Override
     public void onAuthenticated() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
+        remove();
         if (completion != null) completion.onComplete();
+    }
+
+    private void fadeOutRemove() {
+        ObjectAnimator colorFade =
+                ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
+                        Color.argb(127,0,0,0), Color.argb(0,0,0,0));
+        colorFade.setDuration(500);
+        colorFade.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                remove();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        colorFade.start();
+    }
+
+    private void remove() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom);
+        transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
     }
 
     public void setCompletion(BRAuthCompletion completion) {
