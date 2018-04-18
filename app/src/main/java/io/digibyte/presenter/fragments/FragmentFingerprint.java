@@ -16,6 +16,7 @@ package io.digibyte.presenter.fragments;/*
 
 import android.animation.Animator;
 import android.animation.ArgbEvaluator;
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
@@ -85,6 +86,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FingerprintDialogContainerBinding.inflate(inflater);
+        binding.fingerprintLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         viewModel = new FingerprintFragmentViewModel();
         binding.setData(viewModel);
         binding.setCallback(callback);
@@ -106,7 +108,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         ObjectAnimator colorFade =
                 ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
                         Color.argb(0,0,0,0), Color.argb(127,0,0,0));
-        colorFade.setStartDelay(300);
+        colorFade.setStartDelay(350);
         colorFade.setDuration(500);
         colorFade.start();
     }
@@ -170,6 +172,9 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     }
 
     private void remove() {
+        if (getFragmentManager() == null) {
+            return;
+        }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom);
         transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
