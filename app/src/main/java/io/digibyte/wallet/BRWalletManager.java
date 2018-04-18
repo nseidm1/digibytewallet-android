@@ -40,7 +40,6 @@ import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.activities.RestartService;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.customviews.BRToast;
 import io.digibyte.presenter.entities.BRMerkleBlockEntity;
 import io.digibyte.presenter.entities.BRPeerEntity;
@@ -430,7 +429,7 @@ public class BRWalletManager {
     }
 
     public static void onTxAdded(byte[] tx, int blockHeight, long timestamp, final long amount,
-            String hash) {
+                                 String hash) {
         Log.d(TAG, "onTxAdded: " + String.format(
                 "tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length,
                 blockHeight, timestamp, amount, hash));
@@ -532,17 +531,7 @@ public class BRWalletManager {
             BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
                     app.getString(R.string.Prompts_NoScreenLock_body_android),
                     app.getString(R.string.AccessibilityLabels_close), null,
-                    new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            app.finish();
-                        }
-                    }, null, new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            app.finish();
-                        }
-                    }, 0);
+                    brDialogView -> app.finish(), null, dialog -> app.finish(), 0);
         } else {
             if (!m.noWallet(app)) {
                 BRAnimator.startBreadActivity(app, true);
@@ -563,24 +552,25 @@ public class BRWalletManager {
                 return;
             }
             handler.postDelayed(() -> {
-                if (activity.isFinishing()) {
+                //Is the activity currently finishing, or is the entire app in the background
+                if (activity.isFinishing() || DigiByte.getContext().getActivity() == null) {
                     return;
                 }
                 //If the native component is not connected or connecting restart the process
-                if (!(BRPeerManager.getInstance().connectionStatus() == 2 ||
-                        BRPeerManager.getInstance().connectionStatus() == 1)) {
-                   Toast.makeText(activity, activity.getString(R.string.NodeSelector_statusLabel) + ": "
-                            + activity.getString(R.string.restarting), Toast.LENGTH_LONG).show();
-                    handler.postDelayed(() -> {
-                        activity.finish();
-                    }, 500);
-                    handler.postDelayed(() -> {
-                        RestartService.restart(smartInitType);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                    }, 1500);
-
+                if (BRPeerManager.getInstance().connectionStatus() == 2 || BRPeerManager.getInstance().connectionStatus() == 1) {
+                    return;
                 }
-            }, 5000);
+                Toast.makeText(activity, activity.getString(R.string.NodeSelector_statusLabel) + ": "
+                        + activity.getString(R.string.restarting), Toast.LENGTH_LONG).show();
+                handler.postDelayed(() -> {
+                    activity.finish();
+                }, 1000);
+                handler.postDelayed(() -> {
+                    RestartService.restart(smartInitType);
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }, 2000);
+
+            }, 20000);
         });
     }
 
@@ -701,7 +691,7 @@ public class BRWalletManager {
     }
 
     private void createPeerManagerFromCurrentHeadBlock(int walletTime, int blocksCount,
-            int peersCount) throws JSONException {
+                                                       int peersCount) throws JSONException {
         JSONObject latestBlockHashJson = new JSONObject(
                 BRApiManager.getInstance().getBlockInfo(
                         DigiByte.getContext(),
@@ -717,7 +707,7 @@ public class BRWalletManager {
     }
 
     private void createPeerManagerFromOldestBlock(LinkedList<String> transactions, int walletTime,
-            int blocksCount, int peersCount) throws JSONException {
+                                                  int blocksCount, int peersCount) throws JSONException {
         String oldestBlockHash = "";
         long oldestBlockTime = System.currentTimeMillis();
         for (String transaction : transactions) {
@@ -730,15 +720,23 @@ public class BRWalletManager {
                 oldestBlockHash = transactionDataJson.getString("blockhash");
             }
         }
-        String transactionData = BRApiManager.getInstance().getBlockInfo(
-                DigiByte.getContext(),
-                "https://digiexplorer.info/api/block/" + oldestBlockHash);
-        JSONObject blockJson = new JSONObject(transactionData);
+        JSONObject blockJson = goBack5Blocks(oldestBlockHash);
         String blockHash = blockJson.getString("hash");
         int blockHeight = blockJson.getInt("height");
         long blockTime = blockJson.getLong("time");
         BRPeerManager.getInstance().createNew(walletTime, blocksCount, peersCount,
                 blockHash, blockHeight, blockTime, 0);
+    }
+
+    private JSONObject goBack5Blocks(String oldestBlockHash) throws JSONException {
+        JSONObject blockJson = new JSONObject(BRApiManager.getInstance().getBlockInfo(
+                DigiByte.getContext(), "https://digiexplorer.info/api/block/" + oldestBlockHash));
+        for (int i = 0; i < 5; i++) {
+            oldestBlockHash = blockJson.getString("previousblockhash");
+            blockJson = new JSONObject(BRApiManager.getInstance().getBlockInfo(
+                    DigiByte.getContext(), "https://digiexplorer.info/api/block/" + oldestBlockHash));
+        }
+        return blockJson;
     }
 
     public void addBalanceChangedListener(OnBalanceChanged listener) {
