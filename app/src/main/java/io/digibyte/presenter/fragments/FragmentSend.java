@@ -383,6 +383,8 @@ public class FragmentSend extends Fragment {
                         new PaymentItem(new String[]{address}, null, satoshiAmount.longValue(),
                                 null, false, comment),
                         () -> sendingWait.setDisplayedChild(0));
+            } else {
+                sendingWait.setDisplayedChild(0);
             }
         });
 
