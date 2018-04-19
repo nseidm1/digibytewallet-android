@@ -466,6 +466,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             setPriceTags(b, true);
             BRSharedPrefs.putPreferredBTC(BreadActivity.this, b);
         }
+        listViewAdapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.secondary_price)
+    void onSecondaryPriceClick(View view) {
+        listViewAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.search_icon)
