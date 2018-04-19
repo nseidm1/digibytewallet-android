@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -94,6 +95,7 @@ import io.digibyte.tools.util.Utils;
 
 public class BRWalletManager {
     private static final String TAG = BRWalletManager.class.getName();
+    private static final String DIGIEXPLORER_URL = "https://explorer-1.us.digibyteservers.io";
 
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners;
@@ -429,7 +431,7 @@ public class BRWalletManager {
     }
 
     public static void onTxAdded(byte[] tx, int blockHeight, long timestamp, final long amount,
-                                 String hash) {
+            String hash) {
         Log.d(TAG, "onTxAdded: " + String.format(
                 "tx.length: %d, blockHeight: %d, timestamp: %d, amount: %d, hash: %s", tx.length,
                 blockHeight, timestamp, amount, hash));
@@ -548,20 +550,25 @@ public class BRWalletManager {
     public void smartInit(Activity activity, SmartInitType smartInitType) {
         BRExecutor.getInstance().forBackgroundTasks().execute(() -> {
             initWalletAndConnectPeers();
-            if (smartInitType == SmartInitType.SyncService) {
+            if (smartInitType == SmartInitType.SyncService || MerkleBlockDataSource.getInstance(
+                    DigiByte.getContext()).getAllMerkleBlocks().size() == 0) {
                 return;
             }
+
             handler.postDelayed(() -> {
                 //Is the activity currently finishing, or is the entire app in the background
                 if (activity.isFinishing() || DigiByte.getContext().getActivity() == null) {
                     return;
                 }
                 //If the native component is not connected or connecting restart the process
-                if (BRPeerManager.getInstance().connectionStatus() == 2 || BRPeerManager.getInstance().connectionStatus() == 1) {
+                if (BRPeerManager.getInstance().connectionStatus() == 2
+                        || BRPeerManager.getInstance().connectionStatus() == 1) {
                     return;
                 }
-                Toast.makeText(activity, activity.getString(R.string.NodeSelector_statusLabel) + ": "
-                        + activity.getString(R.string.restarting), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity,
+                        activity.getString(R.string.NodeSelector_statusLabel) + ": "
+                                + activity.getString(R.string.restarting),
+                        Toast.LENGTH_LONG).show();
                 handler.postDelayed(() -> {
                     activity.finish();
                 }, 1000);
@@ -681,7 +688,7 @@ public class BRWalletManager {
         }
         for (String address : addresses) {
             JSONObject transactionsData = new JSONObject(BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(), "https://digiexplorer.info/api/addr/" + address));
+                    DigiByte.getContext(), DIGIEXPLORER_URL + "/api/addr/" + address));
             JSONArray transactionsJson = transactionsData.getJSONArray("transactions");
             for (int i = 0; i < transactionsJson.length(); i++) {
                 transactions.add(transactionsJson.getString(i));
@@ -691,31 +698,30 @@ public class BRWalletManager {
     }
 
     private void createPeerManagerFromCurrentHeadBlock(int walletTime, int blocksCount,
-                                                       int peersCount) throws JSONException {
+            int peersCount) throws JSONException {
         JSONObject latestBlockHashJson = new JSONObject(
                 BRApiManager.getInstance().getBlockInfo(
                         DigiByte.getContext(),
-                        "https://explorer.digibyteprojects"
-                                + ".com/api/status?q=getLastBlockHash"));
+                        DIGIEXPLORER_URL + "/api/status?q=getLastBlockHash"));
         String lastBlockHash = latestBlockHashJson.getString("lastblockhash");
         JSONObject latestBlockData = new JSONObject(BRApiManager.getInstance().getBlockInfo(
                 DigiByte.getContext(),
-                "https://explorer.digibyteprojects.com/api/block/" + lastBlockHash));
+                DIGIEXPLORER_URL + "/api/block/" + lastBlockHash));
         BRPeerManager.getInstance().createNew(walletTime, blocksCount, peersCount,
                 latestBlockData.getString("hash"),
                 latestBlockData.getInt("height"), latestBlockData.getLong("time"), 0);
     }
 
     private void createPeerManagerFromOldestBlock(LinkedList<String> transactions, int walletTime,
-                                                  int blocksCount, int peersCount) throws JSONException {
+            int blocksCount, int peersCount) throws JSONException {
         String oldestBlockHash = "";
-        long oldestBlockTime = System.currentTimeMillis();
+        Date oldestBlockTime = new Date(System.currentTimeMillis());
         for (String transaction : transactions) {
             String transactionData = BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(), "https://digiexplorer.info/api/tx/" + transaction);
+                    DigiByte.getContext(), DIGIEXPLORER_URL + "/api/tx/" + transaction);
             JSONObject transactionDataJson = new JSONObject(transactionData);
-            long blockTime = transactionDataJson.getLong("blocktime");
-            if (blockTime < oldestBlockTime) {
+            Date blockTime = new Date(transactionDataJson.getLong("blocktime") * 1000L);
+            if (blockTime.before(oldestBlockTime)) {
                 oldestBlockTime = blockTime;
                 oldestBlockHash = transactionDataJson.getString("blockhash");
             }
@@ -730,11 +736,11 @@ public class BRWalletManager {
 
     private JSONObject goBack5Blocks(String oldestBlockHash) throws JSONException {
         JSONObject blockJson = new JSONObject(BRApiManager.getInstance().getBlockInfo(
-                DigiByte.getContext(), "https://digiexplorer.info/api/block/" + oldestBlockHash));
+                DigiByte.getContext(), DIGIEXPLORER_URL + "/api/block/" + oldestBlockHash));
         for (int i = 0; i < 5; i++) {
             oldestBlockHash = blockJson.getString("previousblockhash");
             blockJson = new JSONObject(BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(), "https://digiexplorer.info/api/block/" + oldestBlockHash));
+                    DigiByte.getContext(), DIGIEXPLORER_URL + "/api/block/" + oldestBlockHash));
         }
         return blockJson;
     }
