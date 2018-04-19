@@ -9,6 +9,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -45,7 +46,6 @@ import javax.crypto.spec.IvParameterSpec;
 
 import io.digibyte.R;
 import io.digibyte.exceptions.BRKeystoreErrorException;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -760,10 +760,14 @@ public class BRKeyStore {
     public synchronized static void removeAliasAndFiles(KeyStore keyStore, String alias, Context context) {
         try {
             keyStore.deleteEntry(alias);
-            boolean b1 = new File(
-                    getFilePath(aliasObjectMap.get(alias).datafileName, context)).delete();
-            boolean b2 = new File(
-                    getFilePath(aliasObjectMap.get(alias).ivFileName, context)).delete();
+            String dataFileString = getFilePath(aliasObjectMap.get(alias).datafileName, context);
+            if (!TextUtils.isEmpty(dataFileString)) {
+                new File(dataFileString).delete();
+            }
+            String ivFileString = getFilePath(aliasObjectMap.get(alias).ivFileName, context);
+            if (!TextUtils.isEmpty(ivFileString)) {
+                new File(ivFileString).delete();
+            }
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
