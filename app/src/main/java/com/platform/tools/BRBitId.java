@@ -132,7 +132,7 @@ public class BRBitId {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show();
+            handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show());
             if (isDeepLink) {
                 app.finish();
             }

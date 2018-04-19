@@ -743,7 +743,7 @@
   <string name="AccountHeader.equals">=</string>
   <string name="AccountHeader.manageButtonName">Manage</string>
 
-  <string name="digiid">DigiID</string>
+  <string name="digiid">Digi-ID</string>
   <string name="no_limit">No Limit</string>
   <string name="restarting">Restarting</string>
 </resources>
