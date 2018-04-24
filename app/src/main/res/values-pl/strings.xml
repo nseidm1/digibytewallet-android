@@ -117,7 +117,7 @@
   <!-- Yes button -->
   <string name="Button.yes">Tak</string>
   <!-- Camera plugin instruction -->
-  <string name="CameraPlugin.centerInstruction">Umieść swoje ID w oknie </string>
+  <string name="CameraPlugin.centerInstruction">"Umieść swoje ID w oknie "</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Ilość do wysłania:</string>
   <!-- Network Fee: ($1.00) -->
@@ -137,11 +137,11 @@
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Słowo # %1$s</string>
   <!-- Bitcoin denomination picker label -->
-  <string name="DefaultCurrency.bitcoinLabel">Waluta do wyświetlenia DiGiByte </string>
+  <string name="DefaultCurrency.bitcoinLabel">"Waluta do wyświetlenia DiGiByte "</string>
   <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">Kurs wymiany</string>
   <!-- Email unavailable alert title -->
-  <string name="ErrorMessages.emailUnavailableMessage">To urządzanie nie jest skonfigurowane, aby wysyłać e-maile za pomocą aplikacji iOS. </string>
+  <string name="ErrorMessages.emailUnavailableMessage">"To urządzanie nie jest skonfigurowane, aby wysyłać e-maile za pomocą aplikacji iOS. "</string>
   <!-- Email unavailable alert title -->
   <string name="ErrorMessages.emailUnavailableTitle">E-mail niedostępny</string>
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
@@ -205,7 +205,7 @@
   <!-- Unlocking Private key activity view message. -->
   <string name="Import.unlockingActivity">Odblokuj klucz</string>
   <!-- Import wallet intro warning message -->
-  <string name="Import.warning">Importowany portfel nie zawiera historii transakcji oraz innych szczegółów. </string>
+  <string name="Import.warning">"Importowany portfel nie zawiera historii transakcji oraz innych szczegółów. "</string>
   <!-- Wrong password alert message -->
   <string name="Import.wrongPassword">Błędne hasło, spróbuj ponownie.</string>
   <!-- Close app button -->
@@ -225,7 +225,7 @@
   <!-- Wallet creation date prefix -->
   <string name="ManageWallet.creationDatePrefix">Utworzyłeś swój portfel %1$s</string>
   <!-- Manage wallet description text -->
-  <string name="ManageWallet.description">Nazwa Twojego portfela jest widoczna jedynie w historii Twoich transakcji i nikt inny nie może jej zobaczyć. </string>
+  <string name="ManageWallet.description">"Nazwa Twojego portfela jest widoczna jedynie w historii Twoich transakcji i nikt inny nie może jej zobaczyć. "</string>
   <!-- Change Wallet name textfield label -->
   <string name="ManageWallet.textFeildLabel">Nazwa portfela</string>
   <!-- Manage wallet modal title -->
@@ -401,7 +401,7 @@
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Włącz wszystkie opcje bezpieczeństwa dla maksymalnej ochrony.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">To jest jedyny sposób, aby odzyskać dostęp do Twoich DigiByte, gdy zgubisz lub zmienisz telefon. </string>
+  <string name="SecurityCenter.paperKeyDescription">"To jest jedyny sposób, aby odzyskać dostęp do Twoich DigiByte, gdy zgubisz lub zmienisz telefon. "</string>
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Osobisty Klucz Odzyskiwania</string>
   <!-- PIN button description -->
@@ -507,7 +507,7 @@
   <!-- Touch ID spending limit label -->
   <string name="Settings.touchIdLimit">Limit wydatków Touch ID</string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">Autoryzacja wydatków odciskiem palca </string>
+  <string name="Settings.touchIdLimit.android">"Autoryzacja wydatków odciskiem palca "</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">Portfel</string>
   <!-- Start or recover another wallet menu label. -->
@@ -521,7 +521,7 @@
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">Zapisz Twój Osobisty Klucz Odzyskiwania ponownie</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Twój Osobisty Klucz Odzyskiwania to jedyny sposób na odtworzenie DigiWallet jeśli stracisz lub zmienisz telefon. \n\nPokażemy Ci listę słów do zapisania na kartce papieru i przechowywania w bezpiecznym miejscu. </string>
+  <string name="StartPaperPhrase.body">"Twój Osobisty Klucz Odzyskiwania to jedyny sposób na odtworzenie DigiWallet jeśli stracisz lub zmienisz telefon. \n\nPokażemy Ci listę słów do zapisania na kartce papieru i przechowywania w bezpiecznym miejscu. "</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">Zapisz Osobisty Klucz Odzyskiwania</string>
   <!-- Argument is date -->
@@ -657,7 +657,7 @@
   <!-- TouchID prompt text -->
   <string name="UnlockScreen.touchIdPrompt">Odblokuj swój DigiWallet.</string>
   <!-- Device authentication body -->
-  <string name="UnlockScreen.touchIdPrompt.android">Odblokuj swoje urządzenie Android, aby kontynuować. </string>
+  <string name="UnlockScreen.touchIdPrompt.android">"Odblokuj swoje urządzenie Android, aby kontynuować. "</string>
   <!-- Unlock with TouchID accessibility label -->
   <string name="UnlockScreen.touchIdText">Odblokuj za pomocą TouchID</string>
   <!-- Device authentication title -->
@@ -693,7 +693,7 @@
   <!-- Copy wallet addresses alert button label -->
   <string name="URLHandling.copy">Kopiuj</string>
   <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">Wpisz swój PIN, aby potwierdzić tę transakcję. </string>
+  <string name="VerifyPin.authorize">"Wpisz swój PIN, aby potwierdzić tę transakcję. "</string>
   <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">Wpisz swój PIN, aby kontynuować.</string>
   <!-- Verify PIN view title -->
@@ -705,7 +705,7 @@
   <!-- Dismiss button label -->
   <string name="Webview.dismiss">Anuluj</string>
   <!-- Webview loading error message -->
-  <string name="Webview.errorMessage">Wystąpił błąd wyświetlania zawartości. Proszę spróbuj ponownie później. </string>
+  <string name="Webview.errorMessage">"Wystąpił błąd wyświetlania zawartości. Proszę spróbuj ponownie później. "</string>
   <!-- Updating webview message -->
   <string name="Webview.updating">Aktualizowanie...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
@@ -715,7 +715,7 @@
   <!-- Wipe wallet alert message -->
   <string name="WipeWallet.alertMessage">Czy na pewno chcesz skasować ten portfel?</string>
   <!-- Wipe wallet alert title -->
-  <string name="WipeWallet.alertTitle">Wyczyścić portfel? </string>
+  <string name="WipeWallet.alertTitle">"Wyczyścić portfel? "</string>
   <!-- Failed wipe wallet alert message -->
   <string name="WipeWallet.failedMessage">Czyszczenie portfela nie powiodło się.</string>
   <!-- Failed wipe wallet alert title -->

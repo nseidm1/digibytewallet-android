@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- App name -->
+  <string name="About.appName.android">DigiWallet</string>
+  <!-- About screen blog label -->
+  <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
   <string name="About.footer">Vytvořil globální Digi Wallet team. Verze %1$s</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">Ochrana soukromí</string>
+  <!-- About screen reddit label -->
+  <string name="About.reddit">https://www.reddit.com/r/Digibyte/</string>
   <!-- Terms of Use button label -->
   <string name="About.terms">Tento program je open-source, zdrojový kód k dispozici zde: https://github.com/Racecraft/digibytewallet-android</string>
   <!-- About screen title -->
   <string name="About.title">Ryhle, jednoduše a bezpečně!: DigiWallet pro Android je nejjednodušší způsob, jak začít posílat a příjímat DigiByte. DigiWallet pro Android je navržena jak pro začínající, tak pro pokročilé uživatele - jednoduchá pro začátečníky, a zároveň nabitá funkcemi pro zkušené uživatele.</string>
+  <!-- About screen twitter label -->
+  <string name="About.twitter">https://twitter.com/digibytecoin</string>
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">Zavřít</string>
   <!-- Support center accessibiliy label -->
@@ -207,7 +215,7 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">BEZPEČNOST ZAŘÍZENÍ OHROŽENA - Jakákoliv \"jailbreak\" aplikace může vstoupit do klíčových dat DigiWallet a odcizit Vaše DigiByte! Okamžitě smažte tuto peněženku a obnovte ji na zabezpečeném zařízení.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">DEVICE SECURITY COMPROMISED\n Any \'jailbreak\' app can access DigiWallet\'s keychain data and steal your DigiByte. Please only use DigiWallet on a non-jailbroken device.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">BEZPEČNOST ZAŘÍZENÍ OHROŽENA\n Jakákoliv \'jailbreak\' aplikace může přistoupit ke klíčovým datům a odcizit Vaše DigiByte. Prosím používejte DigiWallet pouze na bezpečných zařízeních.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">VAROVÁNÍ</string>
   <!-- Location services disabled error -->
@@ -269,17 +277,17 @@
   <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">DigiByte platby nemohou být menší, než %1$s</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">DigiByte transaction outputs can\'t be less than %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">Výstup z DigiByte transakce nemůže být nežší než %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Nepodporovaný typ podpisu</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Nedůvěryhodný certifikát</string>
   <!-- No passcode set warning body -->
-  <string name="Prompts.NoPasscode.body">A device passcode is needed to safeguard your wallet. Go to settings and turn passcode on.</string>
+  <string name="Prompts.NoPasscode.body">Heslo zařízení je vyžadováno pro ochranu peněženky. Přejděte do nastavení a zapněte ochranu pomocí hesla.</string>
   <!-- No Passcode set warning title -->
-  <string name="Prompts.NoPasscode.title">Turn device passcode on</string>
+  <string name="Prompts.NoPasscode.title">Zapněte přistupové heslo k zařízení</string>
   <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">A device screen lock is needed to safeguard your wallet. Go to \"Settings\" &gt; \"Security\" &gt; \"Screen lock\" and enable to continue.</string>
+  <string name="Prompts.NoScreenLock.body.android">"Zámek obrazovky je vyžadován pro ochranu peněženky. Přejděte do \"Nastavení\" &gt; \"Zabezpečení\" &gt; \"Zámek obrazovky,\" povolte a pokračujte. "</string>
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">Zámek obrazovky deaktivován</string>
   <!-- Warning about paper key. -->
@@ -305,9 +313,9 @@
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">DigiWallet has upgraded to using a 6-digit PIN. Tap here to upgrade.</string>
+  <string name="Prompts.UpgradePin.body">DigiWallet byla aktualizována k používání šestimístného PINu. Klepněte sem pro aktualizaci.</string>
   <!-- Upgrade PIN prompt title. -->
-  <string name="Prompts.UpgradePin.title">Upgrade PIN</string>
+  <string name="Prompts.UpgradePin.title">Aktualizace PIN</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
   <string name="PushNotifications.body">Zapněte notifikace a dostávejte v budoucnu speciální zprávy z DigiWallet.</string>
   <!-- Push notifications toggle switch label -->
@@ -341,7 +349,7 @@
   <!-- Recover wallet intro -->
   <string name="RecoverWallet.intro">Obnovit vaši DigiWallet pomocí osobního klíče pro obnovení.</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">The Personal Recovery Key you entered is invalid. Please double-check each word and try again.</string>
+  <string name="RecoverWallet.invalid">Zadaný Osobní klíč pro obnovení je nesprávný. Zkontrolujte prosím všechna slova a zkuste to znovu.</string>
   <!-- Previous button accessibility label -->
   <string name="RecoverWallet.leftArrow">Levá šipka</string>
   <!-- Next button label -->
@@ -351,29 +359,29 @@
   <!-- Next button accessibility label -->
   <string name="RecoverWallet.rightArrow">Pravá šipka</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">Enter the Personal Recovery Key for the DigiWallet you want to recover.</string>
+  <string name="RecoverWallet.subheader">Zadejte Osobní klíč pro obnovení pro DigiWallet, kterou si přejete obnovit.</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">To reset your PIN, enter the words from your Personal Recovery Key into the boxes below.</string>
+  <string name="RecoverWallet.subheader_reset_pin">Pro resetování PIN zadejte slova z vašeho Osobního klíče pro obnovení do rámečků níže.</string>
   <!-- No amount entered error message. -->
   <string name="RequestAnAmount.noAmount">Zadejte prosím nejprve částku.</string>
   <!-- Request a specific amount of bitcoin -->
   <string name="RequestAnAmount.title">Požádat o částku</string>
   <!-- Alert action button label -->
-  <string name="ReScan.alertAction">Sync</string>
+  <string name="ReScan.alertAction">Synchronizace</string>
   <!-- Alert message body -->
-  <string name="ReScan.alertMessage">You will not be able to send DigiByte while syncing.</string>
+  <string name="ReScan.alertMessage">Během synchronizace nebudete moci posílat DigiByte.</string>
   <!-- Alert message title -->
   <string name="ReScan.alertTitle">Synchronizovat s blockchainem?</string>
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 minut</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">If a transaction shows as completed on the DigiByte network but not in your DigiWallet.</string>
+  <string name="ReScan.body2">Pokud se transakce zobrazuje jako dokončená v síti DigiByte, ale ne ve vaší DigiWallet.</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">Opakovaně se Vám zobrazuje chyba zamítnutí transakce.</string>
   <!-- Start Sync button label -->
   <string name="ReScan.buttonTitle">Začít synchronizaci</string>
   <!-- Sync blockchain view footer -->
-  <string name="ReScan.footer">Během synchronizace blockchainu nebudete moci posílat DigiByty </string>
+  <string name="ReScan.footer">"Během synchronizace blockchainu nebudete moci posílat DigiByty "</string>
   <!-- Sync Blockchain view header -->
   <string name="ReScan.header">Synchronizace Blockchainu</string>
   <!-- Subheader label -->
@@ -431,7 +439,7 @@
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">Poplatek sítě: %1$s</string>
   <!-- Payee identity not certified alert title. -->
-  <string name="Send.identityNotCertified">Payee identity isn\'t certified.</string>
+  <string name="Send.identityNotCertified">Příjemcova identita není certifikována.</string>
   <!-- Invalid address alert message -->
   <string name="Send.invalidAddressMessage">Cílová adresa není platná DigiByte adresa.</string>
   <!-- Invalid address on pasteboard message -->
@@ -463,7 +471,7 @@
   <!-- Adress already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">DigiByte adresy jsou určeny pouze k jednomu použití.</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">Re-use reduces privacy for both you and the recipient and can result in loss if the recipient doesn\'t directly control the address.</string>
+  <string name="Send.UsedAddress.secondLIne">Předchozí použití snižuje soukromí pro odesílatele i příjemce a může vyústit ve ztrátu, pokud příjemce přímo nekontroluje adresu.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adresa je již používána</string>
   <!-- About label -->
@@ -473,7 +481,7 @@
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">Zobrazit měnu</string>
   <!-- Join Early access label -->
-  <string name="Settings.earlyAccess">Join Early Access</string>
+  <string name="Settings.earlyAccess">Přidat se k brzkému přístupu</string>
   <!-- Are you enjoying bread alert message body -->
   <string name="Settings.enjoying">Líbí se vám DigiWallet peněženka?</string>
   <!-- Import wallet left message -->
@@ -497,9 +505,9 @@
   <!-- Settings title -->
   <string name="Settings.title">Nastavení</string>
   <!-- Touch ID spending limit label -->
-  <string name="Settings.touchIdLimit">Touch ID Spending Limit</string>
+  <string name="Settings.touchIdLimit">Touch ID limit čerpání</string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">Fingerprint Authentication Spending Limit</string>
+  <string name="Settings.touchIdLimit.android">Limit čerpání autentizace otiskem prstu</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">Peněženka</string>
   <!-- Start or recover another wallet menu label. -->
@@ -513,13 +521,13 @@
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">Zapište si znovu Osobní klíč pro obnovení</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Your Personal Recovery Key is the only way to restore your DigiWallet if your phone is lost, stolen, broken, or upgraded.\n\nWe will show you a list of words to write down on a piece of paper and keep safe.</string>
+  <string name="StartPaperPhrase.body">Osobní klíč pro obnovení je jediný způsob obnovení DigiWallet pokud se váš telefone ztratí, rozbije se, nebo pokud je vyměněn za nový.\n\nUkážeme Vám seznam slov, které si zapíšete na papír a bezpečně uschováte.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">Write Down Personal Recovery Key</string>
+  <string name="StartPaperPhrase.buttonTitle">Zapište si Osobní klíč pro obnovení</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">You last wrote down your Personal Recovery Key on %1$s</string>
+  <string name="StartPaperPhrase.date">Osobní klíč pro obnovení jste si naposledy zapsali %1$s</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">The most secure and safest way to use DigiByte.</string>
+  <string name="StartViewController.message">Nejzabezpečenější a nejbezpečnější způsob použití DigiByte.</string>
   <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">Připojování</string>
   <!-- Syncing view header text -->
@@ -527,7 +535,7 @@
   <!-- Retry button label -->
   <string name="SyncingView.retry">Znovu</string>
   <!-- Syncing view syncing state header text -->
-  <string name="SyncingView.syncing">Syncing</string>
+  <string name="SyncingView.syncing">Synchronizuji</string>
   <!-- 6 d (6 days) -->
   <string name="TimeSince.days">%1$s d</string>
   <!-- 6 h (6 hours) -->
@@ -537,11 +545,11 @@
   <!-- 6 s (6 seconds) -->
   <string name="TimeSince.seconds">%1$s s</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-  <string name="TouchIdSettings.customizeText">You can customize your Touch ID spending limit from the %1$s.</string>
+  <string name="TouchIdSettings.customizeText">Můžete přizpůsobit Touch ID limit čerpání od %1$s.</string>
   <!-- Fingerprint enabling description body -->
-  <string name="TouchIdSettings.customizeText.android">You can customize your Fingerprint Authentication Spending Limit from the Fingerprint Authorization Spending Limit screen</string>
+  <string name="TouchIdSettings.customizeText.android">Limit pro čerpání autentizace otiskem prstu můžete upravit na obrazovce nastavení limitu pro čerpání autorizace otiskem prstu</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">You have not enabled fingerprint authentication on this device. Go to Settings -&gt; Security to set up fingerprint authentication.</string>
+  <string name="TouchIdSettings.disabledWarning.body.android">Nepovolili jste autentizaci pomocí otisku prstu. Jděte do Nastavení -&gt; Bezpečnost pro nastavení autentizace otiskem prstu.</string>
   <!-- Fingerprint Is Not Setup -->
   <string name="TouchIdSettings.disabledWarning.title.android">Autentizace pomocí otisku prstu není povolena</string>
   <!-- Touch Id screen label -->
@@ -559,19 +567,19 @@
   <!-- Fingerprint authentication label -->
   <string name="TouchIdSettings.title.android">Autentizace otiskem prstu</string>
   <!-- Touch ID unavailable alert message -->
-  <string name="TouchIdSettings.unavailableAlertMessage">You have not set up Touch ID on this device. Go to Settings-&gt;Touch ID &amp; Passcode to set it up now.</string>
+  <string name="TouchIdSettings.unavailableAlertMessage">Na tomto zařízení nemáte nastaveno Touch ID. Přejděte do Nastavení &gt; Touch ID &amp; Přístup pro jeho nastavení.</string>
   <!-- Touch ID unavailable alert title -->
   <string name="TouchIdSettings.unavailableAlertTitle">Touch ID není nastaveno</string>
   <!-- Always require passcode option -->
-  <string name="TouchIdSpendingLimit">Always require passcode</string>
+  <string name="TouchIdSpendingLimit">Vždy vyžadovat heslo</string>
   <!-- Touch ID spending limit screen body -->
-  <string name="TouchIdSpendingLimit.body">You will be asked to enter your 6-digit PIN to send any transaction over your spending limit, and every 48 hours since the last time you entered your 6-digit PIN.</string>
+  <string name="TouchIdSpendingLimit.body">Budete požádáni o zadání šestimístného PINu pro odeslání jakékoliv transakce nad Váš limit čerpání, a každých 48 hodin od posledního zadání šestimístného PINu.</string>
   <!-- Touch Id spending limit screen title -->
-  <string name="TouchIdSpendingLimit.title">Touch ID Spending Limit</string>
+  <string name="TouchIdSpendingLimit.title">Touch ID limit čerpání</string>
   <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">Fingerprint Authorization Spending Limit</string>
+  <string name="TouchIdSpendingLimit.title.android">Limit čerpání autorizace otiskem prstu</string>
   <!-- Availability status text -->
-  <string name="Transaction.available">Available to Spend</string>
+  <string name="Transaction.available">Připraveno pro čerpání</string>
   <!-- Transaction complete label -->
   <string name="Transaction.complete">Dokončeno</string>
   <!-- eg. Ending balance: $50.00 -->
@@ -583,7 +591,7 @@
   <!-- (b600 fee) -->
   <string name="Transaction.fee">(%1$s poplatek)</string>
   <!-- Invalid transaction -->
-  <string name="Transaction.invalid">INVALID</string>
+  <string name="Transaction.invalid">NEPLATNÉ</string>
   <!-- Timestamp label for event that just happened -->
   <string name="Transaction.justNow">právě teď</string>
   <!-- Receive status text: 'In progress: 20%' -->
@@ -591,21 +599,21 @@
   <!-- Send status text: 'In progress: 20%' -->
   <string name="Transaction.sendingStatus">Průběh: %1$s</string>
   <!-- eg. Starting balance: $50.00 -->
-  <string name="Transaction.starting">Počáteční částka: %1$s</string>
+  <string name="Transaction.starting">Počáteční zůstatek: %1$s</string>
   <!-- Waiting to be confirmed string -->
-  <string name="Transaction.waiting">Waiting to be confirmed. Some merchants require confirmation to complete a transaction. Estimated time: 1-2 minutes.</string>
+  <string name="Transaction.waiting">Čeká se na potvrzení. Někteří obchodníci vyžadují potvrzení pro dokončení transakce. Odhadovaný čas: 1 - 2 minuty.</string>
   <!-- e.g. I received money from an account. -->
   <string name="TransactionDetails.account">účet</string>
   <!-- Amount section header -->
   <string name="TransactionDetails.amountHeader">Částka</string>
   <!-- Block height label -->
-  <string name="TransactionDetails.blockHeightLabel">Confirmed in Block</string>
+  <string name="TransactionDetails.blockHeightLabel">Potvrzené v bloku</string>
   <!-- Memo section header -->
   <string name="TransactionDetails.commentsHeader">Poznámka</string>
   <!-- Empty transaction list message. -->
   <string name="TransactionDetails.emptyMessage">Vaše transakce se objeví zde.</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
-  <string name="TransactionDetails.from">at %1$s</string>
+  <string name="TransactionDetails.from">od %1$s</string>
   <!-- More button title -->
   <string name="TransactionDetails.more">Více...</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->
@@ -627,7 +635,7 @@
   <!-- Transaction Details Title -->
   <string name="TransactionDetails.title">Detaily transakce</string>
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
-  <string name="TransactionDetails.to">to %1$s</string>
+  <string name="TransactionDetails.to">komu %1$s</string>
   <!-- Transaction ID header -->
   <string name="TransactionDetails.txHashHeader">DigiByte ID transakce</string>
   <!-- (this transaction was) Received at this address: -->

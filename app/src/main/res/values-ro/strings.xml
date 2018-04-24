@@ -71,9 +71,9 @@
   <!-- Generic bch erorr message -->
   <string name="BCH.genericError">Contul dvs. nu conține niciun DigiByte sau ați primit DigiByte după bifurcare.</string>
   <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">Tranzacția ID copiata </string>
+  <string name="BCH.hashCopiedMessage">"Tranzacția ID copiata "</string>
   <!-- No address error message -->
-  <string name="BCH.noAddressError"> Vă rog introduceți o adresă </string>
+  <string name="BCH.noAddressError">" Vă rog introduceți o adresă "</string>
   <!-- Attempted to scan unsupported qr code error message. -->
   <string name="BCH.paymentProtocolError">Solicitările de protocol de plata nu sunt suportate pentru tranzacțiile DGB</string>
   <!-- BCH successfully sent alert message -->
@@ -175,7 +175,7 @@
   <!-- empty private key error message -->
   <string name="Import.Error.empty">Această cheie privată este goală.</string>
   <!-- High fees error message -->
-  <string name="Import.Error.highFees">Taxa de tranzacționare ar costa mai mult decât fondurile disponibile în această cheie privată. </string>
+  <string name="Import.Error.highFees">"Taxa de tranzacționare ar costa mai mult decât fondurile disponibile în această cheie privată. "</string>
   <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">Cheia privată nu este validată.</string>
   <!-- Import signing error message -->
@@ -215,7 +215,7 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">SECURITATEA DISPOZITIVULUI ESTE COMPROMISĂ\n Orice aplicație \"jailbreak\" vă poate accesa informațiile keychain din DigiWallet și vă poate fura DigiByte-ul! Ștergeți acest portofel imediat și recuperați-l pe un dispozitiv securizat.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">SECURITATEA DISPOZITIVULUI ESTE COMPROMISĂ\n Orice aplicație \"jailbreak\" vă poate accesa informațiile keychain din DigiWallet și vă poate fura DigiByte-ul! Vă rugăm să folosiți DigiWallet doar pe un dispozitiv non-jailbroken.  </string>
+  <string name="JailbreakWarnings.messageWithoutBalance">"SECURITATEA DISPOZITIVULUI ESTE COMPROMISĂ\n Orice aplicație \"jailbreak\" vă poate accesa informațiile keychain din DigiWallet și vă poate fura DigiByte-ul! Vă rugăm să folosiți DigiWallet doar pe un dispozitiv non-jailbroken.  "</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">AVERTIZARE</string>
   <!-- Location services disabled error -->
@@ -257,7 +257,7 @@
   <!-- Switch to manual mode button label -->
   <string name="NodeSelector.manualButton">Treceți la modul Manual\n</string>
   <!-- Node address label -->
-  <string name="NodeSelector.nodeLabel">Node curent primar </string>
+  <string name="NodeSelector.nodeLabel">"Node curent primar "</string>
   <!-- Node is not connected label -->
   <string name="NodeSelector.notConnected">Nu este conectat</string>
   <!-- Node status label -->
@@ -283,7 +283,7 @@
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">certificare nesigură</string>
   <!-- No passcode set warning body -->
-  <string name="Prompts.NoPasscode.body">Este nevoie de parola dispozitivului pentru a vă proteja portofelul. Accesați setările și activați parola.  </string>
+  <string name="Prompts.NoPasscode.body">"Este nevoie de parola dispozitivului pentru a vă proteja portofelul. Accesați setările și activați parola.  "</string>
   <!-- No Passcode set warning title -->
   <string name="Prompts.NoPasscode.title">Activați parola dispozitivului</string>
   <!-- Instruction how to enable device encryption -->
@@ -293,7 +293,7 @@
   <!-- Warning about paper key. -->
   <string name="Prompts.PaperKey.body">Cheia dvs. de hârtie trebuie salvată în caz că vă pierdeți sau vă schimbați vreodată telefonul. Apăsați aici pentru a continua.</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">Se solicită un răspuns </string>
+  <string name="Prompts.PaperKey.title">"Se solicită un răspuns "</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">E posibil ca portfelul dvs. să nu fie sincronizat.  Acest lucru poate fi adesea remediat prin rescanarea blockchain-ului.</string>
   <!-- Transaction rejected prompt title -->
@@ -313,7 +313,7 @@
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">DigiWallet a fost actualizat pentru folosirea unui PIN de 6 cifre. Apăsați aici pentru actualizare. </string>
+  <string name="Prompts.UpgradePin.body">"DigiWallet a fost actualizat pentru folosirea unui PIN de 6 cifre. Apăsați aici pentru actualizare. "</string>
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">Actualizați PIN-ul</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
@@ -349,7 +349,7 @@
   <!-- Recover wallet intro -->
   <string name="RecoverWallet.intro">Recuperați-vă DigiWallet cu cheia de hârtie.</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">Cheia de hârtie introdusă nu este validă. Vă rugăm să reverificați fiecare cuvânt și să încercați din nou. </string>
+  <string name="RecoverWallet.invalid">"Cheia de hârtie introdusă nu este validă. Vă rugăm să reverificați fiecare cuvânt și să încercați din nou. "</string>
   <!-- Previous button accessibility label -->
   <string name="RecoverWallet.leftArrow">Săgeata stângă</string>
   <!-- Next button label -->
@@ -469,9 +469,9 @@
   <!-- Send money to label -->
   <string name="Send.toLabel">Către</string>
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">Adresele DigiByte sunt destinate pentru o singură utilizare. </string>
+  <string name="Send.UsedAddress.firstLine">"Adresele DigiByte sunt destinate pentru o singură utilizare. "</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">Re-folosirea reduce securizarea atât pentru dvs., cât și pentru destinatar și poate aduce pierderi, dacă destinatarul nu deține controlul direct al adresei.   </string>
+  <string name="Send.UsedAddress.secondLIne">"Re-folosirea reduce securizarea atât pentru dvs., cât și pentru destinatar și poate aduce pierderi, dacă destinatarul nu deține controlul direct al adresei.   "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adresă deja folosită</string>
   <!-- About label -->
@@ -543,7 +543,7 @@
   <!-- 6 m (6 minutes) -->
   <string name="TimeSince.minutes">%1$s m</string>
   <!-- 6 s (6 seconds) -->
-  <string name="TimeSince.seconds"> %1$s s</string>
+  <string name="TimeSince.seconds">" %1$s s"</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
   <string name="TouchIdSettings.customizeText">Vă puteți personaliza limita de cheltuieli prin Touch ID de la %1$s.</string>
   <!-- Fingerprint enabling description body -->
@@ -733,7 +733,7 @@
   <!-- Wiping activity message -->
   <string name="WipeWallet.wiping">Curățare...</string>
   <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">Scrieți fiecare cuvânt în ordine și păstrați-le într-un loc sigur. </string>
+  <string name="WritePaperPhrase.instruction">"Scrieți fiecare cuvânt în ordine și păstrați-le într-un loc sigur. "</string>
   <!-- button label -->
   <string name="WritePaperPhrase.next">Următorul</string>
   <!-- button label -->

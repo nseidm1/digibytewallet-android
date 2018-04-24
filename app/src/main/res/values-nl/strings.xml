@@ -269,7 +269,7 @@
   <!-- Error opening payment protocol file message -->
   <string name="PaymentProtocol.Errors.corruptedDocument">Niet ondersteund of beschadigd document</string>
   <!-- Missing certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.missingCertificate"> Certificaat ontbreekt</string>
+  <string name="PaymentProtocol.Errors.missingCertificate">" Certificaat ontbreekt"</string>
   <!-- Request expired payment protocol error message -->
   <string name="PaymentProtocol.Errors.requestExpired">Verzoek verlopen</string>
   <!-- Payment too small alert title -->
@@ -309,11 +309,11 @@
   <!-- Enable touch ID prompt title -->
   <string name="Prompts.TouchId.title">Activeer Touch ID</string>
   <!-- Enable Fingerprint prompt title -->
-  <string name="Prompts.TouchId.title.android">Schakel vinger-afdruk verificatie in </string>
+  <string name="Prompts.TouchId.title.android">"Schakel vinger-afdruk verificatie in "</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">De DigiWallet is ge-upgrade, je moet nu een 6 cijferige pincode gebruiken. Klik hier om te upgraden. </string>
+  <string name="Prompts.UpgradePin.body">"De DigiWallet is ge-upgrade, je moet nu een 6 cijferige pincode gebruiken. Klik hier om te upgraden. "</string>
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">Upgrade je pincode</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->

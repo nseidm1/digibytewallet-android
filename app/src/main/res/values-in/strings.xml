@@ -659,7 +659,7 @@
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">Mohon buka perangkat Android anda untuk melanjutkan.</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">Buka Kunci Dengan TouchID </string>
+  <string name="UnlockScreen.touchIdText">"Buka Kunci Dengan TouchID "</string>
   <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">Otentikasi Diperlukan</string>
   <!-- Wallet unlocked message -->

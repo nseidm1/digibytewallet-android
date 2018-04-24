@@ -299,7 +299,7 @@
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Transakcija odbija</string>
   <!-- Share data prompt body -->
-  <string name="Prompts.ShareData.body">Pomozite unapređenju DigiWallet-a deljenjem Vaših anonimnih podataka </string>
+  <string name="Prompts.ShareData.body">"Pomozite unapređenju DigiWallet-a deljenjem Vaših anonimnih podataka "</string>
   <!-- Share data prompt title -->
   <string name="Prompts.ShareData.title">Deli anonimne podatke</string>
   <!-- Enable touch ID prompt body -->
@@ -467,7 +467,7 @@
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">Pošalji</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">Za </string>
+  <string name="Send.toLabel">"Za "</string>
   <!-- Adress already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">DigiByte adrese su namenjene za individualno korišćenje.</string>
   <!-- Adress already used alert message - second part -->
@@ -475,7 +475,7 @@
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adresa se već koristi</string>
   <!-- About label -->
-  <string name="Settings.about">O novčaniku </string>
+  <string name="Settings.about">"O novčaniku "</string>
   <!-- Advanced Settings title -->
   <string name="Settings.advancedTitle">Napredne postavke</string>
   <!-- i.e. the currency which will be displayed -->
