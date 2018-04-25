@@ -14,14 +14,11 @@ package io.digibyte.presenter.fragments;/*
  * limitations under the License
  */
 
-import android.animation.Animator;
-import android.animation.ArgbEvaluator;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,8 +32,10 @@ import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FingerprintDialogContainerBinding;
 import io.digibyte.presenter.fragments.interfaces.FingerprintFragmentCallback;
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.presenter.fragments.models.FingerprintFragmentViewModel;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
+import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.FingerprintUiHelper;
 
@@ -45,7 +44,8 @@ import io.digibyte.tools.security.FingerprintUiHelper;
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
  * authentication if fingerprint is not available.
  */
-public class FragmentFingerprint extends Fragment implements FingerprintUiHelper.Callback {
+public class FragmentFingerprint extends Fragment implements FingerprintUiHelper.Callback,
+        OnBackPressListener {
     public static final String TAG = FragmentFingerprint.class.getName();
     private FingerprintManager.CryptoObject mCryptoObject;
     private FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder;
@@ -72,7 +72,8 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         }
     };
 
-    public static void show(Activity activity, String title, String message, BRAuthCompletion completion) {
+    public static void show(Activity activity, String title, String message,
+            BRAuthCompletion completion) {
         FragmentFingerprint fingerprintFragment = new FragmentFingerprint();
         fingerprintFragment.setCompletion(completion);
         Bundle args = new Bundle();
@@ -80,16 +81,20 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         args.putString("message", message);
         fingerprintFragment.setArguments(args);
         FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom);
-        transaction.add(android.R.id.content, fingerprintFragment, FragmentFingerprint.class.getName());
+        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
+                R.animator.from_bottom, R.animator.to_bottom);
+        transaction.add(android.R.id.content, fingerprintFragment,
+                FragmentFingerprint.class.getName());
+        transaction.addToBackStack(FragmentFingerprint.class.getName());
         transaction.commit();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         binding = FingerprintDialogContainerBinding.inflate(inflater);
-        binding.fingerprintLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        binding.fingerprintLayout.getLayoutTransition().enableTransitionType(
+                LayoutTransition.CHANGING);
         viewModel = new FingerprintFragmentViewModel();
         binding.setData(viewModel);
         binding.setCallback(callback);
@@ -108,9 +113,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ObjectAnimator colorFade =
-                ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
-                        Color.argb(0, 0, 0, 0), Color.argb(127, 0, 0, 0));
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, false, null);
         colorFade.setStartDelay(350);
         colorFade.setDuration(500);
         colorFade.start();
@@ -143,42 +146,22 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     }
 
     private void fadeOutRemove(boolean authenticated, boolean goToBackup) {
-        ObjectAnimator colorFade =
-                ObjectAnimator.ofObject(binding.background, "backgroundColor", new ArgbEvaluator(),
-                        Color.argb(127, 0, 0, 0), Color.argb(0, 0, 0, 0));
-        colorFade.setDuration(500);
-        colorFade.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                remove();
-                if (authenticated) {
-                    handler.postDelayed(() -> {
-                        if (completion != null) completion.onComplete();
-                    }, 350);
-                }
-                if (goToBackup) {
-                    handler.postDelayed(() -> {
-                        AuthManager.getInstance().authPromptWithFingerprint(getContext(), getArguments().getString("title"),
-                                getArguments().getString("message"), false, completion);
-                    }, 350);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
+                () -> {
+                    remove();
+                    if (authenticated) {
+                        handler.postDelayed(() -> {
+                            if (completion != null) completion.onComplete();
+                        }, 350);
+                    }
+                    if (goToBackup) {
+                        handler.postDelayed(() -> {
+                            AuthManager.getInstance().authPromptWithFingerprint(getContext(),
+                                    viewModel.getTitle(),
+                                    viewModel.getMessage(), false, completion);
+                        }, 350);
+                    }
+                });
         colorFade.start();
     }
 
@@ -186,9 +169,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         if (getFragmentManager() == null) {
             return;
         }
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom);
-        transaction.remove(FragmentFingerprint.this).commitAllowingStateLoss();
+        getFragmentManager().popBackStack();
     }
 
     public void setCompletion(BRAuthCompletion completion) {
@@ -198,5 +179,10 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     @Override
     public void onError() {
         goToBackup();
+    }
+
+    @Override
+    public void onBackPressed() {
+        fadeOutRemove(false, false);
     }
 }

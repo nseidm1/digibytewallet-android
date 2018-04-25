@@ -132,24 +132,22 @@
                     android:filterTouchesWhenObscured="true"
                     android:visibility="invisible"/>
 
-                <io.digibyte.presenter.customviews.BRButton
+                <TextView
                     android:id="@+id/cancel_button"
                     style="?android:attr/buttonBarNegativeButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:isBreadButton="false"
                     android:filterTouchesWhenObscured="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onCancelClick()}"
                     android:text="@{data.cancelButtonLabel}"/>
 
-                <io.digibyte.presenter.customviews.BRButton
+                <TextView
                     android:id="@+id/second_dialog_button"
                     style="?android:attr/buttonBarPositiveButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:filterTouchesWhenObscured="true"
-                    app:isBreadButton="false"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onSecondButtonClick()}"
                     android:text="@{data.secondaryButtonLabel}"/>

@@ -1,36 +1,36 @@
 package io.digibyte.presenter.fragments;
 
-import static io.digibyte.R.id.menu_listview;
-
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.digibyte.R;
+import io.digibyte.databinding.FragmentMenuBinding;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
 import io.digibyte.presenter.activities.settings.SettingsActivity;
 import io.digibyte.presenter.entities.BRMenuItem;
+import io.digibyte.presenter.fragments.interfaces.MenuDialogCallback;
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.SlideDetector;
 
 /**
  * BreadWallet
@@ -57,104 +57,65 @@ import io.digibyte.tools.animation.SlideDetector;
  * THE SOFTWARE.
  */
 
-public class FragmentMenu extends Fragment {
-    private static final String TAG = FragmentMenu.class.getName();
+public class FragmentMenu extends Fragment implements OnBackPressListener {
+    private FragmentMenuBinding binding;
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
-    public TextView mTitle;
-    public ListView mListView;
-    public RelativeLayout background;
-    public List<BRMenuItem> itemList;
-    public ConstraintLayout signalLayout;
-    private ImageButton close;
+    private MenuDialogCallback mMenuDialogCallback = () -> fadeOutRemove(null, false, true);
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
-
-        View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
-        background = (RelativeLayout) rootView.findViewById(R.id.layout);
-        signalLayout = (ConstraintLayout) rootView.findViewById(R.id.signal_layout);
-        background.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                getActivity().onBackPressed();
-            }
-        });
-
-        close = (ImageButton) rootView.findViewById(R.id.close_button);
-
-        itemList = new ArrayList<>();
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_security), R.drawable.ic_shield, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity app = getActivity();
-                Intent intent = new Intent(app, SecurityCenterActivity.class);
-                app.startActivity(intent);
-                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-            }
-        }));
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_settings), R.drawable.ic_settings, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                Activity app = getActivity();
-                app.startActivity(intent);
-                app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
-            }
-        }));
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_lock), R.drawable.ic_lock, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Activity from = getActivity();
-                from.getFragmentManager().popBackStack();
-                BRAnimator.startBreadActivity(from, true);
-            }
-        }));
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Activity app = getActivity();
-                if (app != null)
-                    app.getFragmentManager().popBackStack();
-            }
-        });
-        mTitle = rootView.findViewById(R.id.title);
-        mListView = rootView.findViewById(menu_listview);
-        mListView.setAdapter(new MenuListAdapter(getContext(), R.layout.menu_list_item, itemList));
-        signalLayout.setOnTouchListener(new SlideDetector(getContext(), signalLayout));
-
-        return rootView;
+    public static void show(Activity activity) {
+        FragmentMenu fragmentMenu = new FragmentMenu();
+        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
+                R.animator.from_bottom, R.animator.to_bottom);
+        transaction.add(android.R.id.content, fragmentMenu,
+                FragmentMenu.class.getName());
+        transaction.addToBackStack(FragmentMenu.class.getName());
+        transaction.commit();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        binding = FragmentMenuBinding.inflate(inflater);
+        binding.setCallback(mMenuDialogCallback);
+        binding.menuListview.setAdapter(
+                new MenuListAdapter(getContext(), R.layout.menu_list_item, populateMenuList()));
+        return binding.getRoot();
+    }
 
-        final ViewTreeObserver observer = mListView.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                observer.removeGlobalOnLayoutListener(this);
-                BRAnimator.animateBackgroundDim(background, false);
-                BRAnimator.animateSignalSlide(signalLayout, false, null);
-            }
-        });
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, false, null);
+        colorFade.setStartDelay(350);
+        colorFade.setDuration(500);
+        colorFade.start();
+    }
+
+    private List<BRMenuItem> populateMenuList() {
+        List<BRMenuItem> itemList = new ArrayList<>();
+        itemList.add(
+                new BRMenuItem(getString(R.string.MenuButton_security), R.drawable.ic_shield, v -> {
+                    fadeOutRemove(new Intent(getActivity(), SecurityCenterActivity.class), false, false);
+                }));
+        itemList.add(new BRMenuItem(getString(R.string.MenuButton_settings), R.drawable.ic_settings,
+                v -> {
+                    fadeOutRemove(new Intent(getActivity(), SettingsActivity.class), false, false);
+                }));
+        itemList.add(new BRMenuItem(getString(R.string.MenuButton_lock), R.drawable.ic_lock, v -> {
+            fadeOutRemove(null, true, false);
+        }));
+        return itemList;
     }
 
     public class MenuListAdapter extends ArrayAdapter<BRMenuItem> {
-
-        //        private List<BRMenuItem> items;
         private Context mContext;
         private int defaultLayoutResource = R.layout.menu_list_item;
 
-        public MenuListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<BRMenuItem> items) {
+        public MenuListAdapter(@NonNull Context context, @LayoutRes int resource,
+                @NonNull List<BRMenuItem> items) {
             super(context, resource, items);
-//            this.items = items;
             this.mContext = context;
         }
 
@@ -162,19 +123,15 @@ public class FragmentMenu extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
-                // inflate the background
                 LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
                 convertView = inflater.inflate(defaultLayoutResource, parent, false);
             }
-            TextView text = (TextView) convertView.findViewById(R.id.item_text);
-            ImageView icon = (ImageView) convertView.findViewById(R.id.item_icon);
-
-            text.setText(getItem(position).text);
-            icon.setImageResource(getItem(position).resId);
-            convertView.setOnClickListener(getItem(position).listener);
-//            applyBlur();
+            TextView text = convertView.findViewById(R.id.item_text);
+            ImageView icon = convertView.findViewById(R.id.item_icon);
+            text.setText(Objects.requireNonNull(getItem(position)).text);
+            icon.setImageResource(Objects.requireNonNull(getItem(position)).resId);
+            convertView.setOnClickListener(Objects.requireNonNull(getItem(position)).listener);
             return convertView;
-
         }
 
         @Override
@@ -183,17 +140,33 @@ public class FragmentMenu extends Fragment {
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        BRAnimator.animateBackgroundDim(background, true);
-        BRAnimator.animateSignalSlide(signalLayout, true, new BRAnimator.OnSlideAnimationEnd() {
-            @Override
-            public void onAnimationEnd() {
-                if (getActivity() != null)
-                    getActivity().getFragmentManager().popBackStack();
-            }
-        });
+    private void fadeOutRemove(Intent intent, boolean openLockScreen, boolean justClose) {
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
+                () -> {
+                    remove();
+                    if (justClose) {
+                        return;
+                    }
+                    handler.postDelayed(() -> {
+                        if (openLockScreen) {
+                            BRAnimator.startBreadActivity(FragmentMenu.this.getActivity(), true);
+                        } else {
+                            getContext().startActivity(intent);
+                        }
+                    }, 350);
+                });
+        colorFade.start();
+    }
 
+    private void remove() {
+        if (getFragmentManager() == null) {
+            return;
+        }
+        getFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onBackPressed() {
+        fadeOutRemove(null, false, true);
     }
 }

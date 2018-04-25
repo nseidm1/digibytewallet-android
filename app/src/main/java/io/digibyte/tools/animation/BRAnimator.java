@@ -14,6 +14,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -118,7 +119,7 @@ public class BRAnimator {
                     .setCustomAnimations(0, 0, 0, R.animator.plain_300)
                     .add(android.R.id.content, fragmentSend, FragmentSend.class.getName())
                     .addToBackStack(FragmentSend.class.getName()).commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -269,11 +270,7 @@ public class BRAnimator {
             Log.e(TAG, "showReceiveFragment: app is null");
             return;
         }
-        FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-        transaction.add(android.R.id.content, new FragmentMenu(), FragmentMenu.class.getName());
-        transaction.addToBackStack(FragmentMenu.class.getName());
-        transaction.commit();
+        FragmentMenu.show(app);
     }
 
     public static boolean isClickAllowed() {
@@ -341,6 +338,7 @@ public class BRAnimator {
                 });
     }
 
+    @Deprecated
     public static void animateBackgroundDim(final ViewGroup backgroundLayout, boolean reverse) {
         int transColor = reverse ? R.color.black_trans : android.R.color.transparent;
         int blackTransColor = reverse ? android.R.color.transparent : R.color.black_trans;
@@ -359,6 +357,42 @@ public class BRAnimator {
         anim.start();
     }
 
+    public static ObjectAnimator animateBackgroundDim(final ViewGroup backgroundLayout,
+            boolean reverse, OnAnimationEndListener onAnimationEndListener) {
+        ObjectAnimator colorFade =
+                ObjectAnimator.ofObject(backgroundLayout, "backgroundColor", new ArgbEvaluator(),
+                        reverse ? Color.argb(127, 0, 0, 0) : Color.argb(0, 0, 0, 0),
+                        reverse ? Color.argb(0, 0, 0, 0) : Color.argb(127, 0, 0, 0));
+        colorFade.setDuration(SLIDE_ANIMATION_DURATION);
+        colorFade.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (onAnimationEndListener != null) {
+                    onAnimationEndListener.onAnimationEnd();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        return colorFade;
+    }
+
+    public interface OnAnimationEndListener {
+        void onAnimationEnd();
+    }
 
     public interface OnSlideAnimationEnd {
         void onAnimationEnd();

@@ -768,7 +768,7 @@ public class BRKeyStore {
             if (!TextUtils.isEmpty(ivFileString)) {
                 new File(ivFileString).delete();
             }
-        } catch (KeyStoreException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

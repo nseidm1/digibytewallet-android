@@ -4,23 +4,19 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-
-import io.digibyte.R;
-import io.digibyte.tools.animation.SpringAnimator;
-import io.digibyte.tools.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.digibyte.R;
+import io.digibyte.tools.util.Utils;
 
 
 /**
@@ -47,7 +43,7 @@ import java.util.List;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class BRKeyboard extends LinearLayout implements View.OnClickListener {
+public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener {
     public static final String TAG = BRKeyboard.class.getName();
     List<OnInsertListener> listeners = new ArrayList<>();
     private Button num0;
@@ -64,23 +60,8 @@ public class BRKeyboard extends LinearLayout implements View.OnClickListener {
     private ImageButton numDelete;
     private boolean showAlphabet;
 
-    public BRKeyboard(Context context) {
-        super(context);
-        init(null);
-    }
-
     public BRKeyboard(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
-    }
-
-    public BRKeyboard(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs);
-    }
-
-    public BRKeyboard(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
 

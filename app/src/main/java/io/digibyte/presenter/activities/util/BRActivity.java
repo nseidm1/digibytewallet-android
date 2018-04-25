@@ -1,14 +1,21 @@
 package io.digibyte.presenter.activities.util;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.platform.tools.BRBitId;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
@@ -41,11 +48,18 @@ import io.digibyte.wallet.BRWalletManager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class BRActivity extends Activity {
+public class BRActivity extends Activity implements FragmentManager.OnBackStackChangedListener {
     private final String TAG = this.getClass().getName();
+    private CopyOnWriteArrayList<OnBackPressListener> backClickListeners = new CopyOnWriteArrayList<>();
 
     static {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getFragmentManager().addOnBackStackChangedListener(this);
     }
 
     @Override
@@ -160,6 +174,35 @@ public class BRActivity extends Activity {
                 }
                 break;
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backClickListeners.size() == 0) {
+            super.onBackPressed();
+        } else {
+            for (OnBackPressListener onBackPressListener : backClickListeners) {
+                onBackPressListener.onBackPressed();
+            }
+        }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        //Add back press listeners
+        for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); i++) {
+            FragmentManager.BackStackEntry backStackEntry = getFragmentManager().getBackStackEntryAt(i);
+            Fragment fragment = getFragmentManager().findFragmentByTag(backStackEntry.getName());
+            if (fragment instanceof OnBackPressListener) {
+                OnBackPressListener onBackPressListener = (OnBackPressListener) fragment;
+                if (!backClickListeners.contains(onBackPressListener)) {
+                    backClickListeners.add(onBackPressListener);
+                }
+            }
+        }
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            backClickListeners.clear();
         }
     }
 }

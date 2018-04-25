@@ -1,10 +1,8 @@
 package io.digibyte.tools.security;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -166,19 +164,7 @@ public class AuthManager {
                 if (fingerprint) {
                     FragmentFingerprint.show(app, title, message, completion);
                 } else {
-                    FragmentPin breadPin = new FragmentPin();
-                    Bundle args = new Bundle();
-                    args.putString("title", title);
-                    args.putString("message", message);
-                    breadPin.setArguments(args);
-                    breadPin.setCompletion(completion);
-                    FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
-                    transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-                    transaction.add(android.R.id.content, breadPin, breadPin.getClass().getName());
-                    transaction.addToBackStack(null);
-                    if (!app.isDestroyed()) {
-                        transaction.commit();
-                    }
+                    FragmentPin.show(app, title, message, completion);
                 }
             } else {
                 BRDialog.showCustomDialog(app,

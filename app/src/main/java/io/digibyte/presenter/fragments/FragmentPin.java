@@ -1,30 +1,34 @@
 package io.digibyte.presenter.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.res.Resources;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.animation.DecelerateInterpolator;
 
 import io.digibyte.R;
-import io.digibyte.presenter.customviews.BRKeyboard;
+import io.digibyte.databinding.FragmentBreadPinBinding;
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
+import io.digibyte.presenter.fragments.interfaces.PinFragmentCallback;
+import io.digibyte.presenter.fragments.models.PinFragmentViewModel;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.DecelerateOvershootInterpolator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.Utils;
 
 /**
  * BreadWallet
@@ -51,119 +55,84 @@ import io.digibyte.tools.util.Utils;
  * THE SOFTWARE.
  */
 
-public class FragmentPin extends Fragment {
+public class FragmentPin extends Fragment implements OnBackPressListener {
     private static final String TAG = FragmentPin.class.getName();
 
-    private BRAuthCompletion completion;
-
-    private BRKeyboard keyboard;
-    private LinearLayout pinLayout;
-    private View dot1;
-    private View dot2;
-    private View dot3;
-    private View dot4;
-    private View dot5;
-    private View dot6;
-    private StringBuilder pin = new StringBuilder();
     private int pinLimit = 6;
-//    private boolean pinInsertAllowed;
+    private BRAuthCompletion completion;
+    private FragmentBreadPinBinding binding;
+    private final StringBuilder pin = new StringBuilder();
+    private static Handler handler = new Handler(Looper.myLooper());
 
-    private TextView title;
-    private TextView message;
-    private RelativeLayout dialogLayout;
-    ConstraintLayout mainLayout;
-    private boolean authSucceeded;
-    private String customTitle;
-    private String customMessage;
+    private PinFragmentCallback mPinFragmentCallback = new PinFragmentCallback() {
+        @Override
+        public void onClick(String key) {
+            handleClick(key);
+        }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
+        @Override
+        public void onCancelClick() {
+            fadeOutRemove(false);
+        }
+    };
 
-        View rootView = inflater.inflate(R.layout.fragment_bread_pin, container, false);
-        keyboard = (BRKeyboard) rootView.findViewById(R.id.brkeyboard);
-        pinLayout = (LinearLayout) rootView.findViewById(R.id.pinLayout);
 
-        if (BRKeyStore.getPinCode(getContext()).length() == 4) pinLimit = 4;
-
-        title = (TextView) rootView.findViewById(R.id.title);
-        message = (TextView) rootView.findViewById(R.id.message);
-        dialogLayout = (RelativeLayout) rootView.findViewById(R.id.pin_dialog);
-        mainLayout = (ConstraintLayout) rootView.findViewById(R.id.activity_pin);
-
-        mainLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getFragmentManager().beginTransaction().remove(FragmentPin.this).commit();
-            }
-        });
-
-        dot1 = rootView.findViewById(R.id.dot1);
-        dot2 = rootView.findViewById(R.id.dot2);
-        dot3 = rootView.findViewById(R.id.dot3);
-        dot4 = rootView.findViewById(R.id.dot4);
-        dot5 = rootView.findViewById(R.id.dot5);
-        dot6 = rootView.findViewById(R.id.dot6);
-
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleClick(key);
-            }
-        });
-        keyboard.setShowDot(false);
-
-        return rootView;
+    public static void show(Activity activity, String title, String message, BRAuthCompletion completion) {
+        FragmentPin fragmentPin = new FragmentPin();
+        fragmentPin.setCompletion(completion);
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        args.putString("message", message);
+        fragmentPin.setArguments(args);
+        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom, R.animator.from_bottom, R.animator.to_bottom);
+        transaction.add(android.R.id.content, fragmentPin, FragmentPin.class.getName());
+        transaction.addToBackStack(FragmentPin.class.getName());
+        transaction.commit();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        float keyboardTrY = keyboard.getTranslationY();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        binding = FragmentBreadPinBinding.inflate(inflater);
+        binding.setCallback(mPinFragmentCallback);
+        binding.mainLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         Bundle bundle = getArguments();
-        String titleString = bundle.getString("title");
-        String messageString = bundle.getString("message");
-        if (!Utils.isNullOrEmpty(titleString)) {
-            customTitle = titleString;
-            title.setText(customTitle);
-        }
-        if (!Utils.isNullOrEmpty(messageString)) {
-            customMessage = messageString;
-            message.setText(customMessage);
-        }
-        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        keyboard.setTranslationY(keyboardTrY + screenHeight / 3);
-        keyboard.animate()
-                .translationY(keyboardTrY)
-                .setDuration(400)
-                .setInterpolator(new DecelerateOvershootInterpolator(2.0f, 1f))
-                .withLayer();
-        float dialogScaleX = dialogLayout.getScaleX();
-        float dialogScaleY = dialogLayout.getScaleY();
-        dialogLayout.setScaleX(dialogScaleX / 2);
-        dialogLayout.setScaleY(dialogScaleY / 2);
-        dialogLayout.animate()
-                .scaleY(dialogScaleY)
-                .scaleX(dialogScaleX)
-                .setInterpolator(new OvershootInterpolator(2f));
+        PinFragmentViewModel viewModel = new PinFragmentViewModel();
+        viewModel.setTitle(bundle.getString("title"));
+        viewModel.setMessage(bundle.getString("message"));
+        binding.setData(viewModel);
+        binding.executePendingBindings();
+        if (BRKeyStore.getPinCode(getContext()).length() == 4) pinLimit = 4;
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.mainLayout, false, null);
+        colorFade.setStartDelay(350);
+        colorFade.setDuration(500);
+        colorFade.start();
+        Animator upFromBottom = AnimatorInflater.loadAnimator(getContext(), R.animator.from_bottom);
+        upFromBottom.setTarget(binding.brkeyboard);
+        upFromBottom.setDuration(1000);
+        upFromBottom.setInterpolator(new DecelerateInterpolator());
+        upFromBottom.start();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updateDots();
-        authSucceeded = false;
     }
 
 
-    private void handleClick(String key) {
+    private void handleClick(@Nullable final String key) {
         if (key == null) {
             Log.e(TAG, "handleClick: key is null! ");
             return;
         }
-
         if (key.isEmpty()) {
             handleDeleteClick();
         } else if (Character.isDigit(key.charAt(0))) {
@@ -173,84 +142,86 @@ public class FragmentPin extends Fragment {
         }
     }
 
-    private void handleDigitClick(Integer dig) {
-        if (pin.length() < pinLimit)
+    private void handleDigitClick(@NonNull final Integer dig) {
+        if (pin.length() < pinLimit) {
             pin.append(dig);
+        }
         updateDots();
     }
 
     private void handleDeleteClick() {
-        if (pin.length() > 0)
+        if (pin.length() > 0) {
             pin.deleteCharAt(pin.length() - 1);
+        }
         updateDots();
     }
 
     private void updateDots() {
-        if (dot1 == null) return;
-        AuthManager.getInstance().updateDots(getActivity(), pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_gray, new AuthManager.OnPinSuccess() {
-            @Override
-            public void onSuccess() {
-                if (AuthManager.getInstance().checkAuth(pin.toString(), getContext())) {
-                    handleSuccess();
-                } else {
-                    handleFail();
-                }
-                pin = new StringBuilder("");
-            }
-        });
-
-    }
-
-    private void handleSuccess() {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                authSucceeded = true;
-                completion.onComplete();
-                AuthManager.getInstance().authSuccess(getActivity());
-                BRAnimator.killAllFragments(getActivity());
-            }
-        });
-    }
-
-    private void handleFail() {
-        SpringAnimator.failShakeAnimation(getActivity(), pinLayout);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updateDots();
-            }
-        }, 500);
-        AuthManager.getInstance().authFail(getActivity());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        keyboard.animate()
-                .translationY(1000)
-                .withLayer();
-        dialogLayout.animate()
-                .scaleY(0)
-                .scaleX(0).alpha(0);
-        mainLayout.animate().alpha(0);
-        if (!authSucceeded)
-            completion.onCancel();
-        new Handler().postDelayed(() -> BRAnimator.killAllFragments(getActivity()), 1000);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+        AuthManager.getInstance().updateDots(getActivity(), pinLimit, pin.toString(), binding.dot1,
+                binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6,
+                R.drawable.ic_pin_dot_gray, () -> {
+                    if (AuthManager.getInstance().checkAuth(pin.toString(), getContext())) {
+                        fadeOutRemove(true);
+                    } else {
+                        SpringAnimator.failShakeAnimation(getActivity(), binding.pinLayout);
+                        new Handler().postDelayed(() -> updateDots(), 500);
+                        AuthManager.getInstance().authFail(getActivity());
+                    }
+                    pin.delete(0, pin.length());
+                });
     }
 
     public void setCompletion(BRAuthCompletion completion) {
         this.completion = completion;
     }
 
+    private void fadeOutRemove(boolean authenticated) {
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.mainLayout, true, null);
+        colorFade.setDuration(500);
+        Animator downToBottom = AnimatorInflater.loadAnimator(getContext(), R.animator.to_bottom);
+        downToBottom.setTarget(binding.brkeyboard);
+        downToBottom.setDuration(500);
+        downToBottom.setInterpolator(new DecelerateInterpolator());
+        AnimatorSet set = new AnimatorSet();
+        set.playSequentially(colorFade, downToBottom);
+        set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                remove();
+                if (authenticated) {
+                    handler.postDelayed(() -> {
+                        if (completion != null) completion.onComplete();
+                    }, 350);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        set.start();
+    }
+
+    private void remove() {
+        if (getFragmentManager() == null) {
+            return;
+        }
+        getFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onBackPressed() {
+        fadeOutRemove(false);
+    }
 }
