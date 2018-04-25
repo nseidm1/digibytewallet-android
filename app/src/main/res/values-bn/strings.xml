@@ -33,7 +33,7 @@
   <!-- KeyStore error, keys are invalidated -->
   <string name="Alert.keystore.invalidated.android">আপনার DigiWallet এনক্রিপ্ট ডেটা সম্প্রতি অকার্যকর হয়েছে, কারণ আপনার Android লক স্ক্রিনটি অক্ষম করা আছে।</string>
   <!-- Keystore error title -->
-  <string name="Alert.keystore.title.android">অ্যান্ড্রয়েড কীস্টোর ভুল </string>
+  <string name="Alert.keystore.title.android">"অ্যান্ড্রয়েড কীস্টোর ভুল "</string>
   <!-- No internet alert message -->
   <string name="Alert.noInternet">কোন ইন্টারনেট সংযোগ পাওয়া যায়নি, আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।</string>
   <!-- Warning alert title -->
@@ -51,7 +51,7 @@
   <!-- Send failure alert header label (the send failed to happen) -->
   <string name="Alerts.sendFailure">পাঠাতে ব্যর্থ</string>
   <!-- Send success alert header label (confirmation that the send happened) -->
-  <string name="Alerts.sendSuccess">প্রেরণ নিশ্চিতকরণ </string>
+  <string name="Alerts.sendSuccess">"প্রেরণ নিশ্চিতকরণ "</string>
   <!-- Send success alert subheader label (e.g. the money was sent) -->
   <string name="Alerts.sendSuccessSubheader">টাকা পাঠানো!</string>
   <!-- Fingerprint was recognized by the scanner -->
@@ -65,7 +65,7 @@
   <!-- Send BCH view body. -->
   <string name="BCH.body">নিচে একটি গন্তব্য DCH ঠিকানা লিখুন। এই সময়ের মধ্যে আপনার ওয়ালেটের এ শাখায় সমস্ত  BCH (%১ $@ গুলি) পাঠানো হবে।</string>
   <!-- Confirm sending <$5.00> to <address>? -->
-  <string name="BCH.confirmationMessage">প্রেরণ নিশ্চিত করুন %১$ @ থেকে%২$@ </string>
+  <string name="BCH.confirmationMessage">"প্রেরণ নিশ্চিত করুন %১$ @ থেকে%২$@ "</string>
   <!-- Confirmation alert title -->
   <string name="BCH.confirmationTitle">নিশ্চিতকরণ</string>
   <!-- Generic bch erorr message -->
@@ -123,7 +123,7 @@
   <!-- Network Fee: ($1.00) -->
   <string name="Confirmation.feeLabel">নেটওয়ার্ক ফি:</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-  <string name="Confirmation.processingTime">প্রক্রিয়াকরণের সময়: এই লেনদেন %১$  এ সম্পন্ন করার পূর্বাভাস দেওয়া হয়েছে </string>
+  <string name="Confirmation.processingTime">"প্রক্রিয়াকরণের সময়: এই লেনদেন %১$  এ সম্পন্ন করার পূর্বাভাস দেওয়া হয়েছে "</string>
   <!-- Label for "send" button on final confirmation screen -->
   <string name="Confirmation.send">প্রেরণ</string>
   <!-- Confirmation Screen title -->
@@ -159,11 +159,11 @@
   <!-- Warning message for economy fee -->
   <string name="FeeSelector.economyWarning">এই অপসন টি সময়ের সংবেদনশীল লেনদেনের জন্য সুপারিশ করা হয় না।</string>
   <!-- E.g. Estimated delivery: 10-60 minutes -->
-  <string name="FeeSelector.estimatedDeliver">আনুমানিক বিতরণ: %১$s </string>
+  <string name="FeeSelector.estimatedDeliver">"আনুমানিক বিতরণ: %১$s "</string>
   <!-- Regular fee -->
   <string name="FeeSelector.regular">নিয়মিত</string>
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-  <string name="FeeSelector.regularTime">১০-৬০ মিনিট </string>
+  <string name="FeeSelector.regularTime">"১০-৬০ মিনিট "</string>
   <!-- Fee Selector title -->
   <string name="FeeSelector.title">প্রক্রিয়াকরন গতি</string>
   <!-- Checking private key balance progress view text -->
@@ -193,7 +193,7 @@
   <!-- password textfield placeholder -->
   <string name="Import.passwordPlaceholder">পাসওয়ার্ড</string>
   <!-- Caption for graphics -->
-  <string name="Import.rightCaption">আপনার DigiWallet ওয়ালেট </string>
+  <string name="Import.rightCaption">"আপনার DigiWallet ওয়ালেট "</string>
   <!-- Scan Private key button label -->
   <string name="Import.scan">ব্যক্তিগত কী স্ক্যান করুন</string>
   <!-- Import wallet success alert title -->
@@ -201,7 +201,7 @@
   <!-- Successfully imported wallet message body -->
   <string name="Import.SuccessBody">সফলভাবে ওয়ালেট ইম্পোর্টেড</string>
   <!-- Import Wallet screen title -->
-  <string name="Import.title">ওয়ালেট ইম্পোর্ট </string>
+  <string name="Import.title">"ওয়ালেট ইম্পোর্ট "</string>
   <!-- Unlocking Private key activity view message. -->
   <string name="Import.unlockingActivity">আনলকিং কী</string>
   <!-- Import wallet intro warning message -->
@@ -227,7 +227,7 @@
   <!-- Manage wallet description text -->
   <string name="ManageWallet.description">আপনার ওয়ালেট নাম শুধুমাত্র আপনার অ্যাকাউন্টের লেনদেনের ইতিহাসে প্রদর্শিত হয় এবং অন্য কোথাও দেখা যাবে না।</string>
   <!-- Change Wallet name textfield label -->
-  <string name="ManageWallet.textFeildLabel">ওয়ালেটের নাম </string>
+  <string name="ManageWallet.textFeildLabel">"ওয়ালেটের নাম "</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">ওয়ালেট পরিচালনা করুন</string>
   <!-- Buy bitcoin title -->
@@ -291,7 +291,7 @@
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">স্ক্রীন লক অক্ষম</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">আপনার পেপার কী সংরক্ষণ করা আবশ্যক, যদি কখনও এটি হারিয়ে বা আপনার ফোন পরিবর্তন করেন। অবিরত থাকতে এখানে চাপ দিন। </string>
+  <string name="Prompts.PaperKey.body">"আপনার পেপার কী সংরক্ষণ করা আবশ্যক, যদি কখনও এটি হারিয়ে বা আপনার ফোন পরিবর্তন করেন। অবিরত থাকতে এখানে চাপ দিন। "</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">অ্যাকশন প্রয়োজন</string>
   <!-- Transaction rejected prompt body -->
@@ -305,15 +305,15 @@
   <!-- Enable touch ID prompt body -->
   <string name="Prompts.TouchId.body">টাচ আইডি সক্ষম করতে এখানে চাপ দিন</string>
   <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">ফিঙ্গারপ্রিন্ট প্রমাণীকরণ সক্ষম করতে এখানে  চাপ দিন </string>
+  <string name="Prompts.TouchId.body.android">"ফিঙ্গারপ্রিন্ট প্রমাণীকরণ সক্ষম করতে এখানে  চাপ দিন "</string>
   <!-- Enable touch ID prompt title -->
   <string name="Prompts.TouchId.title">টাচ আইডি সক্ষম করুন</string>
   <!-- Enable Fingerprint prompt title -->
   <string name="Prompts.TouchId.title.android">ফিঙ্গারপ্রিন্ট প্রমাণীকরণ সক্ষম করুন</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
-  <string name="Prompts.TouchId.usePin.android">পিন </string>
+  <string name="Prompts.TouchId.usePin.android">"পিন "</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">DigiWallet একটি 6-সংখ্যা PIN ব্যবহার করে আপগ্রেড করা হয়েছে। আপগ্রেড করার জন্য এখানে চাপ দিন </string>
+  <string name="Prompts.UpgradePin.body">"DigiWallet একটি 6-সংখ্যা PIN ব্যবহার করে আপগ্রেড করা হয়েছে। আপগ্রেড করার জন্য এখানে চাপ দিন "</string>
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">পিন হালনাগাদ</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
@@ -367,11 +367,11 @@
   <!-- Request a specific amount of bitcoin -->
   <string name="RequestAnAmount.title">একটি পরিমাণ অনুরোধ</string>
   <!-- Alert action button label -->
-  <string name="ReScan.alertAction">সিনক্রোনাইজ </string>
+  <string name="ReScan.alertAction">"সিনক্রোনাইজ "</string>
   <!-- Alert message body -->
   <string name="ReScan.alertMessage">সুসংগত/সিনক্রোনাইজ করার সময় আপনি টাকা পাঠাতে পারবেন না।</string>
   <!-- Alert message title -->
-  <string name="ReScan.alertTitle">ব্লকচেইন দিয়ে কি সিনক্রোনাইজ করবেন? </string>
+  <string name="ReScan.alertTitle">"ব্লকচেইন দিয়ে কি সিনক্রোনাইজ করবেন? "</string>
   <!-- extimated time -->
   <string name="ReScan.body1">২০-৪৫ মিনিট</string>
   <!-- Syncing explanation -->
@@ -383,7 +383,7 @@
   <!-- Sync blockchain view footer -->
   <string name="ReScan.footer">ব্লকচেইন এর সাথে সিনক্রোনাইজ করার সময় আপনি টাকা পাঠাতে পারবেন না।</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header">ব্লকচেইন সিনক্রোনাইজ </string>
+  <string name="ReScan.header">"ব্লকচেইন সিনক্রোনাইজ "</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader1">আনুমানিক সময়</string>
   <!-- Subheader label -->
@@ -405,7 +405,7 @@
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">পেপার চাবি/কী</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">অ-অনুমোদিত ব্যবহারকারীদের কাছ থেকে আপনার DigiWallet রক্ষা করুন।  </string>
+  <string name="SecurityCenter.pinDescription">"অ-অনুমোদিত ব্যবহারকারীদের কাছ থেকে আপনার DigiWallet রক্ষা করুন।  "</string>
   <!-- PIN button title -->
   <string name="SecurityCenter.pinTitle">৬-সংখ্যার পিন</string>
   <!-- Security Center Title -->
@@ -421,7 +421,7 @@
   <!-- Balance: $4.00 -->
   <string name="Send.balance">ব্যালেন্স: %১$ @</string>
   <!-- Instructions how to allow the camera access for the app -->
-  <string name="Send.cameraUnavailabeMessage.android">ক্যামেরা অ্যাক্সেসের অনুমতি দিন \"সেটিংস\" &gt; \"আপস\" &gt; \"DigiWallet\" &gt; \"পারমিশন\" </string>
+  <string name="Send.cameraUnavailabeMessage.android">"ক্যামেরা অ্যাক্সেসের অনুমতি দিন \"সেটিংস\" &gt; \"আপস\" &gt; \"DigiWallet\" &gt; \"পারমিশন\" "</string>
   <!-- Permission required to access camera -->
   <string name="Send.cameraUnavailabeTitle.android">DigiWallet এই ক্যামেরা অ্যাক্সেস করার অনুমতি নেই</string>
   <!-- Camera not allowed message -->
@@ -453,7 +453,7 @@
   <!-- Empty address alert message -->
   <string name="Send.noAddress">দয়া করে প্রাপকের ঠিকানা লিখুন</string>
   <!-- Emtpy amount alert message -->
-  <string name="Send.noAmount">কাগজ কী </string>
+  <string name="Send.noAmount">"কাগজ কী "</string>
   <!-- Paste button label -->
   <string name="Send.pasteLabel">এখানে রাখুন</string>
   <!-- Could not publish transaction alert title -->
@@ -493,7 +493,7 @@
   <!-- Manage settings section header -->
   <string name="Settings.manage">পরিচালনা</string>
   <!-- Notifications label -->
-  <string name="Settings.notifications">বিজ্ঞপ্তিগুলি/নোটিফিকেশন </string>
+  <string name="Settings.notifications">"বিজ্ঞপ্তিগুলি/নোটিফিকেশন "</string>
   <!-- Restore screen lower label. -->
   <string name="Settings.restore_label">এই ডিভাইসে আপনার DigiWallet</string>
   <!-- Leave review button label -->
@@ -507,7 +507,7 @@
   <!-- Touch ID spending limit label -->
   <string name="Settings.touchIdLimit">স্পর্শ/টাচ আইডি ব্যয় সীমা অতিক্রম</string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">ফিঙ্গারপ্রিন্ট প্রমাণীকরণ ব্যয় সীমা অতিক্রম </string>
+  <string name="Settings.touchIdLimit.android">"ফিঙ্গারপ্রিন্ট প্রমাণীকরণ ব্যয় সীমা অতিক্রম "</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">মানিব্যাগ/ওয়ালেট</string>
   <!-- Start or recover another wallet menu label. -->
@@ -527,9 +527,9 @@
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">আপনি শেষ %1$s আপনার পেপার কী/চাবি লিখেছেন</string>
   <!-- Start view message -->
-  <string name="StartViewController.message">এটি Digibyte ব্যবহারের  সহজ এবং নিরাপদ উপায়।   </string>
+  <string name="StartViewController.message">"এটি Digibyte ব্যবহারের  সহজ এবং নিরাপদ উপায়।   "</string>
   <!-- Syncing view connectiong state header text -->
-  <string name="SyncingView.connecting">সংযোগ হচ্ছে .... </string>
+  <string name="SyncingView.connecting">"সংযোগ হচ্ছে .... "</string>
   <!-- Syncing view header text -->
   <string name="SyncingView.header">সিঙ্ক/সিনক্রোনাইজ করা হচ্ছে</string>
   <!-- Retry button label -->
@@ -577,7 +577,7 @@
   <!-- Touch Id spending limit screen title -->
   <string name="TouchIdSpendingLimit.title">স্পর্শ আইডি ব্যয় সীমা অতিক্রম</string>
   <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">ফিঙ্গারপ্রিন্ট অনুমোদন ব্যয় সীমা অতিক্রম </string>
+  <string name="TouchIdSpendingLimit.title.android">"ফিঙ্গারপ্রিন্ট অনুমোদন ব্যয় সীমা অতিক্রম "</string>
   <!-- Availability status text -->
   <string name="Transaction.available">ব্যয় করার জন্য ব্যবহারযোগ্য</string>
   <!-- Transaction complete label -->
@@ -609,7 +609,7 @@
   <!-- Block height label -->
   <string name="TransactionDetails.blockHeightLabel">অনুমোদনে বাধা</string>
   <!-- Memo section header -->
-  <string name="TransactionDetails.commentsHeader">স্মারকলিপি/মেমো </string>
+  <string name="TransactionDetails.commentsHeader">"স্মারকলিপি/মেমো "</string>
   <!-- Empty transaction list message. -->
   <string name="TransactionDetails.emptyMessage">আপনার লেনদেন এখানে প্রদর্শিত হবে।</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->

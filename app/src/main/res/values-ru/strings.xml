@@ -13,9 +13,9 @@
   <!-- Terms of Use button label -->
   <string name="About.terms">Условия использования https://github.com/Racecraft/digibytewallet-android</string>
   <!-- About screen title -->
-  <string name="About.title">Быстро, просто и безопасно! DigiWallet для Android - это самый простой способ для отправки и получения Ddigibyte. Разработанный для всех типов пользователей. DigiWallet для Android достаточно простой в использовании для новичков, но также и достаточно мощный для обычных опытных пользователей. </string>
+  <string name="About.title">DigiWallet - самый простой и безопасный кошелек для хранения и молниеносной отправки ваших DGB. \n</string>
   <!-- About screen twitter label -->
-  <string name="About.twitter"> https://twitter.com/digibytecoin</string>
+  <string name="About.twitter">" https://twitter.com/digibytecoin"</string>
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">Закрыть</string>
   <!-- Support center accessibiliy label -->
@@ -35,7 +35,7 @@
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Ошибка хранилища ключей Android</string>
   <!-- No internet alert message -->
-  <string name="Alert.noInternet">Потеряно соединение с интернетом. Проверьте соединение и повторите попытку</string>
+  <string name="Alert.noInternet">Потеряно соединение с интернетом. Проверьте соединение и повторите попытку.</string>
   <!-- Warning alert title -->
   <string name="Alert.warning">Предупреждение</string>
   <!-- 'the addresses were copied'' Alert title -->
@@ -43,9 +43,9 @@
   <!-- Addresses Copied Alert sub header -->
   <string name="Alerts.copiedAddressesSubheader">Все адреса кошелька успешно скопированы.</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">Персональный ключ восстановления введен</string>
+  <string name="Alerts.paperKeySet">Персональный ключ восстановления установлен</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">Отлично!</string>
+  <string name="Alerts.paperKeySetSubheader">Великолепно!</string>
   <!-- Alert Header label (the PIN was set) -->
   <string name="Alerts.pinSet">PIN-код введен</string>
   <!-- Send failure alert header label (the send failed to happen) -->
@@ -69,7 +69,7 @@
   <!-- Confirmation alert title -->
   <string name="BCH.confirmationTitle">Подтверждение</string>
   <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">Ваша учетная запись не содержит DigiByte, или вы получили DigiByte после форка.</string>
+  <string name="BCH.genericError">На вашем аккаунте нет DGB , или вы получили DGB после форка.</string>
   <!-- Transaction ID copied message -->
   <string name="BCH.hashCopiedMessage">Идентификатор транзакции скопирован</string>
   <!-- No address error message -->
@@ -77,11 +77,11 @@
   <!-- Attempted to scan unsupported qr code error message. -->
   <string name="BCH.paymentProtocolError">Запросы платежного протокола не поддерживаются для транзакций DigiByte</string>
   <!-- BCH successfully sent alert message -->
-  <string name="BCH.successMessage">DigiByte успешно отправлены.</string>
+  <string name="BCH.successMessage">" DGB успешно отправлены."</string>
   <!-- Widthdraw BCH view title -->
   <string name="BCH.title">Вывести DigiByte</string>
   <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">Идентификатор транзакции DigiByte</string>
+  <string name="BCH.txHashHeader">Идентификатор транзакций DigiByte</string>
   <!-- Approve button label -->
   <string name="BitID.approve">Одобрить</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
@@ -123,7 +123,7 @@
   <!-- Network Fee: ($1.00) -->
   <string name="Confirmation.feeLabel">Комиссия сети:</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-  <string name="Confirmation.processingTime">Время обработки: Обработка транзакции должна быть закончена через %1$s.</string>
+  <string name="Confirmation.processingTime">Время обработки:  Транзакция должна быть обработана через %1$s.</string>
   <!-- Label for "send" button on final confirmation screen -->
   <string name="Confirmation.send">Отправить</string>
   <!-- Confirmation Screen title -->
@@ -215,13 +215,13 @@
   <!-- Jailbreak warning message -->
   <string name="JailbreakWarnings.messageWithBalance">БЕЗОПАСНОСТЬ УСТРОЙСТВА ПОДВЕРГЛАСЬ РИСКУ\nЛюбое джейлбрейк-приложение может получить доступ к данным связки ключей DigiWallet и украсть ваши DigiByte! Немедленно очистите этот кошелек и восстановите его на защищенном устройстве.</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">БЕЗОПАСНОСТЬ УСТРОЙСТВА ПОДВЕРГЛАСЬ РИСКУ   \nЛюбое джейлбрейк-приложение может получить доступ к данным связки ключей DigiWallet и украсть ваши DigiByte. Пожалуйста, используйте  DigiWallet только на устройстве без джейлбрейка. </string>
+  <string name="JailbreakWarnings.messageWithoutBalance">"БЕЗОПАСНОСТЬ УСТРОЙСТВА ПОДВЕРГЛАСЬ РИСКУ   \nЛюбое джейлбрейк-приложение может получить доступ к данным связки ключей DigiWallet и украсть ваши DigiByte. Пожалуйста, используйте  DigiWallet только на устройстве без джейлбрейка. "</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ВНИМАНИЕ</string>
   <!-- Location services disabled error -->
   <string name="LocationPlugin.disabled">Службы определения местоположения отключены.</string>
   <!-- No permissions for location services -->
-  <string name="LocationPlugin.notAuthorized">У DigiWallet нет разрешения на доступ к службам определения местоположения.</string>
+  <string name="LocationPlugin.notAuthorized">DigiWallet не имеет разрешения на доступ к службам определения местоположения.</string>
   <!-- Wallet creation date prefix -->
   <string name="ManageWallet.creationDatePrefix">Вы создали свой кошелек %1$s</string>
   <!-- Manage wallet description text -->
@@ -277,7 +277,7 @@
   <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">Оплата DigiByte не может быть меньше %1$s.</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">Выходы транзакции DigiByte не могут быть меньше %1$s.</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">" Сумма транзакции для вывода DigiByte не может быть меньше %1$s."</string>
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Неподдерживаемый тип подписи</string>
   <!-- Untrusted certificate payment protocol error message -->
@@ -295,7 +295,7 @@
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">Необходимое действие</string>
   <!-- Transaction rejected prompt body -->
-  <string name="Prompts.RecommendRescan.body">Ваш кошелек, возможно, не синхронизирован. Обычно это можно исправить путем повторного сканирования blockchain.</string>
+  <string name="Prompts.RecommendRescan.body">Ваш кошелек, возможно, не синхронизирован. Обычно это можно исправить путем повторного сканирования блокчейна.</string>
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">Транзакция отклонена</string>
   <!-- Share data prompt body -->
@@ -371,7 +371,7 @@
   <!-- Alert message body -->
   <string name="ReScan.alertMessage">Вы не сможете отправлять деньги во время синхронизации.</string>
   <!-- Alert message title -->
-  <string name="ReScan.alertTitle">Синхронизировать с  blockchain?</string>
+  <string name="ReScan.alertTitle">Синхронизировать с  блокчейн?</string>
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 минут</string>
   <!-- Syncing explanation -->
@@ -381,9 +381,9 @@
   <!-- Start Sync button label -->
   <string name="ReScan.buttonTitle">Начать синхронизацию</string>
   <!-- Sync blockchain view footer -->
-  <string name="ReScan.footer">Вы не сможете отправлять деньги во время синхронизации с blockchain.</string>
+  <string name="ReScan.footer">Вы не сможете отправлять деньги во время синхронизации с блокчейн.</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header">Синхронизация с blockchain</string>
+  <string name="ReScan.header">Синхронизация с блокчейн</string>
   <!-- Subheader label -->
   <string name="ReScan.subheader1">Предполагаемое время</string>
   <!-- Subheader label -->
@@ -469,7 +469,7 @@
   <!-- Send money to label -->
   <string name="Send.toLabel">Адресат</string>
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">Адреса DigiByte предназначены только для одноразового использования.</string>
+  <string name="Send.UsedAddress.firstLine">Адреса DigiByte предназначены только для личного использования.</string>
   <!-- Adress already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">Повторное использование уменьшает конфиденциальность как для вас, так и для получателя, и может привести к потерям, если получатель напрямую не контролирует адрес.</string>
   <!-- Adress already used alert title -->
@@ -487,7 +487,7 @@
   <!-- Import wallet left message -->
   <string name="Settings.importLeftMessage">Импортируемый кошелек</string>
   <!-- Import wallet right message -->
-  <string name="Settings.importRightMessage">Ваш DigiWallet </string>
+  <string name="Settings.importRightMessage">"Ваш DigiWallet "</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">Импортировать кошелёк</string>
   <!-- Manage settings section header -->
@@ -501,7 +501,7 @@
   <!-- Share anonymous data label -->
   <string name="Settings.shareData">Поделиться анонимными данными</string>
   <!-- Sync blockchain label -->
-  <string name="Settings.sync">Синхронизация с blockchain</string>
+  <string name="Settings.sync">Синхронизация с блокчейн</string>
   <!-- Settings title -->
   <string name="Settings.title">Настройки</string>
   <!-- Touch ID spending limit label -->
@@ -561,7 +561,7 @@
   <!-- Touch id switch label. -->
   <string name="TouchIdSettings.switchLabel">Включить Touch ID для DigiWallet</string>
   <!-- Enable fingerprint for this wallet called Bread -->
-  <string name="TouchIdSettings.switchLabel.android">Включить аутентификацию по отпечатка пальца</string>
+  <string name="TouchIdSettings.switchLabel.android">Включить аутентификацию по отпечатку пальца</string>
   <!-- Touch ID settings view title -->
   <string name="TouchIdSettings.title">Touch ID</string>
   <!-- Fingerprint authentication label -->
@@ -695,7 +695,7 @@
   <!-- Verify PIN for transaction view body -->
   <string name="VerifyPin.authorize">Пожалуйста, введите PIN-код для авторизации этой транзакции.</string>
   <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">Пожалуйста, введите PIN-код, чтобы продолжить.</string>
+  <string name="VerifyPin.continueBody">Пожалуйста, введите PIN-код чтобы продолжить.</string>
   <!-- Verify PIN view title -->
   <string name="VerifyPin.title">Требуется PIN-код</string>
   <!-- Authorize transaction with touch id message -->
@@ -709,7 +709,7 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">Обновляется...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">DigiByte для Android изменил свое название на DigiWallet, теперь у него обновленный интерфейс и несколько новых функций.\n\nЕсли вам нужна помощь, нажмите на (?) в правом верхнем углу (на большинстве экранов).</string>
+  <string name="Welcome.body">DigiWallet обновил интерфейс и внедрил несколько новых функций.\n\nЕсли вам нужна помощь, нажмите на (?) в правом верхнем углу (на большинстве экранов).</string>
   <!-- Top title of welcome screen -->
   <string name="Welcome.title">Добро пожаловать в DigiWallet!</string>
   <!-- Wipe wallet alert message -->
@@ -721,7 +721,7 @@
   <!-- Failed wipe wallet alert title -->
   <string name="WipeWallet.failedTitle">Неудачная попытка</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">Для создания нового кошелька или восстановление существующего вы сначала должны удалить текущий кошелёк. Для продолжения введите ваш персональный ключ восстановления для этого кошелька.</string>
+  <string name="WipeWallet.instruction">Для создания нового кошелька или восстановления существующего вы сначала должны удалить текущий кошелёк. Для продолжения введите ваш персональный ключ восстановления для этого кошелька.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Создание или восстановление другого кошелька позволяет вам получить доступ к другому DigiWallet и управлять им с этого устройства.</string>
   <!-- Start wipe wallet view warning -->
@@ -735,7 +735,7 @@
   <!-- Paper key instructions. -->
   <string name="WritePaperPhrase.instruction">Запишите каждое слово в указанном порядке и сохраните в надежном месте.</string>
   <!-- button label -->
-  <string name="WritePaperPhrase.next">Следующее</string>
+  <string name="WritePaperPhrase.next">Далее</string>
   <!-- button label -->
   <string name="WritePaperPhrase.previous">Предыдущее</string>
   <!-- 1 of 3 -->

@@ -77,7 +77,7 @@
   <!-- Widthdraw BCH view title -->
   <string name="BCH.title">提取極特幣</string>
   <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">極特幣交易證</string>
+  <string name="BCH.txHashHeader">極特幣交易ID</string>
   <!-- Approve button label -->
   <string name="BitID.approve">批準</string>
   <!-- <sitename> is requesting authentication using your bitcoin wallet -->
@@ -103,7 +103,7 @@
   <!-- OK button label -->
   <string name="Button.ok">確定</string>
   <!-- receive button -->
-  <string name="Button.receive"> 收款</string>
+  <string name="Button.receive">" 收款"</string>
   <!-- send button -->
   <string name="Button.send">付款</string>
   <!-- Settings button label -->
@@ -149,7 +149,7 @@
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
   <string name="ErrorMessages.touchIdFailed.android">指紋認證失敗，請重試</string>
   <!-- Economy fee -->
-  <string name="FeeSelector.economy"> 經濟</string>
+  <string name="FeeSelector.economy">" 經濟"</string>
   <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
   <string name="FeeSelector.economyTime">預計發送時間：10分鐘或以上</string>
   <!-- Warning message for economy fee -->
@@ -231,7 +231,7 @@
   <!-- Menu button title -->
   <string name="MenuButton.lock">封鎖錢包</string>
   <!-- Menu button title -->
-  <string name="MenuButton.security"> 安全中心</string>
+  <string name="MenuButton.security">" 安全中心"</string>
   <!-- Menu button title -->
   <string name="MenuButton.settings">設定</string>
   <!-- Menu button title -->
@@ -287,11 +287,11 @@
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">鎖屏關閉</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">您必須保存紙鑰，以防手機弄丟或更換。點擊這裡繼續</string>
+  <string name="Prompts.PaperKey.body">您必須保存紙鑰，以防手機弄丟或更換。點擊這裡繼續。</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">動作需要</string>
   <!-- Transaction rejected prompt body -->
-  <string name="Prompts.RecommendRescan.body">您的錢包可能不衕步。從新瀏覽塊鏈可以解決這問題</string>
+  <string name="Prompts.RecommendRescan.body">您的錢包可能不衕步。從新掃描塊鏈可以解決這問題。</string>
   <!-- Transaction rejected prompt title -->
   <string name="Prompts.RecommendRescan.title">交易被拒絕</string>
   <!-- Share data prompt body -->
@@ -357,7 +357,7 @@
   <!-- Recover wallet sub-header -->
   <string name="RecoverWallet.subheader">輸入紙鑰匙給您要修復的錢包</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">重置您的PIN碼,請輸入紙鑰匙裡的每個字進格子裡</string>
+  <string name="RecoverWallet.subheader_reset_pin">重置您的PIN碼,請輸入紙鑰匙裡的每個字進格子裡。</string>
   <!-- No amount entered error message. -->
   <string name="RequestAnAmount.noAmount">請首先輸入金額</string>
   <!-- Request a specific amount of bitcoin -->
@@ -371,9 +371,9 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45分鐘</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">如果在極特幣網絡顯示交易完成而您的極特錢包顯示未完成</string>
+  <string name="ReScan.body2">當在極特幣網絡上顯示交易完成而您的極特錢包顯示未完成的時候。</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">您重覆收到交易被拒絶的故障訊息</string>
+  <string name="ReScan.body3">或者當重覆收到交易被拒絶的故障訊息的時候。</string>
   <!-- Start Sync button label -->
   <string name="ReScan.buttonTitle">開始同步</string>
   <!-- Sync blockchain view footer -->
@@ -383,7 +383,7 @@
   <!-- Subheader label -->
   <string name="ReScan.subheader1">預計時間</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader2">何時要同步?</string>
+  <string name="ReScan.subheader2">在遇到以下問題時需要重新同步區塊鏈。</string>
   <!-- Scan bitcoin address camera flash toggle -->
   <string name="Scanner.flashButtonLabel">相機閃光燈</string>
   <!-- Complete filter label -->
@@ -735,5 +735,5 @@
   <!-- button label -->
   <string name="WritePaperPhrase.previous">上一個</string>
   <!-- 1 of 3 -->
-  <string name="WritePaperPhrase.step">%2$d裡的%1$d</string>
+  <string name="WritePaperPhrase.step">%2$d裡的第%1$d個</string>
 </resources>

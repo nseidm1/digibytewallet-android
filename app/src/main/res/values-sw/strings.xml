@@ -35,7 +35,7 @@
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Hitilafu ya Hifadhi ya Android ya nenosiri \n</string>
   <!-- No internet alert message -->
-  <string name="Alert.noInternet">Mtandao wa internet haupatikani kwa sasa. Tafadhali angalia muunganisho wa mtandao wako, kisha ujaribu tena.  </string>
+  <string name="Alert.noInternet">"Mtandao wa internet haupatikani kwa sasa. Tafadhali angalia muunganisho wa mtandao wako, kisha ujaribu tena.  "</string>
   <!-- Warning alert title -->
   <string name="Alert.warning">Onyo</string>
   <!-- 'the addresses were copied'' Alert title -->
@@ -53,9 +53,9 @@
   <!-- Send success alert header label (confirmation that the send happened) -->
   <string name="Alerts.sendSuccess">Tuma Thibitisho</string>
   <!-- Send success alert subheader label (e.g. the money was sent) -->
-  <string name="Alerts.sendSuccessSubheader">DigiByte Zimetumwa! </string>
+  <string name="Alerts.sendSuccessSubheader">"DigiByte Zimetumwa! "</string>
   <!-- Fingerprint was recognized by the scanner -->
-  <string name="Alerts.touchIdSucceeded.android">Alama za vidole zimetambulika </string>
+  <string name="Alerts.touchIdSucceeded.android">"Alama za vidole zimetambulika "</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Herufi sambamba za JSON zinakasoro</string>
   <!-- Wallet not ready error message -->
@@ -63,7 +63,7 @@
   <!-- API Token error message -->
   <string name="ApiClient.tokenError">Kasoro na kupata ishara ya API</string>
   <!-- Send BCH view body. -->
-  <string name="BCH.body">Ingiza anwani ya DGB hapa chini. DGB zote katika kipochi chako wakati wa kuboresha (%1$s) zitatumwa. </string>
+  <string name="BCH.body">"Ingiza anwani ya DGB hapa chini. DGB zote katika kipochi chako wakati wa kuboresha (%1$s) zitatumwa. "</string>
   <!-- Confirm sending <$5.00> to <address>? -->
   <string name="BCH.confirmationMessage">Thibitisha kamili kutuma %1$s kwa %2$s</string>
   <!-- Confirmation alert title -->
@@ -91,11 +91,11 @@
   <!-- BitID error alert title -->
   <string name="BitID.error">Hitilafu kwa uhalalishaji</string>
   <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
-  <string name="BitID.errorMessage">Tafadhali angalia huduma. Na ujaribu tena. </string>
+  <string name="BitID.errorMessage">"Tafadhali angalia huduma. Na ujaribu tena. "</string>
   <!-- BitID success alert title -->
   <string name="BitID.success">Imethibitishwa Vilivyo</string>
   <!-- BitID Authentication Request alert view title -->
-  <string name="BitID.title">DigiID Ombi la kuthibitishwa </string>
+  <string name="BitID.title">"DigiID Ombi la kuthibitishwa "</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">Kufuta</string>
   <!-- Ignore button label -->
@@ -117,11 +117,11 @@
   <!-- Yes button -->
   <string name="Button.yes">Ndio</string>
   <!-- Camera plugin instruction -->
-  <string name="CameraPlugin.centerInstruction">Weka ID yako katika sehemu ya kati ya sanduku </string>
+  <string name="CameraPlugin.centerInstruction">"Weka ID yako katika sehemu ya kati ya sanduku "</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Kiasi Cha Kutuma:</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">Ada ya Mtandao: </string>
+  <string name="Confirmation.feeLabel">"Ada ya Mtandao: "</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
   <string name="Confirmation.processingTime">Muda wa usindikaji: Shughuli hii inatabiriwa kukamilika na %1$s</string>
   <!-- Label for "send" button on final confirmation screen -->
@@ -131,13 +131,13 @@
   <!-- To: (address) -->
   <string name="Confirmation.to">Kwa</string>
   <!-- Total Cost: ($5.00) -->
-  <string name="Confirmation.totalLabel">Gharama Kamili: </string>
+  <string name="Confirmation.totalLabel">"Gharama Kamili: "</string>
   <!-- Confirm paper phrase view label. -->
   <string name="ConfirmPaperPhrase.label">Ili kuhakikisha kila kitu kiliandikwa kwa usahihi, tafadhali ingiza maneno yafuatayo kutoka kwa Kifunguo chako binafsi cha kuokoa kipochi.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Neno #%1$s</string>
   <!-- Bitcoin denomination picker label -->
-  <string name="DefaultCurrency.bitcoinLabel">Kitengo cha DigiByte cha maonesho </string>
+  <string name="DefaultCurrency.bitcoinLabel">"Kitengo cha DigiByte cha maonesho "</string>
   <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">Kima cha Kubadilisha</string>
   <!-- Email unavailable alert title -->
@@ -147,11 +147,11 @@
   <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
   <string name="ErrorMessages.loopingLockScreen.android">DigiWallet haiwezi kuthibitishwa kutokana na hitilafu katika toleo lako la Android [Tafadhali bonyeza hapa ili kupata habari zaidi]\n</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableMessage">Kifaa hichi hakijatengenezwa vilivyo kutuma ujumbe. </string>
+  <string name="ErrorMessages.messagingUnavailableMessage">"Kifaa hichi hakijatengenezwa vilivyo kutuma ujumbe. "</string>
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableTitle">Huduma ya ujumbe haipatikani kwa sasa</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
-  <string name="ErrorMessages.touchIdFailed.android">Alama za vidole hazitambuliki. Tafadhali jaribu tena. </string>
+  <string name="ErrorMessages.touchIdFailed.android">"Alama za vidole hazitambuliki. Tafadhali jaribu tena. "</string>
   <!-- Economy fee -->
   <string name="FeeSelector.economy">Bei Nafuu</string>
   <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
@@ -167,13 +167,13 @@
   <!-- Fee Selector title -->
   <string name="FeeSelector.title">Mwendo wa Usindikaji</string>
   <!-- Checking private key balance progress view text -->
-  <string name="Import.checking">Kuangalia masalio ya ufunguo wa kibinafsi </string>
+  <string name="Import.checking">"Kuangalia masalio ya ufunguo wa kibinafsi "</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">Tuma %1$s kutoka huu ufunguo wa kibinafsi na kuweka kwa kipochi? Mtandao wa DigiByte utapokea ada ya %2$s </string>
+  <string name="Import.confirm">"Tuma %1$s kutoka huu ufunguo wa kibinafsi na kuweka kwa kipochi? Mtandao wa DigiByte utapokea ada ya %2$s "</string>
   <!-- Duplicate key error message -->
   <string name="Import.Error.duplicate">Ufunguo huu wa kibnafsi tayari unapatikana kwa kipochi chako.</string>
   <!-- empty private key error message -->
-  <string name="Import.Error.empty">Ufunguo huu wa kibinafsi ni mtupu. </string>
+  <string name="Import.Error.empty">"Ufunguo huu wa kibinafsi ni mtupu. "</string>
   <!-- High fees error message -->
   <string name="Import.Error.highFees">Ada ya malipo yana gharama zaidi kuliko fedha zinazopatikana kwenye ufunguo huu binafsi.</string>
   <!-- Not a valid private key error message -->
@@ -187,7 +187,7 @@
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">Kipochi kinachoingizwa</string>
   <!-- Import wallet intro screen message -->
-  <string name="Import.message">Kuagiza mkoba huhamisha DigiByte zote kutoka kipochi chako hadi kwa DigiWallet kwa shughuli moja tu.  </string>
+  <string name="Import.message">"Kuagiza mkoba huhamisha DigiByte zote kutoka kipochi chako hadi kwa DigiWallet kwa shughuli moja tu.  "</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">Funguo hili la kibinafsi limelindwa na nenosiri</string>
   <!-- password textfield placeholder -->
@@ -195,7 +195,7 @@
   <!-- Caption for graphics -->
   <string name="Import.rightCaption">DigiWallet yako</string>
   <!-- Scan Private key button label -->
-  <string name="Import.scan">Soma kifunguo cha binafsi </string>
+  <string name="Import.scan">"Soma kifunguo cha binafsi "</string>
   <!-- Import wallet success alert title -->
   <string name="Import.success">Umefanikiwa</string>
   <!-- Successfully imported wallet message body -->
@@ -205,17 +205,17 @@
   <!-- Unlocking Private key activity view message. -->
   <string name="Import.unlockingActivity">Fungua funguo</string>
   <!-- Import wallet intro warning message -->
-  <string name="Import.warning">Kuagiza kipochi haijumuishi historia ya shughuli au maelezo mengine\n </string>
+  <string name="Import.warning">"Kuagiza kipochi haijumuishi historia ya shughuli au maelezo mengine\n "</string>
   <!-- Wrong password alert message -->
-  <string name="Import.wrongPassword">Nenosiri isio sawa, tafadhali jaribu tena. </string>
+  <string name="Import.wrongPassword">"Nenosiri isio sawa, tafadhali jaribu tena. "</string>
   <!-- Close app button -->
   <string name="JailbreakWarnings.close">Funga</string>
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">Puuza</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">USALAMA WA KIFAA UMEVUNJWA \nProgramu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na kuiba DigiByte yako! Tafadhali tumia DigiWallet kwa kifaa kilicho non-jailbroken. </string>
+  <string name="JailbreakWarnings.messageWithBalance">"USALAMA WA KIFAA UMEVUNJWA \nProgramu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na kuiba DigiByte yako! Tafadhali tumia DigiWallet kwa kifaa kilicho non-jailbroken. "</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">USALAMA WA KIFAA UMEVUNJWA \nProgramu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na kuiba DigiByte yako! Tafadhali tumia DigiWallet kwa kifaa kilicho non-jailbroken. </string>
+  <string name="JailbreakWarnings.messageWithoutBalance">"USALAMA WA KIFAA UMEVUNJWA \nProgramu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na kuiba DigiByte yako! Tafadhali tumia DigiWallet kwa kifaa kilicho non-jailbroken. "</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ONYO</string>
   <!-- Location services disabled error -->
@@ -225,7 +225,7 @@
   <!-- Wallet creation date prefix -->
   <string name="ManageWallet.creationDatePrefix">Umetengeneza kipochi kwa %1$s</string>
   <!-- Manage wallet description text -->
-  <string name="ManageWallet.description">Jina la kipochi chako linapatikana kwa shughuli za akaunti yako tu na haziwezi onekana na mtu yeyote ule. </string>
+  <string name="ManageWallet.description">"Jina la kipochi chako linapatikana kwa shughuli za akaunti yako tu na haziwezi onekana na mtu yeyote ule. "</string>
   <!-- Change Wallet name textfield label -->
   <string name="ManageWallet.textFeildLabel">Jina la Kipochi</string>
   <!-- Manage wallet modal title -->
@@ -281,7 +281,7 @@
   <!-- Unsupported signature type payment protocol error message -->
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">aina ya saini isiyotambuliwa</string>
   <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">cheti lisiloaminiwa </string>
+  <string name="PaymentProtocol.Errors.untrustedCertificate">"cheti lisiloaminiwa "</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Msimbo wa kifaa unahitajika ili kulinda kipochi chako. Nenda kwenye mipangilio na uwezeshe nenosiri.</string>
   <!-- No Passcode set warning title -->
@@ -291,7 +291,7 @@
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">Kifungo cha Skrini kimezimwa</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">Funguo lako la kuokoa mkoba lazima uhifadhiwe ikiwa utapoteza au kubadilisha simu yako. Bonyeza hapa kuendelea. </string>
+  <string name="Prompts.PaperKey.body">"Funguo lako la kuokoa mkoba lazima uhifadhiwe ikiwa utapoteza au kubadilisha simu yako. Bonyeza hapa kuendelea. "</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">Hatua Inahitajika</string>
   <!-- Transaction rejected prompt body -->
@@ -305,7 +305,7 @@
   <!-- Enable touch ID prompt body -->
   <string name="Prompts.TouchId.body">Bonyeza hapa kuwezesha Usajili wa uso</string>
   <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">Bonyeza hapa kuwezesha usajili kutumia alama za vidole </string>
+  <string name="Prompts.TouchId.body.android">"Bonyeza hapa kuwezesha usajili kutumia alama za vidole "</string>
   <!-- Enable touch ID prompt title -->
   <string name="Prompts.TouchId.title">Wezesha usajili wa uso</string>
   <!-- Enable Fingerprint prompt title -->
@@ -377,7 +377,7 @@
   <!-- Syncing explanation -->
   <string name="ReScan.body2">Ikiwa shughuli inaonyesha kama imekamilika kwenye mtandao wa DigiByte lakini sio kwenye DigiWallet yako.</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">Unaendelea kupata hitilafu kuwa shughuli uliyojaribu haikubaliwi. </string>
+  <string name="ReScan.body3">"Unaendelea kupata hitilafu kuwa shughuli uliyojaribu haikubaliwi. "</string>
   <!-- Start Sync button label -->
   <string name="ReScan.buttonTitle">Anza kusawazisha</string>
   <!-- Sync blockchain view footer -->
@@ -397,7 +397,7 @@
   <!-- Received filter label -->
   <string name="Search.received">imepokewa</string>
   <!-- Sent filter label -->
-  <string name="Search.sent">imetumwa </string>
+  <string name="Search.sent">"imetumwa "</string>
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Wezesha vipengele vyote vya usalama kwa ulinzi wa hali ya juu.</string>
   <!-- Paper Key button description -->
@@ -471,7 +471,7 @@
   <!-- Adress already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">Anwani za DigiByte zinalenga kwa matumizi moja tu.</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">Matumizi tena hupunguza faragha kwa wewe na mpokeaji na inaweza kusababisha hasara ikiwa mpokeaji hawezi kudhibiti anwani. </string>
+  <string name="Send.UsedAddress.secondLIne">"Matumizi tena hupunguza faragha kwa wewe na mpokeaji na inaweza kusababisha hasara ikiwa mpokeaji hawezi kudhibiti anwani. "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Anwani Tayari Imetumika</string>
   <!-- About label -->
@@ -517,13 +517,13 @@
   <!-- Share data header -->
   <string name="ShareData.header">Shiriki data?</string>
   <!-- Share data switch label. -->
-  <string name="ShareData.toggleLabel">Shiriki data isiyojulikana? </string>
+  <string name="ShareData.toggleLabel">"Shiriki data isiyojulikana? "</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">Andika tena funguo binafsi ya kuokoa kipochi tena </string>
+  <string name="StartPaperPhrase.againButtonTitle">"Andika tena funguo binafsi ya kuokoa kipochi tena "</string>
   <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">Funguo binafsi ya kuokoa kipochi chako ni njia pekee ya kurejesha DigiWallet yako ikiwa simu yako imepotea, imeibiwa, imevunjwa, au imeboreshwa.\n\nTutakuonyesha orodha ya maneno ya kuandika kwenye karatasi na ili uhifadhi.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">Andika chini funguo binafsi la kuokoa kipochi </string>
+  <string name="StartPaperPhrase.buttonTitle">"Andika chini funguo binafsi la kuokoa kipochi "</string>
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">Siku ya mwisho kuandika chini funguo binafsi la kuokoa kipochi ni %1$s</string>
   <!-- Start view message -->
@@ -585,9 +585,9 @@
   <!-- eg. Ending balance: $50.00 -->
   <string name="Transaction.ending">Salio la Mwisho: %1$s</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDayReceived">Kima cha kubadilisha ilipopokewa: </string>
+  <string name="Transaction.exchangeOnDayReceived">"Kima cha kubadilisha ilipopokewa: "</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDaySent">Kima cha kubadilisha wakati wa kutuma: </string>
+  <string name="Transaction.exchangeOnDaySent">"Kima cha kubadilisha wakati wa kutuma: "</string>
   <!-- (b600 fee) -->
   <string name="Transaction.fee">(%1$s ada)</string>
   <!-- Invalid transaction -->
@@ -657,9 +657,9 @@
   <!-- TouchID prompt text -->
   <string name="UnlockScreen.touchIdPrompt">Kufungua DigiWallet yako.</string>
   <!-- Device authentication body -->
-  <string name="UnlockScreen.touchIdPrompt.android">Tafadhali fungua kifaa chako cha Android kuendelea. </string>
+  <string name="UnlockScreen.touchIdPrompt.android">"Tafadhali fungua kifaa chako cha Android kuendelea. "</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">Fungua na kitambulisho cha kubonyeza </string>
+  <string name="UnlockScreen.touchIdText">"Fungua na kitambulisho cha kubonyeza "</string>
   <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">Uthibitisho unahitajika</string>
   <!-- Wallet unlocked message -->
@@ -701,7 +701,7 @@
   <!-- Authorize transaction with touch id message -->
   <string name="VerifyPin.touchIdMessage">Thibitisha shughuli hii</string>
   <!-- 'No wallet' warning for watch app -->
-  <string name="Watch.noWalletWarning">Fungua app ya DigiWallet kwenye Android ili kuanzisha kipochi chako. </string>
+  <string name="Watch.noWalletWarning">"Fungua app ya DigiWallet kwenye Android ili kuanzisha kipochi chako. "</string>
   <!-- Dismiss button label -->
   <string name="Webview.dismiss">Futa</string>
   <!-- Webview loading error message -->
@@ -721,13 +721,13 @@
   <!-- Failed wipe wallet alert title -->
   <string name="WipeWallet.failedTitle">Imeshindwa</string>
   <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">Kufungua mkoba mpya au kurejesha mkoba uliopo, lazima kwanza ufute mkoba uliowekwa sasa. Ili kuendelea, ingiza funguo binafsi za kuokoa  kipochi </string>
+  <string name="WipeWallet.instruction">"Kufungua mkoba mpya au kurejesha mkoba uliopo, lazima kwanza ufute mkoba uliowekwa sasa. Ili kuendelea, ingiza funguo binafsi za kuokoa  kipochi "</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Kuanza au kurejesha kipochi chingine utapata kufikia na kusimamia DigiWallet tofauti kwenye kifaa hichi.</string>
   <!-- Start wipe wallet view warning -->
   <string name="WipeWallet.startWarning">Kipochi chako kitaondolewa kwenye kifaa hiki. Ikiwa unataka kurejesha tena wakati ujao, utahitajika kuingiza funguo binafsi la kuokoa kipochi</string>
   <!-- Wipe wallet navigation item title. -->
-  <string name="WipeWallet.title">Anza au Okoa Kipochi kingine </string>
+  <string name="WipeWallet.title">"Anza au Okoa Kipochi kingine "</string>
   <!-- Wipe wallet button title -->
   <string name="WipeWallet.wipe">Futa</string>
   <!-- Wiping activity message -->

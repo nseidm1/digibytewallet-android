@@ -19,7 +19,7 @@
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">Κλείσιμο</string>
   <!-- Support center accessibiliy label -->
-  <string name="AccessibilityLabels.faq">Κέντρο Υποστήριξης </string>
+  <string name="AccessibilityLabels.faq">"Κέντρο Υποστήριξης "</string>
   <!-- Loading Wallet Message -->
   <string name="Account.loadingMessage">Φόρτωση πορτοφολιού</string>
   <!-- Default wallet name -->
@@ -173,7 +173,7 @@
   <!-- Duplicate key error message -->
   <string name="Import.Error.duplicate">Αυτό το ιδιωτικό κλειδί βρίσκεται ήδη στο πορτοφόλι σου.</string>
   <!-- empty private key error message -->
-  <string name="Import.Error.empty">Αυτό το κλειδί είναι κενό. </string>
+  <string name="Import.Error.empty">"Αυτό το κλειδί είναι κενό. "</string>
   <!-- High fees error message -->
   <string name="Import.Error.highFees">Τα τέλη συναλλαγής θα κοστίσουν περισσότερο από τα διαθέσιμα κεφάλαια σε αυτό το ιδιωτικό κλειδί.</string>
   <!-- Not a valid private key error message -->
@@ -443,7 +443,7 @@
   <!-- Invalid address alert message -->
   <string name="Send.invalidAddressMessage">Η διεύθυνση προορισμού δεν είναι έγκυρη διεύθυνση DigiByte.</string>
   <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Το πρόχειρο δεν περιέχει έγκυρη διεύθυνση DigiByte. </string>
+  <string name="Send.invalidAddressOnPasteboard">"Το πρόχειρο δεν περιέχει έγκυρη διεύθυνση DigiByte. "</string>
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Άκυρη Διεύθυνση</string>
   <!-- Is rescanning error message -->
@@ -503,7 +503,7 @@
   <!-- Sync blockchain label -->
   <string name="Settings.sync">Συγχρονισμός Blockchain</string>
   <!-- Settings title -->
-  <string name="Settings.title">Ρυθμίσεις </string>
+  <string name="Settings.title">"Ρυθμίσεις "</string>
   <!-- Touch ID spending limit label -->
   <string name="Settings.touchIdLimit">Όριο δαπανών Touch ID</string>
   <!-- The fingerprint spending limit -->
@@ -511,7 +511,7 @@
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">Πορτοφόλι</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">Έναρξη/Ανάκτηση άλλου πορτοφολιού. </string>
+  <string name="Settings.wipe">"Έναρξη/Ανάκτηση άλλου πορτοφολιού. "</string>
   <!-- Share data view body -->
   <string name="ShareData.body">Βοήθησε στη βελτίωση του DigiWallet με την κοινοποίηση των ανώνυμων δεδομένων σου μαζί μας. Δεν περιλαμβάνει καμία οικονομική πληροφορία σου. Σεβόμαστε το οικονομικό σου απόρρητο.</string>
   <!-- Share data header -->
@@ -555,7 +555,7 @@
   <!-- Touch Id screen label -->
   <string name="TouchIdSettings.label">Χρησιμοποίησε το δακτυλικό σου αποτύπωμα για να ξεκλειδώσεις το DigiWallet και να στείλεις χρήματα μέχρι ένα καθορισμένο όριο.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <string name="TouchIdSettings.linkText">Οθόνη Ορίου Δαπανών Με Δαχτυλικό Αποτύπωμα </string>
+  <string name="TouchIdSettings.linkText">"Οθόνη Ορίου Δαπανών Με Δαχτυλικό Αποτύπωμα "</string>
   <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">Όριο δαπανών: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->

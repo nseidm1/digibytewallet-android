@@ -301,7 +301,7 @@
   <!-- Share data prompt body -->
   <string name="Prompts.ShareData.body">Giúp cải tiến DigiWallet bằng cách chia sẻ dữ liệu (nặc danh) của bạn với chúng tôi</string>
   <!-- Share data prompt title -->
-  <string name="Prompts.ShareData.title"> Chia sẻ dữ liệu (nặc danh)</string>
+  <string name="Prompts.ShareData.title">" Chia sẻ dữ liệu (nặc danh)"</string>
   <!-- Enable touch ID prompt body -->
   <string name="Prompts.TouchId.body">Chạm để kích hoạt Touch ID</string>
   <!-- Enable Fingerprint prompt body -->
@@ -685,7 +685,7 @@
   <!-- Update PIN title -->
   <string name="UpdatePin.updateTitle">Cập nhật mã PIN</string>
   <!-- Authorize to copy wallet addresses alert message -->
-  <string name="URLHandling.addressaddressListAlertMessage"> Sao chép địa chỉ ví vào bộ nhớ tạm thời.</string>
+  <string name="URLHandling.addressaddressListAlertMessage">" Sao chép địa chỉ ví vào bộ nhớ tạm thời."</string>
   <!-- Authorize to copy wallet address PIN view prompt. -->
   <string name="URLHandling.addressList">Cho phép sao chép địa chỉ ví vào bộ nhớ tạm thời.</string>
   <!-- Authorize to copy wallet address alert title -->

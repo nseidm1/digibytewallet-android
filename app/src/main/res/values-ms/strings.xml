@@ -507,7 +507,7 @@
   <!-- Touch ID spending limit label -->
   <string name="Settings.touchIdLimit">Had Perbelanjaan ID Sentuh</string>
   <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">Pengesahan Cap Jari Had Perbelanjaan </string>
+  <string name="Settings.touchIdLimit.android">"Pengesahan Cap Jari Had Perbelanjaan "</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">Wallet</string>
   <!-- Start or recover another wallet menu label. -->
@@ -543,7 +543,7 @@
   <!-- 6 m (6 minutes) -->
   <string name="TimeSince.minutes">%1$s m</string>
   <!-- 6 s (6 seconds) -->
-  <string name="TimeSince.seconds">%1$s s </string>
+  <string name="TimeSince.seconds">"%1$s s "</string>
   <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
   <string name="TouchIdSettings.customizeText">Anda boleh menyesuaikan had perbelanjaan ID Sentuh anda dari</string>
   <!-- Fingerprint enabling description body -->
@@ -555,7 +555,7 @@
   <!-- Touch Id screen label -->
   <string name="TouchIdSettings.label">Gunakan cap jari anda untuk membuka DigiWallet anda dan hantar DigiByte ke had yang ditetapkan.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <string name="TouchIdSettings.linkText">Skrin I D Sentuh Had Perbenlanjaan </string>
+  <string name="TouchIdSettings.linkText">"Skrin I D Sentuh Had Perbenlanjaan "</string>
   <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">Had Perbelanjaan: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
@@ -633,7 +633,7 @@
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">Status</string>
   <!-- Transaction Details Title -->
-  <string name="TransactionDetails.title">Butiran Transaksi </string>
+  <string name="TransactionDetails.title">"Butiran Transaksi "</string>
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
   <string name="TransactionDetails.to">ke %1$s</string>
   <!-- Transaction ID header -->

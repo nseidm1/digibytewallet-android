@@ -21,7 +21,7 @@
   <!-- Support center accessibiliy label -->
   <string name="AccessibilityLabels.faq">سپورٹ سینٹر</string>
   <!-- Loading Wallet Message -->
-  <string name="Account.loadingMessage">والیٹ لوڈ ہو رہا ہے </string>
+  <string name="Account.loadingMessage">"والیٹ لوڈ ہو رہا ہے "</string>
   <!-- Default wallet name -->
   <string name="AccountHeader.defaultWalletName">میرا ڈیجی والیٹ</string>
   <!-- Third party keyboard warning -->
@@ -37,25 +37,25 @@
   <!-- No internet alert message -->
   <string name="Alert.noInternet">انٹرنیٹ کنکشن نہیں ملا. اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں.</string>
   <!-- Warning alert title -->
-  <string name="Alert.warning">انتباہ </string>
+  <string name="Alert.warning">"انتباہ "</string>
   <!-- 'the addresses were copied'' Alert title -->
-  <string name="Alerts.copiedAddressesHeader">ایڈریسز کاپی </string>
+  <string name="Alerts.copiedAddressesHeader">"ایڈریسز کاپی "</string>
   <!-- Addresses Copied Alert sub header -->
   <string name="Alerts.copiedAddressesSubheader">تمام والیٹ ایڈریسز کامیابی سے کاپی ہو گنے ہیں.</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">پرسنل ریکوری  کی سیٹ </string>
+  <string name="Alerts.paperKeySet">"پرسنل ریکوری  کی سیٹ "</string>
   <!-- Alert Subheader label (playfully positive) -->
   <string name="Alerts.paperKeySetSubheader">زبردست!</string>
   <!-- Alert Header label (the PIN was set) -->
-  <string name="Alerts.pinSet">PIN سیٹ </string>
+  <string name="Alerts.pinSet">"PIN سیٹ "</string>
   <!-- Send failure alert header label (the send failed to happen) -->
-  <string name="Alerts.sendFailure">بھیجنا ناکام </string>
+  <string name="Alerts.sendFailure">"بھیجنا ناکام "</string>
   <!-- Send success alert header label (confirmation that the send happened) -->
   <string name="Alerts.sendSuccess">تصدیق بھیجیں</string>
   <!-- Send success alert subheader label (e.g. the money was sent) -->
-  <string name="Alerts.sendSuccessSubheader">ڈیجی بائٹ بھیج دئے گیۓ ہیں </string>
+  <string name="Alerts.sendSuccessSubheader">"ڈیجی بائٹ بھیج دئے گیۓ ہیں "</string>
   <!-- Fingerprint was recognized by the scanner -->
-  <string name="Alerts.touchIdSucceeded.android">فنگر پرنٹ کی شناخت ہو گئی ہے </string>
+  <string name="Alerts.touchIdSucceeded.android">"فنگر پرنٹ کی شناخت ہو گئی ہے "</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">مسئلہ JSON Serialization</string>
   <!-- Wallet not ready error message -->
@@ -113,9 +113,9 @@
   <!-- Settings button label -->
   <string name="Button.settings">ترتیبات</string>
   <!-- Settings button label -->
-  <string name="Button.submit">جمع کریں </string>
+  <string name="Button.submit">"جمع کریں "</string>
   <!-- Yes button -->
-  <string name="Button.yes">ہاں </string>
+  <string name="Button.yes">"ہاں "</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">باکس کے  درمیان  میں اپنی  شناخت کریں</string>
   <!-- Amount to Send: ($1.00) -->
@@ -165,7 +165,7 @@
   <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
   <string name="FeeSelector.regularTime">متوقع ترسیل: 15-30 سیکنڈ</string>
   <!-- Fee Selector title -->
-  <string name="FeeSelector.title">پروسیسنگ سپیڈ </string>
+  <string name="FeeSelector.title">"پروسیسنگ سپیڈ "</string>
   <!-- Checking private key balance progress view text -->
   <string name="Import.checking">پرائیویٹ کی بیلنس کی جانچ...</string>
   <!-- Sweep private key confirmation message -->
@@ -177,13 +177,13 @@
   <!-- High fees error message -->
   <string name="Import.Error.highFees">ٹرانزیکشن فیس اس پرائیویٹ کی میں  دستیاب فنڈز سے زیادہ  آئے گی.</string>
   <!-- Not a valid private key error message -->
-  <string name="Import.Error.notValid"> پرائیویٹ کی درست نہیں</string>
+  <string name="Import.Error.notValid">" پرائیویٹ کی درست نہیں"</string>
   <!-- Import signing error message -->
-  <string name="Import.Error.signing">مسئلہ ٹرانزیکشن سائننگ </string>
+  <string name="Import.Error.signing">"مسئلہ ٹرانزیکشن سائننگ "</string>
   <!-- Import button label -->
-  <string name="Import.importButton">امپورٹ </string>
+  <string name="Import.importButton">"امپورٹ "</string>
   <!-- Importing wallet progress view label -->
-  <string name="Import.importing">والیٹ امپورٹ ہو رہا ہے  </string>
+  <string name="Import.importing">"والیٹ امپورٹ ہو رہا ہے  "</string>
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">امپورٹ ہونے کے لئے والیٹ</string>
   <!-- Import wallet intro screen message -->
@@ -195,15 +195,15 @@
   <!-- Caption for graphics -->
   <string name="Import.rightCaption">آپ کا ڈیجی والیٹ</string>
   <!-- Scan Private key button label -->
-  <string name="Import.scan">سکین پرائیویٹ کی </string>
+  <string name="Import.scan">"سکین پرائیویٹ کی "</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">کامیاب </string>
+  <string name="Import.success">"کامیاب "</string>
   <!-- Successfully imported wallet message body -->
   <string name="Import.SuccessBody">والیٹ کامیابی سے امپورٹ ہو گیا ہے.</string>
   <!-- Import Wallet screen title -->
   <string name="Import.title">امپورٹ والیٹ</string>
   <!-- Unlocking Private key activity view message. -->
-  <string name="Import.unlockingActivity">انلاک کی </string>
+  <string name="Import.unlockingActivity">"انلاک کی "</string>
   <!-- Import wallet intro warning message -->
   <string name="Import.warning">والیٹ کی امپورٹ میں ٹرانزیکشن کی تاریخ یا دیگر تفصیلات شامل نہیں ہیں.</string>
   <!-- Wrong password alert message -->
@@ -229,7 +229,7 @@
   <!-- Change Wallet name textfield label -->
   <string name="ManageWallet.textFeildLabel">والیٹ کا نام</string>
   <!-- Manage wallet modal title -->
-  <string name="ManageWallet.title">والیٹ منیج </string>
+  <string name="ManageWallet.title">"والیٹ منیج "</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">ڈیجی بائٹ خریدیں</string>
   <!-- Menu button title -->
@@ -239,11 +239,11 @@
   <!-- Menu button title -->
   <string name="MenuButton.settings">ترتیبات</string>
   <!-- Menu button title -->
-  <string name="MenuButton.support">سپورٹ </string>
+  <string name="MenuButton.support">"سپورٹ "</string>
   <!-- button label -->
   <string name="MenuViewController.createButton">نیا والیٹ بنائیں</string>
   <!-- Menu modal title -->
-  <string name="MenuViewController.modalTitle">مینو </string>
+  <string name="MenuViewController.modalTitle">"مینو "</string>
   <!-- button label -->
   <string name="MenuViewController.recoverButton">والیٹ واپس حاصل کریں</string>
   <!-- Switch to automatic mode button label -->
@@ -263,7 +263,7 @@
   <!-- Node status label -->
   <string name="NodeSelector.statusLabel">نوڈ کنکشن کی حالت</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">ڈیجی بائٹ نوڈ </string>
+  <string name="NodeSelector.title">"ڈیجی بائٹ نوڈ "</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">خراب ادائیگی</string>
   <!-- Error opening payment protocol file message -->
@@ -271,7 +271,7 @@
   <!-- Missing certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.missingCertificate">لاپتہ سرٹیفکیٹ</string>
   <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">درخواست ختم ہوگئی ہے </string>
+  <string name="PaymentProtocol.Errors.requestExpired">"درخواست ختم ہوگئی ہے "</string>
   <!-- Payment too small alert title -->
   <string name="PaymentProtocol.Errors.smallOutputError">ادائیگی نہیں ہوسکی</string>
   <!-- Amount too small error message -->
@@ -285,7 +285,7 @@
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">آپ کےوالیٹ کی حفاظت کے لئے ایک ڈیوائس پاس ورڈ ضروری ہے. ترتیبات میں جائیں اور پاس ورڈ کو آن کریں.</string>
   <!-- No Passcode set warning title -->
-  <string name="Prompts.NoPasscode.title"> ڈیوائس پاس ورڈ آن کریں</string>
+  <string name="Prompts.NoPasscode.title">" ڈیوائس پاس ورڈ آن کریں"</string>
   <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">آپ کے والیٹ کی حفاظت کے لئے ایک ڈیوائس اسکرین لاک کی ضرورت ہے.جاری رہنے  کیلئے \"ترتیبات\"&gt; \"سیکورٹی\"&gt; \"سکرین لاک\" پر جائیں اوراس کو فعال کریں.</string>
   <!-- Device encryption prompt title -->
@@ -293,7 +293,7 @@
   <!-- Warning about paper key. -->
   <string name="Prompts.PaperKey.body">اگر آپ موبائل فون کھوجاتا ہے یا تبدیل کرتے ہیں  تو آپ کی پرسنل ریکوری کی محفوظ ہونی چاہیے . آگے بڑھنے کیلئے یہاں ٹپپ کریں.</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">عمل درکار ہے </string>
+  <string name="Prompts.PaperKey.title">"عمل درکار ہے "</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">آپ کے والیٹ کو آوٹ آف سینک  ہوسکتا ہے. یہ اکثر بلاک چین کو ری سکین سے ٹھیک  کیا جا سکتا ہے.</string>
   <!-- Transaction rejected prompt title -->
@@ -319,9 +319,9 @@
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
   <string name="PushNotifications.body">مستقبل میں ڈیجی والیٹ سے خاص پیغامات وصول کرنے کیلئے اطلاعات کو بند کریں.</string>
   <!-- Push notifications toggle switch label -->
-  <string name="PushNotifications.label">پش نوٹیفکیشن </string>
+  <string name="PushNotifications.label">"پش نوٹیفکیشن "</string>
   <!-- Push notifications are off label -->
-  <string name="PushNotifications.off">آف </string>
+  <string name="PushNotifications.off">"آف "</string>
   <!-- Push notifications are on label -->
   <string name="PushNotifications.on">آن</string>
   <!-- Push notifications settings view title label -->
@@ -339,7 +339,7 @@
   <!-- Receive modal title -->
   <string name="Receive.title">وصول کریں</string>
   <!-- Done button text -->
-  <string name="RecoverWallet.done">سب Done ہو گیا </string>
+  <string name="RecoverWallet.done">"سب Done ہو گیا "</string>
   <!-- Recover wallet header -->
   <string name="RecoverWallet.header">والیٹ کی بحالی</string>
   <!-- Reset PIN with paper key: header -->
@@ -353,13 +353,13 @@
   <!-- Previous button accessibility label -->
   <string name="RecoverWallet.leftArrow">بایاں تیر</string>
   <!-- Next button label -->
-  <string name="RecoverWallet.next">اگلا </string>
+  <string name="RecoverWallet.next">"اگلا "</string>
   <!-- Reset PIN with paper key: more information button. -->
   <string name="RecoverWallet.reset_pin_more_info">معلومات کے لئے یہاں ٹپپ کریں.</string>
   <!-- Next button accessibility label -->
   <string name="RecoverWallet.rightArrow">دایاں تیر</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">جو ڈیجی والیٹ آپ نے حاصل کرنا ہے اس کی پرسنل ریکوری  کی درج کریں </string>
+  <string name="RecoverWallet.subheader">"جو ڈیجی والیٹ آپ نے حاصل کرنا ہے اس کی پرسنل ریکوری  کی درج کریں "</string>
   <!-- Reset PIN with paper key: sub-header -->
   <string name="RecoverWallet.subheader_reset_pin">اپنا PIN ری سیٹ کرنے کے لئے، ذیل میں دیئے گئے بکس میں اپنی پرسنل ریکوری کی کے  الفاظ درج کریں.</string>
   <!-- No amount entered error message. -->
@@ -367,7 +367,7 @@
   <!-- Request a specific amount of bitcoin -->
   <string name="RequestAnAmount.title">رقم کی درخواست کریں</string>
   <!-- Alert action button label -->
-  <string name="ReScan.alertAction">سینک </string>
+  <string name="ReScan.alertAction">"سینک "</string>
   <!-- Alert message body -->
   <string name="ReScan.alertMessage">سینک ہونے کے دوران آپ ڈیجی بائٹ نہیں بھیج سکتے.</string>
   <!-- Alert message title -->
@@ -403,7 +403,7 @@
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">اگر آپ اپنا فون کھو جاتا ہے یا اپ گریڈ کرتے ہیں  تو آپ کے اپنے ڈیجی بائٹ  تک رسائی حاصل کرنے کا واحد طریقہ.</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">پرسنل ریکوری کی </string>
+  <string name="SecurityCenter.paperKeyTitle">"پرسنل ریکوری کی "</string>
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">آپ کے ڈیجی والیٹ کو غیر مجاز صارفین سے محفوظ کرتا ہے.</string>
   <!-- PIN button title -->
@@ -411,9 +411,9 @@
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">سیکورٹی سنٹر</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">آسانی سے اپنا ڈیجی واللیٹ کھولیں اور ایک مقررہ حدتک ڈیجی بائٹ بھیجیں.</string>
+  <string name="SecurityCenter.touchIdDescription">آسانی سے اپنا ڈیجی والیٹ کھولیں اور ایک مقررہ حد تک ڈیجی بائٹ بھیجیں.</string>
   <!-- Touch ID button title -->
-  <string name="SecurityCenter.touchIdTitle">ٹچ شناخت </string>
+  <string name="SecurityCenter.touchIdTitle">"ٹچ شناخت "</string>
   <!-- Security center fingerprint authentication button -->
   <string name="SecurityCenter.touchIdTitle.android">فنگر پرنٹ کی توثیق</string>
   <!-- Send money amount label -->
@@ -447,7 +447,7 @@
   <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">غلط  ایڈریس</string>
   <!-- Is rescanning error message -->
-  <string name="Send.isRescanning">مکمل سکننگ کے دوران کچھ بھیجا نہیں جا سکتا </string>
+  <string name="Send.isRescanning">"مکمل سکننگ کے دوران کچھ بھیجا نہیں جا سکتا "</string>
   <!-- We are loading the request (now) -->
   <string name="Send.loadingRequest">درخواست لوڈ ہو رہی ہے</string>
   <!-- Empty address alert message -->
@@ -467,7 +467,7 @@
   <!-- Send screen title (as in "this is the screen for sending money") -->
   <string name="Send.title">بھیجیں</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">رقم بھیجیں </string>
+  <string name="Send.toLabel">"رقم بھیجیں "</string>
   <!-- Adress already used alert message - first part -->
   <string name="Send.UsedAddress.firstLine">ڈیجی بائٹ ایڈریس ایک بار استمال کے لئے ہیں.</string>
   <!-- Adress already used alert message - second part -->
@@ -487,21 +487,21 @@
   <!-- Import wallet left message -->
   <string name="Settings.importLeftMessage">جو والیٹ امپورٹ کرنا ہے</string>
   <!-- Import wallet right message -->
-  <string name="Settings.importRightMessage">آپ کا واللیٹ</string>
+  <string name="Settings.importRightMessage">آپ کا والیٹ</string>
   <!-- Import wallet label -->
   <string name="Settings.importTitle">امپورٹ والیٹ</string>
   <!-- Manage settings section header -->
-  <string name="Settings.manage">منیج </string>
+  <string name="Settings.manage">"منیج "</string>
   <!-- Notifications label -->
   <string name="Settings.notifications">اطلاعات</string>
   <!-- Restore screen lower label. -->
-  <string name="Settings.restore_label">اس ڈیوائس پر اپکا ڈیجی والیٹ </string>
+  <string name="Settings.restore_label">"اس ڈیوائس پر اپکا ڈیجی والیٹ "</string>
   <!-- Leave review button label -->
   <string name="Settings.review">ہمارا جائزہ لیں.</string>
   <!-- Share anonymous data label -->
-  <string name="Settings.shareData">گمنام ڈیٹا شیئر کریں </string>
+  <string name="Settings.shareData">"گمنام ڈیٹا شیئر کریں "</string>
   <!-- Sync blockchain label -->
-  <string name="Settings.sync">بلاک چین سینک کریں </string>
+  <string name="Settings.sync">"بلاک چین سینک کریں "</string>
   <!-- Settings title -->
   <string name="Settings.title">ترتیبات</string>
   <!-- Touch ID spending limit label -->
@@ -523,7 +523,7 @@
   <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">اگر آپ کا فون کھو گیا ہے، چوری ہو گیا ، ٹوٹ گیا  یا اپ گریڈ کیا ہے تو آپ ڈیجی والیٹ کی  بحالی  کا واحد طریقہ پرسنل ریکوری کی ہے. \ n \ n ہم آپ کو ایک کاغذ کے ٹکڑے پر لکھنے اور محفوظ رکھنے کے لئے الفاظ کی ایک فہرست دکھائی جائے گی.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">اپنی پرسنل ریکوری کی لکھیں </string>
+  <string name="StartPaperPhrase.buttonTitle">"اپنی پرسنل ریکوری کی لکھیں "</string>
   <!-- Argument is date -->
   <string name="StartPaperPhrase.date">آپ نے اپنی پرسنل ریکوری کی کو%1$s لکھا ہے</string>
   <!-- Start view message -->
@@ -531,11 +531,11 @@
   <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">منسلک ہو رہا ہے</string>
   <!-- Syncing view header text -->
-  <string name="SyncingView.header">سینک ہو رہا ہے </string>
+  <string name="SyncingView.header">"سینک ہو رہا ہے "</string>
   <!-- Retry button label -->
   <string name="SyncingView.retry">دوبارہ کوشش کریں</string>
   <!-- Syncing view syncing state header text -->
-  <string name="SyncingView.syncing">سینک ہو رہا ہے </string>
+  <string name="SyncingView.syncing">"سینک ہو رہا ہے "</string>
   <!-- 6 d (6 days) -->
   <string name="TimeSince.days">%1$s دن</string>
   <!-- 6 h (6 hours) -->
@@ -569,7 +569,7 @@
   <!-- Touch ID unavailable alert message -->
   <string name="TouchIdSettings.unavailableAlertMessage">آپ نے اس ڈیوائس پر ٹچ شناخت  سیٹ نہیں کیا. اس کو سیٹ کرنے کے لئے ترتیبات-&gt; ٹچ شناخت  اور پاس ورڈ پر جائیں.</string>
   <!-- Touch ID unavailable alert title -->
-  <string name="TouchIdSettings.unavailableAlertTitle"> ٹچ شناخت سیٹ نہیں</string>
+  <string name="TouchIdSettings.unavailableAlertTitle">" ٹچ شناخت سیٹ نہیں"</string>
   <!-- Always require passcode option -->
   <string name="TouchIdSpendingLimit">ہمیشہ پاس ورڈ کی ضرورت ہوتی ہے</string>
   <!-- Touch ID spending limit screen body -->
@@ -593,7 +593,7 @@
   <!-- Invalid transaction -->
   <string name="Transaction.invalid">غلط ٹرانزیکشن</string>
   <!-- Timestamp label for event that just happened -->
-  <string name="Transaction.justNow">حال ہی میں ہوا </string>
+  <string name="Transaction.justNow">"حال ہی میں ہوا "</string>
   <!-- Receive status text: 'In progress: 20%' -->
   <string name="Transaction.receivedStatus">کام جاری ہے:%1$s</string>
   <!-- Send status text: 'In progress: 20%' -->
@@ -621,21 +621,21 @@
   <!-- Moved $5.00 -->
   <string name="TransactionDetails.movedAmountDescription">%1$s<b>%1$s</b> منتقل ہوگیۓ</string>
   <!-- eg. Confirmed in Block: Not Confirmed -->
-  <string name="TransactionDetails.notConfirmedBlockHeightLabel">غیر تصدیق شدہ </string>
+  <string name="TransactionDetails.notConfirmedBlockHeightLabel">"غیر تصدیق شدہ "</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
-  <string name="TransactionDetails.received">%1$s موصول ہوۓ </string>
+  <string name="TransactionDetails.received">"%1$s موصول ہوۓ "</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription"> %1$s<b>%1$s</b>موصول ہوۓ </string>
+  <string name="TransactionDetails.receivedAmountDescription">" %1$s<b>%1$s</b>موصول ہوۓ "</string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">%1$s بھیجے</string>
   <!-- Sent $5.00 -->
   <string name="TransactionDetails.sentAmountDescription">%1$s<b>%1$s</b> بھیجے</string>
   <!-- Status section header -->
-  <string name="TransactionDetails.statusHeader">سٹیٹس </string>
+  <string name="TransactionDetails.statusHeader">"سٹیٹس "</string>
   <!-- Transaction Details Title -->
   <string name="TransactionDetails.title">ٹرانزیکشن کی تفصیلات</string>
   <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
-  <string name="TransactionDetails.to">کو(%1$s)</string>
+  <string name="TransactionDetails.to">کو%1$s</string>
   <!-- Transaction ID header -->
   <string name="TransactionDetails.txHashHeader">ڈیجی بائٹ ٹرانزیکشن کی شناخت</string>
   <!-- (this transaction was) Received at this address: -->
@@ -645,7 +645,7 @@
   <!-- Disabled until date -->
   <string name="UnlockScreen.disabled">%1$s تک غیر فعال</string>
   <!-- My Address button title -->
-  <string name="UnlockScreen.myAddress">میرا ایڈریس </string>
+  <string name="UnlockScreen.myAddress">"میرا ایڈریس "</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">PIN ری سیٹ کریں</string>
   <!-- Scan button title -->
@@ -709,7 +709,7 @@
   <!-- Updating webview message -->
   <string name="Webview.updating">اپ ڈیٹ ہو رہا ہے</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">ڈیجی والیٹ میں ایک بالکل نئی نظراور کچھ نئی خصوصیات ہیں. .n\n\ اگر آپ کو مدد کی ضرورت ہو تو، زیادہ تر اسکرین کے اوپر (؟) کی تلاش کریں.</string>
+  <string name="Welcome.body">ڈیجی والیٹ کا ایک بالکل نیا انداز اور کچھ نئی خصوصیات ہیں. .n\n\ اگر آپ کو مدد کی ضرورت ہو تو، زیادہ تر اسکرین کے اوپر (؟) کی تلاش کریں.</string>
   <!-- Top title of welcome screen -->
   <string name="Welcome.title">ڈیجی والیٹ میں خوش آمدید!</string>
   <!-- Wipe wallet alert message -->
@@ -737,7 +737,7 @@
   <!-- button label -->
   <string name="WritePaperPhrase.next">اگلا</string>
   <!-- button label -->
-  <string name="WritePaperPhrase.previous">پچھلا </string>
+  <string name="WritePaperPhrase.previous">"پچھلا "</string>
   <!-- 1 of 3 -->
   <string name="WritePaperPhrase.step">%2$d میں سے %1$d</string>
 </resources>

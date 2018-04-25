@@ -111,7 +111,7 @@
   <!-- send button -->
   <string name="Button.send">അയക്കുക</string>
   <!-- Settings button label -->
-  <string name="Button.settings">സെറ്റിങ്ങ്സ്</string>
+  <string name="Button.settings">സെറ്റിംഗ്സ്</string>
   <!-- Settings button label -->
   <string name="Button.submit">സമർപ്പിക്കുക</string>
   <!-- Yes button -->
@@ -121,7 +121,7 @@
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">അയയ്ക്കേണ്ട തുക:</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">നെറ്റ്‌വര്‍ക്ക് ഫീസ്:</string>
+  <string name="Confirmation.feeLabel">നെറ്റ്‌വര്‍ക്ക് ഫീ:</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
   <string name="Confirmation.processingTime">പ്രോസിസ്സിംഗ് സമയം:ഈ ഇടപാട് %1$sനകം പൂർത്തിയാകും എന്ന് അനുമാനിക്കപ്പെടുന്നു.</string>
   <!-- Label for "send" button on final confirmation screen -->
@@ -133,7 +133,7 @@
   <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">മൊത്തം ചെലവ്:</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">"എല്ലാം ശരിയായി എഴുതിയിട്ടുണ്ടെന്ന് ഉറപ്പുവരുത്താൻ, നിങ്ങളുടെ പ്രൈവറ്റ് റിക്കവറി കീയിൽ നിന്ന് തിരഞ്ഞെടുക്കുന്ന വാക്കുകൾ ദയവായി രേഖപ്പെടുത്തുക "</string>
+  <string name="ConfirmPaperPhrase.label">എല്ലാം ശരിയായി എഴുതിയിട്ടുണ്ടെന്ന് ഉറപ്പുവരുത്താൻ, നിങ്ങളുടെ പ്രൈവറ്റ് റിക്കവറി കീയിൽ നിന്ന് തിരഞ്ഞെടുക്കുന്ന വാക്കുകൾ ദയവായി രേഖപ്പെടുത്തുക.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">വാക്ക്%1$s</string>
   <!-- Bitcoin denomination picker label -->
@@ -183,7 +183,7 @@
   <!-- Import button label -->
   <string name="Import.importButton">"ഇമ്പോർട്ട് "</string>
   <!-- Importing wallet progress view label -->
-  <string name="Import.importing">വാലറ്റ് ഇമ്പോർട്ട്   ചെയ്യുന്നു</string>
+  <string name="Import.importing">വാലറ്റ് ഇംപോര്ട്ട്  ചെയ്യുന്നു</string>
   <!-- Caption for graphics -->
   <string name="Import.leftCaption">വാലറ്റ് ഇമ്പോർട്ട്  ചെയ്യപ്പെടെണ്ടതുണ്ട്</string>
   <!-- Import wallet intro screen message -->
@@ -209,7 +209,7 @@
   <!-- Wrong password alert message -->
   <string name="Import.wrongPassword">തെറ്റായ പാസ്സ് വേര്‍ഡ്‌, വീണ്ടും ശ്രമിക്കുക.</string>
   <!-- Close app button -->
-  <string name="JailbreakWarnings.close">അടയ്ക്കുക</string>
+  <string name="JailbreakWarnings.close">സമാപിക്കുക</string>
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">അവഗണിക്കുക</string>
   <!-- Jailbreak warning message -->
@@ -407,7 +407,7 @@
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">അനധികൃത ഉപയോക്താക്കളിൽ നിന്നും നിങ്ങളുടെ ഡിജിവാലറ്റ് സംരക്ഷിക്കുന്നു.</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6 അക്ക പിൻ</string>
+  <string name="SecurityCenter.pinTitle">6-അക്ക പിൻ</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">സുരക്ഷാ കേന്ദ്രം</string>
   <!-- Touch ID button description -->
@@ -463,9 +463,9 @@
   <!-- Scan button label -->
   <string name="Send.scanLabel">സ്കാന്‍</string>
   <!-- Send button label (the action, "press here to send") -->
-  <string name="Send.sendLabel">അയ്യക്കുക</string>
+  <string name="Send.sendLabel">അയക്കുക</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
-  <string name="Send.title">അയ്യക്കുക</string>
+  <string name="Send.title">അയക്കുക</string>
   <!-- Send money to label -->
   <string name="Send.toLabel">ലേക്ക്</string>
   <!-- Adress already used alert message - first part -->
@@ -575,7 +575,7 @@
   <!-- Touch ID spending limit screen body -->
   <string name="TouchIdSpendingLimit.body">"നിങ്ങളുടെ  ഇടപാടുകൾ ചെലവിടൽ പരിധിവരെ അയ്യക്കുന്നതിനു  6 അക്ക പിന്‍ നൽകാൻ ആവശ്യപ്പെടും, അവസാനമായി 6  അക്ക പിന്‍ നല്‍കിയ ശേഷവും ഓരോ 48 മണിക്കൂര്‍ കൂടുംപ്പോള്‍ പിന്‍ ആവശ്യമാണ്.\n "</string>
   <!-- Touch Id spending limit screen title -->
-  <string name="TouchIdSpendingLimit.title">ടച്ച് ഐഡി ചെലവിടൽ പരിധി</string>
+  <string name="TouchIdSpendingLimit.title">ടച്ച് ഐഡി ചെലവഴിക്കൽ പരിധി</string>
   <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">വിരലടയാള പ്രാമാണീകരണം ചെലവിടൽ പരിധി</string>
   <!-- Availability status text -->
@@ -609,9 +609,9 @@
   <!-- Block height label -->
   <string name="TransactionDetails.blockHeightLabel">ബ്ലോക്കിൽ സ്ഥിരീകരിച്ചു</string>
   <!-- Memo section header -->
-  <string name="TransactionDetails.commentsHeader">മെമോ</string>
+  <string name="TransactionDetails.commentsHeader">മെമ്മോ</string>
   <!-- Empty transaction list message. -->
-  <string name="TransactionDetails.emptyMessage">"നിങ്ങളുടെ ക്രയവിക്രയ വിവരങ്ങൾ ഇവിടെ ലഭ്യമാണ് "</string>
+  <string name="TransactionDetails.emptyMessage">നിങ്ങളുടെ ക്രയവിക്രയ വിവരങ്ങൾ ഇവിടെ ലഭ്യമാണ്.</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
   <string name="TransactionDetails.from">at %1$s</string>
   <!-- More button title -->

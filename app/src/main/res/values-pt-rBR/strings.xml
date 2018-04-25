@@ -579,7 +579,7 @@
   <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">Autorização por impressão digital excedeu o limite</string>
   <!-- Availability status text -->
-  <string name="Transaction.available">Disponível para uso </string>
+  <string name="Transaction.available">"Disponível para uso "</string>
   <!-- Transaction complete label -->
   <string name="Transaction.complete">Completo</string>
   <!-- eg. Ending balance: $50.00 -->

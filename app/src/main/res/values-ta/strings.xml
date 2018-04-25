@@ -91,7 +91,7 @@
   <!-- BitID error alert title -->
   <string name="BitID.error">அங்கீகாரப் பிழை</string>
   <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
-  <string name="BitID.errorMessage"> சேவைவயை சரிபார்க்கவும். நீங்கள் மீண்டும் முயற்சிக்க வேண்டும்.</string>
+  <string name="BitID.errorMessage">" சேவைவயை சரிபார்க்கவும். நீங்கள் மீண்டும் முயற்சிக்க வேண்டும்."</string>
   <!-- BitID success alert title -->
   <string name="BitID.success">வெற்றிகரமாக அங்கீகரிக்கப்பட்டது</string>
   <!-- BitID Authentication Request alert view title -->
@@ -149,7 +149,7 @@
   <!-- Messaging unavailable alert title -->
   <string name="ErrorMessages.messagingUnavailableMessage">செய்திகளை அனுப்ப இந்த சாதனம் கட்டமைக்கப்படவில்லை.\n</string>
   <!-- Messaging unavailable alert title -->
-  <string name="ErrorMessages.messagingUnavailableTitle">செய்தி கிடைக்கவில்லை </string>
+  <string name="ErrorMessages.messagingUnavailableTitle">"செய்தி கிடைக்கவில்லை "</string>
   <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
   <string name="ErrorMessages.touchIdFailed.android">கைரேகை அங்கீகரிக்கப்படவில்லை. தயவு செய்து மீண்டும் முயற்சிக்கவும்.</string>
   <!-- Economy fee -->
@@ -177,7 +177,7 @@
   <!-- High fees error message -->
   <string name="Import.Error.highFees">இந்த தனிப்பட்ட விசையில் இருக்கும் நிதியை விட பரிவர்த்தனை கட்டணம் அதிகமாகும்.</string>
   <!-- Not a valid private key error message -->
-  <string name="Import.Error.notValid"> செல்லுபடியாகாத தனிப்பட்ட விசை</string>
+  <string name="Import.Error.notValid">" செல்லுபடியாகாத தனிப்பட்ட விசை"</string>
   <!-- Import signing error message -->
   <string name="Import.Error.signing">பரிவர்த்தனைக்கு உள்நுழைவதில் பிழை</string>
   <!-- Import button label -->
@@ -331,7 +331,7 @@
   <!-- Share via email button label -->
   <string name="Receive.emailButton">மின் அஞ்சல்</string>
   <!-- Request button label -->
-  <string name="Receive.request">தொகை கோரிக்கை </string>
+  <string name="Receive.request">"தொகை கோரிக்கை "</string>
   <!-- Share button label -->
   <string name="Receive.share">பகிர்\n</string>
   <!-- Share via text message (SMS) -->
@@ -375,7 +375,7 @@
   <!-- extimated time -->
   <string name="ReScan.body1">20-45 நிமிடங்கள்</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">உங்கள் டிஜிவாலட் இல் இல்லாமல் ஒரு பரிவர்த்தனை டிஜிபைட் நெட்வொர்க்கில் முடிக்கப்பட்டுவிட்டது என காட்டினால். </string>
+  <string name="ReScan.body2">"உங்கள் டிஜிவாலட் இல் இல்லாமல் ஒரு பரிவர்த்தனை டிஜிபைட் நெட்வொர்க்கில் முடிக்கப்பட்டுவிட்டது என காட்டினால். "</string>
   <!-- Syncing explanation -->
   <string name="ReScan.body3">உங்கள் பரிவர்த்தனை நிராகரிக்கப்பட்டுவிட்டது என சொல்லும் பிழையை நீங்கள் திரும்ப திரும்ப பெறுவீர்கள்.</string>
   <!-- Start Sync button label -->
@@ -659,7 +659,7 @@
   <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">தொடர, உங்கள் ஆண்ட்ராய்டு  கருவியை தயவு செய்து திறக்கவும்.</string>
   <!-- Unlock with TouchID accessibility label -->
-  <string name="UnlockScreen.touchIdText">டச் ID மூலம் திறக்கவும் </string>
+  <string name="UnlockScreen.touchIdText">"டச் ID மூலம் திறக்கவும் "</string>
   <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">அங்கீகரிப்பு தேவை</string>
   <!-- Wallet unlocked message -->
