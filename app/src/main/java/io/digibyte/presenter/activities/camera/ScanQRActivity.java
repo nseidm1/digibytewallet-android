@@ -214,18 +214,8 @@ public class ScanQRActivity extends BRActivity implements ActivityCompat.OnReque
         try {
             // Check if the camera permission is granted
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                // Should we show an expgetString(R.string.ConfirmPaperPhrase_word)lanation?
-                if (android.support.v4.app.ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)) {
-                    BRDialog.showCustomDialog(activity,
-                            activity.getString(R.string.Send_cameraUnavailabeTitle_android),
-                            activity.getString(R.string.Send_cameraUnavailabeMessage_android),
-                            activity.getString(R.string.AccessibilityLabels_close), null,
-                            brDialogView -> brDialogView.dismiss(), null, null, 0);
-                } else {
-                    // No explanation needed, we can request the permission.
-                    android.support.v4.app.ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},
-                            BRConstants.CAMERA_REQUEST_ID);
-                }
+                android.support.v4.app.ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},
+                        BRConstants.CAMERA_REQUEST_ID);
             } else {
                 // Permission is granted, open camera
                 Intent intent = new Intent(activity, ScanQRActivity.class);
