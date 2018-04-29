@@ -191,6 +191,7 @@ public class BRActivity extends Activity implements FragmentManager.OnBackStackC
     @Override
     public void onBackStackChanged() {
         //Add back press listeners
+        backClickListeners.clear();
         for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); i++) {
             FragmentManager.BackStackEntry backStackEntry = getFragmentManager().getBackStackEntryAt(i);
             Fragment fragment = getFragmentManager().findFragmentByTag(backStackEntry.getName());
@@ -200,9 +201,6 @@ public class BRActivity extends Activity implements FragmentManager.OnBackStackC
                     backClickListeners.add(onBackPressListener);
                 }
             }
-        }
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            backClickListeners.clear();
         }
     }
 }
