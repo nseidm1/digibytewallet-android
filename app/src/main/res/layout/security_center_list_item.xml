@@ -3,24 +3,22 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:filterTouchesWhenObscured="true"
                 android:orientation="horizontal"
-    >
+                android:textDirection="locale">
 
     <io.digibyte.presenter.customviews.BRText
-        app:customTFont="CircularPro-Bold.otf"
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_toRightOf="@+id/check_mark"
-        android:text="Test"
-        android:textSize="@dimen/sub_header"
+        android:layout_toEndOf="@+id/check_mark"
         android:lineSpacingMultiplier="1.3"
+        android:text="Test"
         android:textColor="@color/almost_black"
-       />
+        android:textSize="@dimen/sub_header"
+        app:customTFont="CircularPro-Bold.otf"/>
 
     <io.digibyte.presenter.customviews.BRText
         android:id="@+id/item_text"
@@ -28,11 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/item_title"
         android:layout_below="@id/item_title"
+        android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
         android:lineSpacingMultiplier="1.3"
-        android:textSize="@dimen/paragraph"
-        android:layout_marginBottom="16dp"
-        android:textColor="@color/almost_black"/>
+        android:textColor="@color/almost_black"
+        android:textSize="@dimen/paragraph"/>
 
     <ImageView
         android:id="@+id/check_mark"
@@ -42,6 +40,5 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="16dp"
         app:srcCompat="@drawable/ic_check_mark_grey"/>
-
 
 </RelativeLayout>

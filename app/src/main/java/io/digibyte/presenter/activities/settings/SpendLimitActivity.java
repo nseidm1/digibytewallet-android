@@ -132,10 +132,12 @@ public class SpendLimitActivity extends BRActivity {
             });
             FontManager.overrideFonts(holder.limit);
             int limit = items.get(position);
-            String dgbLimit =  BRCurrency.getFormattedCurrencyString(SpendLimitActivity.this, "DGB", new BigDecimal(limit));
+            String dgbLimit = BRCurrency.getFormattedCurrencyString(SpendLimitActivity.this, "DGB",
+                    new BigDecimal(limit));
             holder.limit.setText(limit == 0 ? getString(R.string.no_limit) : dgbLimit);
             holder.check.setVisibility(
-                    items.get(position) == BRKeyStore.getSpendLimit(SpendLimitActivity.this)  ? View.VISIBLE : View.GONE);
+                    items.get(position) == BRKeyStore.getSpendLimit(SpendLimitActivity.this)
+                            ? View.VISIBLE : View.GONE);
             holder.divider.setVisibility(position <= 2 ? View.VISIBLE : View.GONE);
 
         }

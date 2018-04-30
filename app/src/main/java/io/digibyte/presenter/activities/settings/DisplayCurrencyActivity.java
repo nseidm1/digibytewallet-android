@@ -8,27 +8,23 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.CurrencyEntity;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.manager.FontManager;
 import io.digibyte.tools.sqlite.CurrencyDataSource;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.BRCurrency;
-
-import java.math.BigDecimal;
-import java.util.Currency;
 
 
 public class DisplayCurrencyActivity extends BRActivity {
@@ -36,16 +32,8 @@ public class DisplayCurrencyActivity extends BRActivity {
     private TextView exchangeText;
     private ListView listView;
     private CurrencyListAdapter adapter;
-    //    private String ISO;
-//    private float rate;
-    public static boolean appVisible = false;
-    private static DisplayCurrencyActivity app;
     private Button leftButton;
     private Button rightButton;
-
-    public static DisplayCurrencyActivity getApp() {
-        return app;
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -55,36 +43,15 @@ public class DisplayCurrencyActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_currency);
-
-        /* ImageButton faq = findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(app, BRConstants.displayCurrency);
-            }
-        }); */
-
         exchangeText = findViewById(R.id.exchange_text);
         listView = findViewById(R.id.currency_list_view);
         adapter = new CurrencyListAdapter(this);
         adapter.addAll(CurrencyDataSource.getInstance(this).getAllCurrencies());
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setButton(true);
-            }
-        });
+        leftButton.setOnClickListener(v -> setButton(true));
 
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setButton(false);
-            }
-        });
+        rightButton.setOnClickListener(v -> setButton(false));
 
         int unit = BRSharedPrefs.getCurrencyUnit(this);
         if (unit == BRConstants.CURRENT_UNIT_BITS) {
@@ -93,24 +60,16 @@ public class DisplayCurrencyActivity extends BRActivity {
             setButton(false);
         }
         updateExchangeRate();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                TextView currencyItemText = (TextView) view.findViewById(R.id.currency_item_text);
-                final String selectedCurrency = currencyItemText.getText().toString();
-                String iso = selectedCurrency.substring(0, 3);
-                BRSharedPrefs.putIso(DisplayCurrencyActivity.this, iso);
-                BRSharedPrefs.putCurrencyListPosition(DisplayCurrencyActivity.this, position);
-
-                updateExchangeRate();
-
-            }
-
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            TextView currencyItemText = (TextView) view.findViewById(R.id.currency_item_text);
+            final String selectedCurrency = currencyItemText.getText().toString();
+            String iso = selectedCurrency.substring(0, 3);
+            BRSharedPrefs.putIso(DisplayCurrencyActivity.this, iso);
+            BRSharedPrefs.putCurrencyListPosition(DisplayCurrencyActivity.this, position);
+            updateExchangeRate();
         });
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
     }
 
     private void updateExchangeRate() {
@@ -144,19 +103,6 @@ public class DisplayCurrencyActivity extends BRActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
-    }
-
-    @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
@@ -177,7 +123,6 @@ public class DisplayCurrencyActivity extends BRActivity {
             this.layoutResourceId = R.layout.currency_list_item;
             this.mContext = mContext;
             ((Activity) mContext).getWindowManager().getDefaultDisplay().getSize(displayParameters);
-//        currencyListAdapter = this;
         }
 
         @Override
@@ -240,9 +185,5 @@ public class DisplayCurrencyActivity extends BRActivity {
             }
             return (count > 0);
         }
-
     }
-
-
-
 }
