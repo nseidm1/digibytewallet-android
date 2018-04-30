@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentBreadPinBinding;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
@@ -178,7 +179,7 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     private void fadeOutRemove(boolean authenticated) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.mainLayout, true, null);
         colorFade.setDuration(500);
-        Animator downToBottom = AnimatorInflater.loadAnimator(getContext(), R.animator.to_bottom);
+        Animator downToBottom = AnimatorInflater.loadAnimator(DigiByte.getContext(), R.animator.to_bottom);
         downToBottom.setTarget(binding.brkeyboard);
         downToBottom.setDuration(500);
         downToBottom.setInterpolator(new DecelerateInterpolator());

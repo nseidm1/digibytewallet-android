@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.util.AndroidRuntimeException;
+import android.widget.Toast;
 
 import io.digibyte.DigiByte;
 import io.digibyte.wallet.BRWalletManager;
@@ -29,17 +31,22 @@ public class RestartService extends Service {
             return Service.START_NOT_STICKY;
         }
         SystemClock.sleep(500);
-        switch ((BRWalletManager.SmartInitType) intent.getSerializableExtra(RESTART_ACTIVITY)) {
-            case BreadActivity: {
-                Intent newIntent = new Intent(this, BreadActivity.class);
-                startActivity(newIntent);
-                break;
+        try {
+            switch ((BRWalletManager.SmartInitType) intent.getSerializableExtra(RESTART_ACTIVITY)) {
+                case BreadActivity: {
+                    Intent newIntent = new Intent(this, BreadActivity.class);
+                    startActivity(newIntent);
+                    break;
+                }
+                case LoginActivity: {
+                    Intent newIntent = new Intent(this, LoginActivity.class);
+                    startActivity(newIntent);
+                    break;
+                }
             }
-            case LoginActivity: {
-                Intent newIntent = new Intent(this, LoginActivity.class);
-                startActivity(newIntent);
-                break;
-            }
+        } catch(AndroidRuntimeException e) {
+            //Strage runtime exception notices in reports
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
         android.os.Process.killProcess(android.os.Process.myPid());
         return Service.START_NOT_STICKY;

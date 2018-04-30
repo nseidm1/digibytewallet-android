@@ -86,7 +86,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         transaction.add(android.R.id.content, fingerprintFragment,
                 FragmentFingerprint.class.getName());
         transaction.addToBackStack(FragmentFingerprint.class.getName());
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
