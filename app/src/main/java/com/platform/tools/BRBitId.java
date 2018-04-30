@@ -1,6 +1,7 @@
 package com.platform.tools;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -100,14 +101,17 @@ public class BRBitId {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
             byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
-            final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, "digiid");
+            Uri bitUri = Uri.parse(bitID);
+            String u = bitUri.getQueryParameter("u");
+            String scheme = u != null && u.equalsIgnoreCase("1") ? "http://" : "https://";
+            final String callbackUrl = scheme + bitUri.getHost() + bitUri.getPath();
+            final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, callbackUrl);
             final String sig = signMessage(bitID, new BRKey(key));
             final String address = new BRKey(key).address();
             final JSONObject postJson = new JSONObject();
             postJson.put("uri", bitID);
             postJson.put("address", address);
             postJson.put("signature", sig);
-            final String callbackUrl = bitID.replace("digiid://", "https://");
             final RequestBody requestBody = RequestBody.create(null, postJson.toString());
             final Request request = new Request.Builder()
                     .url(callbackUrl)
