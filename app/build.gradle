@@ -13,8 +13,8 @@ android {
         applicationId = 'io.digibyte'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 1981
-        versionName "2.0.0b1981"
+        versionCode 1989
+        versionName "2.0.0b1989"
         multiDexEnabled true
 
         // Similar to other properties in the defaultConfig block,
