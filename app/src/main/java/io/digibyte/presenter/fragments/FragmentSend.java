@@ -441,14 +441,12 @@ public class FragmentSend extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        final ViewTreeObserver observer = signalLayout.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        signalLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                observer.removeGlobalOnLayoutListener(this);
+                signalLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 BRAnimator.animateBackgroundDim(backgroundLayout, false);
                 BRAnimator.animateSignalSlide(signalLayout, false, () -> {
                     Bundle bundle = getArguments();
@@ -619,8 +617,7 @@ public class FragmentSend extends Fragment {
         }
         if (obj.amount != null) {
             String iso = selectedIso;
-            BigDecimal satoshiAmount = new BigDecimal(obj.amount).multiply(
-                    new BigDecimal(100000000));
+            BigDecimal satoshiAmount = new BigDecimal(obj.amount);
             amountBuilder = new StringBuilder(BRExchange.getAmountFromSatoshis(getActivity(), iso,
                     satoshiAmount).toPlainString());
             updateText();

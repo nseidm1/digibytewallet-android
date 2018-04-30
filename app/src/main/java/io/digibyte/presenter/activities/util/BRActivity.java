@@ -127,7 +127,7 @@ public class BRActivity extends Activity implements FragmentManager.OnBackStackC
                         public void run() {
                             String result = data.getStringExtra("result");
                             if (BitcoinUrlHandler.isBitcoinUrl(result)) {
-                                BitcoinUrlHandler.processRequest(BRActivity.this, result);
+                                BRAnimator.showSendFragment(BRActivity.this, result);
                             } else if (BRBitId.isBitId(result)) {
                                 BRBitId.signAndRespond(BRActivity.this, result, false);
                             } else {

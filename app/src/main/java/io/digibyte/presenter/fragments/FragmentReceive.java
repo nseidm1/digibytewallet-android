@@ -119,15 +119,13 @@ public class FragmentReceive extends Fragment {
             if (!BRAnimator.isClickAllowed()) return;
             String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, 0, null, null, null);
             Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
-            QRUtils.share("mailto:", getActivity(), qrImageUri, bitcoinUri);
+            QRUtils.share("mailto:", getActivity(), qrImageUri, null, null);
 
         });
         shareTextMessage.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             try {
-                String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, 0, null, null, null);
-                Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
-                QRUtils.share("sms:", getActivity(), qrImageUri, bitcoinUri);
+                QRUtils.share("sms:", getActivity(), null, receiveAddress, "");
             } catch(Exception e) {
                 e.printStackTrace();
             }

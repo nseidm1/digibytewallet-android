@@ -26,6 +26,7 @@ import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -79,6 +80,8 @@ public class LoginActivity extends BRActivity {
         Uri data = intent.getData();
         if (data != null && BRBitId.isBitId(data.toString())) {
             BRBitId.signAndRespond(this, data.toString(), true);
+        } else if (data != null && BitcoinUrlHandler.isBitcoinUrl(data.toString())) {
+            BRAnimator.showSendFragment(this, data.toString());
         } else {
             if (binding.fingerprintIcon != null && useFingerprint) {
                 new Handler().postDelayed(() -> {
@@ -96,6 +99,8 @@ public class LoginActivity extends BRActivity {
         Uri data = intent.getData();
         if (data != null && BRBitId.isBitId(data.toString())) {
             BRBitId.signAndRespond(this, data.toString(), true);
+        } else if (data != null && BitcoinUrlHandler.isBitcoinUrl(data.toString())) {
+            BRAnimator.showSendFragment(this, data.toString());
         }
     }
 

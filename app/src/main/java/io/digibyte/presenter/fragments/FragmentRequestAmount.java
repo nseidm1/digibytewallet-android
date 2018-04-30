@@ -167,23 +167,14 @@ public class FragmentRequestAmount extends Fragment {
             String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
                     null);
             Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
-            QRUtils.share("mailto:", getActivity(), qrImageUri, bitcoinUri);
+            QRUtils.share("mailto:", getActivity(), qrImageUri, null, null);
 
         });
         shareTextMessage.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             showKeyboard(false);
-            String iso = selectedIso;
             String strAmount = amountEdit.getText().toString();
-            BigDecimal bigAmount = new BigDecimal(
-                    (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
-                            : strAmount);
-            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
-                    bigAmount).longValue();
-            String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
-                    null);
-            Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
-            QRUtils.share("sms:", getActivity(), qrImageUri, bitcoinUri);
+            QRUtils.share("sms:", getActivity(), null, receiveAddress, strAmount);
         });
         shareButton.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;

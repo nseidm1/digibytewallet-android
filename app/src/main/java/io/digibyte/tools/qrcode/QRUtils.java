@@ -135,12 +135,12 @@ public class QRUtils {
         return null;
     }
 
-    public static void share(String via, Activity app, Uri qrImageUri, String digibyteUri) {
+    public static void share(String via, Activity app, Uri qrImageUri, String address, String ammount) {
         Intent intent = new Intent();
         if (via.equalsIgnoreCase("sms:")) {
             intent.setAction(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("sms:"));
-            intent.putExtra("sms_body", digibyteUri);
+            intent.putExtra("sms_body", String.format(app.getString(R.string.digi_share), address, ammount));
             intent.putExtra("exit_on_sent", true);
             app.startActivity(intent);
         } else {
