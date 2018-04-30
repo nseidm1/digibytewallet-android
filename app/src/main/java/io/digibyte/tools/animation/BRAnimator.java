@@ -11,6 +11,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -305,14 +306,13 @@ public class BRAnimator {
         }
     }
 
-    public static void startBreadActivity(Activity from, boolean auth) {
+    public static void startBreadActivity(Context from, boolean auth) {
         if (from == null) return;
         Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
         Class toStart = auth ? LoginActivity.class : BreadActivity.class;
         Intent intent = new Intent(from, toStart);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         from.startActivity(intent);
-        from.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
     }
 
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse,

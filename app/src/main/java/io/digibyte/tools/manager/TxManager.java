@@ -41,7 +41,7 @@ public class TxManager {
 
     private static final String TAG = TxManager.class.getName();
     private static TxManager instance;
-    private static Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private ArrayList<onStatusListener> theListeners;
 

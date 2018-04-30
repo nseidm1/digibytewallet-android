@@ -99,7 +99,7 @@ public class BRWalletManager {
 
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners;
-    private static Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler = new Handler(Looper.getMainLooper());
     private boolean initingWallet = false;
     private boolean initingPeerManager = false;
 

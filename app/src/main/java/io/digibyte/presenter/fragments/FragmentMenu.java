@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentMenuBinding;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
@@ -59,7 +60,7 @@ import io.digibyte.tools.animation.BRAnimator;
 
 public class FragmentMenu extends Fragment implements OnBackPressListener {
     private FragmentMenuBinding binding;
-    private static Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private MenuDialogCallback mMenuDialogCallback = () -> fadeOutRemove(null, false, true);
 
@@ -149,9 +150,9 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
                     }
                     handler.postDelayed(() -> {
                         if (openLockScreen) {
-                            BRAnimator.startBreadActivity(FragmentMenu.this.getActivity(), true);
+                            BRAnimator.startBreadActivity(DigiByte.getContext(), true);
                         } else {
-                            getContext().startActivity(intent);
+                            DigiByte.getContext().startActivity(intent);
                         }
                     }, 350);
                 });

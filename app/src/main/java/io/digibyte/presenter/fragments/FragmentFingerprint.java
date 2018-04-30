@@ -52,7 +52,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     private FingerprintUiHelper mFingerprintUiHelper;
     private FingerprintFragmentViewModel viewModel;
     private BRAuthCompletion completion;
-    private static Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private final FingerprintManager mFingerprintManager =
             (FingerprintManager) DigiByte.getContext().getSystemService(

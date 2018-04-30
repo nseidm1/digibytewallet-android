@@ -53,7 +53,7 @@ public class BRSender {
     private static final String TAG = BRSender.class.getName();
 
     private static BRSender instance;
-    private static Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler = new Handler(Looper.getMainLooper());
     private final static long FEE_EXPIRATION_MILLIS = 72 * 60 * 60 * 1000L;
 
     private BRSender() {

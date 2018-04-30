@@ -66,7 +66,7 @@ public class SyncManager {
     }
 
     private static Executor executorService = Executors.newSingleThreadScheduledExecutor();
-    private static Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler = new Handler(Looper.getMainLooper());
     private ArrayList<onStatusListener> theListeners = new ArrayList<>();
 
     public void addListener(onStatusListener aListener) {

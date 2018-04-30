@@ -62,7 +62,7 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     private BRAuthCompletion completion;
     private FragmentBreadPinBinding binding;
     private final StringBuilder pin = new StringBuilder();
-    private static Handler handler = new Handler(Looper.myLooper());
+    private Handler handler = new Handler(Looper.myLooper());
 
     private PinFragmentCallback mPinFragmentCallback = new PinFragmentCallback() {
         @Override
