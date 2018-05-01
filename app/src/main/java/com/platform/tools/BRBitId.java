@@ -70,7 +70,7 @@ public class BRBitId {
     public static boolean isBitId(String uri) {
         try {
             URI bitIdUri = new URI(uri);
-            if ("digiid".equals(bitIdUri.getScheme())) {
+            if ("digiid".equalsIgnoreCase(bitIdUri.getScheme())) {
                 return true;
             }
         } catch (URISyntaxException e) {

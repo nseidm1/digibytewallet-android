@@ -121,6 +121,12 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="DIGIID"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="digibyte"/>
             </intent-filter>
         </activity>
@@ -219,11 +225,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
-        <activity
+        <activityo
             android:name=".presenter.activities.settings.TestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-        </activity>
+        </activityo>
 
         <service android:name=".presenter.activities.RestartService"
                   android:process=":RestartProcess"/>
