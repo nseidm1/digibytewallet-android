@@ -65,12 +65,11 @@ import okhttp3.Response;
 public class BRBitId {
     public static final String TAG = BRBitId.class.getName();
     public static final String BITCOIN_SIGNED_MESSAGE_HEADER = "DigiByte Signed Message:\n";
-    private static Handler handler = new Handler(Looper.getMainLooper());
 
     public static boolean isBitId(String uri) {
         try {
             URI bitIdUri = new URI(uri);
-            if ("digiid".equals(bitIdUri.getScheme())) {
+            if ("digiid".equalsIgnoreCase(bitIdUri.getScheme())) {
                 return true;
             }
         } catch (URISyntaxException e) {
@@ -118,6 +117,7 @@ public class BRBitId {
                     .post(requestBody)
                     .header("Content-Type", "application/json")
                     .build();
+            Handler handler = new Handler(Looper.getMainLooper());
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
                 final Response res = APIClient.getInstance(app).sendRequest(request);
                 Log.d(BRBitId.class.getSimpleName(),
@@ -136,6 +136,7 @@ public class BRBitId {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            Handler handler = new Handler(Looper.getMainLooper());
             handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show());
             if (isDeepLink) {
                 app.finish();
