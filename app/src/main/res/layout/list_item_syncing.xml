@@ -17,15 +17,15 @@
         android:elevation="8dp"
         android:keepScreenOn="true"
         android:visibility="visible"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintEnd_creator="1"
+        tools:layout_constraintStart_creator="1"
         tools:layout_constraintTop_creator="1">
 
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:gravity="bottom"
                       app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="@+id/syncing_label"
+                      app:layout_constraintStart_toStartOf="@+id/syncing_label"
                       app:layout_constraintTop_toBottomOf="@+id/sync_progress">
 
             <io.digibyte.presenter.customviews.BRText
@@ -55,7 +55,7 @@
             android:textColor="@color/almost_black"
             android:textSize="@dimen/sub_header"
             app:customTFont="CircularPro-Bold.otf"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <ProgressBar
@@ -69,8 +69,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:progressDrawable="@drawable/sync_wallet_progress"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/syncing_label"/>
 
     </android.support.constraint.ConstraintLayout>

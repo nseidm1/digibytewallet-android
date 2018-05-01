@@ -66,16 +66,23 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
+
+            //Check to see if the comment/memo changed
             String currentComment = listItemTransactionData.transactionItem.metaData != null
                     ? listItemTransactionData.transactionItem.metaData.comment : "";
+            //Check to see if the transaction time changed
+            String currentTime = listItemTransactionData.getTransactionDisplayTimeHolder();
             listItemTransactionData.update(findTransaction(listItemTransactionData, transactions));
             String newComment = listItemTransactionData.transactionItem.metaData != null
                     ? listItemTransactionData.transactionItem.metaData.comment : "";
+            String newTime = listItemTransactionData.getTransactionDisplayTimeHolder();
+
             boolean commentUpdated = !currentComment.equals(newComment);
+            boolean timeChange = !currentTime.equals(newTime);
 
             int confirms = BRSharedPrefs.getLastBlockHeight(DigiByte.getContext())
                     - listItemTransactionData.getTransactionItem().getBlockHeight() + 1;
-            if ((confirms <= 8 || commentUpdated) && isPositionOnscreen(
+            if ((confirms <= 8 || commentUpdated || timeChange) && isPositionOnscreen(
                     listItemData.indexOf(listItemTransactionData))) {
                 BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
                 ListItemTransactionViewHolder listItemTransactionViewHolder =

@@ -36,7 +36,6 @@ public class SettingsActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
         listView = findViewById(R.id.settings_list);
     }
 
