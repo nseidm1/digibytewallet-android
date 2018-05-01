@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentMenuBinding;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
@@ -144,15 +143,16 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
     private void fadeOutRemove(Intent intent, boolean openLockScreen, boolean justClose) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
                 () -> {
+                    final Activity activity = getActivity();
                     remove();
                     if (justClose) {
                         return;
                     }
                     handler.postDelayed(() -> {
                         if (openLockScreen) {
-                            BRAnimator.startBreadActivity(DigiByte.getContext(), true);
+                            BRAnimator.startBreadActivity(activity, true);
                         } else {
-                            DigiByte.getContext().startActivity(intent);
+                            activity.startActivity(intent);
                         }
                     }, 350);
                 });

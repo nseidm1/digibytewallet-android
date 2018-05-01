@@ -2,6 +2,7 @@ package io.digibyte.presenter.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
@@ -63,7 +64,6 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     private BRAuthCompletion completion;
     private FragmentBreadPinBinding binding;
     private final StringBuilder pin = new StringBuilder();
-    private Handler handler = new Handler(Looper.myLooper());
 
     private PinFragmentCallback mPinFragmentCallback = new PinFragmentCallback() {
         @Override
@@ -185,30 +185,16 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
         downToBottom.setInterpolator(new DecelerateInterpolator());
         AnimatorSet set = new AnimatorSet();
         set.playSequentially(colorFade, downToBottom);
-        set.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
+        set.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 remove();
                 if (authenticated) {
+                    Handler handler = new Handler(Looper.myLooper());
                     handler.postDelayed(() -> {
                         if (completion != null) completion.onComplete();
                     }, 350);
                 }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
             }
         });
         set.start();

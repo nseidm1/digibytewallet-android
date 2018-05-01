@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/coordinator"
+        android:textDirection="locale"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
@@ -38,9 +39,7 @@
                         android:background="@drawable/bread_gradient"
                         android:clipChildren="false"
                         android:clipToPadding="false"
-                        android:contentInsetLeft="0dp"
                         android:contentInsetStart="0dp"
-                        app:contentInsetLeft="0dp"
                         app:contentInsetStart="0dp"
                         tools:layout_constraintTop_creator="1">
 
@@ -62,7 +61,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="36sp"
                                 android:textStyle="bold"
-                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"/>
 
 
@@ -71,7 +70,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="8dp"
-                                android:layout_marginLeft="42dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="8dp"
                                 android:text="$0"
@@ -79,7 +77,7 @@
                                 android:textSize="16sp"
                                 app:customTFont="CircularPro-Book.otf"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/wallet_name_text"
                                 app:layout_constraintVertical_bias="0.492"/>
 
@@ -88,7 +86,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="8dp"
-                                android:layout_marginLeft="8dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
                                 android:text="="
@@ -96,7 +93,7 @@
                                 android:textSize="16sp"
                                 app:customTFont="CircularPro-Book.otf"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toRightOf="@+id/primary_price"
+                                app:layout_constraintStart_toEndOf="@+id/primary_price"
                                 app:layout_constraintTop_toBottomOf="@+id/wallet_name_text"
                                 app:layout_constraintVertical_bias="0.492"/>
 
@@ -105,7 +102,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="8dp"
-                                android:layout_marginLeft="8dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginTop="8dp"
                                 android:text="b0"
@@ -113,7 +109,7 @@
                                 android:textSize="16sp"
                                 app:customTFont="CircularPro-Book.otf"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toRightOf="@+id/equals"
+                                app:layout_constraintStart_toEndOf="@+id/equals"
                                 app:layout_constraintTop_toBottomOf="@+id/wallet_name_text"
                                 app:layout_constraintVertical_bias="0.492"/>
 
@@ -125,7 +121,7 @@
                                 android:textColor="@color/almost_black"
                                 android:textSize="16sp"
                                 app:customTFont="CircularPro-Book.otf"
-                                app:layout_constraintLeft_toLeftOf="@+id/primary_price"
+                                app:layout_constraintStart_toStartOf="@+id/primary_price"
                                 app:layout_constraintTop_toBottomOf="@+id/primary_price"/>
 
                             <io.digibyte.presenter.customviews.BRText
@@ -139,7 +135,7 @@
                                 android:visibility="gone"
                                 app:customTFont="CircularPro-Bold.otf"
                                 app:layout_constraintBottom_toBottomOf="@+id/wallet_name_text"
-                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/wallet_name_text"/>
 
                             <ImageButton
@@ -150,7 +146,7 @@
                                 android:layout_marginEnd="16dp"
                                 android:background="@drawable/ic_search_black_24dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"/>
+                                app:layout_constraintEnd_toEndOf="parent"/>
 
                         </android.support.constraint.ConstraintLayout>
                     </android.support.v7.widget.Toolbar>
@@ -161,9 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:background="@drawable/bread_gradient"
-                        android:contentInsetLeft="0dp"
                         android:contentInsetStart="0dp"
-                        app:contentInsetLeft="0dp"
                         app:contentInsetStart="0dp"
                         tools:layout_constraintTop_creator="1">
                     </io.digibyte.presenter.customviews.BRSearchBar>

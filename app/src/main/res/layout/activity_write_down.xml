@@ -6,6 +6,7 @@
     android:id="@+id/activity_write_down"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textDirection="locale"
     android:background="@color/extra_light_blue_background"
     tools:context="io.digibyte.presenter.activities.intro.WriteDownActivity">
 
@@ -13,8 +14,7 @@
         android:id="@+id/gradient_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/write_down_gradient"
-        >
+        android:background="@drawable/write_down_gradient">
 
         <io.digibyte.presenter.customviews.BRText
             android:id="@+id/title"
