@@ -96,7 +96,6 @@ public class BRBitId {
 
     private static void internalSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
             boolean isDeepLink) {
-        Handler handler = new Handler(Looper.getMainLooper());
         try {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
@@ -118,6 +117,7 @@ public class BRBitId {
                     .post(requestBody)
                     .header("Content-Type", "application/json")
                     .build();
+            Handler handler = new Handler(Looper.getMainLooper());
             BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
                 final Response res = APIClient.getInstance(app).sendRequest(request);
                 Log.d(BRBitId.class.getSimpleName(),
@@ -136,6 +136,7 @@ public class BRBitId {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            Handler handler = new Handler(Looper.getMainLooper());
             handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show());
             if (isDeepLink) {
                 app.finish();
