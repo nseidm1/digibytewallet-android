@@ -1,13 +1,17 @@
 package io.digibyte.tools.list.items;
 
+import java.util.Date;
+
 import io.digibyte.R;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.list.ListItemData;
+import io.digibyte.tools.util.BRDateUtil;
 
 public class ListItemTransactionData extends ListItemData {
     public int transactionIndex;
     public int transactionsCount;
     public TxItem transactionItem;
+    private String transactionDisplayTimeHolder;
 
     public ListItemTransactionData(int anIndex, int aTransactionsCount, TxItem aTransactionItem) {
         super(R.layout.list_item_transaction);
@@ -15,6 +19,7 @@ public class ListItemTransactionData extends ListItemData {
         this.transactionIndex = anIndex;
         this.transactionsCount = aTransactionsCount;
         this.transactionItem = aTransactionItem;
+        this.transactionDisplayTimeHolder = BRDateUtil.getCustomSpan(new Date(transactionItem.getTimeStamp() * 1000));
     }
 
     public TxItem getTransactionItem() {
@@ -37,7 +42,12 @@ public class ListItemTransactionData extends ListItemData {
         return transactionItem != null ? transactionItem.hashCode() : 0;
     }
 
-    public void update(ListItemTransactionData transactionItem) {
-        this.transactionItem = transactionItem.getTransactionItem();
+    public void update(ListItemTransactionData transactionItemData) {
+        this.transactionItem = transactionItemData.getTransactionItem();
+        this.transactionDisplayTimeHolder = BRDateUtil.getCustomSpan(new Date(this.transactionItem.getTimeStamp() * 1000));
+    }
+
+    public String getTransactionDisplayTimeHolder() {
+        return transactionDisplayTimeHolder;
     }
 }
