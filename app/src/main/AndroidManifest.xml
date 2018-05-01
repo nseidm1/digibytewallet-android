@@ -225,11 +225,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
-        <activityo
+        <activity
             android:name=".presenter.activities.settings.TestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-        </activityo>
+        </activity>
 
         <service android:name=".presenter.activities.RestartService"
                   android:process=":RestartProcess"/>
