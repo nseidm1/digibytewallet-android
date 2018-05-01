@@ -65,7 +65,6 @@ import okhttp3.Response;
 public class BRBitId {
     public static final String TAG = BRBitId.class.getName();
     public static final String BITCOIN_SIGNED_MESSAGE_HEADER = "DigiByte Signed Message:\n";
-    private static Handler handler = new Handler(Looper.getMainLooper());
 
     public static boolean isBitId(String uri) {
         try {
@@ -97,6 +96,7 @@ public class BRBitId {
 
     private static void internalSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
             boolean isDeepLink) {
+        Handler handler = new Handler(Looper.getMainLooper());
         try {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
