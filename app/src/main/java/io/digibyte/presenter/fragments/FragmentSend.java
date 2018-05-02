@@ -358,6 +358,21 @@ public class FragmentSend extends Fragment {
 
             try {
                 Base58.decode(address);
+                if (address.toLowerCase().startsWith("d") || address.toLowerCase().startsWith("3") || address.toLowerCase().startsWith("s")) {
+                    char[] addressChars = address.toCharArray();
+                    //Check for invalid characters; ensure alphanumeric and no forbidden characters exist
+                    for (char addressCharacter : addressChars) {
+                        if (!(((addressCharacter >= '0' && addressCharacter <= '9') ||
+                                (addressCharacter >= 'a' && addressCharacter <= 'z') ||
+                                (addressCharacter >= 'A' && addressCharacter <= 'Z')) &&
+                                addressCharacter != 'l' && addressCharacter != 'I' &&
+                                addressCharacter != '0' && addressCharacter != 'O')) {
+                            base58Encoded = false;
+                        }
+                    }
+                } else {
+                    base58Encoded = false;
+                }
             } catch(RuntimeException e) {
                 base58Encoded = false;
             }
