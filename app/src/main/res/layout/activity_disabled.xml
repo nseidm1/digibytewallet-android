@@ -24,7 +24,7 @@
         android:paddingTop="8dp"
         android:text="@string/UnlockScreen.resetPin"
         app:isBreadButton="false"
-        android:textColor="@color/button_secondary_text"
+        android:textColor="@color/activity_disabled_button_text"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
