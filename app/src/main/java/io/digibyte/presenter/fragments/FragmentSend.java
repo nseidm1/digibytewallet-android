@@ -44,7 +44,6 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SlideDetector;
 import io.digibyte.tools.animation.SpringAnimator;
-import io.digibyte.tools.crypto.Base58;
 import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRSender;
@@ -344,7 +343,6 @@ public class FragmentSend extends Fragment {
             }
             sendingWait.setDisplayedChild(1);
             boolean allFilled = true;
-            boolean base58Encoded = true;
             String address = addressEdit.getText().toString();
             String amountStr = amountBuilder.toString();
             String iso = selectedIso;
@@ -356,28 +354,7 @@ public class FragmentSend extends Fragment {
             BigDecimal satoshiAmount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
                     bigAmount);
 
-            try {
-                Base58.decode(address);
-                if (address.toLowerCase().startsWith("d") || address.toLowerCase().startsWith("3") || address.toLowerCase().startsWith("s")) {
-                    char[] addressChars = address.toCharArray();
-                    //Check for invalid characters; ensure alphanumeric and no forbidden characters exist
-                    for (char addressCharacter : addressChars) {
-                        if (!(((addressCharacter >= '0' && addressCharacter <= '9') ||
-                                (addressCharacter >= 'a' && addressCharacter <= 'z') ||
-                                (addressCharacter >= 'A' && addressCharacter <= 'Z')) &&
-                                addressCharacter != 'l' && addressCharacter != 'I' &&
-                                addressCharacter != '0' && addressCharacter != 'O')) {
-                            base58Encoded = false;
-                        }
-                    }
-                } else {
-                    base58Encoded = false;
-                }
-            } catch(RuntimeException e) {
-                base58Encoded = false;
-            }
-
-            if (!base58Encoded || address.isEmpty() || !BRWalletManager.validateAddress(address)) {
+            if (address.isEmpty() || !BRWalletManager.validateAddress(address)) {
                 allFilled = false;
                 Activity app = getActivity();
                 BRDialog.showCustomDialog(app, app.getString(R.string.Alert_error),
