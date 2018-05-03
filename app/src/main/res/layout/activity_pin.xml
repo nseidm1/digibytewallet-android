@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable name="fingerprintCallback" type="android.view.View.OnClickListener"/>
+        <variable name="rightButtonClickListener" type="android.view.View.OnClickListener"/>
+        <variable name="leftButtonClickListener" type="android.view.View.OnClickListener"/>
+
+    </data>
     <io.digibyte.presenter.customviews.BRLockScreenConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -124,26 +130,26 @@
                 android:background="@drawable/b_half_left_white"
                 android:paddingBottom="0dp"
                 android:paddingTop="8dp"
+                android:onClick="@{(v) -> leftButtonClickListener.onClick(v)}"
                 android:text="@string/UnlockScreen.myAddress"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:customBFont="CircularPro-Medium.otf"
-                app:isBreadButton="false"
-            />
+                app:isBreadButton="false"/>
 
             <io.digibyte.presenter.customviews.BRButton
                 android:id="@+id/right_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
+                android:onClick="@{(v) -> rightButtonClickListener.onClick(v)}"
                 android:background="@drawable/b_half_right_white"
                 android:paddingBottom="0dp"
                 android:paddingTop="8dp"
                 android:text="@string/UnlockScreen.scan"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                app:customBFont="CircularPro-Medium.otf"
-            />
+                app:customBFont="CircularPro-Medium.otf"/>
         </LinearLayout>
 
         <ImageView
@@ -184,6 +190,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="15dp"
+            android:onClick="@{(v) -> fingerprintCallback.onClick(v)}"
             android:background="@android:color/transparent"
             android:src="@drawable/fingerprint_icon"
             app:layout_constraintBottom_toTopOf="@+id/brkeyboard"
