@@ -347,6 +347,7 @@
                 android:id="@+id/keyboard_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <io.digibyte.presenter.customviews.BRKeyboard
