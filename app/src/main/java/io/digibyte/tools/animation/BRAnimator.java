@@ -99,30 +99,7 @@ public class BRAnimator {
     }
 
     public static void showSendFragment(Activity app, final String bitcoinUrl) {
-        if (app == null) {
-            Log.e(TAG, "showSendFragment: app is null");
-            return;
-        }
-        FragmentSend fragmentSend = (FragmentSend) app.getFragmentManager().findFragmentByTag(
-                FragmentSend.class.getName());
-        if (fragmentSend != null && fragmentSend.isAdded()) {
-            fragmentSend.setUrl(bitcoinUrl);
-            return;
-        }
-        try {
-            fragmentSend = new FragmentSend();
-            if (bitcoinUrl != null && !bitcoinUrl.isEmpty()) {
-                Bundle bundle = new Bundle();
-                bundle.putString("url", bitcoinUrl);
-                fragmentSend.setArguments(bundle);
-            }
-            app.getFragmentManager().beginTransaction()
-                    .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                    .add(android.R.id.content, fragmentSend, FragmentSend.class.getName())
-                    .addToBackStack(FragmentSend.class.getName()).commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        FragmentSend.show(app, bitcoinUrl);
     }
 
     public static void showTransactionPager(Activity app, List<ListItemTransactionData> items,
