@@ -131,7 +131,7 @@ public class BRBitId {
                             Toast.LENGTH_SHORT).show());
                 }
                 if (isDeepLink) {
-                    app.finish();
+                    app.finishAffinity();
                 }
             });
         } catch (Exception e) {
@@ -139,7 +139,7 @@ public class BRBitId {
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show());
             if (isDeepLink) {
-                app.finish();
+                app.finishAffinity();
             }
         }
     }
