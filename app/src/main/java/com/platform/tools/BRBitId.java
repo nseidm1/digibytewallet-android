@@ -80,11 +80,14 @@ public class BRBitId {
 
     public static void signAndRespond(@NonNull final Activity app, @NonNull final String bitID,
             boolean isDeepLink) {
+        Uri bitUri = Uri.parse(bitID);
+        String u = bitUri.getQueryParameter("u");
+        String scheme = u != null && u.equalsIgnoreCase("1") ? "http://" : "https://";
         AuthManager.getInstance().authPrompt(app, null,
-                app.getString(R.string.VerifyPin_continueBody), new BRAuthCompletion() {
+                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + scheme + bitUri.getHost(), new BRAuthCompletion() {
                     @Override
                     public void onComplete() {
-                        internalSignAndRespond(app, bitID, isDeepLink);
+                        internalSignAndRespond(app, bitID, isDeepLink, scheme + bitUri.getHost() + bitUri.getPath());
                     }
 
                     @Override
@@ -95,15 +98,11 @@ public class BRBitId {
     }
 
     private static void internalSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
-            boolean isDeepLink) {
+            boolean isDeepLink, String callbackUrl) {
         try {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
             byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
-            Uri bitUri = Uri.parse(bitID);
-            String u = bitUri.getQueryParameter("u");
-            String scheme = u != null && u.equalsIgnoreCase("1") ? "http://" : "https://";
-            final String callbackUrl = scheme + bitUri.getHost() + bitUri.getPath();
             final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, callbackUrl);
             final String sig = signMessage(bitID, new BRKey(key));
             final String address = new BRKey(key).address();
