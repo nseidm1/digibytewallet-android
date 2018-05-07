@@ -3,24 +3,25 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="callback"
-            type="io.digibyte.presenter.fragments.interfaces.FragmentReceiveCallbacks"/>
+            type="io.digibyte.presenter.fragments.interfaces.FragmentReceiveCallbacks" />
 
         <variable
             name="data"
-            type="io.digibyte.presenter.fragments.models.ReceiveFragmentModel"/>
+            type="io.digibyte.presenter.fragments.models.ReceiveFragmentModel" />
+
     </data>
 
     <io.digibyte.presenter.customviews.BRRelativeLayout
         android:id="@+id/background_layout"
-        android:onClick="@{() -> callback.backgroundClick()}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:filterTouchesWhenObscured="true">
+        android:filterTouchesWhenObscured="true"
+        android:onClick="@{() -> callback.backgroundClick()}">
 
         <LinearLayout
             android:id="@+id/signal_layout"
@@ -35,8 +36,8 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/main_container"
                 android:layout_width="match_parent"
-                android:animateLayoutChanges="true"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true">
 
                 <io.digibyte.presenter.customviews.BRText
                     android:id="@+id/title"
@@ -72,11 +73,11 @@
                     android:id="@+id/close_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:onClick="@{() -> callback.closeClick()}"
                     android:layout_marginBottom="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/ic_close_black_24dp"
+                    android:onClick="@{() -> callback.closeClick()}"
                     app:layout_constraintBottom_toBottomOf="@+id/title"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/title" />
@@ -86,8 +87,8 @@
             <RelativeLayout
                 android:id="@+id/amount_layout"
                 android:layout_width="match_parent"
-                android:animateLayoutChanges="true"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:visibility="gone">
 
                 <io.digibyte.presenter.customviews.BRText
@@ -96,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/bread_margin"
-                    android:text="$"
+                    android:text="@{data.isoText}"
                     android:textSize="28sp" />
 
                 <io.digibyte.presenter.customviews.BREdit
@@ -115,6 +116,8 @@
                     android:focusableInTouchMode="false"
                     android:hint="0"
                     android:inputType="numberDecimal"
+                    android:onClick="@{() ->  callback.onAmountEditClick()}"
+                    android:text="@{data.amount}"
                     android:textIsSelectable="false"
                     android:textSize="24sp" />
 
@@ -127,7 +130,8 @@
                     android:layout_marginTop="16dp"
                     android:drawablePadding="4dp"
                     android:minHeight="40dp"
-                    android:text="iso"
+                    android:onClick="@{() -> callback.onIsoButtonClick()}"
+                    android:text="@{data.isoButtonText}"
                     android:textColor="@color/light_gray"
                     android:textSize="18sp"
                     app:buttonType="2"
@@ -167,14 +171,18 @@
                 android:id="@+id/keyboard_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="@{data.showKeyboard ? View.VISIBLE : View.GONE}">
 
                 <io.digibyte.presenter.customviews.BRKeyboard
                     android:id="@+id/keyboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/extra_light_gray" />
+                    android:background="@color/extra_light_gray"
+                    app:addOnInsertListener="@{callback}"
+                    app:setBRButtonBackgroundResId="@{data.BRButtonBackgroundRedId}"
+                    app:setBRKeyboardColor="@{data.BRKeyboardColor}" />
 
                 <View
                     android:id="@+id/separator3"
@@ -183,30 +191,71 @@
                     android:background="@color/extra_light_gray" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/qr_image"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> callback.qrImageClick()}"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_check_mark_grey" />
+                android:orientation="horizontal" android:gravity="center_vertical">
 
-            <io.digibyte.presenter.customviews.BRText
-                android:id="@+id/address_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:onClick="@{() -> callback.addressClick()}"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:text="@{data.address}"
-                android:textColor="@color/light_gray"
-                android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/qr_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:onClick="@{() -> callback.qrImageClick()}" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <io.digibyte.presenter.customviews.BRText
+                        android:id="@+id/address_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:onClick="@{() -> callback.addressClick()}"
+                        android:text="@{data.address}"
+                        android:textColor="@color/light_gray"
+                        android:textSize="16sp" />
+
+                    <io.digibyte.presenter.customviews.BRButton
+                        android:id="@+id/share_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="12dp"
+                        android:drawableStart="@drawable/ic_share_vertical_gray"
+                        android:onClick="@{() -> callback.shareButtonClick()}"
+                        android:paddingBottom="12dp"
+                        android:paddingEnd="48dp"
+                        android:paddingStart="48dp"
+                        android:paddingTop="12dp"
+                        android:text="@string/Receive.share"
+                        android:textColor="@color/light_gray"
+                        android:textSize="18sp"
+                        app:buttonType="2"
+                        app:isBreadButton="true"
+                        app:setType="@{data.shareButtonType}" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
             <io.digibyte.presenter.customviews.BRLinearLayoutWithCaret
                 android:id="@+id/copied_layout"
@@ -214,7 +263,6 @@
                 android:layout_height="60dp"
                 android:animateLayoutChanges="true"
                 android:visibility="@{data.copiedButtonLayoutVisibility ? View.VISIBLE : View.GONE}"
-                android:layout_marginBottom="8dp"
                 app:backgroundColor="@color/dark_blue"
                 app:withStroke="false">
 
@@ -231,34 +279,15 @@
                     android:textSize="@dimen/paragraph" />
             </io.digibyte.presenter.customviews.BRLinearLayoutWithCaret>
 
-            <io.digibyte.presenter.customviews.BRButton
-                android:id="@+id/share_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="72dp"
-                app:setType="@{data.shareButtonType}"
-                android:layout_marginStart="72dp"
-                android:onClick="@{() -> callback.shareButtonClick()}"
-                android:drawableStart="@drawable/ic_share_vertical_gray"
-                android:paddingBottom="12dp"
-                android:paddingLeft="48dp"
-                android:paddingRight="48dp"
-                android:paddingTop="12dp"
-                android:text="@string/Receive.share"
-                android:textColor="@color/light_gray"
-                android:textSize="18sp"
-                app:buttonType="2"
-                app:isBreadButton="true" />
 
             <io.digibyte.presenter.customviews.BRLinearLayoutWithCaret xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/share_buttons_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2.0"
                 android:animateLayoutChanges="true"
+                android:orientation="horizontal"
                 android:visibility="@{data.shareVisibility ? View.VISIBLE : View.GONE}"
+                android:weightSum="2.0"
                 app:backgroundColor="@color/extra_light_blue_background"
                 app:strokeColor="@color/extra_light_gray"
                 app:withStroke="true">
@@ -269,10 +298,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="8dp"
-                    android:onClick="@{() -> callback.shareEmailClick()}"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="32dp"
                     android:layout_weight="1.0"
+                    android:onClick="@{() -> callback.shareEmailClick()}"
                     android:paddingBottom="12dp"
                     android:paddingTop="12dp"
                     android:text="@string/Receive.emailButton"
@@ -286,11 +315,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:onClick="@{() -> callback.shareTextClick()}"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="32dp"
                     android:layout_weight="1.0"
+                    android:onClick="@{() -> callback.shareTextClick()}"
                     android:paddingBottom="12dp"
                     android:paddingTop="12dp"
                     android:text="@string/Receive.textButton"
@@ -305,8 +334,8 @@
                 android:id="@+id/separator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="@{data.separatorVisibility ? View.VISIBLE : View.GONE}"
-                android:background="@color/separator_gray" />
+                android:background="@color/separator_gray"
+                android:visibility="@{data.separatorVisibility ? View.VISIBLE : View.GONE}" />
 
             <io.digibyte.presenter.customviews.BRButton
                 android:id="@+id/request_button"
@@ -316,14 +345,14 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:visibility="@{data.requestButtonVisibility ? View.VISIBLE : View.GONE}"
-                android:onClick="@{() -> callback.requestButtonClick()}"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:onClick="@{() -> callback.requestButtonClick()}"
                 android:padding="10dp"
                 android:text="@string/Receive.request"
                 android:textColor="@color/almost_black"
                 android:textSize="18sp"
+                android:visibility="@{data.requestButtonVisibility ? View.VISIBLE : View.GONE}"
                 app:buttonType="2"
                 app:isBreadButton="true" />
 

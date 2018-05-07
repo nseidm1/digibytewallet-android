@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import io.digibyte.BR;
+import io.digibyte.R;
 
 public class ReceiveFragmentModel extends BaseObservable {
 
@@ -14,6 +15,10 @@ public class ReceiveFragmentModel extends BaseObservable {
     private boolean requestButtonVisibility;
     private String title;
     private String address;
+    private boolean showKeyboard;
+    private String amount;
+    private String isoText;
+    private String isoButtonText;
 
     @Bindable
     public boolean isShareVisibility() {
@@ -83,5 +88,55 @@ public class ReceiveFragmentModel extends BaseObservable {
     public void setAddress(String address) {
         this.address = address;
         notifyPropertyChanged(BR.address);
+    }
+
+    @Bindable
+    public boolean isShowKeyboard() {
+        return showKeyboard;
+    }
+
+    public void setShowKeyboard(boolean showKeyboard) {
+        this.showKeyboard = showKeyboard;
+        notifyPropertyChanged(BR.showKeyboard);
+    }
+
+    @Bindable
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+        notifyPropertyChanged(BR.amount);
+    }
+
+    @Bindable
+    public String getIsoText() {
+        return isoText;
+    }
+
+    public void setIsoText(String isoText) {
+        this.isoText = isoText;
+        notifyPropertyChanged(BR.isoText);
+    }
+
+    @Bindable
+    public String getIsoButtonText() {
+        return isoButtonText;
+    }
+
+    public void setIsoButtonText(String isoButtonText) {
+        this.isoButtonText = isoButtonText;
+        notifyPropertyChanged(BR.isoButtonText);
+    }
+
+    @Bindable
+    public int getBRButtonBackgroundRedId() {
+        return R.drawable.keyboard_white_button;
+    }
+
+    @Bindable
+    public int getBRKeyboardColor() {
+        return R.color.white;
     }
 }

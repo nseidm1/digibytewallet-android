@@ -1,6 +1,8 @@
 package io.digibyte.presenter.fragments.interfaces;
 
-public interface FragmentReceiveCallbacks {
+import io.digibyte.presenter.customviews.BRKeyboard;
+
+public interface FragmentReceiveCallbacks extends BRKeyboard.OnInsertListener {
 
     void shareEmailClick();
     void shareTextClick();
@@ -10,4 +12,7 @@ public interface FragmentReceiveCallbacks {
     void backgroundClick();
     void qrImageClick();
     void closeClick();
+
+    void onAmountEditClick();
+    void onIsoButtonClick();
 }

@@ -193,31 +193,7 @@ public class BRAnimator {
     }
 
     public static void showRequestFragment(Activity app, String address) {
-        if (app == null) {
-            Log.e(TAG, "showRequestFragment: app is null");
-            return;
-        }
-        if (Utils.isNullOrEmpty(address)) {
-            Log.e(TAG, "showRequestFragment: address is empty: " + address);
-            return;
-        }
-
-        FragmentRequestAmount fragmentRequestAmount =
-                (FragmentRequestAmount) app.getFragmentManager().findFragmentByTag(
-                        FragmentRequestAmount.class.getName());
-        if (fragmentRequestAmount != null && fragmentRequestAmount.isAdded()) {
-            return;
-        }
-
-        fragmentRequestAmount = new FragmentRequestAmount();
-        Bundle bundle = new Bundle();
-        bundle.putString("address", address);
-        fragmentRequestAmount.setArguments(bundle);
-        app.getFragmentManager().beginTransaction()
-                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                .add(android.R.id.content, fragmentRequestAmount,
-                        FragmentRequestAmount.class.getName())
-                .addToBackStack(FragmentRequestAmount.class.getName()).commit();
+        FragmentRequestAmount.show(app);
     }
 
     //isReceive tells the Animator that the Receive fragment is requested, not My Address
