@@ -222,25 +222,7 @@ public class BRAnimator {
 
     //isReceive tells the Animator that the Receive fragment is requested, not My Address
     public static void showReceiveFragment(Activity app, boolean isReceive) {
-        if (app == null) {
-            Log.e(TAG, "showReceiveFragment: app is null");
-            return;
-        }
-        FragmentReceive fragmentReceive =
-                (FragmentReceive) app.getFragmentManager().findFragmentByTag(
-                        FragmentReceive.class.getName());
-        if (fragmentReceive != null && fragmentReceive.isAdded()) {
-            return;
-        }
-        fragmentReceive = new FragmentReceive();
-        Bundle args = new Bundle();
-        args.putBoolean("receive", isReceive);
-        fragmentReceive.setArguments(args);
-
-        app.getFragmentManager().beginTransaction()
-                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                .add(android.R.id.content, fragmentReceive, FragmentReceive.class.getName())
-                .addToBackStack(FragmentReceive.class.getName()).commit();
+        FragmentReceive.show(app, isReceive);
     }
 
     public static void showMenuFragment(Activity app) {
