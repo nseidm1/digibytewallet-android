@@ -294,7 +294,7 @@ public class SendFragmentModel extends BaseObservable {
     }
 
     public void updateFeeButtons() {
-        updateFeeButtons(feeType == FeeType.REGULAR ? true : false);
+        updateFeeButtons(feeType == FeeType.REGULAR);
     }
 
     public void updateFeeButtons(boolean isRegular) {
