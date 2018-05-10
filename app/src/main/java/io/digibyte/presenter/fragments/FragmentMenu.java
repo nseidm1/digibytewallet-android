@@ -113,7 +113,7 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
                             v -> fadeOutRemove(FragmentType.SEND, false, false));
                     break;
                 case 2:
-                    holder.text.setText(R.string.RequestAnAmount_title);
+                    holder.text.setText(R.string.Receive_title);
                     holder.icon.setImageResource(R.drawable.menu_receive);
                     holder.itemView.setOnClickListener(
                             v -> fadeOutRemove(FragmentType.RECEIVE, false, false));
