@@ -160,7 +160,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginTop="275dp"
                     android:orientation="vertical">
@@ -173,15 +173,17 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="12dp"
+                        android:paddingBottom="2dp"
                         android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
                         android:paddingTop="12dp">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:layout_width="45dp"
-                            android:layout_height="45dp"
+                            android:layout_height="65dp"
                             android:layout_marginEnd="22dp"
-                            android:src="@drawable/shield"/>
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/shield"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -204,18 +206,18 @@
                         android:paddingStart="22dp"
                         android:paddingTop="12dp">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_marginEnd="22dp"
-                            android:src="@drawable/settings"/>
+                            app:srcCompat="@drawable/settings"/>
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/MenuButton.settings"
-                            android:textColor="#51526b"
+                            android:textColor="#ffffff"
                             android:textSize="20sp"/>
                     </LinearLayout>
 
@@ -230,11 +232,11 @@
                         android:paddingStart="22dp"
                         android:paddingTop="12dp">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_marginEnd="22dp"
-                            android:src="@drawable/locked"/>
+                            app:srcCompat="@drawable/locked"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -257,7 +259,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:src="@drawable/digi_byte_symbol"/>
 
             </FrameLayout>
