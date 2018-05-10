@@ -1,327 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/coordinator"
-        android:textDirection="locale"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable name="pagerAdapter" type="android.support.v4.view.PagerAdapter"/>
+
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:background="@color/extra_light_blue_background"
-        tools:context="io.digibyte.presenter.activities.BreadActivity">
+        android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="match_parent">
+
             <LinearLayout
-                android:id="@+id/toolbar_layout"
+                android:id="@+id/main_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="8dp"
-                android:orientation="vertical"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:background="#191a2a"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-                <ViewFlipper
-                    android:id="@+id/tool_bar_flipper"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:inAnimation="@anim/flipper_enter"
-                    android:outAnimation="@anim/flipper_exit">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:text="@string/total_balance"
+                    android:textAllCaps="true"
+                    android:textColor="#66688f"
+                    android:textSize="16sp"/>
 
-                    <android.support.v7.widget.Toolbar
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/bread_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:background="@drawable/bread_gradient"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        android:contentInsetStart="0dp"
-                        app:contentInsetStart="0dp"
-                        tools:layout_constraintTop_creator="1">
+                <TextView
+                    android:id="@+id/primary_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"
+                    android:textStyle="bold"/>
 
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/bread_toolbar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:animateLayoutChanges="true"
-                            android:clipChildren="false"
-                            android:clipToPadding="false">
+                <TextView
+                    android:id="@+id/secondary_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textColor="#66688f"
+                    android:textSize="26sp"/>
 
-                            <ImageView
-                                android:id="@+id/wallet_name_text"
-                                android:layout_width="128dp"
-                                android:layout_height="64dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
-                                android:src="@drawable/digibyte_logo"
-                                android:textColor="@color/white"
-                                android:textSize="36sp"
-                                android:textStyle="bold"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    style="@style/MyCustomTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"/>
 
+                <FrameLayout
+                    android:id="@+id/sync_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-                            <io.digibyte.presenter.customviews.BRText
-                                android:id="@+id/primary_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="8dp"
-                                android:text="$0"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                app:customTFont="CircularPro-Book.otf"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/wallet_name_text"
-                                app:layout_constraintVertical_bias="0.492"/>
-
-                            <io.digibyte.presenter.customviews.BRText
-                                android:id="@+id/equals"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:text="="
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                app:customTFont="CircularPro-Book.otf"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/primary_price"
-                                app:layout_constraintTop_toBottomOf="@+id/wallet_name_text"
-                                app:layout_constraintVertical_bias="0.492"/>
-
-                            <io.digibyte.presenter.customviews.BRText
-                                android:id="@+id/secondary_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
-                                android:text="b0"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                app:customTFont="CircularPro-Book.otf"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/equals"
-                                app:layout_constraintTop_toBottomOf="@+id/wallet_name_text"
-                                app:layout_constraintVertical_bias="0.492"/>
-
-                            <io.digibyte.presenter.customviews.BRText
-                                android:id="@+id/price_change_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/almost_black"
-                                android:textSize="16sp"
-                                app:customTFont="CircularPro-Book.otf"
-                                app:layout_constraintStart_toStartOf="@+id/primary_price"
-                                app:layout_constraintTop_toBottomOf="@+id/primary_price"/>
-
-                            <io.digibyte.presenter.customviews.BRText
-                                android:id="@+id/manage_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                android:layout_marginEnd="16dp"
-                                android:textColor="@color/white"
-                                android:textSize="18sp"
-                                android:visibility="gone"
-                                app:customTFont="CircularPro-Bold.otf"
-                                app:layout_constraintBottom_toBottomOf="@+id/wallet_name_text"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/wallet_name_text"/>
-
-                            <ImageButton
-                                android:id="@+id/search_icon"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginBottom="40dp"
-                                android:layout_marginEnd="16dp"
-                                android:background="@drawable/ic_search_black_24dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"/>
-
-                        </android.support.constraint.ConstraintLayout>
-                    </android.support.v7.widget.Toolbar>
-
-                    <io.digibyte.presenter.customviews.BRSearchBar
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/search_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:background="@drawable/bread_gradient"
-                        android:contentInsetStart="0dp"
-                        app:contentInsetStart="0dp"
-                        tools:layout_constraintTop_creator="1">
-                    </io.digibyte.presenter.customviews.BRSearchBar>
-
-                </ViewFlipper>
+                <android.support.v4.view.ViewPager android:id="@+id/tx_pager"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   android:layout_weight="1"
+                                                   android:adapter="@{pagerAdapter}"/>
 
             </LinearLayout>
 
-        </android.support.design.widget.AppBarLayout>
-
-        <LinearLayout android:id="@+id/main_container" android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:animateLayoutChanges="true" android:orientation="vertical"
-                      app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <FrameLayout android:id="@+id/sync_container" android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:animateLayoutChanges="true"/>
-            <FrameLayout android:id="@+id/prompt_container" android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:animateLayoutChanges="true"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/tx_list"
+            <RelativeLayout
+                android:id="@+id/bottom_navigation_layout"
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:clipToPadding="false"
-                android:paddingBottom="68dp"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:paddingTop="16dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                android:layout_height="100dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bottom_bg"
+                android:paddingBottom="24dp"
+                android:paddingRight="16dp"
+                android:paddingStart="16dp">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/nav_drawer"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/bottom_toolbar_layout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/extra_light_blue_background"
-            android:elevation="9dp"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            tools:layout_conversion_absoluteHeight="0dp"
-            tools:layout_conversion_absoluteWidth="411dp"
-            tools:layout_conversion_absoluteX="0dp"
-            tools:layout_conversion_absoluteY="602dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#ffffff"/>
 
-            <LinearLayout
-                android:id="@+id/send_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#ffffff"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#ffffff"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/main_action"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_main_action"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/digiid_button"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/main_action"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_digiid"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/qr_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:srcCompat="@drawable/ic_qrcode"/>
+
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#191a2a">
+
+            <ScrollView android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="275dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/security_center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:paddingStart="22dp"
+                        android:paddingTop="12dp">
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="22dp"
+                            android:src="@drawable/shield"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/MenuButton.security"
+                            android:textColor="#51526b"
+                            android:textSize="20sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:paddingStart="22dp"
+                        android:paddingTop="12dp">
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="22dp"
+                            android:src="@drawable/settings"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/MenuButton.settings"
+                            android:textColor="#51526b"
+                            android:textSize="20sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:paddingStart="22dp"
+                        android:paddingTop="12dp">
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="22dp"
+                            android:src="@drawable/locked"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/MenuButton.lock"
+                            android:textColor="#51526b"
+                            android:textSize="20sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                         android:background="@drawable/nav_drawer_header" android:orientation="vertical"
+                         android:paddingTop="36dp">
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_send"/>
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/digi_byte_symbol"/>
 
-                <io.digibyte.presenter.customviews.BRText
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:text="@string/Send.sendLabel"
-                    android:textAllCaps="true"
-                    android:textColor="@color/pin_pad_text"
-                    app:customTFont="CircularPro-Medium.otf"/>
-            </LinearLayout>
+            </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/receive_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_receive"/>
+        </FrameLayout>
 
-                <io.digibyte.presenter.customviews.BRText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:text="@string/Button.receive"
-                    android:textAllCaps="true"
-                    android:textColor="@color/pin_pad_text"
-                    app:customTFont="CircularPro-Medium.otf"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/digiid_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_menu"/>
-
-                <io.digibyte.presenter.customviews.BRText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:text="@string/digiid"
-                    android:textAllCaps="true"
-                    android:textColor="@color/pin_pad_text"
-                    app:customTFont="CircularPro-Medium.otf"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/menu_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_menu"/>
-
-                <io.digibyte.presenter.customviews.BRText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:text="@string/Button.menu"
-                    android:textAllCaps="true"
-                    android:textColor="@color/pin_pad_text"
-                    app:customTFont="CircularPro-Medium.otf"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
+    </android.support.v4.widget.DrawerLayout>
 
 </layout>

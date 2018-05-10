@@ -1,23 +1,17 @@
 package io.digibyte.presenter.activities;
 
-import static io.digibyte.tools.animation.BRAnimator.t1Size;
-import static io.digibyte.tools.animation.BRAnimator.t2Size;
-
 import android.animation.LayoutTransition;
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.constraint.ConstraintSet;
-import android.support.transition.TransitionManager;
+import android.support.annotation.NonNull;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.TypedValue;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -31,34 +25,28 @@ import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
 import io.digibyte.presenter.activities.camera.ScanQRActivity;
-import io.digibyte.presenter.activities.intro.WriteDownActivity;
-import io.digibyte.presenter.activities.settings.FingerprintActivity;
+import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
+import io.digibyte.presenter.activities.settings.SettingsActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRSearchBar;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
-import io.digibyte.presenter.fragments.FragmentManage;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.ListItemViewHolder;
-import io.digibyte.tools.list.items.ListItemPromptData;
-import io.digibyte.tools.list.items.ListItemPromptViewHolder;
 import io.digibyte.tools.list.items.ListItemSyncingData;
 import io.digibyte.tools.list.items.ListItemSyncingViewHolder;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.manager.PromptManager;
 import io.digibyte.tools.manager.SyncManager;
 import io.digibyte.tools.manager.SyncService;
 import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.manager.TxManager.onStatusListener;
-import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
-import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
@@ -94,41 +82,27 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSearchBar.OnSearchUpdateListener {
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
-    private Handler handler = new Handler(Looper.getMainLooper());
-    private TransactionListAdapter listViewAdapter;
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
     private ListItemViewHolder syncViewHolder;
+
+    private RecyclerView allRecycler;
+    private TransactionListAdapter allAdapter;
+    private RecyclerView sentRecycler;
+    private TransactionListAdapter sentAdapter;
+    private RecyclerView receivedRecycler;
+    private TransactionListAdapter receivedAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
-        listViewAdapter = new TransactionListAdapter(bindings.txList);
+        bindings.setPagerAdapter(new TxAdapter());
+        bindings.txPager.setOffscreenPageLimit(2);
+        bindings.tabLayout.setupWithViewPager(bindings.txPager);
         bindings.syncContainer.addView(getSyncView());
         bindings.mainContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
-        bindings.promptContainer.getLayoutTransition()
-                .enableTransitionType(LayoutTransition.CHANGING);
-        bindings.promptContainer.getLayoutTransition()
-                .enableTransitionType(LayoutTransition.CHANGING);
-        bindings.txList.addItemDecoration(new VerticalSpaceItemDecoration(4));
-        SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
-        slideInDownAnimator.setAddDuration(500);
-        slideInDownAnimator.setChangeDuration(0);
-        bindings.txList.setItemAnimator(slideInDownAnimator);
         unbinder = ButterKnife.bind(this);
-        initializeViews();
-        loadNextPromptItem();
-    }
-
-    private void initializeViews() {
-        bindings.txList.setLayoutManager(new LinearLayoutManager(this));
-        bindings.txList.setAdapter(listViewAdapter);
-        bindings.primaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                t1Size);//make it the size it should be after animation to get the X
-        bindings.secondaryPrice.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                t2Size);//make it the size it should be after animation to get the X
-        handler.post(() -> setPriceTags(BRSharedPrefs.getPreferredBTC(BreadActivity.this), false));
     }
 
     private void updateDigibyteDollarValues() {
@@ -157,77 +131,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    private void showSearchTransactions() {
-        ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
-        if (bindings.searchBar != null && isSearching()) {
-            boolean[] switches = bindings.searchBar.getFilterSwitches();
-            String searchQuery = bindings.searchBar.getSearchQuery().toLowerCase().trim();
-
-            int switchesON = 0;
-            for (boolean i : switches) if (i) switchesON++;
-            int transactionsCount = listViewAdapter.getTransactions().size();
-            boolean matchesHash;
-            boolean matchesAddress;
-            boolean matchesMemo;
-            boolean willAdd;
-            for (int index = 0; index < transactionsCount; index++) {
-                ListItemTransactionData transactionData = listViewAdapter.getTransactions().get(
-                        index);
-                TxItem item = transactionData.transactionItem;
-                matchesHash =
-                        item.getTxHashHexReversed() != null &&
-                                item.getTxHashHexReversed().toLowerCase().contains(
-                                        searchQuery.toLowerCase());
-                matchesAddress = item.getFrom()[0].toLowerCase().contains(searchQuery.toLowerCase())
-                        || item.getTo()[0].toLowerCase().contains(searchQuery.toLowerCase());
-                matchesMemo = item.metaData != null && item.metaData.comment != null
-                        && item.metaData.comment.toLowerCase().contains(searchQuery.toLowerCase());
-
-                // Can we optimize this?
-                if (matchesHash || matchesAddress || matchesMemo) {
-                    willAdd = true;
-
-                    if (switchesON > 0) {
-                        // filter by sent and this is received
-                        if (switches[0] && (item.getSent() - item.getReceived() <= 0)) {
-                            willAdd = false;
-                        }
-
-                        // filter by received and this is sent
-                        if (switches[1] && (item.getSent() - item.getReceived() > 0)) {
-                            willAdd = false;
-                        }
-
-                        // complete
-                        int confirms = item.getBlockHeight() == Integer.MAX_VALUE ? 0
-                                : BRSharedPrefs.getLastBlockHeight(this) - item.getBlockHeight()
-                                        + 1;
-                        if (switches[2] && confirms >= 6) {
-                            willAdd = false;
-                        }
-
-                        // pending
-                        if (switches[3] && confirms < 6) {
-                            willAdd = false;
-                        }
-                    }
-
-                    if (willAdd) {
-                        transactionList.add(transactionData);
-                    }
-                }
-            }
-        }
-        listViewAdapter.showSearchResults(transactionList);
-    }
-
-    private void loadNextPromptItem() {
-        PromptManager.PromptItem promptItem = PromptManager.getInstance().nextPrompt();
-        if (null != promptItem) {
-            showPrompt(new ListItemPromptData(promptItem));
-        }
-    }
-
     private View getSyncView() {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View view = layoutInflater.inflate(listItemSyncingData.resourceId, bindings.syncContainer,
@@ -235,108 +138,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         view.setVisibility(View.GONE);
         syncViewHolder = new ListItemSyncingViewHolder(view);
         return view;
-    }
-
-    private void showPrompt(ListItemPromptData listItemPromptData) {
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(listItemPromptData.resourceId, bindings.syncContainer,
-                false);
-        view.setOnClickListener(new PromptClickListener(listItemPromptData.promptItem));
-        ListItemPromptViewHolder listItemPromptViewHolder = new ListItemPromptViewHolder(view,
-                new PromptCloseClickListener(listItemPromptData.promptItem));
-        bindings.promptContainer.addView(view);
-        listItemPromptViewHolder.process(listItemPromptData);
-    }
-
-    private void removePrompt() {
-        bindings.promptContainer.removeAllViews();
-    }
-
-    public void closeSearchBar() {
-        bindings.toolBarFlipper.setDisplayedChild(0);
-        handler.postDelayed(() -> {
-            bindings.searchBar.toggleKeyboard(false);
-            listViewAdapter.clearSearchResults();
-        }, 250);
-    }
-
-    public void openSearchBar() {
-        bindings.searchBar.toggleKeyboard(true);
-        bindings.toolBarFlipper.setDisplayedChild(1);
-    }
-
-    private boolean isSearching() {
-        return bindings.toolBarFlipper.getDisplayedChild() == 1;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// List item click listeners
-    /// ////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private class PromptClickListener implements View.OnClickListener {
-
-        private PromptManager.PromptItem promptItem;
-
-        public PromptClickListener(PromptManager.PromptItem promptItem) {
-            this.promptItem = promptItem;
-        }
-
-        @Override
-        public void onClick(View view) {
-            Intent intent;
-            final Activity activity = BreadActivity.this;
-            switch (promptItem) {
-                case SYNCING:
-                    break;
-                case FINGER_PRINT:
-                    intent = new Intent(activity, FingerprintActivity.class);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.enter_from_right,
-                            R.anim.exit_to_left);
-                    break;
-                case PAPER_KEY:
-                    intent = new Intent(activity, WriteDownActivity.class);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.enter_from_bottom,
-                            R.anim.fade_down);
-                    break;
-                case UPGRADE_PIN:
-                    intent = new Intent(activity, UpdatePinActivity.class);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.enter_from_right,
-                            R.anim.exit_to_left);
-                    break;
-                case RECOMMEND_RESCAN:
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                            () -> {
-                                BRSharedPrefs.putScanRecommended(BreadActivity.this, false);
-                                BRWalletManager.getInstance().walletFreeEverything();
-                                BRPeerManager.getInstance().peerManagerFreeEverything();
-                                recreate();
-                            });
-                    break;
-                case NO_PASS_CODE:
-                    break;
-            }
-        }
-    }
-
-    private class PromptCloseClickListener implements View.OnClickListener {
-
-        private PromptManager.PromptItem promptItem;
-
-        public PromptCloseClickListener(PromptManager.PromptItem promptItem) {
-            this.promptItem = promptItem;
-        }
-
-        @Override
-        public void onClick(View view) {
-            removePrompt();
-            BRSharedPrefs.putPromptDismissed(BreadActivity.this,
-                    PromptManager.getInstance().getPromptName(promptItem));
-            loadNextPromptItem();
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -368,18 +169,43 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     public void onTxManagerUpdate(TxItem[] newTxItems) {
         BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
-        if (newTxItems == null || newTxItems.length == 0 || isSearching()) {
+        if (newTxItems == null || newTxItems.length == 0) {
             return;
         }
         ArrayList<ListItemTransactionData> newTransactions = getNewTransactionsData(newTxItems);
         ArrayList<ListItemTransactionData> transactionsToAdd = removeAllExistingEntries(
                 newTransactions);
         if (transactionsToAdd.size() > 0) {
-            listViewAdapter.addTransactions(transactionsToAdd);
-            bindings.txList.smoothScrollToPosition(0);
+            allAdapter.addTransactions(transactionsToAdd);
+            sentAdapter.addTransactions(convertNewTransactionsForAdapter(Adapter.SENT, transactionsToAdd));
+            receivedAdapter.addTransactions(convertNewTransactionsForAdapter(Adapter.RECEIVED, transactionsToAdd));
+            allRecycler.smoothScrollToPosition(0);
+            sentRecycler.smoothScrollToPosition(0);
+            receivedRecycler.smoothScrollToPosition(0);
         } else {
-            listViewAdapter.updateTransactions(newTransactions);
+            allAdapter.updateTransactions(newTransactions);
+            sentAdapter.updateTransactions(newTransactions);
+            receivedAdapter.updateTransactions(newTransactions);
         }
+    }
+
+    private enum Adapter {
+        SENT, RECEIVED
+    }
+
+    private ArrayList<ListItemTransactionData> convertNewTransactionsForAdapter(Adapter adapter,
+            ArrayList<ListItemTransactionData> transactions) {
+        ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
+        for (int index = 0; index < transactions.size(); index++) {
+            ListItemTransactionData transactionData = transactions.get(index);
+            TxItem item = transactions.get(index).transactionItem;
+            if (adapter == Adapter.RECEIVED && item.getSent() == 0) {
+                transactionList.add(transactionData);
+            } else if (adapter == Adapter.SENT && item.getSent() > 0) {
+                transactionList.add(transactionData);
+            }
+        }
+        return transactionList;
     }
 
     private ArrayList<ListItemTransactionData> getNewTransactionsData(TxItem[] newTxItems) {
@@ -397,7 +223,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private ArrayList<ListItemTransactionData> removeAllExistingEntries(
             ArrayList<ListItemTransactionData> newTransactions) {
         return new ArrayList<ListItemTransactionData>(newTransactions) {{
-            removeAll(listViewAdapter.getTransactions());
+            removeAll(allAdapter.getTransactions());
         }};
     }
 
@@ -421,63 +247,33 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         updateDigibyteDollarValues();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// UI OnClick Listeners
-    /// /////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @OnClick(R.id.send_layout)
-    void onButtonSend(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            BRAnimator.showSendFragment(BreadActivity.this, null);
+    //    @OnClick(R.id.send_layout)
+//    void onButtonSend(View view) {
+//        if (BRAnimator.isClickAllowed()) {
+//            BRAnimator.showSendFragment(BreadActivity.this, null);
+//        }
+//    }
+//
+//    @OnClick(R.id.receive_layout)
+//    void onButtonReceive(View view) {
+//        if (BRAnimator.isClickAllowed()) {
+//            BRAnimator.showReceiveFragment(BreadActivity.this, true);
+//        }
+//    }
+//
+    @OnClick(R.id.nav_drawer)
+    void onNavButtonClick(View view) {
+        if (bindings.drawerLayout.isDrawerOpen(Gravity.START)) {
+            bindings.drawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            bindings.drawerLayout.openDrawer(Gravity.LEFT);
         }
     }
 
-    @OnClick(R.id.receive_layout)
-    void onButtonReceive(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            BRAnimator.showReceiveFragment(BreadActivity.this, true);
-        }
-    }
-
-    @OnClick(R.id.menu_layout)
+    @OnClick(R.id.main_action)
     void onMenuButtonClick(View view) {
         if (BRAnimator.isClickAllowed()) {
             BRAnimator.showMenuFragment(BreadActivity.this);
-        }
-    }
-
-    @OnClick(R.id.manage_text)
-    void onManageTextClick(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(0, 0, 0, R.animator.plain_300);
-            FragmentManage fragmentManage = new FragmentManage();
-            transaction.add(android.R.id.content, fragmentManage, FragmentManage.class.getName());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        }
-    }
-
-    @OnClick(R.id.primary_price)
-    void onPrimaryPriceClick(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            boolean b = !BRSharedPrefs.getPreferredBTC(BreadActivity.this);
-            setPriceTags(b, true);
-            BRSharedPrefs.putPreferredBTC(BreadActivity.this, b);
-        }
-        listViewAdapter.notifyDataSetChanged();
-    }
-
-    @OnClick(R.id.secondary_price)
-    void onSecondaryPriceClick(View view) {
-        listViewAdapter.notifyDataSetChanged();
-    }
-
-    @OnClick(R.id.search_icon)
-    void onSearchClick(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            openSearchBar();
         }
     }
 
@@ -486,56 +282,41 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         ScanQRActivity.openScanner(this);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// LEFT OVERS CLEANUP?
-    /// //////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private void setPriceTags(boolean btcPreferred, boolean animate) {
-        bindings.secondaryPrice.setTextSize(!btcPreferred ? t1Size : t2Size);
-        bindings.primaryPrice.setTextSize(!btcPreferred ? t2Size : t1Size);
-        ConstraintSet set = new ConstraintSet();
-        set.clone(bindings.breadToolbar);
-        if (animate) {
-            TransitionManager.beginDelayedTransition(bindings.breadToolbar);
-        }
-        int px4 = Utils.getPixelsFromDps(this, 4);
-        int px16 = Utils.getPixelsFromDps(this, 16);
-        set.connect(!btcPreferred ? R.id.secondary_price : R.id.primary_price, ConstraintSet.START,
-                ConstraintSet.PARENT_ID, ConstraintSet.END, px16);
-        set.connect(R.id.equals, ConstraintSet.START,
-                !btcPreferred ? bindings.secondaryPrice.getId() : bindings.primaryPrice.getId(),
-                ConstraintSet.END,
-                px4);
-        set.connect(!btcPreferred ? R.id.primary_price : R.id.secondary_price, ConstraintSet.START,
-                bindings.equals.getId(), ConstraintSet.END, px4);
-        set.applyTo(bindings.breadToolbar);
-
-        new Handler().postDelayed(() ->
-                        updateDigibyteDollarValues(),
-                bindings.breadToolbar.getLayoutTransition().getDuration(LayoutTransition.CHANGING));
+    @OnClick(R.id.primary_price)
+    void onPrimaryPriceClick(View view) {
+        BRSharedPrefs.putPreferredBTC(BreadActivity.this, true);
+        allAdapter.notifyDataChanged();
+        sentAdapter.notifyDataChanged();
+        receivedAdapter.notifyDataChanged();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// Activity overrides
-    /// ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //leave it empty because the FragmentMenu is improperly designed
+    @OnClick(R.id.secondary_price)
+    void onSecondaryPriceClick(View view) {
+        BRSharedPrefs.putPreferredBTC(BreadActivity.this, false);
+        allAdapter.notifyDataChanged();
+        sentAdapter.notifyDataChanged();
+        receivedAdapter.notifyDataChanged();
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Uri data = intent.getData();
-        if (data != null) {
-            String scheme = data.getScheme();
-            if (scheme != null && (scheme.startsWith("digibyte") || scheme.startsWith("digiid"))) {
-                BitcoinUrlHandler.processRequest(this, intent.getDataString());
-            }
-        }
+    @OnClick(R.id.security_center)
+    void onSecurityCenterClick(View view) {
+        startActivity(new Intent(this, SecurityCenterActivity.class));
+    }
+
+    @OnClick(R.id.settings)
+    void onSettingsClick(View view) {
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+
+
+    @OnClick(R.id.lock)
+    void onLockClick(View view) {
+        BRAnimator.startBreadActivity(this, true);
+    }
+
+    @OnClick(R.id.qr_button)
+    void onQRClick(View view) {
+        ScanQRActivity.openScanner(this);
     }
 
     @Override
@@ -552,7 +333,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
         BRApiManager.getInstance().asyncUpdateFeeData(this);
-        bindings.searchBar.setOnUpdateListener(this);
         SyncManager.getInstance().startSyncingProgressThread(this);
     }
 
@@ -565,7 +345,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
         SyncManager.getInstance().stopSyncingProgressThread();
-        bindings.searchBar.setOnUpdateListener(null);
     }
 
     @Override
@@ -576,6 +355,77 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSearchBarFilterUpdate() {
-        showSearchTransactions();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (bindings.drawerLayout.isDrawerOpen(Gravity.START)) {
+            bindings.drawerLayout.closeDrawer(Gravity.LEFT);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private class TxAdapter extends PagerAdapter {
+
+        @Override
+        public Object instantiateItem(ViewGroup collection, int position) {
+            RecyclerView layout = (RecyclerView) LayoutInflater.from(BreadActivity.this).inflate(
+                    R.layout.activity_bread_recycler, collection, false);
+            SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
+            slideInDownAnimator.setAddDuration(500);
+            slideInDownAnimator.setChangeDuration(0);
+            layout.addItemDecoration(new VerticalSpaceItemDecoration(4));
+            layout.setItemAnimator(slideInDownAnimator);
+            layout.setLayoutManager(new LinearLayoutManager(BreadActivity.this));
+            switch (position) {
+                case 0:
+                    allAdapter = new TransactionListAdapter(layout);
+                    layout.setAdapter(allAdapter);
+                    allRecycler = layout;
+                    break;
+                case 1:
+                    sentAdapter = new TransactionListAdapter(layout);
+                    layout.setAdapter(sentAdapter);
+                    sentRecycler = layout;
+                    break;
+                case 2:
+                    receivedAdapter = new TransactionListAdapter(layout);
+                    layout.setAdapter(receivedAdapter);
+                    receivedRecycler = layout;
+                    break;
+            }
+            collection.addView(layout);
+            return layout;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup collection, int position, Object view) {
+            collection.removeView((View) view);
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+            return ((View) object) == view;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                default:
+                case 0:
+                    return getString(R.string.all);
+                case 1:
+                    return getString(R.string.sent);
+                case 2:
+                    return getString(R.string.received);
+            }
+        }
     }
 }

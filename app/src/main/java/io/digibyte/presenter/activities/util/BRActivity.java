@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.platform.tools.BRBitId;
@@ -54,6 +55,7 @@ public class BRActivity extends Activity implements FragmentManager.OnBackStackC
 
     static {
         System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override

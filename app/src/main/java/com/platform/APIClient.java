@@ -82,8 +82,7 @@ public class APIClient {
             return client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
-            return new Response.Builder().code(599).request(request).body(
-                    ResponseBody.create(null, new byte[0])).protocol(Protocol.HTTP_1_1).build();
+            return new Response.Builder().code(599).request(request).body(ResponseBody.create(null, new byte[0])).protocol(Protocol.HTTP_1_1).message("").build();
         }
     }
 }

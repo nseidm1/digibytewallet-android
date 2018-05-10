@@ -746,6 +746,10 @@
   <string name="digiid">Digi-ID</string>
   <string name="no_limit">No Limit</string>
   <string name="restarting">Restarting</string>
+  <string name="total_balance">Total\nBalance</string>
+  <string name="all">ALL</string>
+  <string name="sent">SENT</string>
+  <string name="received">RECEIVED</string>
 
   <string name="digi_share">https://redirect.digibyteprojects.com/?address=%s&amp;amount=%s</string>
 </resources>
