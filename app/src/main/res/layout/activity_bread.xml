@@ -83,8 +83,8 @@
                 android:layout_height="100dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/bottom_bg"
-                android:paddingBottom="24dp"
-                android:paddingRight="16dp"
+                android:paddingBottom="14dp"
+                android:paddingEnd="16dp"
                 android:paddingStart="16dp">
 
                 <LinearLayout
@@ -131,7 +131,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_alignParentTop="true"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/main_action"
                     android:foreground="?android:attr/selectableItemBackground"
