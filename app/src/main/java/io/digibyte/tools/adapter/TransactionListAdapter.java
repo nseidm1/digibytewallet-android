@@ -60,7 +60,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
-
+            if (listItemTransactionData == null) {
+                continue;
+            }
             //Check to see if the comment/memo changed
             String currentComment = listItemTransactionData.transactionItem.metaData != null
                     ? listItemTransactionData.transactionItem.metaData.comment : "";
