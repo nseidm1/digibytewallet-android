@@ -58,15 +58,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
         setHasStableIds(true);
     }
 
-    public void clearTransactions() {
-        int countToRemove = listItemData.size();
-        listItemData.clear();
-        notifyItemRangeRemoved(0, countToRemove);
-    }
-
     public void updateTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
-
+            if (listItemTransactionData == null) {
+                continue;
+            }
             //Check to see if the comment/memo changed
             String currentComment = listItemTransactionData.transactionItem.metaData != null
                     ? listItemTransactionData.transactionItem.metaData.comment : "";
@@ -85,6 +81,20 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
             if ((confirms <= 8 || commentUpdated || timeChange) && isPositionOnscreen(
                     listItemData.indexOf(listItemTransactionData))) {
                 BRWalletManager.getInstance().refreshBalance(DigiByte.getContext());
+                ListItemTransactionViewHolder listItemTransactionViewHolder =
+                        (ListItemTransactionViewHolder) recyclerView
+                                .findViewHolderForAdapterPosition(
+                                        listItemData.indexOf(listItemTransactionData));
+                if (listItemTransactionViewHolder != null) {
+                    listItemTransactionViewHolder.process(listItemTransactionData);
+                }
+            }
+        }
+    }
+
+    public void notifyDataChanged() {
+        for (ListItemTransactionData listItemTransactionData : listItemData) {
+            if (isPositionOnscreen(listItemData.indexOf(listItemTransactionData))) {
                 ListItemTransactionViewHolder listItemTransactionViewHolder =
                         (ListItemTransactionViewHolder) recyclerView
                                 .findViewHolderForAdapterPosition(
@@ -126,25 +136,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
             listItemData.add(0, transaction);
             notifyItemInserted(0);
         }
-    }
-
-    public void showSearchResults(ArrayList<ListItemTransactionData> searchTransactions) {
-        if (searchTransactions == null) {
-            return;
-        }
-        if (searchHolder == null) {
-            searchHolder = listItemData;
-        }
-        listItemData = searchTransactions;
-        notifyDataSetChanged();
-    }
-
-    public void clearSearchResults() {
-        if (searchHolder != null) {
-            listItemData = searchHolder;
-            searchHolder = null;
-        }
-        notifyDataSetChanged();
     }
 
     public ArrayList<ListItemTransactionData> getTransactions() {

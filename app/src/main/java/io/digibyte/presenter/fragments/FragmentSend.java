@@ -399,6 +399,9 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         if (getFragmentManager() == null) {
             return;
         }
+        if (getActivity() != null) {
+            Utils.hideKeyboard(getActivity());
+        }
         getFragmentManager().popBackStack();
     }
 

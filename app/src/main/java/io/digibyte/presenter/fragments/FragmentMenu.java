@@ -4,29 +4,20 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentMenuBinding;
-import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
-import io.digibyte.presenter.activities.settings.SettingsActivity;
+import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.entities.BRMenuItem;
 import io.digibyte.presenter.fragments.interfaces.MenuDialogCallback;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
@@ -79,8 +70,8 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
             Bundle savedInstanceState) {
         binding = FragmentMenuBinding.inflate(inflater);
         binding.setCallback(mMenuDialogCallback);
-        binding.menuListview.setAdapter(
-                new MenuListAdapter(getContext(), R.layout.menu_list_item, populateMenuList()));
+        binding.recyclerView.setAdapter(new MenuListAdapter());
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return binding.getRoot();
     }
 
@@ -93,54 +84,51 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
         colorFade.start();
     }
 
-    private List<BRMenuItem> populateMenuList() {
-        List<BRMenuItem> itemList = new ArrayList<>();
-        itemList.add(
-                new BRMenuItem(getString(R.string.MenuButton_security), R.drawable.ic_shield, v -> {
-                    fadeOutRemove(new Intent(getActivity(), SecurityCenterActivity.class), false, false);
-                }));
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_settings), R.drawable.ic_settings,
-                v -> {
-                    fadeOutRemove(new Intent(getActivity(), SettingsActivity.class), false, false);
-                }));
-        itemList.add(new BRMenuItem(getString(R.string.MenuButton_lock), R.drawable.ic_lock, v -> {
-            fadeOutRemove(null, true, false);
-        }));
-        return itemList;
+    private enum FragmentType {
+        SEND, RECEIVE, SCAN
     }
 
-    public class MenuListAdapter extends ArrayAdapter<BRMenuItem> {
-        private Context mContext;
-        private int defaultLayoutResource = R.layout.menu_list_item;
-
-        public MenuListAdapter(@NonNull Context context, @LayoutRes int resource,
-                @NonNull List<BRMenuItem> items) {
-            super(context, resource, items);
-            this.mContext = context;
-        }
+    public class MenuListAdapter extends RecyclerView.Adapter<BRMenuItem> {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-                convertView = inflater.inflate(defaultLayoutResource, parent, false);
-            }
-            TextView text = convertView.findViewById(R.id.item_text);
-            ImageView icon = convertView.findViewById(R.id.item_icon);
-            text.setText(Objects.requireNonNull(getItem(position)).text);
-            icon.setImageResource(Objects.requireNonNull(getItem(position)).resId);
-            convertView.setOnClickListener(Objects.requireNonNull(getItem(position)).listener);
-            return convertView;
+        public BRMenuItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new BRMenuItem(LayoutInflater.from(FragmentMenu.this.getContext()).inflate(
+                    R.layout.menu_list_item, parent, false));
         }
 
         @Override
-        public int getCount() {
-            return super.getCount();
+        public void onBindViewHolder(@NonNull BRMenuItem holder, int position) {
+            switch (position) {
+                case 0:
+                    holder.text.setText(R.string.UnlockScreen_scan);
+                    holder.icon.setImageResource(R.drawable.ic_qrcode);
+                    holder.itemView.setOnClickListener(
+                            v -> fadeOutRemove(FragmentType.SCAN, false, false));
+                    break;
+                case 1:
+                    holder.text.setText(R.string.Send_title);
+                    holder.icon.setImageResource(R.drawable.menu_send);
+                    holder.itemView.setOnClickListener(
+                            v -> fadeOutRemove(FragmentType.SEND, false, false));
+                    break;
+                case 2:
+                    holder.text.setText(R.string.Receive_title);
+                    holder.icon.setImageResource(R.drawable.menu_receive);
+                    holder.itemView.setOnClickListener(
+                            v -> fadeOutRemove(FragmentType.RECEIVE, false, false));
+                    break;
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return 3;
         }
     }
 
-    private void fadeOutRemove(Intent intent, boolean openLockScreen, boolean justClose) {
+    private void fadeOutRemove(FragmentType fragmentType, boolean openLockScreen,
+            boolean justClose) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
                 () -> {
                     final Activity activity = getActivity();
@@ -152,7 +140,17 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
                         if (openLockScreen) {
                             BRAnimator.startBreadActivity(activity, true);
                         } else {
-                            activity.startActivity(intent);
+                            switch (fragmentType) {
+                                case SEND:
+                                    FragmentSend.show(activity, "");
+                                    break;
+                                case RECEIVE:
+                                    FragmentReceive.show(activity, true);
+                                    break;
+                                case SCAN:
+                                    ScanQRActivity.openScanner(activity);
+                                    break;
+                            }
                         }
                     }, 350);
                 });

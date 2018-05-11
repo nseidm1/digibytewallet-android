@@ -108,7 +108,7 @@ public class BRSearchBar extends android.support.v7.widget.Toolbar {
     private void setListeners() {
         cancelButton.setOnClickListener(v -> {
             clearSwitches();
-            breadActivity.closeSearchBar();
+            //breadActivity.closeSearchBar();
         });
 
         searchEdit.addTextChangedListener(searchWatcher);

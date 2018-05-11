@@ -1,31 +1,34 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="android:title">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowBackground">@color/white</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@color/logo_gradient_start</item>
-        <item name="android:actionBarStyle">@style/BreadActionBar</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-    </style>
 
-    <!-- ActionBar styles -->
-    <style name="BreadActionBar"
-           parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/white_trans</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorControlHighlight">@color/bluetrans</item>
     </style>
 
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:textColor">@color/dark_blue</item>
-
+    <style name="RobotoButtonStyle" parent="android:Widget.Material.Button">
+        <item name="android:textColor">@color/blue</item>
     </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabText</item>
+        <item name="tabSelectedTextColor">@color/blue</item>
+        <item name="tabIndicatorColor">@color/blue</item>
+    </style>
+
+    <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 </resources>

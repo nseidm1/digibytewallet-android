@@ -89,7 +89,7 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom, R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentPin, FragmentPin.class.getName());
         transaction.addToBackStack(FragmentPin.class.getName());
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
