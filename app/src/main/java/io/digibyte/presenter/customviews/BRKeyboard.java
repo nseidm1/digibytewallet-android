@@ -2,15 +2,15 @@ package io.digibyte.presenter.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +46,17 @@ import io.digibyte.tools.util.Utils;
 public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener {
     public static final String TAG = BRKeyboard.class.getName();
     List<OnInsertListener> listeners = new ArrayList<>();
-    private Button num0;
-    private Button num1;
-    private Button num2;
-    private Button num3;
-    private Button num4;
-    private Button num5;
-    private Button num6;
-    private Button num7;
-    private Button num8;
-    private Button num9;
-    private Button numDot;
+    private TextView num0;
+    private TextView num1;
+    private TextView num2;
+    private TextView num3;
+    private TextView num4;
+    private TextView num5;
+    private TextView num6;
+    private TextView num7;
+    private TextView num8;
+    private TextView num9;
+    private TextView numDot;
     private ImageButton numDelete;
     private boolean showAlphabet;
 
@@ -81,18 +81,18 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
         a.recycle();
 
         this.setWillNotDraw(false);
-        num0 = (Button) root.findViewById(R.id.num0);
-        num1 = (Button) root.findViewById(R.id.num1);
-        num2 = (Button) root.findViewById(R.id.num2);
-        num3 = (Button) root.findViewById(R.id.num3);
-        num4 = (Button) root.findViewById(R.id.num4);
-        num5 = (Button) root.findViewById(R.id.num5);
-        num6 = (Button) root.findViewById(R.id.num6);
-        num7 = (Button) root.findViewById(R.id.num7);
-        num8 = (Button) root.findViewById(R.id.num8);
-        num9 = (Button) root.findViewById(R.id.num9);
-        numDot = (Button) root.findViewById(R.id.numDot);
-        numDelete = (ImageButton) root.findViewById(R.id.numDelete);
+        num0 = root.findViewById(R.id.num0);
+        num1 = root.findViewById(R.id.num1);
+        num2 = root.findViewById(R.id.num2);
+        num3 = root.findViewById(R.id.num3);
+        num4 = root.findViewById(R.id.num4);
+        num5 = root.findViewById(R.id.num5);
+        num6 = root.findViewById(R.id.num6);
+        num7 = root.findViewById(R.id.num7);
+        num8 = root.findViewById(R.id.num8);
+        num9 = root.findViewById(R.id.num9);
+        numDot = root.findViewById(R.id.numDot);
+        numDelete = root.findViewById(R.id.numDelete);
 
         num0.setOnClickListener(this);
         num1.setOnClickListener(this);
@@ -184,12 +184,6 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
 
     }
 
-    @Override
-    public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-    }
-
     public void addOnInsertListener(OnInsertListener listener) {
         listeners.add(listener);
     }
@@ -197,12 +191,16 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
     @Override
     public void onClick(View v) {
         for (OnInsertListener listener : listeners) {
-            listener.onClick(v instanceof ImageButton ? "" : ((Button) v).getText().toString());
+            listener.onClick(v instanceof ImageButton ? "" : ((TextView) v).getText().toString());
         }
     }
 
     public interface OnInsertListener {
         void onClick(String key);
+    }
+
+    public void setBRKeyboardColor(String color) {
+        setBackgroundColor(Color.parseColor(color));
     }
 
     public void setBRKeyboardColor(int color) {
@@ -221,7 +219,6 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
         num8.setTextColor(getContext().getColor(color));
         num9.setTextColor(getContext().getColor(color));
         numDot.setTextColor(getContext().getColor(color));
-//        numDelete.setColorFilter(getContext().getColor(color));
         invalidate();
     }
 
@@ -242,7 +239,7 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
     }
 
     public void setShowDot(boolean b) {
-        numDot.setVisibility(b ? VISIBLE : GONE);
+        numDot.setVisibility(b ? VISIBLE : INVISIBLE);
         invalidate();
     }
 

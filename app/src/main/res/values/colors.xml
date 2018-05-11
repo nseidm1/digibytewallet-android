@@ -46,7 +46,7 @@
     <item name="write_phrase_gradient_start" type="color">#012351</item>
     <item name="write_phrase_gradient_end" type="color">#0066cc</item>
 
-    <item name="pin_pad_text" type="color">#A3A8AE</item>
+    <item name="pin_pad_text" type="color">#9c9eb9</item>
     <item name="extra_light_blue_background" type="color">#F5F8FA</item>
 
     <item name="button_primary_normal" type="color">#4C98FD</item>
@@ -63,5 +63,7 @@
     <color name="viewfinder_laser">#ffcc0000</color>
     <color name="viewfinder_border">#ffafed44</color>
 
+    //Keyboard
+    <color name="keyboard_text_color">#9c9eb9</color>
 
 </resources>

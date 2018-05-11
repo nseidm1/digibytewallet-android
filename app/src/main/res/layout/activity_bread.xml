@@ -84,7 +84,8 @@
                 android:layout_gravity="bottom"
                 android:background="@drawable/bottom_bg"
                 android:paddingBottom="14dp"
-                android:onClick="preventClicks"
+                android:clickable="true"
+                android:focusable="true"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp">
 

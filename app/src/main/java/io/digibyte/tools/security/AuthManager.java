@@ -3,11 +3,13 @@ package io.digibyte.tools.security;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.presenter.activities.util.ActivityUTILS;
@@ -47,6 +49,8 @@ public class AuthManager {
     public static final String TAG = AuthManager.class.getName();
     private static AuthManager instance;
     private String previousTry;
+    private static Drawable pinSelected = DigiByte.getContext().getDrawable(R.drawable.pin_selected);
+    private static Drawable pinUnselected = DigiByte.getContext().getDrawable(R.drawable.ic_pin_dot_white);
 
     private AuthManager() {
         previousTry = "";
@@ -112,43 +116,66 @@ public class AuthManager {
         BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), context);
     }
 
-    public void updateDots(Context context, int pinLimit, String pin, View dot1, View dot2,
-            View dot3, View dot4, View dot5, View dot6, int emptyPinRes,
-            final OnPinSuccess onPinSuccess) {
-        if (dot1 == null || context == null) return;
+    public void updateDots(String pin, View dot1, View dot2,
+                           View dot3, View dot4, View dot5, View dot6,
+                           final OnPinSuccess onPinSuccess) {
         int selectedDots = pin.length();
 
-        if (pinLimit == 6) {
-            dot6.setVisibility(View.VISIBLE);
-            dot1.setVisibility(View.VISIBLE);
-            dot1.setBackground(context.getDrawable(
-                    selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
-            selectedDots--;
-        } else {
-            dot6.setVisibility(View.GONE);
-            dot1.setVisibility(View.GONE);
+        for (int i = 0; i < pin.length(); i++) {
+            switch (i) {
+                case 0:
+                    setDotSelected(dot1);
+                    break;
+                case 1:
+                    setDotSelected(dot2);
+                    break;
+                case 2:
+                    setDotSelected(dot3);
+                    break;
+                case 3:
+                    setDotSelected(dot4);
+                    break;
+                case 4:
+                    setDotSelected(dot5);
+                    break;
+                case 5:
+                    setDotSelected(dot6);
+                    break;
+            }
         }
-
-        dot2.setBackground(
-                context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot3.setBackground(
-                context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot4.setBackground(
-                context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot5.setBackground(
-                context.getDrawable(selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
-        if (pinLimit == 6) {
-            selectedDots--;
-            dot6.setBackground(context.getDrawable(
-                    selectedDots <= 0 ? emptyPinRes : R.drawable.ic_pin_dot_black));
+        for (int i = pin.length(); i < 6; i++) {
+            switch (i) {
+                case 0:
+                    setDotUnSelected(dot1);
+                    break;
+                case 1:
+                    setDotUnSelected(dot2);
+                    break;
+                case 2:
+                    setDotUnSelected(dot3);
+                    break;
+                case 3:
+                    setDotUnSelected(dot4);
+                    break;
+                case 4:
+                    setDotUnSelected(dot5);
+                    break;
+                case 5:
+                    setDotUnSelected(dot6);
+                    break;
+            }
         }
-
-        if (pin.length() == pinLimit) {
+        if (pin.length() == 6) {
             new Handler().postDelayed(() -> onPinSuccess.onSuccess(), 100);
         }
+    }
+
+    private void setDotSelected(View view) {
+        view.setBackground(pinSelected);
+    }
+
+    private void setDotUnSelected(View view) {
+        view.setBackground(pinUnselected);
     }
 
     public void authPrompt(final Context context, String title, String message, BRAuthCompletion completion) {

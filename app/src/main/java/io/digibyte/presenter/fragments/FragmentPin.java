@@ -60,7 +60,6 @@ import io.digibyte.tools.security.BRKeyStore;
 public class FragmentPin extends Fragment implements OnBackPressListener {
     private static final String TAG = FragmentPin.class.getName();
 
-    private int pinLimit = 6;
     private BRAuthCompletion completion;
     private FragmentBreadPinBinding binding;
     private final StringBuilder pin = new StringBuilder();
@@ -104,7 +103,6 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
         viewModel.setMessage(bundle.getString("message"));
         binding.setData(viewModel);
         binding.executePendingBindings();
-        if (BRKeyStore.getPinCode(getContext()).length() == 4) pinLimit = 4;
         return binding.getRoot();
     }
 
@@ -144,7 +142,7 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     }
 
     private void handleDigitClick(@NonNull final Integer dig) {
-        if (pin.length() < pinLimit) {
+        if (pin.length() < 6) {
             pin.append(dig);
         }
         updateDots();
@@ -158,9 +156,8 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     }
 
     private void updateDots() {
-        AuthManager.getInstance().updateDots(getActivity(), pinLimit, pin.toString(), binding.dot1,
-                binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6,
-                R.drawable.ic_pin_dot_gray, () -> {
+        AuthManager.getInstance().updateDots(pin.toString(), binding.dot1,
+                binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> {
                     if (AuthManager.getInstance().checkAuth(pin.toString(), getContext())) {
                         fadeOutRemove(true);
                     } else {

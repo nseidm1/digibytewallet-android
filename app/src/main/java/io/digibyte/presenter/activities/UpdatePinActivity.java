@@ -11,11 +11,9 @@ import android.widget.TextView;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRKeyboard;
-import io.digibyte.presenter.interfaces.BROnSignalCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
-import io.digibyte.tools.security.BRKeyStore;
 
 public class UpdatePinActivity extends BRActivity {
     private static final String TAG = UpdatePinActivity.class.getName();
@@ -27,16 +25,12 @@ public class UpdatePinActivity extends BRActivity {
     private View dot5;
     private View dot6;
     private StringBuilder pin = new StringBuilder();
-    private int pinLimit = 6;
-    //    private boolean allowInserting = true;
     private TextView title;
     private TextView description;
     int mode = ENTER_PIN;
     public static final int ENTER_PIN = 1;
     public static final int ENTER_NEW_PIN = 2;
     public static final int RE_ENTER_NEW_PIN = 3;
-
-    private ImageButton faq;
     private LinearLayout pinLayout;
     private String curNewPin = "";
 
@@ -44,12 +38,10 @@ public class UpdatePinActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_template);
-
-        keyboard = (BRKeyboard) findViewById(R.id.brkeyboard);
-        title = (TextView) findViewById(R.id.title);
-        description = (TextView) findViewById(R.id.description);
-        pinLayout = (LinearLayout) findViewById(R.id.pinLayout);
-        if (BRKeyStore.getPinCode(this).length() == 4) pinLimit = 4;
+        keyboard = findViewById(R.id.brkeyboard);
+        title = findViewById(R.id.title);
+        description = findViewById(R.id.description);
+        pinLayout = findViewById(R.id.pinLayout);
         setMode(ENTER_PIN);
         title.setText(getString(R.string.UpdatePin_updateTitle));
         dot1 = findViewById(R.id.dot1);
@@ -58,24 +50,7 @@ public class UpdatePinActivity extends BRActivity {
         dot4 = findViewById(R.id.dot4);
         dot5 = findViewById(R.id.dot5);
         dot6 = findViewById(R.id.dot6);
-
-        /* faq = (ImageButton) findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(app, BRConstants.setPin);
-            }
-        }); */
-
-
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleClick(key);
-            }
-        });
+        keyboard.addOnInsertListener(key -> handleClick(key));
         keyboard.setShowDot(false);
 
     }
@@ -103,7 +78,7 @@ public class UpdatePinActivity extends BRActivity {
 
 
     private void handleDigitClick(Integer dig) {
-        if (pin.length() < pinLimit)
+        if (pin.length() < 6)
             pin.append(dig);
         updateDots();
     }
@@ -122,17 +97,7 @@ public class UpdatePinActivity extends BRActivity {
 
     private void updateDots() {
 
-        AuthManager.getInstance().updateDots(this, pinLimit, pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, R.drawable.ic_pin_dot_gray, new AuthManager.OnPinSuccess() {
-            @Override
-            public void onSuccess() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        goNext();
-                    }
-                }, 100);
-            }
-        });
+        AuthManager.getInstance().updateDots(pin.toString(), dot1, dot2, dot3, dot4, dot5, dot6, () -> new Handler().postDelayed(() -> goNext(), 100));
 
     }
 
@@ -141,7 +106,6 @@ public class UpdatePinActivity extends BRActivity {
             case ENTER_PIN:
                 if (AuthManager.getInstance().checkAuth(pin.toString(), this)) {
                     setMode(ENTER_NEW_PIN);
-                    pinLimit = 6;
                 } else {
                     SpringAnimator.failShakeAnimation(this, pinLayout);
                 }
@@ -158,16 +122,10 @@ public class UpdatePinActivity extends BRActivity {
             case RE_ENTER_NEW_PIN:
                 if (curNewPin.equalsIgnoreCase(pin.toString())) {
                     AuthManager.getInstance().setPinCode(pin.toString(), this);
-                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.ic_check_mark_white, new BROnSignalCompletion() {
-                        @Override
-                        public void onComplete() {
-                            BRAnimator.startBreadActivity(UpdatePinActivity.this, false);
-                        }
-                    });
+                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.ic_check_mark_white, () -> BRAnimator.startBreadActivity(UpdatePinActivity.this, false));
                 } else {
                     SpringAnimator.failShakeAnimation(this, pinLayout);
                     setMode(ENTER_NEW_PIN);
-                    pinLimit = BRKeyStore.getPinCode(this).length();
                 }
                 pin = new StringBuilder("");
                 updateDots();
@@ -191,9 +149,5 @@ public class UpdatePinActivity extends BRActivity {
         }
         description.setText(text);
         SpringAnimator.springView(description);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }

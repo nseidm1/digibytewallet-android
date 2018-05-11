@@ -1,14 +1,14 @@
 package io.digibyte.presenter.activities.util;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
@@ -62,12 +62,7 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().addOnBackStackChangedListener(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
     @Override
@@ -82,9 +77,7 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        // 123 is the qrCode result
         switch (requestCode) {
-
             case BRConstants.PAY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
@@ -195,9 +188,9 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
     public void onBackStackChanged() {
         //Add back press listeners
         backClickListeners.clear();
-        for (int i = 0; i < getFragmentManager().getBackStackEntryCount(); i++) {
-            FragmentManager.BackStackEntry backStackEntry = getFragmentManager().getBackStackEntryAt(i);
-            Fragment fragment = getFragmentManager().findFragmentByTag(backStackEntry.getName());
+        for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
+            FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(i);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(backStackEntry.getName());
             if (fragment instanceof OnBackPressListener) {
                 OnBackPressListener onBackPressListener = (OnBackPressListener) fragment;
                 if (!backClickListeners.contains(onBackPressListener)) {
