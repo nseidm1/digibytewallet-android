@@ -5,11 +5,12 @@ import static io.digibyte.tools.security.BitcoinUrlHandler.getRequestFromString;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -254,14 +255,14 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         }
     };
 
-    public static void show(Activity app, String bitcoinUrl) {
+    public static void show(AppCompatActivity app, String bitcoinUrl) {
         FragmentSend fragmentSend = new FragmentSend();
         if (bitcoinUrl != null && !bitcoinUrl.isEmpty()) {
             Bundle bundle = new Bundle();
             bundle.putString("url", bitcoinUrl);
             fragmentSend.setArguments(bundle);
         }
-        FragmentTransaction transaction = app.getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = app.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentSend, FragmentSend.class.getName());

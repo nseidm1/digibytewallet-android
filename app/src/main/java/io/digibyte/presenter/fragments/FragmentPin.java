@@ -6,14 +6,14 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,14 +78,14 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     };
 
 
-    public static void show(Activity activity, String title, String message, BRAuthCompletion completion) {
+    public static void show(AppCompatActivity activity, String title, String message, BRAuthCompletion completion) {
         FragmentPin fragmentPin = new FragmentPin();
         fragmentPin.setCompletion(completion);
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("message", message);
         fragmentPin.setArguments(args);
-        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom, R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentPin, FragmentPin.class.getName());
         transaction.addToBackStack(FragmentPin.class.getName());

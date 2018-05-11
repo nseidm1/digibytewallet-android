@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ import io.digibyte.presenter.interfaces.BROnSignalCompletion;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
-import io.digibyte.tools.util.Utils;
 
 
 /**
@@ -98,7 +98,7 @@ public class BRAnimator {
         }
     }
 
-    public static void showSendFragment(Activity app, final String bitcoinUrl) {
+    public static void showSendFragment(AppCompatActivity app, final String bitcoinUrl) {
         FragmentSend.show(app, bitcoinUrl);
     }
 
@@ -192,16 +192,16 @@ public class BRAnimator {
         return itemLayoutTransition;
     }
 
-    public static void showRequestFragment(Activity app, String address) {
+    public static void showRequestFragment(AppCompatActivity app, String address) {
         FragmentRequestAmount.show(app);
     }
 
     //isReceive tells the Animator that the Receive fragment is requested, not My Address
-    public static void showReceiveFragment(Activity app, boolean isReceive) {
+    public static void showReceiveFragment(AppCompatActivity app, boolean isReceive) {
         FragmentReceive.show(app, isReceive);
     }
 
-    public static void showMenuFragment(Activity app) {
+    public static void showMenuFragment(AppCompatActivity app) {
         if (app == null) {
             Log.e(TAG, "showReceiveFragment: app is null");
             return;

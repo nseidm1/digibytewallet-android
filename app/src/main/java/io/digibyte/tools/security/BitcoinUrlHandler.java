@@ -1,6 +1,6 @@
 package io.digibyte.tools.security;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -53,7 +53,7 @@ public class BitcoinUrlHandler {
     private static final String TAG = BitcoinUrlHandler.class.getName();
     private static final Object lockObject = new Object();
 
-    public static synchronized boolean processRequest(Activity app, String url) {
+    public static synchronized boolean processRequest(AppCompatActivity app, String url) {
         if (url == null) {
             Log.e(TAG, "processRequest: url is null");
             return false;
@@ -184,7 +184,7 @@ public class BitcoinUrlHandler {
         return true;
     }
 
-    private static boolean tryBitcoinURL(final String url, final Activity app) {
+    private static boolean tryBitcoinURL(final String url, final AppCompatActivity app) {
         RequestObject requestObject = getRequestFromString(url);
         if (requestObject == null || requestObject.address == null || requestObject.address.isEmpty())
             return false;
@@ -194,12 +194,7 @@ public class BitcoinUrlHandler {
         String amount = requestObject.amount;
 
         if (amount == null || amount.isEmpty() || new BigDecimal(amount).doubleValue() == 0) {
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    BRAnimator.showSendFragment(app, url);
-                }
-            });
+            app.runOnUiThread(() -> BRAnimator.showSendFragment(app, url));
         } else {
             if (app != null) {
                 BRAnimator.killAllFragments(app);

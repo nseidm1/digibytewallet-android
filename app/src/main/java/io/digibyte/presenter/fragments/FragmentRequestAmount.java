@@ -1,9 +1,9 @@
 package io.digibyte.presenter.fragments;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,12 +50,12 @@ public class FragmentRequestAmount extends FragmentReceive {
     private String receiveAddress;
     private String selectedIso;
 
-    public static void show(Activity activity) {
+    public static void show(AppCompatActivity activity) {
         FragmentRequestAmount fragmentRequestAmount = new FragmentRequestAmount();
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_RECEIVE, true);
         fragmentRequestAmount.setArguments(bundle);
-        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentRequestAmount,
@@ -69,7 +69,7 @@ public class FragmentRequestAmount extends FragmentReceive {
                              Bundle savedInstanceState) {
         View fragmentReceiveRootView = super.onCreateView(inflater, container, savedInstanceState);
         selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(getContext());
-        receiveAddress = BRSharedPrefs.getReceiveAddress(getActivity());
+        receiveAddress = BRSharedPrefs.getReceiveAddress(getContext());
         updateText();
         fragmentReceiveBinding.keyboardLayout.setVisibility(View.VISIBLE);
         fragmentReceiveBinding.amountLayout.setVisibility(View.VISIBLE);

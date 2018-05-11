@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -157,7 +158,7 @@ public class AuthManager {
     public void authPrompt(final Context context, String title, String message, boolean fingerprint,
                            BRAuthCompletion completion) {
         if (context instanceof Activity) {
-            final Activity app = (Activity) context;
+            final AppCompatActivity app = (AppCompatActivity) context;
             final KeyguardManager keyguardManager =
                     (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
             if (keyguardManager.isKeyguardSecure()) {

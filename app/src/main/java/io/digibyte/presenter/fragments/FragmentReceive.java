@@ -2,14 +2,14 @@ package io.digibyte.presenter.fragments;
 
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,12 +168,12 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
     protected void onAddressClick() {
     }
 
-    public static void show(Activity activity, boolean isReceive) {
+    public static void show(AppCompatActivity activity, boolean isReceive) {
         FragmentReceive fragmentReceive = new FragmentReceive();
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_RECEIVE, isReceive);
         fragmentReceive.setArguments(bundle);
-        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentReceive,
@@ -275,7 +275,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
                             if (getActivity() == null) {
                                 return;
                             }
-                            BRAnimator.showRequestFragment(getActivity(), receiveAddress);
+                            BRAnimator.showRequestFragment((AppCompatActivity) getActivity(), receiveAddress);
                         }, 350);
                     }
                 });

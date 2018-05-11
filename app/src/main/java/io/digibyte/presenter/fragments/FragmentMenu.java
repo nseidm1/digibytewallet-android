@@ -1,14 +1,14 @@
 package io.digibyte.presenter.fragments;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,15 +54,15 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
 
     private MenuDialogCallback mMenuDialogCallback = () -> fadeOutRemove(null, false, true);
 
-    public static void show(Activity activity) {
+    public static void show(AppCompatActivity activity) {
         FragmentMenu fragmentMenu = new FragmentMenu();
-        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentMenu,
                 FragmentMenu.class.getName());
         transaction.addToBackStack(FragmentMenu.class.getName());
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
@@ -131,7 +131,7 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
             boolean justClose) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
                 () -> {
-                    final Activity activity = getActivity();
+                    final AppCompatActivity activity = (AppCompatActivity) getActivity();
                     remove();
                     if (justClose) {
                         return;
