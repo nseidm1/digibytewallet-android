@@ -84,7 +84,7 @@ public class BRBitId {
         String u = bitUri.getQueryParameter("u");
         String scheme = u != null && u.equalsIgnoreCase("1") ? "http://" : "https://";
         AuthManager.getInstance().authPrompt(app, null,
-                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + scheme + bitUri.getHost(), new BRAuthCompletion() {
+                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + (scheme + bitUri.getHost()).toLowerCase(), new BRAuthCompletion() {
                     @Override
                     public void onComplete() {
                         internalSignAndRespond(app, bitID, isDeepLink, scheme + bitUri.getHost() + bitUri.getPath());
