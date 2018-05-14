@@ -40,8 +40,6 @@ public class BRConstants {
      * Permissions
      */
     public static final int CAMERA_REQUEST_ID = 34;
-    public static final int GEO_REQUEST_ID = 35;
-    public static final int CAMERA_REQUEST_GLIDERA_ID = 36;
 
     /**
      * Request codes for auth

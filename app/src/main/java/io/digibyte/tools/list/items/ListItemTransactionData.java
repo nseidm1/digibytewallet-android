@@ -1,5 +1,8 @@
 package io.digibyte.tools.list.items;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 import io.digibyte.R;
@@ -7,7 +10,7 @@ import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.util.BRDateUtil;
 
-public class ListItemTransactionData extends ListItemData {
+public class ListItemTransactionData extends ListItemData implements Parcelable {
     public int transactionIndex;
     public int transactionsCount;
     public TxItem transactionItem;
@@ -50,4 +53,38 @@ public class ListItemTransactionData extends ListItemData {
     public String getTransactionDisplayTimeHolder() {
         return transactionDisplayTimeHolder;
     }
+
+    protected ListItemTransactionData(Parcel in) {
+        super(in);
+        transactionIndex = in.readInt();
+        transactionsCount = in.readInt();
+        transactionItem = (TxItem) in.readValue(TxItem.class.getClassLoader());
+        transactionDisplayTimeHolder = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(transactionIndex);
+        dest.writeInt(transactionsCount);
+        dest.writeValue(transactionItem);
+        dest.writeString(transactionDisplayTimeHolder);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<ListItemTransactionData> CREATOR = new Parcelable.Creator<ListItemTransactionData>() {
+        @Override
+        public ListItemTransactionData createFromParcel(Parcel in) {
+            return new ListItemTransactionData(in);
+        }
+
+        @Override
+        public ListItemTransactionData[] newArray(int size) {
+            return new ListItemTransactionData[size];
+        }
+    };
 }

@@ -1,6 +1,9 @@
 package io.digibyte.presenter.entities;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
@@ -33,7 +36,7 @@ import io.digibyte.DigiByte;
  * THE SOFTWARE.
  */
 
-public class TxItem {
+public class TxItem implements Parcelable {
     public static final String TAG = TxItem.class.getName();
     private long timeStamp;
     private int blockHeight;
@@ -54,8 +57,8 @@ public class TxItem {
     }
 
     public TxItem(long timeStamp, int blockHeight, byte[] hash, String txReversed, long sent,
-                  long received, long fee, String to[], String from[],
-                  long balanceAfterTx, int txSize, long[] outAmounts, boolean isValid) {
+            long received, long fee, String to[], String from[],
+            long balanceAfterTx, int txSize, long[] outAmounts, boolean isValid) {
         this.timeStamp = timeStamp;
         this.blockHeight = blockHeight;
         this.txReversed = txReversed;
@@ -147,4 +150,49 @@ public class TxItem {
     public int hashCode() {
         return Arrays.hashCode(txHash);
     }
+
+    protected TxItem(Parcel in) {
+        timeStamp = in.readLong();
+        blockHeight = in.readInt();
+        sent = in.readLong();
+        received = in.readLong();
+        fee = in.readLong();
+        txReversed = in.readString();
+        balanceAfterTx = in.readLong();
+        isValid = in.readByte() != 0x00;
+        txSize = in.readInt();
+        metaData = (TxMetaData) in.readValue(TxMetaData.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(timeStamp);
+        dest.writeInt(blockHeight);
+        dest.writeLong(sent);
+        dest.writeLong(received);
+        dest.writeLong(fee);
+        dest.writeString(txReversed);
+        dest.writeLong(balanceAfterTx);
+        dest.writeByte((byte) (isValid ? 0x01 : 0x00));
+        dest.writeInt(txSize);
+        dest.writeValue(metaData);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<TxItem> CREATOR = new Parcelable.Creator<TxItem>() {
+        @Override
+        public TxItem createFromParcel(Parcel in) {
+            return new TxItem(in);
+        }
+
+        @Override
+        public TxItem[] newArray(int size) {
+            return new TxItem[size];
+        }
+    };
 }

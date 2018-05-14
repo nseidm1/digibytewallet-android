@@ -4,6 +4,8 @@ import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
@@ -78,12 +80,12 @@ import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
         BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener,
-        TransactionDataSource.OnTxAddedListener, SyncManager.onStatusListener, onStatusListener,
-        BRSearchBar.OnSearchUpdateListener {
+        TransactionDataSource.OnTxAddedListener, SyncManager.onStatusListener, onStatusListener {
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
     private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
     private ListItemViewHolder syncViewHolder;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private RecyclerView allRecycler;
     private TransactionListAdapter allAdapter;
@@ -139,11 +141,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         syncViewHolder = new ListItemSyncingViewHolder(view);
         return view;
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////// Manager Listeners
-    /// ////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public void onSyncManagerStarted() {
@@ -247,27 +244,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         updateDigibyteDollarValues();
     }
 
-    //    @OnClick(R.id.send_layout)
-//    void onButtonSend(View view) {
-//        if (BRAnimator.isClickAllowed()) {
-//            BRAnimator.showSendFragment(BreadActivity.this, null);
-//        }
-//    }
-//
-//    @OnClick(R.id.receive_layout)
-//    void onButtonReceive(View view) {
-//        if (BRAnimator.isClickAllowed()) {
-//            BRAnimator.showReceiveFragment(BreadActivity.this, true);
-//        }
-//    }
-//
     @OnClick(R.id.nav_drawer)
     void onNavButtonClick(View view) {
-        if (bindings.drawerLayout.isDrawerOpen(Gravity.START)) {
-            bindings.drawerLayout.closeDrawer(Gravity.LEFT);
-        } else {
-            bindings.drawerLayout.openDrawer(Gravity.LEFT);
-        }
+        bindings.drawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @OnClick(R.id.main_action)
@@ -354,14 +333,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     @Override
-    public void onSearchBarFilterUpdate() {
-
-    }
-
-    @Override
     public void onBackPressed() {
         if (bindings.drawerLayout.isDrawerOpen(Gravity.START)) {
-            bindings.drawerLayout.closeDrawer(Gravity.LEFT);
+            handler.post(() -> bindings.drawerLayout.closeDrawer(Gravity.LEFT));
         } else {
             super.onBackPressed();
         }
@@ -412,7 +386,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return ((View) object) == view;
+            return object == view;
         }
 
         @Override

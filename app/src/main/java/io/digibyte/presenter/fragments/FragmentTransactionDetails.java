@@ -1,22 +1,20 @@
 package io.digibyte.presenter.fragments;
 
-import android.app.Activity;
-import android.app.Fragment;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.util.TypedValue;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import io.digibyte.R;
+import io.digibyte.databinding.FragmentTransactionDetailsBinding;
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.tools.adapter.TransactionPagerAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.items.ListItemTransactionData;
@@ -47,89 +45,67 @@ import io.digibyte.tools.list.items.ListItemTransactionData;
  * THE SOFTWARE.
  */
 
-public class FragmentTransactionDetails extends Fragment {
-    private static final String TAG = FragmentTransactionDetails.class.getName();
+public class FragmentTransactionDetails extends Fragment implements OnBackPressListener {
 
-    public TextView mTitle;
-    public LinearLayout backgroundLayout;
-    private ViewPager txViewPager;
-    private TransactionPagerAdapter txPagerAdapter;
-    private List<ListItemTransactionData> items;
+    private static final String TRANSACTIONS_ARRAY = "FragmentTransactionDetails:TransactionsArray";
+    private static final String TRANSACTION_NUMBER = "FragmentTransactionDetails:TransactionNumber";
+    private FragmentTransactionDetailsBinding binding;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
-        View rootView = inflater.inflate(R.layout.fragment_transaction_details, container, false);
-        mTitle = (TextView) rootView.findViewById(R.id.title);
-        backgroundLayout = (LinearLayout) rootView.findViewById(R.id.background_layout);
-        txViewPager = (ViewPager) rootView.findViewById(R.id.tx_list_pager);
-        txViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            public void onPageScrollStateChanged(int state) {
-            }
-
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            public void onPageSelected(int position) {
-                // Check if this is the page you want.
-            }
-        });
-        txPagerAdapter = new TransactionPagerAdapter(getChildFragmentManager(), items);
-        txViewPager.setAdapter(txPagerAdapter);
-        txViewPager.setOffscreenPageLimit(5);
-        int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16 * 2, getResources().getDisplayMetrics());
-        txViewPager.setPageMargin(-margin);
-        int pos = getArguments().getInt("pos");
-        txViewPager.setCurrentItem(pos, false);
-
-        return rootView;
-    }
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        final ViewTreeObserver observer = txViewPager.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                observer.removeGlobalOnLayoutListener(this);
-                BRAnimator.animateBackgroundDim(backgroundLayout, false);
-                BRAnimator.animateSignalSlide(txViewPager, false, null);
-            }
-        });
-
+    public static void show(AppCompatActivity context, ArrayList<ListItemTransactionData> items,
+            int transactionNumber) {
+        FragmentTransactionDetails fragmentTransactionDetails = new FragmentTransactionDetails();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(TRANSACTIONS_ARRAY, items);
+        bundle.putInt(TRANSACTION_NUMBER, transactionNumber);
+        fragmentTransactionDetails.setArguments(bundle);
+        FragmentTransaction fragmentTransaction =
+                context.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
+                R.animator.from_bottom, R.animator.to_bottom);
+        fragmentTransaction.add(android.R.id.content, fragmentTransactionDetails,
+                FragmentTransactionDetails.class.getName());
+        fragmentTransaction.addToBackStack(FragmentTransactionDetails.class.getName());
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        final Activity app = getActivity();
-        BRAnimator.animateBackgroundDim(backgroundLayout, true);
-        BRAnimator.animateSignalSlide(txViewPager, true, new BRAnimator.OnSlideAnimationEnd() {
-            @Override
-            public void onAnimationEnd() {
-                if (app != null && !app.isDestroyed())
-                    app.getFragmentManager().popBackStack();
-                else
-                    Log.e(TAG, "onAnimationEnd: app is null");
-            }
-        });
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        binding = FragmentTransactionDetailsBinding.inflate(inflater);
+        binding.setAdapter(new TransactionPagerAdapter(getChildFragmentManager(),
+                getArguments().getParcelableArrayList(TRANSACTIONS_ARRAY)));
+        binding.setTransactionNumber(getArguments().getInt(TRANSACTION_NUMBER, 0));
+        return binding.getRoot();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.backgroundLayout, false,
+                null);
+        colorFade.setStartDelay(350);
+        colorFade.setDuration(500);
+        colorFade.start();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
+    private void fadeOutRemove() {
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.backgroundLayout, true,
+                () -> remove());
+        colorFade.start();
     }
 
-    public void setItems(List<ListItemTransactionData> items) {
-        this.items = items;
+    private void remove() {
+        if (getFragmentManager() == null) {
+            return;
+        }
+        try {
+            getFragmentManager().popBackStack();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onBackPressed() {
+        fadeOutRemove();
     }
 }

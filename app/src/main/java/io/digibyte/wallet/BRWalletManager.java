@@ -551,10 +551,9 @@ public class BRWalletManager {
         BRExecutor.getInstance().forBackgroundTasks().execute(() -> {
             initWalletAndConnectPeers();
             if (smartInitType == SmartInitType.SyncService || MerkleBlockDataSource.getInstance(
-                    DigiByte.getContext()).getAllMerkleBlocks().size() == 0) {
+                    DigiByte.getContext()).getAllMerkleBlocks().size() == 0 || BuildConfig.DEBUG) {
                 return;
             }
-
             handler.postDelayed(() -> {
                 //Is the activity currently finishing, or is the entire app in the background
                 if (activity.isFinishing() || DigiByte.getContext().getActivity() == null) {

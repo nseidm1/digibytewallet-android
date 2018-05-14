@@ -115,7 +115,6 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
                     finish();
                 }
                 break;
-
             case BRConstants.SCANNER_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
                     new Handler().postDelayed(new Runnable() {
@@ -131,28 +130,6 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
                             }
                         }
                     }, 500);
-                }
-                break;
-            case BRConstants.SCANNER_BCH_REQUEST:
-                if (resultCode == Activity.RESULT_OK) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            String result = data.getStringExtra("result");
-                            PostAuth.getInstance().onSendBch(BRActivity.this, true, result);
-                        }
-                    }, 500);
-                }
-                break;
-
-            case BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onCreateWalletAuth(this, true);
-                } else {
-                    Log.e(TAG, "WARNING: resultCode != RESULT_OK");
-                    BRWalletManager m = BRWalletManager.getInstance();
-                    m.wipeWalletButKeystore(this);
-                    finish();
                 }
                 break;
         }

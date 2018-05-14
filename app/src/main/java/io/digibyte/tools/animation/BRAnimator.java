@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
@@ -102,31 +102,9 @@ public class BRAnimator {
         FragmentSend.show(app, bitcoinUrl);
     }
 
-    public static void showTransactionPager(Activity app, List<ListItemTransactionData> items,
+    public static void showTransactionPager(AppCompatActivity app, ArrayList<ListItemTransactionData> items,
             int position) {
-        if (app == null) {
-            Log.e(TAG, "showSendFragment: app is null");
-            return;
-        }
-        FragmentTransactionDetails fragmentTransactionDetails =
-                (FragmentTransactionDetails) app.getFragmentManager().findFragmentByTag(
-                        FragmentTransactionDetails.class.getName());
-        if (fragmentTransactionDetails != null && fragmentTransactionDetails.isAdded()) {
-            fragmentTransactionDetails.setItems(items);
-            Log.e(TAG, "showTransactionPager: Already showing");
-            return;
-        }
-        fragmentTransactionDetails = new FragmentTransactionDetails();
-        fragmentTransactionDetails.setItems(items);
-        Bundle bundle = new Bundle();
-        bundle.putInt("pos", position);
-        fragmentTransactionDetails.setArguments(bundle);
-
-        app.getFragmentManager().beginTransaction()
-                .setCustomAnimations(0, 0, 0, R.animator.plain_300)
-                .add(android.R.id.content, fragmentTransactionDetails,
-                        FragmentTransactionDetails.class.getName())
-                .addToBackStack(FragmentTransactionDetails.class.getName()).commit();
+        FragmentTransactionDetails.show(app, items, position);
     }
 
     public static void openScanner(Activity app, int requestID) {

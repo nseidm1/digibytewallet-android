@@ -1,8 +1,8 @@
 package io.digibyte.tools.adapter;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
@@ -33,28 +33,23 @@ import io.digibyte.tools.list.items.ListItemTransactionData;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class TransactionPagerAdapter extends FragmentPagerAdapter {
+public class TransactionPagerAdapter extends FragmentStatePagerAdapter {
     private static final String TAG = TransactionPagerAdapter.class.getName();
     private List<ListItemTransactionData> items;
 
-    public TransactionPagerAdapter(FragmentManager fm, List<ListItemTransactionData> items) {
-        super(fm);
+    public TransactionPagerAdapter(FragmentManager fragmentManager,
+            List<ListItemTransactionData> items) {
+        super(fragmentManager);
         this.items = items;
-
-    }
-
-    public TransactionPagerAdapter(FragmentManager fm){
-        super(fm);
     }
 
     @Override
     public Fragment getItem(int pos) {
-        return FragmentTransactionItem.newInstance(items.get(pos));
+        return FragmentTransactionItem.newInstance(items.get(pos).transactionItem);
     }
 
     @Override
     public int getCount() {
         return items == null ? 0 : items.size();
     }
-
 }

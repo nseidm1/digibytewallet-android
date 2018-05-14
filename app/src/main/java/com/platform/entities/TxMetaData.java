@@ -1,5 +1,8 @@
 package com.platform.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * BreadWallet
  * <p/>
@@ -24,23 +27,7 @@ package com.platform.entities;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class TxMetaData {
-
-    /**
-     * Key: “txn-<txHash>”
-     * <p>
-     * {
-     * “classVersion”: 5, //used for versioning the schema
-     * “bh”: 47583, //blockheight
-     * “er”: 2800.1, //exchange rate
-     * “erc”: “USD”, //exchange currency
-     * “fr”: 300, //fee rate
-     * “s”: fd, //size
-     * “c”: 123475859 //created
-     * “dId”: ”<UUID>” //DeviceId - This is a UUID that gets generated and then persisted so it can get sent with every tx
-     * “comment”: “Vodka for Mihail”
-     * }
-     */
+public class TxMetaData implements Parcelable {
 
     public String deviceId;
     public String comment;
@@ -88,4 +75,49 @@ public class TxMetaData {
         result = 31 * result + creationTime;
         return result;
     }
+
+    public TxMetaData() {}
+
+    protected TxMetaData(Parcel in) {
+        deviceId = in.readString();
+        comment = in.readString();
+        exchangeCurrency = in.readString();
+        classVersion = in.readInt();
+        blockHeight = in.readInt();
+        exchangeRate = in.readDouble();
+        fee = in.readLong();
+        txSize = in.readInt();
+        creationTime = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(deviceId);
+        dest.writeString(comment);
+        dest.writeString(exchangeCurrency);
+        dest.writeInt(classVersion);
+        dest.writeInt(blockHeight);
+        dest.writeDouble(exchangeRate);
+        dest.writeLong(fee);
+        dest.writeInt(txSize);
+        dest.writeInt(creationTime);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<TxMetaData> CREATOR = new Parcelable.Creator<TxMetaData>() {
+        @Override
+        public TxMetaData createFromParcel(Parcel in) {
+            return new TxMetaData(in);
+        }
+
+        @Override
+        public TxMetaData[] newArray(int size) {
+            return new TxMetaData[size];
+        }
+    };
 }

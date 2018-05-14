@@ -116,19 +116,4 @@ public class IntroActivity extends BRActivity implements Serializable {
             }
         });
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }

@@ -367,9 +367,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         if (obj.address != null) {
             sendFragmentModel.setAddress(obj.address.trim());
         }
-        if (obj.message != null) {
-            sendFragmentModel.setMemo(obj.message);
-        }
         if (obj.amount != null) {
             sendFragmentModel.setAmount(obj.amount);
             sendFragmentModel.updateText();

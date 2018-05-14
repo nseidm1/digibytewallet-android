@@ -1,18 +1,32 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/background_layout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_gravity="bottom"
-              android:background="@color/black_trans"
-              android:filterTouchesWhenObscured="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/tx_list_pager"
+    <data>
+        <variable name="adapter" type="android.support.v4.app.FragmentStatePagerAdapter"/>
+        <variable name="transactionNumber" type="Integer"/>
+    </data>
+
+    <io.digibyte.presenter.customviews.BRLinearLayout
+
+        android:id="@+id/background_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:focusable="false"
-        android:orientation="horizontal"
-        />
+        android:filterTouchesWhenObscured="true">
 
-</LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/tx_list_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:adapter="@{adapter}"
+            android:focusable="false"
+            android:orientation="horizontal"
+            app:setCurrentItem="@{transactionNumber}"
+            app:setOffscreenPageLimit="@{5}"
+            app:setPageMargin="@{-32}"/>
+
+    </io.digibyte.presenter.customviews.BRLinearLayout>
+
+</layout>
+

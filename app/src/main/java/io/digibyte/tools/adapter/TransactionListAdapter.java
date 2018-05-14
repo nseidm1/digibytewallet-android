@@ -1,7 +1,7 @@
 package io.digibyte.tools.adapter;
 
-import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -165,7 +165,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
             ListItemTransactionViewHolder listItemTransactionViewHolder =
                     (ListItemTransactionViewHolder) recyclerView.findContainingViewHolder(view);
             int adapterPosition = listItemTransactionViewHolder.getAdapterPosition();
-            BRAnimator.showTransactionPager((Activity) view.getContext(),
+            BRAnimator.showTransactionPager((AppCompatActivity) view.getContext(),
                     listItemData, adapterPosition);
         }
     };
