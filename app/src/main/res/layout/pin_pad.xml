@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,12 +11,13 @@
         <TextView
             android:id="@+id/num1"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="1"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -24,12 +25,13 @@
         <TextView
             android:id="@+id/num2"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="2"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -37,12 +39,13 @@
         <TextView
             android:id="@+id/num3"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="3"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -55,12 +58,13 @@
         <TextView
             android:id="@+id/num4"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="1"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -68,12 +72,13 @@
         <TextView
             android:id="@+id/num5"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="2"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -81,12 +86,13 @@
         <TextView
             android:id="@+id/num6"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="3"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -99,12 +105,13 @@
         <TextView
             android:id="@+id/num7"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="1"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -112,12 +119,13 @@
         <TextView
             android:id="@+id/num8"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="2"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -125,12 +133,13 @@
         <TextView
             android:id="@+id/num9"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="3"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -143,12 +152,13 @@
         <TextView
             android:id="@+id/numDot"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="."
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -156,12 +166,13 @@
         <TextView
             android:id="@+id/num0"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="0"
             android:textColor="@color/pin_pad_text"
             android:textSize="@dimen/pin_par_text_size"/>
@@ -169,12 +180,13 @@
         <ImageButton
             android:id="@+id/numDelete"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="12dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:src="@drawable/ic_delete_gray"
             android:text=""
             android:textColor="@color/pin_pad_text"

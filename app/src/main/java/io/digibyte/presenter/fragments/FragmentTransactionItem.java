@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import io.digibyte.databinding.TransactionDetailsItemBinding;
 import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.presenter.fragments.interfaces.TransactionDetailsCallback;
 import io.digibyte.presenter.fragments.models.TransactionDetailsViewModel;
 
 /**
@@ -38,8 +39,15 @@ import io.digibyte.presenter.fragments.models.TransactionDetailsViewModel;
 public class FragmentTransactionItem extends Fragment {
     private static final String TRANSACTION_ITEM = "FragmentTransactionItem:TransactionItem";
 
-    private String oldComment;
     private TransactionDetailsViewModel viewModel;
+
+    private TransactionDetailsCallback callback = () -> {
+        FragmentTransactionDetails fragment =
+                (FragmentTransactionDetails) getActivity().getSupportFragmentManager()
+                        .findFragmentByTag(
+                        FragmentTransactionDetails.class.getName());
+        fragment.onBackPressed();
+    };
 
     public static FragmentTransactionItem newInstance(TxItem item) {
         FragmentTransactionItem fragmentTransactionItem = new FragmentTransactionItem();
@@ -50,10 +58,12 @@ public class FragmentTransactionItem extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         viewModel = new TransactionDetailsViewModel(getArguments().getParcelable(TRANSACTION_ITEM));
         TransactionDetailsItemBinding binding = TransactionDetailsItemBinding.inflate(inflater);
         binding.setData(viewModel);
+        binding.setCallback(callback);
         return binding.getRoot();
     }
 }

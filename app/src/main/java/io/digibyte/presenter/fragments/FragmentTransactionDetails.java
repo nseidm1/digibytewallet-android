@@ -1,5 +1,8 @@
 package io.digibyte.presenter.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -90,19 +93,20 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
 
     private void fadeOutRemove() {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.backgroundLayout, true,
-                () -> remove());
+                () -> {
+                    Animator animator = AnimatorInflater.loadAnimator(getContext(),
+                            R.animator.to_bottom);
+                    animator.setTarget(binding.getRoot());
+                    animator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            getActivity().getSupportFragmentManager().popBackStack();
+                        }
+                    });
+                    animator.start();
+                });
         colorFade.start();
-    }
 
-    private void remove() {
-        if (getFragmentManager() == null) {
-            return;
-        }
-        try {
-            getFragmentManager().popBackStack();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
     }
 
     public void onBackPressed() {

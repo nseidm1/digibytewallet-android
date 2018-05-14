@@ -24,7 +24,7 @@
             android:orientation="horizontal"
             app:setCurrentItem="@{transactionNumber}"
             app:setOffscreenPageLimit="@{5}"
-            app:setPageMargin="@{-32}"/>
+            app:setPageMargin="@{-42}"/>
 
     </io.digibyte.presenter.customviews.BRLinearLayout>
 

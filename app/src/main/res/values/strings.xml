@@ -750,6 +750,8 @@
   <string name="all">ALL</string>
   <string name="sent">SENT</string>
   <string name="received">RECEIVED</string>
-
+  <string name="date">Date</string>
+  <string name="processed">Processed</string>
+  <string name="completed">Completed</string>
   <string name="digi_share">https://redirect.digibyteprojects.com/?address=%s&amp;amount=%s</string>
 </resources>

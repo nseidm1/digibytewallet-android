@@ -14,13 +14,13 @@ import io.digibyte.tools.util.Utils;
 public class ListItemSyncingViewHolder extends ListItemViewHolder {
     private final BRText date;
     private final ProgressBar progress;
-    private View dots;
+    private View progressBar;
 
     public ListItemSyncingViewHolder(View anItemView) {
         super(anItemView);
         date = anItemView.findViewById(R.id.sync_date);
         progress = anItemView.findViewById(R.id.sync_progress);
-        dots = anItemView.findViewById(R.id.dots);
+        progressBar = anItemView.findViewById(R.id.progress_bar);
     }
 
     @Override
@@ -28,7 +28,9 @@ public class ListItemSyncingViewHolder extends ListItemViewHolder {
         super.process(aListItemData);
         itemView.setBackgroundResource(R.drawable.tx_rounded);
         progress.setProgress((int) (SyncManager.getInstance().getProgress() * 100));
-        dots.setVisibility(SyncManager.getInstance().getLastBlockTimestamp() == 0 ? View.VISIBLE : View.INVISIBLE);
+        progressBar.setVisibility(
+                SyncManager.getInstance().getLastBlockTimestamp() == 0 ? View.VISIBLE
+                        : View.INVISIBLE);
         date.setText(SyncManager.getInstance().getLastBlockTimestamp() == 0
                 ? DigiByte.getContext().getString(R.string.NodeSelector_statusLabel) + ": "
                 + DigiByte.getContext().getString(R.string.SyncingView_connecting)

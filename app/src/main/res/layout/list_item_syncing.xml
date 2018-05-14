@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:elevation="4dp"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/main_layout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <io.digibyte.presenter.customviews.BRText
         android:id="@+id/syncing_label"
@@ -19,7 +17,7 @@
         android:textSize="@dimen/sub_header"
         app:customTFont="CircularPro-Bold.otf"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ProgressBar
         android:id="@+id/sync_progress"
@@ -32,13 +30,14 @@
         android:progressDrawable="@drawable/sync_wallet_progress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/syncing_label" />
+        app:layout_constraintTop_toBottomOf="@+id/syncing_label"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/syncing_label"
@@ -48,18 +47,14 @@
             android:id="@+id/sync_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:textColor="@color/white"
             android:textSize="@dimen/paragraph"
-            app:customTFont="CircularPro-Book.otf" />
+            app:customTFont="CircularPro-Book.otf"/>
 
-        <pl.tajchert.waitingdots.DotsTextView
-            android:id="@+id/dots"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            app:autoplay="true"
-            app:period="1000" />
+        <ProgressBar android:id="@+id/progress_bar" style="@style/Widget.AppCompat.ProgressBar"
+                     android:layout_width="12dp"
+                     android:layout_height="14dp" android:layout_marginStart="12dp"/>
 
     </LinearLayout>
 
