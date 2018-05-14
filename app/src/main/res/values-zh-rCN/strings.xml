@@ -11,7 +11,7 @@
   <!-- About screen reddit label -->
   <string name="About.reddit">https://www.reddit.com/r/Digibyte/</string>
   <!-- Terms of Use button label -->
-  <string name="About.terms">使用条款 https://github.com/Racecraft/digibytewallet-android</string>
+  <string name="About.terms">此项目是开源的，您可以在此链接查看代码https://github.com/Racecraft/digibytewallet-android</string>
   <!-- About screen title -->
   <string name="About.title">快速，简单，安全！使用极特钱包安卓版是发送极特币最简单的方法。在设计之初特别考虑到新老客户不同的需求，安卓极特钱包对初次使用用户足够友好，对老用户又足够强大！</string>
   <!-- About screen twitter label -->
@@ -391,9 +391,9 @@
   <!-- Scan bitcoin address camera flash toggle -->
   <string name="Scanner.flashButtonLabel">照相机闪光灯</string>
   <!-- Complete filter label -->
-  <string name="Search.complete">完成</string>
+  <string name="Search.complete">已完成</string>
   <!-- Pending filter label -->
-  <string name="Search.pending">正在进行</string>
+  <string name="Search.pending">正在发送</string>
   <!-- Received filter label -->
   <string name="Search.received">已收到</string>
   <!-- Sent filter label -->

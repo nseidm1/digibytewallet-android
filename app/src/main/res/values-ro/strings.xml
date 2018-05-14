@@ -25,7 +25,7 @@
   <!-- Default wallet name -->
   <string name="AccountHeader.defaultWalletName">DigiWallet-ul meu</string>
   <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">Se pare că utilizați o tastatură terță parte, care ar putea înregistra ceea ce introduceți și fura cheia dvs. de hârtie. Treceți la tastatura implicită Android pentru protecție suplimentară.</string>
+  <string name="Alert.customKeyboard.android">Se pare că utilizați o tastatură terță parte, care ar putea înregistra ceea ce introduceți și fura Cheia personală de recuperare. Treceți la tastatura implicită Android pentru protecție suplimentară.</string>
   <!-- Error alert title -->
   <string name="Alert.error">Eroare</string>
   <!-- Keystore error -->
@@ -43,7 +43,7 @@
   <!-- Addresses Copied Alert sub header -->
   <string name="Alerts.copiedAddressesSubheader">Toate adresele din portofel au fost copiate cu succes.</string>
   <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">Cheia de hârtie a fost setată.</string>
+  <string name="Alerts.paperKeySet">Cheia personală de recuperare a fost setată.</string>
   <!-- Alert Subheader label (playfully positive) -->
   <string name="Alerts.paperKeySetSubheader">Extraordinar!</string>
   <!-- Alert Header label (the PIN was set) -->
@@ -95,7 +95,7 @@
   <!-- BitID success alert title -->
   <string name="BitID.success">Autentificare cu succes</string>
   <!-- BitID Authentication Request alert view title -->
-  <string name="BitID.title">Digi-ID autentificare solicitată</string>
+  <string name="BitID.title">DigiID autentificare solicitată</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">Anulare</string>
   <!-- Ignore button label -->
@@ -133,7 +133,7 @@
   <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">Cost total:</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">Pentru a vă asigura că totul a fost scris corect, vă rugăm să introduceți următoarele cuvinte din cheia dvs. de hârtie.</string>
+  <string name="ConfirmPaperPhrase.label">Pentru a vă asigura că totul a fost scris corect, vă rugăm să introduceți următoarele cuvinte din Cheia personală de recuperare.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Cuvântul #%1$s</string>
   <!-- Bitcoin denomination picker label -->
@@ -291,7 +291,7 @@
   <!-- Device encryption prompt title -->
   <string name="Prompts.NoScreenLock.title.android">Blocarea ecran dezactivat</string>
   <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">Cheia dvs. de hârtie trebuie salvată în caz că vă pierdeți sau vă schimbați vreodată telefonul. Apăsați aici pentru a continua.</string>
+  <string name="Prompts.PaperKey.body">Cheia personală de recuperare trebuie salvată în caz că vă pierdeți sau vă schimbați vreodată telefonul. Apăsați aici pentru a continua.</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">"Se solicită un răspuns "</string>
   <!-- Transaction rejected prompt body -->
@@ -345,11 +345,11 @@
   <!-- Reset PIN with paper key: header -->
   <string name="RecoverWallet.header_reset_pin">Resetare Pin</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">Introduceți cheia de hârtie\n</string>
+  <string name="RecoverWallet.instruction">Introduceți Cheia personală de recuperare\n</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Recuperați-vă DigiWallet cu cheia de hârtie.</string>
+  <string name="RecoverWallet.intro">Recuperați-vă DigiWallet cu Cheia personală de recuperare.</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">"Cheia de hârtie introdusă nu este validă. Vă rugăm să reverificați fiecare cuvânt și să încercați din nou. "</string>
+  <string name="RecoverWallet.invalid">"Cheia personală de recuperare introdusă nu este validă. Vă rugăm să reverificați fiecare cuvânt și să încercați din nou. "</string>
   <!-- Previous button accessibility label -->
   <string name="RecoverWallet.leftArrow">Săgeata stângă</string>
   <!-- Next button label -->
@@ -359,9 +359,9 @@
   <!-- Next button accessibility label -->
   <string name="RecoverWallet.rightArrow">Sageata dreapta\n</string>
   <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">Introduceți cheia de hârtie pentru portofelul pe care doriți să-l recuperați.</string>
+  <string name="RecoverWallet.subheader">Introduceți Cheia personală de recuperare pentru portofelul pe care doriți să-l recuperați.</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">Pentru a vă reseta PIN-ul, introduceți cuvintele din cheia dvs. de hârtie în chenarele de mai jos.</string>
+  <string name="RecoverWallet.subheader_reset_pin">Pentru a vă reseta PIN-ul, introduceți cuvintele din Cheia personală de recuperare în chenarele de mai jos.</string>
   <!-- No amount entered error message. -->
   <string name="RequestAnAmount.noAmount">Introduceți mai întâi o sumă.\n</string>
   <!-- Request a specific amount of bitcoin -->
@@ -403,7 +403,7 @@
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">Singura modalitate de a vă accesa DigiByte-ul dacă vă pierdeți sau vă actualizați telefonul.</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">Cheia de Hârtie</string>
+  <string name="SecurityCenter.paperKeyTitle">Cheia personală de recuperare</string>
   <!-- PIN button description -->
   <string name="SecurityCenter.pinDescription">Vă protejează DigiWallet-ul de utilizatori neautorizați.</string>
   <!-- PIN button title -->
@@ -519,13 +519,13 @@
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">Distribuiți informații anonime?</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">Scrieți din nou cheia de hârtie</string>
+  <string name="StartPaperPhrase.againButtonTitle">Scrieți din nou Cheia personală de recuperare</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Cheia dvs. de hârtie este singura modalitate de recuperare a DigiWallet-ului dvs. dacă vă pierdeți telefonul sau dacă acesta este furat, stricat sau actualizat.\n\nVă vom arăta o listă de cuvinte pe care să le scrieți pe o hârtie și să le păstrați în siguranță.</string>
+  <string name="StartPaperPhrase.body">Cheia personală de recuperare este singura modalitate de recuperare a DigiWallet-ului dvs. dacă vă pierdeți telefonul sau dacă acesta este furat, stricat sau actualizat.\n\nVă vom arăta o listă de cuvinte pe care să le scrieți pe o hârtie și să le păstrați în siguranță.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">Scrieți cheia de hârtie</string>
+  <string name="StartPaperPhrase.buttonTitle">Scrieți Cheia personală de recuperare</string>
   <!-- Argument is date -->
-  <string name="StartPaperPhrase.date">Ați scris cheia de hârtie ultima oară acum %1$s</string>
+  <string name="StartPaperPhrase.date">Ați scris Cheia personală de recuperare ultima oară acum %1$s</string>
   <!-- Start view message -->
   <string name="StartViewController.message">Cel mai securizat și mai protejat mod de a folosi DigiByte.</string>
   <!-- Syncing view connectiong state header text -->

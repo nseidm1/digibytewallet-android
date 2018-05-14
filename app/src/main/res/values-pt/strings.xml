@@ -95,7 +95,7 @@
   <!-- BitID success alert title -->
   <string name="BitID.success">Autenticado com sucesso</string>
   <!-- BitID Authentication Request alert view title -->
-  <string name="BitID.title">Solicitação de Autenticação Digi-ID</string>
+  <string name="BitID.title">Solicitação de Autenticação DigiID</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">Cancelar</string>
   <!-- Ignore button label -->
@@ -489,7 +489,7 @@
   <!-- Import wallet right message -->
   <string name="Settings.importRightMessage">A sua  Carteira DigiWallet</string>
   <!-- Import wallet label -->
-  <string name="Settings.importTitle">ImportarDigiWallet</string>
+  <string name="Settings.importTitle">Importar DigiWallet</string>
   <!-- Manage settings section header -->
   <string name="Settings.manage">Gerir</string>
   <!-- Notifications label -->
@@ -613,7 +613,7 @@
   <!-- Empty transaction list message. -->
   <string name="TransactionDetails.emptyMessage">As suas transações irão aparecer aqui.</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
-  <string name="TransactionDetails.from">ás %1$s</string>
+  <string name="TransactionDetails.from">de %1$s</string>
   <!-- More button title -->
   <string name="TransactionDetails.more">Mais...</string>
   <!-- Moved $5.00 (as in "I moved $5 to another location") -->

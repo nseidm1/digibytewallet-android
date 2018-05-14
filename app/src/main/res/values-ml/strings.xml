@@ -95,7 +95,7 @@
   <!-- BitID success alert title -->
   <string name="BitID.success">വിജയകരമായി സാധുകരിക്കപ്പെട്ടു.</string>
   <!-- BitID Authentication Request alert view title -->
-  <string name="BitID.title">Digi-ID സാധുകരിക്കുവാൻ  അഭ്യർത്ഥിക്കുന്നു</string>
+  <string name="BitID.title">DigiID സാധുകരിക്കുവാൻ  അഭ്യർത്ഥിക്കുന്നു</string>
   <!-- Cancel button label -->
   <string name="Button.cancel">റദ്ദാക്കുക</string>
   <!-- Ignore button label -->
@@ -135,7 +135,7 @@
   <!-- Confirm paper phrase view label. -->
   <string name="ConfirmPaperPhrase.label">എല്ലാം ശരിയായി എഴുതിയിട്ടുണ്ടെന്ന് ഉറപ്പുവരുത്താൻ, നിങ്ങളുടെ പ്രൈവറ്റ് റിക്കവറി കീയിൽ നിന്ന് തിരഞ്ഞെടുക്കുന്ന വാക്കുകൾ ദയവായി രേഖപ്പെടുത്തുക.</string>
   <!-- Word label eg. Word #1, Word #2 -->
-  <string name="ConfirmPaperPhrase.word">വാക്ക്%1$s</string>
+  <string name="ConfirmPaperPhrase.word">വാക്ക് #%1$s</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">ഡിജിബൈറ്റ് ഡിസ്പ്ലേ യൂണിറ്റ്</string>
   <!-- Exchange rate label -->
@@ -181,7 +181,7 @@
   <!-- Import signing error message -->
   <string name="Import.Error.signing">ഇടപാട് രേഖപ്പെടുത്തുന്നതില്‍ പിശക്\n</string>
   <!-- Import button label -->
-  <string name="Import.importButton">"ഇമ്പോർട്ട് "</string>
+  <string name="Import.importButton">ഇംപോര്ട്ട്</string>
   <!-- Importing wallet progress view label -->
   <string name="Import.importing">വാലറ്റ് ഇംപോര്ട്ട്  ചെയ്യുന്നു</string>
   <!-- Caption for graphics -->
@@ -201,7 +201,7 @@
   <!-- Successfully imported wallet message body -->
   <string name="Import.SuccessBody">" വാലറ്റ് വിജയകരമായി ഇമ്പോർട്ട്  ചെയ്തിരിക്കുന്നു."</string>
   <!-- Import Wallet screen title -->
-  <string name="Import.title">" വാലറ്റ് ഇമ്പോർട്ട് ചെയ്യുക"</string>
+  <string name="Import.title">" വാലറ്റ് ഇംപോര്ട്ട് ചെയ്യുക"</string>
   <!-- Unlocking Private key activity view message. -->
   <string name="Import.unlockingActivity">കീ വെളിപ്പെടുത്തുന്നു</string>
   <!-- Import wallet intro warning message -->
@@ -585,7 +585,7 @@
   <!-- eg. Ending balance: $50.00 -->
   <string name="Transaction.ending">ബാലൻസ് അവസാനിപ്പിച്ചു: %1$s</string>
   <!-- Exchange rate on date header -->
-  <string name="Transaction.exchangeOnDayReceived">"സ്വീകരിച്ചപ്പോൾ ലഭിച്ച വിനിമയ നിരക്ക് "</string>
+  <string name="Transaction.exchangeOnDayReceived">സ്വീകരിച്ചപ്പോൾ ലഭിച്ച വിനിമയ നിരക്ക്:</string>
   <!-- Exchange rate on date header -->
   <string name="Transaction.exchangeOnDaySent">അയച്ചപ്പോഴുള്ള എക്സ്ചേഞ്ച് നിരക്ക്:</string>
   <!-- (b600 fee) -->
@@ -625,11 +625,11 @@
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">ലഭിച്ചു %1$s</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription">ലഭിച്ചു  <b>%1$s</b></string>
+  <string name="TransactionDetails.receivedAmountDescription">ലഭിച്ചു  <b>%1$s <b></string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">അയച്ചു %1$s</string>
   <!-- Sent $5.00 -->
-  <string name="TransactionDetails.sentAmountDescription">അയച്ചു <b>%1$s</b></string>
+  <string name="TransactionDetails.sentAmountDescription">അയച്ചു <b>%1$s <b></string>
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">പദവി</string>
   <!-- Transaction Details Title -->

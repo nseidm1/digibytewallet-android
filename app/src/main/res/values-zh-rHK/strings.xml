@@ -9,7 +9,7 @@
   <!-- Privay Policy button label -->
   <string name="About.privacy">隱私政策</string>
   <!-- Terms of Use button label -->
-  <string name="About.terms">使用條款 https://github.com/Racecraft/digibytewallet-android</string>
+  <string name="About.terms">此項目是開源的，您可以在此連結查看代碼 https://github.com/Racecraft/digibytewallet-android</string>
   <!-- About screen title -->
   <string name="About.title">關於</string>
   <!-- Close modal button accessibility label -->
@@ -289,7 +289,7 @@
   <!-- Warning about paper key. -->
   <string name="Prompts.PaperKey.body">您必須保存紙鑰，以防手機弄丟或更換。點擊這裡繼續。</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">動作需要</string>
+  <string name="Prompts.PaperKey.title">請採取措施</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">您的錢包可能不衕步。從新掃描塊鏈可以解決這問題。</string>
   <!-- Transaction rejected prompt title -->
@@ -313,7 +313,7 @@
   <!-- Upgrade PIN prompt title. -->
   <string name="Prompts.UpgradePin.title">升級PIN碼</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">開啓通知來接收極特錢包將來的特別訊息</string>
+  <string name="PushNotifications.body">開啓通知來接收極特錢包將來的特別訊息。</string>
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">推送提示</string>
   <!-- Push notifications are off label -->
@@ -387,13 +387,13 @@
   <!-- Scan bitcoin address camera flash toggle -->
   <string name="Scanner.flashButtonLabel">相機閃光燈</string>
   <!-- Complete filter label -->
-  <string name="Search.complete">搜索完成</string>
+  <string name="Search.complete">已完成</string>
   <!-- Pending filter label -->
-  <string name="Search.pending">正在搜索</string>
+  <string name="Search.pending">正在發送</string>
   <!-- Received filter label -->
-  <string name="Search.received">接受了</string>
+  <string name="Search.received">已收到</string>
   <!-- Sent filter label -->
-  <string name="Search.sent">發送了</string>
+  <string name="Search.sent">已發送</string>
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">開啓全部安全功能來達到最大的保護</string>
   <!-- Paper Key button description -->
