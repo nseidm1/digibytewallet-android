@@ -230,8 +230,12 @@ public class BRAnimator {
     }
 
     public static void killAllFragments(Activity app) {
+        //This is sooo ugly, bug some places in the app still user the regular fragment manager instead of support
         if (app != null && !app.isDestroyed()) {
             app.getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            if (app instanceof AppCompatActivity) {
+                ((AppCompatActivity) app).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
         }
     }
 
