@@ -1,6 +1,7 @@
 package io.digibyte.tools.security;
 
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -114,6 +115,37 @@ public class BitcoinUrlHandler {
                 || BRWalletManager.getInstance().isValidBitcoinPrivateKey(url));
     }
 
+    public static RequestObject getScannedQRRequest(String str) {
+        RequestObject obj = new RequestObject();
+        String tmp = str.trim().replaceAll("\n", "").replaceAll(" ", "%20");
+        if (!tmp.startsWith("digibyte://")) {
+            if (!tmp.startsWith("digibyte:")) {
+                tmp = "digibyte://".concat(tmp);
+            } else {
+                tmp = tmp.replace("digibyte:", "digibyte://");
+            }
+        }
+        URI uri = URI.create(tmp);
+        String host = uri.getHost();
+        if (!TextUtils.isEmpty(host)) {
+            String addrs = host.trim();
+            if (BRWalletManager.validateAddress(addrs)) {
+                obj.address = addrs;
+            }
+        }
+        String query = uri.getQuery();
+        if (query == null) return obj;
+        String[] params = query.split("&");
+        for (String s : params) {
+            String[] keyValue = s.split("=", 2);
+            if (keyValue.length != 2)
+                continue;
+            if (keyValue[0].trim().equals("amount")) {
+                obj.amount = keyValue[1].trim();
+            }
+        }
+        return obj;
+    }
 
     public static RequestObject getRequestFromString(String str) {
         if (str == null || str.isEmpty()) return null;

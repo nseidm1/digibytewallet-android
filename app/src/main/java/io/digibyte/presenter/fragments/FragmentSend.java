@@ -362,7 +362,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
     }
 
     private void setUrl(String url) {
-        RequestObject obj = BitcoinUrlHandler.getRequestFromString(url);
+        RequestObject obj = BitcoinUrlHandler.getScannedQRRequest(url);
         if (obj == null) return;
         if (obj.address != null) {
             sendFragmentModel.setAddress(obj.address.trim());
@@ -371,10 +371,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
             sendFragmentModel.setMemo(obj.message);
         }
         if (obj.amount != null) {
-            BigDecimal satoshiAmount = new BigDecimal(obj.amount);
-            sendFragmentModel.setAmount(new StringBuilder(
-                    BRExchange.getAmountFromSatoshis(getActivity(),
-                            sendFragmentModel.getSelectedIso(), satoshiAmount).toPlainString()));
+            sendFragmentModel.setAmount(obj.amount);
             sendFragmentModel.updateText();
         }
     }

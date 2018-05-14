@@ -211,18 +211,14 @@ public class FragmentRequestAmount extends FragmentReceive {
     }
 
     private boolean generateQrImage(String address, String strAmount, String iso) {
-        String amountArg = "";
-        if (strAmount != null && !strAmount.isEmpty()) {
-            BigDecimal bigAmount = new BigDecimal(
-                    (Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0"
-                            : strAmount);
-            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
-                    bigAmount).longValue();
-            String am = new BigDecimal(amount).divide(new BigDecimal(100000000), 8,
-                    BRConstants.ROUNDING_MODE).toPlainString();
-            amountArg = "?amount=" + am;
+        if (iso.equalsIgnoreCase("dgb")) {
+            return QRUtils.generateQR(getActivity(), "digibyte:" + address + "?amount=" + strAmount, fragmentReceiveBinding.qrImage);
+        } else {
+            BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
+            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
+            String am = new BigDecimal(amount).divide(new BigDecimal(100000000)).toPlainString();
+            return QRUtils.generateQR(getActivity(), "digibyte:" + address + "?amount=" + am, fragmentReceiveBinding.qrImage);
         }
-        return QRUtils.generateQR(getActivity(), "digibyte:" + address + amountArg, fragmentReceiveBinding.qrImage);
     }
 
     @Override

@@ -228,8 +228,8 @@ public class SendFragmentModel extends BaseObservable {
         amountBuilder.append(append);
     }
 
-    public void setAmount(StringBuilder amount) {
-        amountBuilder = amount;
+    public void setAmount(String amount) {
+        amountBuilder = new StringBuilder(amount);
     }
 
     public void handleDeleteClick() {
