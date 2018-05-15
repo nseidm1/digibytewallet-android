@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.crashlytics.android.Crashlytics;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
+import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -64,6 +66,7 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         application = this;
         activeActivity = null;
         registerActivityLifecycleCallbacks(this);
