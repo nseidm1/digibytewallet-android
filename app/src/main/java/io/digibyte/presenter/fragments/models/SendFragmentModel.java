@@ -2,9 +2,7 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.View;
 
 import java.math.BigDecimal;
 
@@ -173,7 +171,7 @@ public class SendFragmentModel extends BaseObservable {
         if (getSatoshis() == 0 || TextUtils.isEmpty(getAddress())) {
             return 0;
         }
-        if (TextUtils.isEmpty(getAddress())) {
+        if (TextUtils.isEmpty(getAddress()) || !BRWalletManager.validateAddress(getAddress())) {
             return BRWalletManager.getInstance().feeForTransactionAmount(getSatoshis());
         } else {
             return BRWalletManager.getInstance().feeForTransaction(getAddress(), getSatoshis());
