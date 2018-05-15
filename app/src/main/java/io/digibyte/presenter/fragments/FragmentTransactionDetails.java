@@ -100,7 +100,9 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
                     animator.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            getActivity().getSupportFragmentManager().popBackStack();
+                            if (getActivity() != null) {
+                                getActivity().getSupportFragmentManager().popBackStack();
+                            }
                         }
                     });
                     animator.start();
