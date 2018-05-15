@@ -51,6 +51,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/bread_margin"
                     android:layout_marginStart="@dimen/bread_margin"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:background="@drawable/ic_close_black_24dp"
                     android:onClick="@{() -> callback.onCloseClickListener()}"
                     tools:layout_editor_absoluteX="0dp"
