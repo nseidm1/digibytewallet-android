@@ -177,6 +177,7 @@
         <activity
             android:name=".presenter.activities.InputWordsActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
         </activity>
         <activity
