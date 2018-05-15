@@ -9,8 +9,8 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/introTopLeft"
-        android:layout_width="125dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         app:srcCompat="@drawable/intro_top_left" />
