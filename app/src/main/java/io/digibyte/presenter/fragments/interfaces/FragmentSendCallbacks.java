@@ -18,10 +18,4 @@ public interface FragmentSendCallbacks extends View.OnKeyListener, BRKeyboard.On
     void onSendClickListener();
 
     void onCloseClickListener();
-
-    void onRegularClickListener();
-
-    void onEconomyClickListener();
-
-    void onEditClickListener();
 }

@@ -31,13 +31,8 @@ public class SendFragmentModel extends BaseObservable {
     }
 
     @Bindable
-    public int getBRButtonBackgroundRedId() {
-        return R.drawable.keyboard_white_button;
-    }
-
-    @Bindable
     public int getBRKeyboardColor() {
-        return R.color.white;
+        return R.color.keyboard_text_color;
     }
 
     @Bindable
@@ -60,7 +55,6 @@ public class SendFragmentModel extends BaseObservable {
     public void setAddress(String address) {
         this.enteredAddress = address;
         notifyPropertyChanged(BR.address);
-        updateFeeButtons();
     }
 
     @Bindable
@@ -69,7 +63,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.light_gray);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -79,7 +73,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.light_gray);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -89,7 +83,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.light_gray);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -99,7 +93,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.almost_black);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -117,70 +111,6 @@ public class SendFragmentModel extends BaseObservable {
     @Bindable
     public String getAmount() {
         return amountBuilder.toString();
-    }
-
-    @Bindable
-    public int getRegularFeeTextColor() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getColor(R.color.white);
-            case ECONOMY:
-                return DigiByte.getContext().getColor(R.color.dark_blue);
-        }
-    }
-
-    @Bindable
-    public Drawable getRegualarFeeBackground() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_left_blue);
-            case ECONOMY:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_left_blue_stroke);
-        }
-    }
-
-    @Bindable
-    public int getEconomyTextColor() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getColor(R.color.dark_blue);
-            case ECONOMY:
-                return DigiByte.getContext().getColor(R.color.white);
-        }
-    }
-
-    @Bindable
-    public Drawable getEconomyBackground() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_right_blue_stroke);
-            case ECONOMY:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_right_blue);
-        }
-    }
-
-    @Bindable
-    public String getFeeDescription() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return String.format(
-                        DigiByte.getContext().getString(R.string.FeeSelector_estimatedDeliver),
-                        DigiByte.getContext().getString(R.string.FeeSelector_regularTime));
-            case ECONOMY:
-                return String.format(
-                        DigiByte.getContext().getString(R.string.FeeSelector_estimatedDeliver),
-                        DigiByte.getContext().getString(R.string.FeeSelector_economyTime));
-        }
-    }
-
-    @Bindable
-    public int getWarningVisibility() {
-        return feeType == FeeType.ECONOMY ? View.VISIBLE : View.GONE;
     }
 
     @Bindable
@@ -291,30 +221,5 @@ public class SendFragmentModel extends BaseObservable {
         notifyPropertyChanged(BR.feeTextColor);
         notifyPropertyChanged(BR.amountEditTextColor);
         notifyPropertyChanged(BR.iSOTextColor);
-    }
-
-    public void updateFeeButtons() {
-        updateFeeButtons(feeType == FeeType.REGULAR);
-    }
-
-    public void updateFeeButtons(boolean isRegular) {
-        feeType = isRegular ? FeeType.REGULAR : FeeType.ECONOMY;
-        switch (feeType) {
-            case REGULAR:
-                BRWalletManager.getInstance().setFeePerKb(
-                        BRSharedPrefs.getFeePerKb(DigiByte.getContext()), false);
-                break;
-            case ECONOMY:
-                BRWalletManager.getInstance().setFeePerKb(
-                        BRSharedPrefs.getEconomyFeePerKb(DigiByte.getContext()), false);
-                break;
-        }
-        notifyPropertyChanged(BR.feeDescription);
-        notifyPropertyChanged(BR.economyBackground);
-        notifyPropertyChanged(BR.economyTextColor);
-        notifyPropertyChanged(BR.regualarFeeBackground);
-        notifyPropertyChanged(BR.regularFeeTextColor);
-        notifyPropertyChanged(BR.warningVisibility);
-        updateText();
     }
 }

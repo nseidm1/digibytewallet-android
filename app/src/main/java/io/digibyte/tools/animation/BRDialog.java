@@ -51,20 +51,16 @@ public class BRDialog {
             return;
         }
 
-        BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                dialog = new BRDialogView();
-                dialog.setTitle(title);
-                dialog.setMessage(message);
-                dialog.setPosButton(posButton);
-                dialog.setNegButton(negButton);
-                dialog.setPosListener(posListener);
-                dialog.setNegListener(negListener);
-                dialog.setDismissListener(dismissListener);
-                dialog.setIconRes(iconRes);
-                dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
-            }
+        BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
+            dialog = new BRDialogView();
+            dialog.setTitle(title);
+            dialog.setMessage(message);
+            dialog.setPosButton(posButton);
+            dialog.setNegButton(negButton);
+            dialog.setPosListener(posListener);
+            dialog.setNegListener(negListener);
+            dialog.setDismissListener(dismissListener);
+            dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
         });
 
     }
@@ -78,20 +74,16 @@ public class BRDialog {
             return;
         }
 
-        BRExecutor.getInstance().forMainThreadTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                dialog = new BRDialogView();
-                dialog.setTitle(title);
-                dialog.setSpan(message);//setting Span instead of String
-                dialog.setPosButton(posButton);
-                dialog.setNegButton(negButton);
-                dialog.setPosListener(posListener);
-                dialog.setNegListener(negListener);
-                dialog.setDismissListener(dismissListener);
-                dialog.setIconRes(iconRes);
-                dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
-            }
+        BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
+            dialog = new BRDialogView();
+            dialog.setTitle(title);
+            dialog.setSpan(message);//setting Span instead of String
+            dialog.setPosButton(posButton);
+            dialog.setNegButton(negButton);
+            dialog.setPosListener(posListener);
+            dialog.setNegListener(negListener);
+            dialog.setDismissListener(dismissListener);
+            dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
         });
     }
 
