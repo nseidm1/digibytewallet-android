@@ -29,14 +29,12 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
-import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
@@ -305,7 +303,7 @@ public class BRKeyStore {
             boolean aliasExists = new File(getFilePath(alias_file, context)).exists();
             //cannot happen, they all should be present
             if (!ivExists || !aliasExists) {
-                removeAliasAndFiles(keyStore, alias, context);
+                removeAliasAndFiles(alias, context);
                 //report it if one exists and not the other.
                 if (ivExists != aliasExists) {
                     BRKeystoreErrorException ex = new BRKeystoreErrorException(
@@ -745,7 +743,7 @@ public class BRKeyStore {
             int count = 0;
             while (keyStore.aliases().hasMoreElements()) {
                 String alias = keyStore.aliases().nextElement();
-                removeAliasAndFiles(keyStore, alias, context);
+                removeAliasAndFiles(alias, context);
                 destroyEncryptedData(context, alias);
                 count++;
             }
@@ -753,11 +751,14 @@ public class BRKeyStore {
         } catch (KeyStoreException e) {
             e.printStackTrace();
             return false;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return false;
         }
         return true;
     }
 
-    public synchronized static void removeAliasAndFiles(KeyStore keyStore, String alias, Context context) {
+    public synchronized static void removeAliasAndFiles(String alias, Context context) {
         try {
             keyStore.deleteEntry(alias);
             String dataFileString = getFilePath(aliasObjectMap.get(alias).datafileName, context);
@@ -853,142 +854,6 @@ public class BRKeyStore {
             e.printStackTrace();
         }
         return bytes;
-    }
-
-    //USE ONLY FOR TESTING
-    public synchronized static boolean _setOldData(Context context, byte[] data, String alias,
-                                                   String alias_file, String alias_iv,
-                                                   int request_code, boolean auth_required) throws UserNotAuthenticatedException {
-        try {
-            validateSet(data, alias, alias_file, alias_iv, auth_required);
-        } catch (Exception e) {
-            Log.e(TAG, "_setData: ", e);
-        }
-
-        try {
-            String encryptedDataFilePath = getFilePath(alias_file, context);
-
-            SecretKey secret = (SecretKey) keyStore.getKey(alias, null);
-            if (secret == null) {
-                Log.e(TAG, "_setOldData: " + "secret is null on _setData: " + alias);
-                return false;
-            }
-            Cipher inCipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            inCipher.init(Cipher.ENCRYPT_MODE, secret);
-            byte[] iv = inCipher.getIV();
-            String path = getFilePath(alias_iv, context);
-            boolean success = writeBytesToFile(path, iv);
-            if (!success) {
-                Log.e(TAG, "_setOldData: " + "failed to writeBytesToFile: " + alias);
-                BRDialog.showCustomDialog(context,
-                        context.getString(R.string.Alert_keystore_title_android),
-                        "Failed to save the iv file for: " + alias, "close", null,
-                        brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
-                keyStore.deleteEntry(alias);
-                return false;
-            }
-            CipherOutputStream cipherOutputStream = null;
-            try {
-                cipherOutputStream = new CipherOutputStream(
-                        new FileOutputStream(encryptedDataFilePath), inCipher);
-                cipherOutputStream.write(data);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            } finally {
-                if (cipherOutputStream != null) cipherOutputStream.close();
-            }
-            return true;
-        } catch (UserNotAuthenticatedException e) {
-            Log.e(TAG, "_setOldData: showAuthenticationScreen: " + alias);
-            showAuthenticationScreen(context, request_code, alias);
-            throw e;
-        } catch (Exception e) {
-            Log.e(TAG, "_setOldData: ", e);
-            return false;
-        }
-    }
-
-    //USE ONLY FOR TESTING
-    public synchronized static byte[] _getOldData(final Context context, String alias,
-                                                  String alias_file, String alias_iv, int request_code)
-            throws UserNotAuthenticatedException {
-//        Log.e(TAG, "_getData: " + alias);
-
-        try {
-            validateGet(alias, alias_file, alias_iv);
-        } catch (Exception e) {
-            Log.e(TAG, "_getOldData: ", e);
-        }
-
-        KeyStore keyStore = null;
-
-        String encryptedDataFilePath = getFilePath(alias_file, context);
-//        byte[] result = new byte[0];
-        try {
-            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            SecretKey secretKey = (SecretKey) keyStore.getKey(alias, null);
-            if (secretKey == null) {
-                /* no such key, the key is just simply not there */
-                boolean fileExists = new File(encryptedDataFilePath).exists();
-//                Log.e(TAG, "_getData: " + alias + " file exist: " + fileExists);
-                if (!fileExists) {
-                    return null;/* file also not there, fine then */
-                }
-                Log.e(TAG, "_getOldData: " + "file is present but the key is gone: " + alias);
-                return null;
-            }
-
-            boolean ivExists = new File(getFilePath(alias_iv, context)).exists();
-            boolean aliasExists = new File(getFilePath(alias_file, context)).exists();
-            if (!ivExists || !aliasExists) {
-                removeAliasAndFiles(keyStore, alias, context);
-                //report it if one exists and not the other.
-                if (ivExists != aliasExists) {
-                    Log.e(TAG, "_getOldData: " + "alias or iv isn't on the disk: " + alias
-                            + ", aliasExists:" + aliasExists);
-                    return null;
-                } else {
-                    Log.e(TAG, "_getOldData: " + "!ivExists && !aliasExists: " + alias);
-                    return null;
-                }
-            }
-
-            byte[] iv = readBytesFromFile(getFilePath(alias_iv, context));
-            if (Utils.isNullOrEmpty(iv)) {
-                throw new NullPointerException("iv is missing for " + alias);
-            }
-            Cipher outCipher;
-            outCipher = Cipher.getInstance(CIPHER_ALGORITHM);
-            outCipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
-            CipherInputStream cipherInputStream = new CipherInputStream(
-                    new FileInputStream(encryptedDataFilePath), outCipher);
-            return BytesUtil.readBytesFromStream(cipherInputStream);
-        } catch (InvalidKeyException e) {
-            if (e instanceof UserNotAuthenticatedException) {
-                /** user not authenticated, ask the system for authentication */
-                Log.e(TAG, "_getOldData: showAuthenticationScreen: " + alias);
-                showAuthenticationScreen(context, request_code, alias);
-                throw (UserNotAuthenticatedException) e;
-            } else {
-                Log.e(TAG, "_getOldData: InvalidKeyException", e);
-                return null;
-            }
-        } catch (IOException | CertificateException | KeyStoreException e) {
-            /** keyStore.load(null) threw the Exception, meaning the keystore is unavailable */
-            Log.e(TAG,
-                    "_getOldData: keyStore.load(null) threw the Exception, meaning the keystore "
-                            + "is unavailable",
-                    e);
-            return null;
-
-        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException |
-                InvalidAlgorithmParameterException e) {
-            /** if for any other reason the keystore fails, crash! */
-            Log.e(TAG, "getData: error: " + e.getClass().getSuperclass().getName());
-            return null;
-        }
     }
 
     private static void showLoopBugMessage(final Context app) {
