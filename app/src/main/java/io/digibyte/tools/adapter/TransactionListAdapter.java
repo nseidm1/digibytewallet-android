@@ -68,7 +68,14 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
                     ? listItemTransactionData.transactionItem.metaData.comment : "";
             //Check to see if the transaction time changed
             String currentTime = listItemTransactionData.getTransactionDisplayTimeHolder();
-            listItemTransactionData.update(findTransaction(listItemTransactionData, transactions));
+
+            ListItemTransactionData updatedTransaction = findTransaction(listItemTransactionData, transactions);
+
+            if (updatedTransaction == null) {
+                continue;
+            }
+
+            listItemTransactionData.update(updatedTransaction);
             String newComment = listItemTransactionData.transactionItem.metaData != null
                     ? listItemTransactionData.transactionItem.metaData.comment : "";
             String newTime = listItemTransactionData.getTransactionDisplayTimeHolder();
