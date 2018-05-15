@@ -21,7 +21,6 @@ public class WriteDownActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_down);
-
         writeButton = findViewById(R.id.button_write_down);
         close = findViewById(R.id.close_button);
         close.setOnClickListener(v -> close());
@@ -57,10 +56,5 @@ public class WriteDownActivity extends BRActivity {
         BRAnimator.startBreadActivity(this, false);
         overridePendingTransition(R.anim.fade_up, R.anim.exit_to_bottom);
         if (!isDestroyed()) finish();
-        //additional code
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }
