@@ -190,7 +190,17 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         fragmentReceiveBinding.addressText.setSelected(true);
         fragmentReceiveBinding.mainContainer.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         fragmentReceiveBinding.amountLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        BRWalletManager.getInstance().addBalanceChangedListener(balance -> updateQr());
+        BRWalletManager.getInstance().addBalanceChangedListener(new BRWalletManager.OnBalanceChanged() {
+            @Override
+            public void onBalanceChanged(long balance) {
+                updateQr();
+            }
+
+            @Override
+            public void showSendConfirmDialog(String message, int error, byte[] txHash) {
+
+            }
+        });
         return fragmentReceiveBinding.getRoot();
     }
 

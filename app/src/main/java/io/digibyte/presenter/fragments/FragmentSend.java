@@ -208,7 +208,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
             }
 
             if (allFilled) {
-                BRSender.getInstance().sendTransaction(getContext(),
+                BRSender.getInstance().sendTransaction((AppCompatActivity) getActivity(),
                         new PaymentItem(new String[]{address}, null, satoshiAmount.longValue(),
                                 null, false, comment),
                         () -> sendFragmentModel.showSendWaiting(false));

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -122,7 +121,7 @@ public class UpdatePinActivity extends BRActivity {
             case RE_ENTER_NEW_PIN:
                 if (curNewPin.equalsIgnoreCase(pin.toString())) {
                     AuthManager.getInstance().setPinCode(pin.toString(), this);
-                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.ic_check_mark_white, () -> BRAnimator.startBreadActivity(UpdatePinActivity.this, false));
+                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.signal_icon_graphic, () -> BRAnimator.startBreadActivity(UpdatePinActivity.this, false));
                 } else {
                     SpringAnimator.failShakeAnimation(this, pinLayout);
                     setMode(ENTER_NEW_PIN);

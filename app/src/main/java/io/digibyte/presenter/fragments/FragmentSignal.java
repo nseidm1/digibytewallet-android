@@ -1,20 +1,22 @@
 package io.digibyte.presenter.fragments;
 
-import android.app.Fragment;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import io.digibyte.R;
-import io.digibyte.presenter.interfaces.BROnSignalCompletion;
 
 import junit.framework.Assert;
+
+import io.digibyte.databinding.FragmentNotificationBinding;
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
+import io.digibyte.presenter.fragments.models.FragmentSignalViewModel;
+import io.digibyte.presenter.interfaces.BROnSignalCompletion;
+import io.digibyte.tools.animation.BRAnimator;
 
 
 /**
@@ -42,37 +44,20 @@ import junit.framework.Assert;
  * THE SOFTWARE.
  */
 
-public class FragmentSignal extends Fragment {
+public class FragmentSignal extends Fragment implements OnBackPressListener {
     private static final String TAG = FragmentSignal.class.getName();
 
     public static final String TITLE = "title";
     public static final String ICON_DESCRIPTION = "iconDescription";
     public static final String RES_ID = "resId";
-    public TextView mTitle;
-    public TextView mDescription;
-    public ImageView mIcon;
     private BROnSignalCompletion completion;
-    private LinearLayout signalLayout;
+    private FragmentNotificationBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
-        // The last two arguments ensure LayoutParams are inflated
-        // properly.
-
-        View rootView = inflater.inflate(R.layout.fragment_signal, container, false);
-        mTitle = (TextView) rootView.findViewById(R.id.title);
-        mDescription = (TextView) rootView.findViewById(R.id.description);
-        mIcon = (ImageView) rootView.findViewById(R.id.qr_image);
-        signalLayout = (LinearLayout) rootView.findViewById(R.id.signal_layout);
-        signalLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //do nothing, in order to prevent click through
-            }
-        });
-
+        binding = FragmentNotificationBinding.inflate(inflater);
+        FragmentSignalViewModel viewModel = new FragmentSignalViewModel();
         Bundle bundle = this.getArguments();
-
         if (bundle != null) {
             String title = bundle.getString(TITLE, "");
             String description = bundle.getString(ICON_DESCRIPTION, "");
@@ -80,15 +65,23 @@ public class FragmentSignal extends Fragment {
             Assert.assertNotSame(title, "");
             Assert.assertNotSame(description, "");
             Assert.assertNotSame(resId, 0);
-
-            mTitle.setText(title);
-            mDescription.setText(description);
-            mIcon.setImageResource(resId);
+            viewModel.setTitle(title);
+            viewModel.setDescription(description);
+            viewModel.setIcon(resId);
         } else {
             Log.e(TAG, "onCreateView: bundle is null!");
         }
+        binding.setData(viewModel);
+        return binding.getRoot();
+    }
 
-        return rootView;
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, false, null);
+        colorFade.setStartDelay(350);
+        colorFade.setDuration(500);
+        colorFade.start();
     }
 
     public void setCompletion(BROnSignalCompletion completion) {
@@ -98,33 +91,52 @@ public class FragmentSignal extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        new Handler().postDelayed(() -> {
+            try {
+                if (getActivity() != null)
+                    getActivity().getFragmentManager().popBackStack();
+            } catch (Exception ignored) {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (getActivity() != null)
-                        getActivity().getFragmentManager().popBackStack();
-                } catch (Exception ignored){
+            }
+            new Handler().postDelayed(() -> {
+                fadeOutRemove();
+            }, 300);
+        }, 1500);
+    }
 
-                }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+    private void fadeOutRemove() {
+        ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
+                () -> {
+                    new Handler().postDelayed(() -> {
                         if (completion != null) {
                             completion.onComplete();
                             completion = null;
                         }
-                    }
-                }, 300);
+                    }, 300);
+                    remove();
+                });
+        colorFade.start();
+    }
 
-            }
-        }, 1500);
+    private void remove() {
+        if (getFragmentManager() == null) {
+            return;
+        }
+        try {
+            getFragmentManager().popBackStack();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        fadeOutRemove();
     }
 
 }
