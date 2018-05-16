@@ -11,12 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textDirection="locale"
-        android:background="@color/extra_light_blue_background"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:context="io.digibyte.presenter.activities.SetPinActivity">
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,9 +23,8 @@
             android:layout_marginStart="@dimen/bread_margin"
             android:layout_marginTop="32dp"
             android:text="@string/About.title"
-            android:textColor="@color/almost_black"
-            android:textSize="@dimen/header"
-            app:customTFont="CircularPro-Bold.otf"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/header"/>
 
         <View
             android:id="@+id/view3"
@@ -37,15 +35,14 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/logo_circle"/>
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="DigiByte"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="26sp"
-            app:customTFont="Celevenia.otf"
             app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/view3"/>
@@ -54,15 +51,14 @@
                       android:layout_height="wrap_content" android:layout_marginTop="26dp"
                       android:gravity="center_vertical" android:orientation="horizontal"
                       android:paddingEnd="24dp" android:paddingStart="24dp">
-            <io.digibyte.presenter.customviews.BRText
+            <TextView
                 android:id="@+id/textView24"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
+                android:textColor="@color/white"
                 android:text="@string/About.blog"
-                android:textSize="18sp"
-                app:customTFont="CircularPro-Book.otf"/>
+                android:textSize="18sp"/>
 
             <ImageView
                 android:id="@+id/blog_share_button"
@@ -90,14 +86,14 @@
                       android:gravity="center_vertical" android:orientation="horizontal"
                       android:paddingEnd="24dp" android:paddingStart="24dp">
 
-            <io.digibyte.presenter.customviews.BRText
+            <TextView
                 android:id="@+id/textView22"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/About.twitter"
                 android:textSize="18sp"
-                app:customTFont="CircularPro-Book.otf"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/divider1"/>
 
@@ -126,14 +122,14 @@
                       android:layout_height="wrap_content"
                       android:gravity="center_vertical" android:orientation="horizontal"
                       android:paddingEnd="24dp" android:paddingStart="24dp">
-            <io.digibyte.presenter.customviews.BRText
+            <TextView
                 android:id="@+id/textView21"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/About.reddit"
                 android:textSize="18sp"
-                app:customTFont="CircularPro-Book.otf"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/divider1"
                 app:layout_constraintStart_toStartOf="@+id/divider1"/>
 
@@ -157,7 +153,7 @@
             android:layout_marginTop="26dp"
             android:background="@color/extra_light_gray"/>
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/policy_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -166,22 +162,20 @@
             android:layout_marginStart="8dp"
             android:alpha="0.8"
             android:text="@string/About.privacy"
-            android:textColor="@color/dark_blue"
             android:textSize="16sp"
-            app:customTFont="CircularPro-Book.otf"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/info_text"
             app:layout_constraintHorizontal_bias="0.525"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:text="@string/About.footer"
-            app:customTFont="CircularPro-Book.otf"/>
+            android:text="@string/About.footer"/>
 
     </LinearLayout>
 </ScrollView>
