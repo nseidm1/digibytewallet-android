@@ -1,19 +1,15 @@
 package io.digibyte.presenter.activities.settings;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -27,10 +23,6 @@ import io.digibyte.presenter.entities.BRSettingsItem;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
-
-import static io.digibyte.R.layout.settings_list_item;
-import static io.digibyte.R.layout.settings_list_section;
-import static io.digibyte.R.layout.settings_switch;
 
 public class SettingsActivity extends BRActivity {
     public List<BRSettingsItem> items = new LinkedList();
@@ -56,68 +48,97 @@ public class SettingsActivity extends BRActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySettingsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
+        ActivitySettingsBinding binding = DataBindingUtil.setContentView(this,
+                R.layout.activity_settings);
         binding.setCallback(callback);
+        binding.settingsList.setLayoutManager(new LinearLayoutManager(this));
         populateItems();
-        adapter = new SettingsListAdapter(this, R.layout.settings_list_item, items);
+        adapter = new SettingsListAdapter(items);
         binding.setAdapter(adapter);
     }
 
-    public class SettingsListAdapter extends ArrayAdapter<String> {
+    public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
 
         private List<BRSettingsItem> items;
-        private Context mContext;
+        LayoutInflater inflater = LayoutInflater.from(SettingsActivity.this);
 
-        public SettingsListAdapter(@NonNull Context context, @LayoutRes int resource,
-                                   @NonNull List<BRSettingsItem> items) {
-            super(context, resource);
+        public SettingsListAdapter(@NonNull List<BRSettingsItem> items) {
             this.items = items;
-            this.mContext = context;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            private View view;
+            private TextView addon;
+            private TextView title;
+            private SwitchCompat settingSwitch;
+
+            public ViewHolder(View view ) {
+                super(view);
+                this.view = view;
+                addon = view.findViewById(R.id.item_addon);
+                title = view.findViewById(R.id.item_title);
+                settingSwitch = view.findViewById(R.id.settings_switch);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return items == null ? 0 : items.size();
         }
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            BRSettingsItem item = items.get(position);
-            LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-            switch(item.type) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            switch (viewType) {
                 default:
-                case ITEM: {
-                    View v = inflater.inflate(settings_list_item, parent, false);
-                    TextView addon = v.findViewById(R.id.item_addon);
-                    addon.setText(item.addonText);
-                    v.setOnClickListener(item.listener);
-                    ((TextView) v.findViewById(R.id.item_title)).setText(item.title);
-                    return v;
-                }
-                case SECTION: {
-                    View v = inflater.inflate(settings_list_section, parent, false);
-                    ((TextView) v.findViewById(R.id.item_title)).setText(item.title);
-                    return v;
-                }
-                case SWITCH:
-                    View v = inflater.inflate(settings_switch, parent, false);
-                    ((TextView) v.findViewById(R.id.item_title)).setText(item.title);
-                    ((SwitchCompat) v.findViewById(R.id.settings_switch)).setChecked(BRSharedPrefs.getGenericSettingsSwitch(SettingsActivity.this, item.switchKey));
-                    ((SwitchCompat) v.findViewById(R.id.settings_switch)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            BRSharedPrefs.setGenericSettingsSwitch(SettingsActivity.this, item.switchKey, isChecked);
-                        }
-                    });
-                    return v;
+                case 0:
+                    return new ViewHolder(inflater.inflate(R.layout.settings_list_item, parent, false));
+                case 1:
+                    return new ViewHolder(inflater.inflate(R.layout.settings_list_section, parent, false));
+                case 2:
+                    return new ViewHolder(inflater.inflate(R.layout.settings_switch, parent, false));
             }
-
-        }
-
-        @Override
-        public int getCount() {
-            return items == null ? 0 : items.size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            return super.getItemViewType(position);
+            BRSettingsItem item = items.get(position);
+            switch (item.type) {
+                default:
+                case ITEM:
+                    return 0;
+                case SECTION:
+                    return 1;
+                case SWITCH:
+                    return 2;
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            BRSettingsItem item = items.get(position);
+            switch (item.type) {
+                default:
+                case ITEM: {
+                    holder.addon.setText(item.addonText);
+                    holder.view.setOnClickListener(item.listener);
+                    holder.title.setText(item.title);
+                    break;
+                }
+                case SECTION: {
+                    holder.title.setText(item.title);
+                    break;
+                }
+                case SWITCH:
+                    holder.title.setText(item.title);
+                    holder.settingSwitch.setChecked(
+                            BRSharedPrefs.getGenericSettingsSwitch(SettingsActivity.this,
+                                    item.switchKey));
+                    holder.settingSwitch.setOnCheckedChangeListener(
+                            (buttonView, isChecked) -> BRSharedPrefs.setGenericSettingsSwitch(SettingsActivity.this,
+                                    item.switchKey, isChecked));
+                    break;
+            }
         }
     }
 
@@ -129,7 +150,8 @@ public class SettingsActivity extends BRActivity {
 
     private void populateItems() {
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_wallet), "", null, BRSettingsItem.Type.SECTION));
+        items.add(new BRSettingsItem(getString(R.string.Settings_wallet), "", null,
+                BRSettingsItem.Type.SECTION));
 
         //No support currently in BRActivity for the concept of import wallet from QR
         /*items.add(new BRSettingsItem(getString(R.string.Settings_importTitle), "", v -> {
@@ -145,7 +167,8 @@ public class SettingsActivity extends BRActivity {
             overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         }, BRSettingsItem.Type.ITEM));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null, BRSettingsItem.Type.SECTION));
+        items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null,
+                BRSettingsItem.Type.SECTION));
 
         if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
             items.add(new BRSettingsItem(getString(R.string.Settings_touchIdLimit_android), "",
@@ -168,7 +191,8 @@ public class SettingsActivity extends BRActivity {
                             }), BRSettingsItem.Type.ITEM));
         }
 
-        items.add(new BRSettingsItem(getString(R.string.max_send_enabled),"max_send_enabled", BRSettingsItem.Type.SWITCH));
+        items.add(new BRSettingsItem(getString(R.string.max_send_enabled), "max_send_enabled",
+                BRSettingsItem.Type.SWITCH));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_currency),
                 BRSharedPrefs.getIso(this), v -> {

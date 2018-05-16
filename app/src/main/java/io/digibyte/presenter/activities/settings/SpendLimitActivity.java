@@ -49,13 +49,11 @@ public class SpendLimitActivity extends BRActivity {
 
         private TextView limit;
         private ImageView check;
-        private View divider;
 
         public LimitHolder(View itemView) {
             super(itemView);
             limit = itemView.findViewById(R.id.currency_item_text);
             check = itemView.findViewById(R.id.currency_checkmark);
-            divider = itemView.findViewById(R.id.divider);
         }
     }
 
@@ -134,8 +132,6 @@ public class SpendLimitActivity extends BRActivity {
             holder.check.setVisibility(
                     items.get(position) == BRKeyStore.getSpendLimit(SpendLimitActivity.this)
                             ? View.VISIBLE : View.GONE);
-            holder.divider.setVisibility(position <= 2 ? View.VISIBLE : View.GONE);
-
         }
 
         @Override

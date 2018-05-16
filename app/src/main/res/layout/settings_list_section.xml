@@ -6,8 +6,7 @@
                 android:filterTouchesWhenObscured="true"
                 android:orientation="horizontal">
 
-    <io.digibyte.presenter.customviews.BRText
-        app:customTFont="CircularPro-Bold.otf"
+    <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
