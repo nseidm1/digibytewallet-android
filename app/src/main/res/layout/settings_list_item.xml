@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:filterTouchesWhenObscured="true"
-                android:orientation="horizontal"
-    >
+                android:orientation="horizontal">
 
-    <io.digibyte.presenter.customviews.BRText
+    <TextView
         android:id="@+id/item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,11 +15,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:textSize="@dimen/sub_header"
-        android:textColor="@color/almost_black"
-        />
+        android:textColor="@color/white"/>
 
-    <io.digibyte.presenter.customviews.BRText
-        app:customTFont="CircularPro-Medium.otf"
+    <TextView
         android:id="@+id/item_addon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +25,6 @@
         android:textSize="@dimen/sub_header"
         android:layout_centerVertical="true"
         android:layout_marginEnd="24dp"
-        android:textColor="@color/light_gray"
-       />
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import static io.digibyte.R.layout.settings_list_section;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -17,10 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivitySettingsBinding;
+import io.digibyte.presenter.activities.SettingsCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.BRSettingsItem;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
@@ -28,15 +31,33 @@ import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 
 public class SettingsActivity extends BRActivity {
-    private static final String TAG = SettingsActivity.class.getName();
-    private ListView listView;
-    public List<BRSettingsItem> items;
+    public List<BRSettingsItem> items = new LinkedList();
+    private SettingsListAdapter adapter;
+
+    private SettingsCallback callback = new SettingsCallback() {
+        private int count = 0;
+        @Override
+        public void onTitleClick() {
+            count++;
+            if (count == 5) {
+                items.add(new BRSettingsItem(getString(R.string.Settings_advancedTitle), "", v -> {
+                    Intent intent = new Intent(SettingsActivity.this, AdvancedActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                }, false));
+                adapter.notifyDataSetChanged();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-        listView = findViewById(R.id.settings_list);
+        ActivitySettingsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
+        binding.setCallback(callback);
+        populateItems();
+        adapter = new SettingsListAdapter(this, R.layout.settings_list_item, items);
+        binding.setAdapter(adapter);
     }
 
     public class SettingsListAdapter extends ArrayAdapter<String> {
@@ -83,17 +104,6 @@ public class SettingsActivity extends BRActivity {
         public int getItemViewType(int position) {
             return super.getItemViewType(position);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (items == null) {
-            items = new ArrayList<>();
-        }
-        items.clear();
-        populateItems();
-        listView.setAdapter(new SettingsListAdapter(this, R.layout.settings_list_item, items));
     }
 
     @Override
@@ -156,23 +166,10 @@ public class SettingsActivity extends BRActivity {
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
 
-        items.add(new BRSettingsItem("", "", null, true));
         items.add(new BRSettingsItem(getString(R.string.Settings_about), "", v -> {
             Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         }, false));
-        items.add(new BRSettingsItem(getString(R.string.Settings_advancedTitle), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this, AdvancedActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        }, false));
-
-        items.add(new BRSettingsItem("", "", null, true)); //just for a blank space
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }

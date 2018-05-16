@@ -3,10 +3,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:background="@android:color/transparent"
                 android:filterTouchesWhenObscured="true"
-                android:orientation="horizontal"
-    >
+                android:orientation="horizontal">
 
     <io.digibyte.presenter.customviews.BRText
         app:customTFont="CircularPro-Bold.otf"
@@ -17,7 +15,6 @@
         android:textSize="@dimen/sub_header"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
-        android:textColor="@color/light_gray"
-        />
+        android:textColor="@color/dark_gray"/>
 
 </RelativeLayout>
