@@ -150,14 +150,17 @@ public class SendFragmentModel extends BaseObservable {
 
     public void appendAmount(Integer append) {
         amountBuilder.append(append);
+        notifyPropertyChanged(BR.amountEditTextColor);
     }
 
     public void appendAmount(String append) {
         amountBuilder.append(append);
+        notifyPropertyChanged(BR.amountEditTextColor);
     }
 
     public void setAmount(String amount) {
         amountBuilder = new StringBuilder(amount);
+        notifyPropertyChanged(BR.amountEditTextColor);
     }
 
     public void handleDeleteClick() {

@@ -1,6 +1,5 @@
 package io.digibyte.presenter.fragments;
 
-import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.net.Uri;
 import android.os.Bundle;
@@ -188,8 +187,6 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         fragmentReceiveBinding.setCallback(callbacks);
         fragmentReceiveBinding.setData(receiveFragmentModel);
         fragmentReceiveBinding.addressText.setSelected(true);
-        fragmentReceiveBinding.mainContainer.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        fragmentReceiveBinding.amountLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         BRWalletManager.getInstance().addBalanceChangedListener(new BRWalletManager.OnBalanceChanged() {
             @Override
             public void onBalanceChanged(long balance) {
@@ -240,7 +237,6 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (allowRequestAmountButtonShow()) {
-            receiveFragmentModel.setSeparatorVisibility(getIsReceive());
             receiveFragmentModel.setRequestButtonVisibility(getIsReceive());
         }
         if (!getIsReceive()) {
@@ -276,7 +272,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         showCopiedLayout(true);
     }
 
-    private void fadeOutRemove(boolean showRequestAmountPopup) {
+    protected void fadeOutRemove(boolean showRequestAmountPopup) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(fragmentReceiveBinding.backgroundLayout, true,
                 () -> {
                     remove();

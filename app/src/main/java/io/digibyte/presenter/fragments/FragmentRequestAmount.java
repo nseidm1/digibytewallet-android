@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import io.digibyte.R;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.qrcode.QRUtils;
-import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
@@ -224,5 +223,14 @@ public class FragmentRequestAmount extends FragmentReceive {
     @Override
     protected boolean allowRequestAmountButtonShow() {
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (receiveFragmentModel.isShowKeyboard()) {
+            showKeyboard(false);
+        } else {
+            fadeOutRemove(false);
+        }
     }
 }
