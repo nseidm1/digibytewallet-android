@@ -42,8 +42,7 @@
         android:launchMode="singleTask"
         android:process=":DigiProcess"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateVisible|adjustResize">
+        android:theme="@style/AppTheme">
 
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
@@ -177,7 +176,7 @@
         <activity
             android:name=".presenter.activities.InputWordsActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
         </activity>
         <activity

@@ -18,7 +18,6 @@ public class RecoverActivity extends BRActivity {
         setContentView(R.layout.activity_intro_recover);
         nextButton = findViewById(R.id.send_button);
         nextButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
             Intent intent = new Intent(RecoverActivity.this, InputWordsActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);

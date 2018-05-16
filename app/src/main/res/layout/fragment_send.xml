@@ -102,8 +102,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onPasteClickListener()}"
                     android:text="@string/Send.pasteLabel"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textColor="@color/white"/>
 
                 <Button
                     android:id="@+id/scan"
@@ -115,8 +114,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onScanClickListener()}"
                     android:text="@string/Send.scanLabel"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -152,7 +150,6 @@
                             android:inputType="numberDecimal"
                             android:onClick="@{() -> callback.onAmountClickListener()}"
                             android:text="@{data.amount}"
-
                             android:textColor="@{data.amountEditTextColor}"
                             android:textColorHint="@color/white" />
 
@@ -179,8 +176,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> callback.onIsoButtonClickListener()}"
                         android:text="@{data.isoButtonText}"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
 
@@ -257,8 +253,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> callback.onSendClickListener()}"
                         android:text="@string/Send.sendLabel"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textColor="@color/white" />
 
                     <ProgressBar
                         android:id="@+id/sending_progress"

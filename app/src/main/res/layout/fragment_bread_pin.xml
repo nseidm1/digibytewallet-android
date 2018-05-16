@@ -22,6 +22,8 @@
             android:layout_width="match_parent"
             app:addOnInsertListener="@{callback}"
             app:setShowDot="@{false}"
+            android:clickable="true"
+            android:focusable="true"
             android:background="@color/extra_light_blue_background"
             android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"

@@ -1,18 +1,14 @@
 package io.digibyte.presenter.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
-import android.util.TypedValue;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -35,7 +31,6 @@ public class PaperKeyActivity extends BRActivity {
     private ViewPager wordViewPager;
     private Button nextButton;
     private Button previousButton;
-    private LinearLayout buttonsLayout;
     private TextView itemIndexText;
     private SparseArray<String> wordMap;
     private ImageButton close;
@@ -46,7 +41,7 @@ public class PaperKeyActivity extends BRActivity {
         setContentView(R.layout.activity_paper_key);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
-        wordViewPager = (ViewPager) findViewById(R.id.phrase_words_pager);
+        wordViewPager = findViewById(R.id.phrase_words_pager);
         wordViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {
 
@@ -57,42 +52,28 @@ public class PaperKeyActivity extends BRActivity {
             }
 
             public void onPageSelected(int position) {
-                if (position == 0)
+                if (position == 0) {
                     setButtonEnabled(false);
-                else
+                } else {
                     setButtonEnabled(true);
+                }
                 updateItemIndexText();
             }
         });
 
-        nextButton = (Button) findViewById(R.id.send_button);
-        previousButton = (Button) findViewById(R.id.button_previous);
-        close = (ImageButton) findViewById(R.id.close_button);
-        itemIndexText = (TextView) findViewById(R.id.item_index_text);
-        buttonsLayout = (LinearLayout) findViewById(R.id.buttons_layout);
+        nextButton = findViewById(R.id.send_button);
+        previousButton = findViewById(R.id.button_previous);
+        close = findViewById(R.id.close_button);
+        itemIndexText = findViewById(R.id.item_index_text);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateWordView(true);
-            }
-        });
+        nextButton.setOnClickListener(v -> updateWordView(true));
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.startBreadActivity(PaperKeyActivity.this, false);
-                if (!isDestroyed()) finish();
-            }
+        close.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            BRAnimator.startBreadActivity(PaperKeyActivity.this, false);
+            if (!isDestroyed()) finish();
         });
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateWordView(false);
-
-            }
-        });
+        previousButton.setOnClickListener(v -> updateWordView(false));
         String cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
         wordMap = new SparseArray<>();
 
@@ -115,7 +96,7 @@ public class PaperKeyActivity extends BRActivity {
             if (wordArray.size() != 12) {
                 BRReportsManager.reportBug(new IllegalArgumentException("Wrong number of paper keys: " + wordArray.size() + ", lang: " + Locale.getDefault().getLanguage()), true);
             }
-            WordPagerAdapter adapter = new WordPagerAdapter(getFragmentManager());
+            WordPagerAdapter adapter = new WordPagerAdapter(getSupportFragmentManager());
             adapter.setWords(wordArray);
             wordViewPager.setAdapter(adapter);
             for (int i = 0; i < wordArray.size(); i++) {
@@ -123,7 +104,6 @@ public class PaperKeyActivity extends BRActivity {
             }
             updateItemIndexText();
         }
-
     }
 
     private void updateWordView(boolean isNext) {
@@ -146,11 +126,7 @@ public class PaperKeyActivity extends BRActivity {
     }
 
     private void setButtonEnabled(boolean b) {
-        previousButton.setTextColor(getColor(b ? R.color.light_gray : R.color.extra_light_gray));
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, b ? 8 : 0, r.getDisplayMetrics());
-        previousButton.setElevation(px);
-        previousButton.setEnabled(b);
+        previousButton.setTextColor(getColor(b ? R.color.white : R.color.light_gray));
     }
 
     private void updateItemIndexText() {
@@ -159,14 +135,13 @@ public class PaperKeyActivity extends BRActivity {
         itemIndexText.setText(wordNumber + " / " + totalWords);
     }
 
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
-    private class WordPagerAdapter extends FragmentPagerAdapter {
+    private class WordPagerAdapter extends FragmentStatePagerAdapter {
 
         private List<String> words;
 
@@ -187,10 +162,5 @@ public class PaperKeyActivity extends BRActivity {
         public int getCount() {
             return words == null ? 0 : words.size();
         }
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 }

@@ -1,8 +1,5 @@
 package io.digibyte.presenter.activities.settings;
 
-import static io.digibyte.R.layout.settings_list_item;
-import static io.digibyte.R.layout.settings_list_section;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -30,12 +26,16 @@ import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 
+import static io.digibyte.R.layout.settings_list_item;
+import static io.digibyte.R.layout.settings_list_section;
+
 public class SettingsActivity extends BRActivity {
     public List<BRSettingsItem> items = new LinkedList();
     private SettingsListAdapter adapter;
 
     private SettingsCallback callback = new SettingsCallback() {
         private int count = 0;
+
         @Override
         public void onTitleClick() {
             count++;
@@ -66,7 +66,7 @@ public class SettingsActivity extends BRActivity {
         private Context mContext;
 
         public SettingsListAdapter(@NonNull Context context, @LayoutRes int resource,
-                @NonNull List<BRSettingsItem> items) {
+                                   @NonNull List<BRSettingsItem> items) {
             super(context, resource);
             this.items = items;
             this.mContext = context;
@@ -116,12 +116,13 @@ public class SettingsActivity extends BRActivity {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_wallet), "", null, true));
 
-        items.add(new BRSettingsItem(getString(R.string.Settings_importTitle), "", v -> {
+        //No support currently in BRActivity for the concept of import wallet from QR
+        /*items.add(new BRSettingsItem(getString(R.string.Settings_importTitle), "", v -> {
             Intent intent = new Intent(SettingsActivity.this, ImportActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
 
-        }, false));
+        }, false));*/
 
         items.add(new BRSettingsItem(getString(R.string.Settings_wipe), "", v -> {
             Intent intent = new Intent(SettingsActivity.this, WipeActivity.class);

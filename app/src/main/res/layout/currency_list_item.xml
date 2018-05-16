@@ -7,37 +7,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:filterTouchesWhenObscured="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/currency_item_text"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:minHeight="?android:attr/listPreferredItemHeightLarge"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:paddingStart="16dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/almost_black"
-            android:textSize="@dimen/sub_header"
-            app:customTFont="CircularPro-Bold.otf"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/header"/>
 
         <ImageView
             android:id="@+id/currency_checkmark"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/ic_check_mark_blue"
             android:visibility="gone"/>
     </LinearLayout>
 
     <View android:id="@+id/divider" android:layout_width="match_parent" android:layout_height="1dp"
-          android:background="@color/light_gray"/>
+          android:background="@drawable/dashed_edittext_underline"/>
 
 </LinearLayout>
