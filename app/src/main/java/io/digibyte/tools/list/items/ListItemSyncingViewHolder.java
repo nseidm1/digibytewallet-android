@@ -2,6 +2,7 @@ package io.digibyte.tools.list.items;
 
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
@@ -12,7 +13,7 @@ import io.digibyte.tools.manager.SyncManager;
 import io.digibyte.tools.util.Utils;
 
 public class ListItemSyncingViewHolder extends ListItemViewHolder {
-    private final BRText date;
+    private final TextView date;
     private final ProgressBar progress;
     private View progressBar;
 
