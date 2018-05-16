@@ -121,6 +121,11 @@ public class SendFragmentModel extends BaseObservable {
         return showSendWaiting ? 1 : 0;
     }
 
+    @Bindable
+    public boolean getMaxSendVisibility() {
+        return BRSharedPrefs.getGenericSettingsSwitch(DigiByte.getContext(), "max_send_enabled");
+    }
+
     public void showSendWaiting(boolean show) {
         showSendWaiting = show;
         notifyPropertyChanged(BR.showSendWaiting);
@@ -200,6 +205,12 @@ public class SendFragmentModel extends BaseObservable {
                 : BRExchange.getSatoshisFromAmount(DigiByte.getContext(), getSelectedIso(),
                         new BigDecimal(getAmount())).longValue();
         return satoshis;
+    }
+
+    public void populateMaxAmount() {
+        setSelectedIso("dgb");
+        setAmount(new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext())).toString());
+        notifyPropertyChanged(BR.amount);
     }
 
     private BigDecimal getBalanceForISO() {

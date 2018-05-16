@@ -6,6 +6,8 @@
 
         <import type="android.graphics.Color" />
 
+        <import type="android.view.View" />
+
         <variable
             name="callback"
             type="io.digibyte.presenter.fragments.interfaces.FragmentSendCallbacks" />
@@ -51,8 +53,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/bread_margin"
                     android:layout_marginStart="12dp"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:background="@drawable/ic_close_black_24dp"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onCloseClickListener()}"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="81dp" />
@@ -102,14 +104,14 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onPasteClickListener()}"
                     android:text="@string/Send.pasteLabel"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/scan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
                     android:layout_marginEnd="14dp"
+                    android:layout_marginStart="12dp"
                     android:background="@drawable/intro_create_button"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onScanClickListener()}"
@@ -121,17 +123,20 @@
             <LinearLayout
                 android:id="@+id/amount_layout"
                 android:layout_width="match_parent"
-                android:layout_marginTop="12dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="wrap_content" android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <FrameLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -140,15 +145,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="8dp"
                             android:layout_marginStart="16dp"
-                            android:cursorVisible="false"
                             android:background="@drawable/dashed_edittext_underline"
+                            android:cursorVisible="false"
                             android:focusable="false"
-                            android:paddingStart="20dp"
-                            android:paddingEnd="20dp"
                             android:focusableInTouchMode="false"
                             android:inputType="numberDecimal"
                             android:onClick="@{() -> callback.onAmountClickListener()}"
+                            android:paddingEnd="20dp"
+                            android:paddingStart="20dp"
                             android:text="@{data.amount}"
                             android:textColor="@{data.amountEditTextColor}"
                             android:textColorHint="@color/white" />
@@ -157,10 +163,10 @@
                             android:id="@+id/iso_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="start|center_vertical"
                             android:layout_marginStart="16dp"
                             android:text="@{data.isoText}"
                             android:textColor="@{data.ISOTextColor}"
-                            android:layout_gravity="start|center_vertical"
                             android:textSize="20sp" />
 
                     </FrameLayout>
@@ -169,14 +175,26 @@
                         android:id="@+id/iso_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="14dp"
                         android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="14dp"
                         android:background="@drawable/intro_create_button"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> callback.onIsoButtonClickListener()}"
                         android:text="@{data.isoButtonText}"
                         android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/max_send_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="14dp"
+                        android:background="@drawable/intro_create_button"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:onClick="@{() -> callback.onMaxSendButtonClickListener()}"
+                        android:text="@string/max"
+                        android:textColor="@color/white"
+                        android:visibility="@{data.maxSendVisibility ? View.VISIBLE : View.GONE}" />
                 </LinearLayout>
 
 
@@ -186,10 +204,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:paddingEnd="12dp"
-                    android:paddingStart="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingTop="8dp">
 
                     <TextView
                         android:id="@+id/balance_text"
@@ -230,9 +248,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginTop="6dp"
                 android:layout_marginBottom="12dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ViewAnimator
@@ -277,11 +295,11 @@
                         android:layout_marginStart="8dp"
                         android:background="@drawable/dashed_edittext_underline"
                         android:hint="@string/Send.descriptionLabel"
-                        android:textColorHint="@color/light_gray"
                         android:inputType="textPersonName"
                         android:maxLength="250"
-                        android:textColor="@color/white"
                         android:text="@={data.memo}"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/light_gray"
                         app:setOnKeyListener="@{(v, keyCode, event) -> callback.onKey(v, keyCode, event)}" />
 
                 </LinearLayout>
