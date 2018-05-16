@@ -48,7 +48,7 @@
             android:background="@drawable/pin_round_corner"
             android:orientation="vertical">
 
-            <io.digibyte.presenter.customviews.BRText
+            <TextView
                 android:id="@+id/fingerprint_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,12 +60,11 @@
                 android:text="@{data.title}"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:visibility="@{!TextUtils.isEmpty(data.title) ? View.VISIBLE : View.GONE}"
-                app:customTFont="CircularPro-Bold.otf"/>
+                android:visibility="@{!TextUtils.isEmpty(data.title) ? View.VISIBLE : View.GONE}"/>
 
-            <io.digibyte.presenter.customviews.BRText
+            <TextView
                 android:id="@+id/fingerprint_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,7 +76,7 @@
                 android:text="@{data.message}"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/white"
                 android:visibility="@{!TextUtils.isEmpty(data.message) ? View.VISIBLE : View.GONE}"/>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -97,7 +96,7 @@
                     android:filterTouchesWhenObscured="true"
                     android:src="@drawable/ic_fp_40px"/>
 
-                <io.digibyte.presenter.customviews.BRText
+                <TextView
                     android:id="@+id/fingerprint_status"
                     style="@android:style/TextAppearance.Material.Body1"
                     android:layout_width="wrap_content"
@@ -109,7 +108,7 @@
                     android:filterTouchesWhenObscured="true"
                     android:gravity="center_vertical"
                     android:text="@string/UnlockScreen.touchIdInstructions.android"
-                    android:textColor="@color/hint_color"/>
+                    android:textColor="@color/white"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -138,9 +137,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:filterTouchesWhenObscured="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onCancelClick()}"
-                    android:text="@{data.cancelButtonLabel}"/>
+                    android:text="@{data.cancelButtonLabel}"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/second_dialog_button"
@@ -148,9 +147,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:filterTouchesWhenObscured="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onSecondButtonClick()}"
-                    android:text="@{data.secondaryButtonLabel}"/>
+                    android:text="@{data.secondaryButtonLabel}"
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
         </LinearLayout>
