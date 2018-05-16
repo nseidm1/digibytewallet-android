@@ -209,7 +209,9 @@ public class SendFragmentModel extends BaseObservable {
 
     public void populateMaxAmount() {
         setSelectedIso("dgb");
-        setAmount(new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext())).toString());
+        setAmount(new BigDecimal(
+                BRWalletManager.getInstance().getBalance(DigiByte.getContext())).divide(
+                new BigDecimal(100000000)).toString());
         notifyPropertyChanged(BR.amount);
     }
 
