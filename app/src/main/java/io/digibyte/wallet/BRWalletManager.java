@@ -113,6 +113,14 @@ public class BRWalletManager {
         }
     }
 
+    private void showSendConfirmDialog(final String message, final int error, byte[] txHash) {
+        for (OnBalanceChanged listener : balanceListeners) {
+            if (listener != null) {
+                listener.showSendConfirmDialog(message, error, txHash);
+            }
+        }
+    }
+
     public void refreshBalance(Context app) {
         long nativeBalance = nativeBalance();
         if (nativeBalance != -1) {
@@ -401,26 +409,7 @@ public class BRWalletManager {
         Log.e(TAG,
                 "publishCallback: " + message + ", err:" + error + ", txHash: " + Arrays.toString(
                         txHash));
-        final Context app = DigiByte.getContext();
-        BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-            if (app instanceof Activity) {
-                BRAnimator.showBreadSignal((Activity) app,
-                        error == 0 ? app.getString(R.string.Alerts_sendSuccess)
-                                : app.getString(R.string.Alert_error),
-                        error == 0 ? app.getString(R.string.Alerts_sendSuccessSubheader)
-                                : message, error == 0 ? R.drawable.ic_check_mark_white
-                                : R.drawable.ic_error_outline_black_24dp,
-                        new BROnSignalCompletion() {
-                            @Override
-                            public void onComplete() {
-                                if (!((Activity) app).isDestroyed()) {
-                                    ((Activity) app).getFragmentManager().popBackStack();
-                                }
-                            }
-                        });
-            }
-        });
-
+        BRWalletManager.getInstance().showSendConfirmDialog(message, error, txHash);
     }
 
     public static void onBalanceChanged(final long balance) {
@@ -765,6 +754,7 @@ public class BRWalletManager {
 
     public interface OnBalanceChanged {
         void onBalanceChanged(long balance);
+        void showSendConfirmDialog(final String message, final int error, byte[] txHash);
     }
 
     private native byte[] encodeSeed(byte[] seed, String[] wordList);

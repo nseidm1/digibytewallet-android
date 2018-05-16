@@ -1,67 +1,31 @@
 package io.digibyte.presenter.activities;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityPinTemplateBinding;
+import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRKeyboard;
 import io.digibyte.tools.manager.BRSharedPrefs;
+import io.digibyte.tools.security.AuthManager;
 
 public class SetPinActivity extends BRActivity {
     private static final String TAG = SetPinActivity.class.getName();
-    private BRKeyboard keyboard;
-    private View dot1;
-    private View dot2;
-    private View dot3;
-    private View dot4;
-    private View dot5;
-    private View dot6;
-
-    private ImageButton faq;
+    ActivityPinTemplateBinding binding;
     private StringBuilder pin = new StringBuilder();
-    private int pinLimit = 6;
-    private boolean startingNextActivity;
-    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pin_template);
-
-        keyboard = (BRKeyboard) findViewById(R.id.brkeyboard);
-        title = (TextView) findViewById(R.id.title);
-        /* faq = (ImageButton) findViewById(R.id.faq_button);
-
-        faq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                BRAnimator.showSupportFragment(app, BRConstants.setPin);
-            }
-        }); */
-
-        dot1 = findViewById(R.id.dot1);
-        dot2 = findViewById(R.id.dot2);
-        dot3 = findViewById(R.id.dot3);
-        dot4 = findViewById(R.id.dot4);
-        dot5 = findViewById(R.id.dot5);
-        dot6 = findViewById(R.id.dot6);
-
-        keyboard.addOnInsertListener(new BRKeyboard.OnInsertListener() {
-            @Override
-            public void onClick(String key) {
-                handleClick(key);
-            }
-        });
-        keyboard.setShowDot(false);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_pin_template);
+        binding.brkeyboard.addOnInsertListener(key -> handleClick(key));
+        binding.brkeyboard.setShowDot(false);
+        binding.setData(new PinActivityModel());
         BRSharedPrefs.putGreetingsShown(this, true);
-
     }
 
     @Override
@@ -75,7 +39,6 @@ public class SetPinActivity extends BRActivity {
             Log.e(TAG, "handleClick: key is null! ");
             return;
         }
-
         if (key.isEmpty()) {
             handleDeleteClick();
         } else if (Character.isDigit(key.charAt(0))) {
@@ -87,7 +50,7 @@ public class SetPinActivity extends BRActivity {
 
 
     private void handleDigitClick(Integer dig) {
-        if (pin.length() < pinLimit)
+        if (pin.length() < 6)
             pin.append(dig);
         updateDots();
     }
@@ -105,40 +68,13 @@ public class SetPinActivity extends BRActivity {
     }
 
     private void updateDots() {
-        int selectedDots = pin.length();
-        dot1.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot2.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot3.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot4.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot5.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-        selectedDots--;
-        dot6.setBackground(getDrawable(selectedDots <= 0 ? R.drawable.ic_pin_dot_gray : R.drawable.ic_pin_dot_black));
-
-        if (pin.length() == 6) {
-            if (startingNextActivity) return;
-            startingNextActivity = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(SetPinActivity.this, ReEnterPinActivity.class);
-                    intent.putExtra("pin", pin.toString());
-                    intent.putExtra("noPin", getIntent().getBooleanExtra("noPin", false));
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    pin = new StringBuilder("");
-                    startingNextActivity = false;
-                }
-            }, 100);
-
-        }
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
+        AuthManager.getInstance().updateDots(pin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
+            Intent intent = new Intent(SetPinActivity.this, ReEnterPinActivity.class);
+            intent.putExtra("pin", pin.toString());
+            intent.putExtra("noPin", getIntent().getBooleanExtra("noPin", false));
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            pin = new StringBuilder("");
+        }, 100));
     }
 }

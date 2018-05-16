@@ -9,8 +9,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,6 +16,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -72,30 +72,24 @@ import io.digibyte.tools.util.BRConstants;
 
 public class BRAnimator {
     private static final String TAG = BRAnimator.class.getName();
-    private static FragmentSignal fragmentSignal;
     private static boolean clickAllowed = true;
     public static int SLIDE_ANIMATION_DURATION = 300;
-    public static float t1Size = 30;
-    public static float t2Size = 16;
-    public static boolean supportIsShowing;
 
-    public static void showBreadSignal(Activity activity, String title, String iconDescription,
-            int drawableId, BROnSignalCompletion completion) {
-        fragmentSignal = new FragmentSignal();
+    public static void showBreadSignal(AppCompatActivity activity, String title, String iconDescription,
+                                       int drawableId, BROnSignalCompletion completion) {
+        FragmentSignal fragmentSignal = new FragmentSignal();
         Bundle bundle = new Bundle();
         bundle.putString(FragmentSignal.TITLE, title);
         bundle.putString(FragmentSignal.ICON_DESCRIPTION, iconDescription);
         fragmentSignal.setCompletion(completion);
         bundle.putInt(FragmentSignal.RES_ID, drawableId);
         fragmentSignal.setArguments(bundle);
-        FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
-        transaction.add(android.R.id.content, fragmentSignal, fragmentSignal.getClass().getName());
-        transaction.addToBackStack(null);
-        if (!activity.isDestroyed()) {
-            transaction.commit();
-        }
+        transaction.add(android.R.id.content, fragmentSignal, FragmentSignal.class.getName());
+        transaction.addToBackStack(FragmentSignal.class.getName());
+        transaction.commitAllowingStateLoss();
     }
 
     public static void showSendFragment(AppCompatActivity app, final String bitcoinUrl) {
@@ -207,13 +201,9 @@ public class BRAnimator {
         }
     }
 
-    public static void killAllFragments(Activity app) {
-        //This is sooo ugly, bug some places in the app still user the regular fragment manager instead of support
+    public static void killAllFragments(AppCompatActivity app) {
         if (app != null && !app.isDestroyed()) {
-            app.getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            if (app instanceof AppCompatActivity) {
-                ((AppCompatActivity) app).getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
+            app.getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
@@ -278,8 +268,8 @@ public class BRAnimator {
             boolean reverse, OnAnimationEndListener onAnimationEndListener) {
         ObjectAnimator colorFade =
                 ObjectAnimator.ofObject(backgroundLayout, "backgroundColor", new ArgbEvaluator(),
-                        reverse ? Color.argb(127, 0, 0, 0) : Color.argb(0, 0, 0, 0),
-                        reverse ? Color.argb(0, 0, 0, 0) : Color.argb(127, 0, 0, 0));
+                        reverse ? Color.argb(200, 0, 0, 0) : Color.argb(0, 0, 0, 0),
+                        reverse ? Color.argb(0, 0, 0, 0) : Color.argb(200, 0, 0, 0));
         colorFade.setDuration(SLIDE_ANIMATION_DURATION);
         colorFade.addListener(new Animator.AnimatorListener() {
             @Override

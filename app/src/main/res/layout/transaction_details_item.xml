@@ -24,6 +24,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
@@ -42,10 +44,10 @@
                     android:id="@+id/amount_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{data.amount}"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
                     android:ellipsize="end"
+                    android:paddingEnd="6dp"
+                    android:paddingStart="6dp"
+                    android:text="@{data.amount}"
                     android:textColor="@color/white"
                     android:textIsSelectable="true"
                     android:textSize="50sp"/>
@@ -64,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
+                    android:gravity="center_horizontal"
                     android:paddingEnd="24dp"
                     android:paddingStart="24dp"
                     android:singleLine="true"
@@ -71,7 +74,8 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
                               android:layout_marginTop="24dp" android:orientation="horizontal">
 
                     <TextView
@@ -96,7 +100,8 @@
                 </LinearLayout>
 
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
                               android:layout_marginBottom="8dp"
                               android:layout_marginTop="8dp" android:orientation="horizontal">
 
@@ -121,9 +126,11 @@
 
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
                               android:layout_marginBottom="16dp"
-                              android:orientation="vertical" android:visibility="@{data.completed ? View.VISIBLE : View.GONE}">
+                              android:orientation="vertical"
+                              android:visibility="@{data.completed ? View.VISIBLE : View.INVISIBLE}">
 
                     <TextView
                         android:id="@+id/status"

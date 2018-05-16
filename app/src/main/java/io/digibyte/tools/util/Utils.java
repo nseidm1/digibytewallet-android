@@ -81,20 +81,6 @@ public class Utils {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
-    public static void printPhoneSpecs() {
-        String specsTag = "PHONE SPECS";
-        Log.e(specsTag, "");
-        Log.e(specsTag, "***************************PHONE SPECS***************************");
-        Log.e(specsTag, "* screen X: " + IntroActivity.screenParametersPoint.x + " , screen Y: " + IntroActivity.screenParametersPoint.y);
-        Log.e(specsTag, "* Build.CPU_ABI: " + Build.CPU_ABI);
-        Runtime rt = Runtime.getRuntime();
-        long maxMemory = rt.maxMemory();
-        Log.e(specsTag, "* maxMemory:" + Long.toString(maxMemory));
-        Log.e(specsTag, "----------------------------PHONE SPECS----------------------------");
-        Log.e(specsTag, "");
-    }
-
     public static boolean isEmulatorOrDebug(Context app) {
         String fing = Build.FINGERPRINT;
         boolean isEmulator = false;

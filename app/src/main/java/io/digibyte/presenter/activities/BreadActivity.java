@@ -30,7 +30,6 @@ import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
 import io.digibyte.presenter.activities.settings.SettingsActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRSearchBar;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
 import io.digibyte.tools.adapter.TransactionListAdapter;
@@ -191,7 +190,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     private ArrayList<ListItemTransactionData> convertNewTransactionsForAdapter(Adapter adapter,
-            ArrayList<ListItemTransactionData> transactions) {
+                                                                                ArrayList<ListItemTransactionData> transactions) {
         ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
         for (int index = 0; index < transactions.size(); index++) {
             ListItemTransactionData transactionData = transactions.get(index);
@@ -244,9 +243,26 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         updateDigibyteDollarValues();
     }
 
+    @Override
+    public void showSendConfirmDialog(final String message, final int error, byte[] txHash) {
+        BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
+            BRAnimator.showBreadSignal(BreadActivity.this,
+                    error == 0 ? getString(R.string.Alerts_sendSuccess)
+                            : getString(R.string.Alert_error),
+                    error == 0 ? getString(R.string.Alerts_sendSuccessSubheader)
+                            : message, error == 0 ? R.drawable.signal_icon_graphic
+                            : R.drawable.ic_error_outline_black_24dp,
+                    () -> getSupportFragmentManager().popBackStack());
+        });
+    }
+
     @OnClick(R.id.nav_drawer)
     void onNavButtonClick(View view) {
-        bindings.drawerLayout.openDrawer(Gravity.LEFT);
+        try {
+            bindings.drawerLayout.openDrawer(Gravity.LEFT);
+        } catch (IllegalArgumentException e) {
+            //Race condition inflating the hierarchy?
+        }
     }
 
     @OnClick(R.id.main_action)

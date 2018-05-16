@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -56,28 +55,21 @@ public class BRDialogView extends DialogFragment {
     private BRDialogView.BROnClickListener posListener;
     private BRDialogView.BROnClickListener negListener;
     private DialogInterface.OnDismissListener dismissListener;
-    private int iconRes = 0;
     private Button negativeButton;
     private LinearLayout buttonsLayout;
-
-    //provide the way to have clickable span in the message
     private SpannableString spanMessage;
 
-    private ConstraintLayout mainLayout;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.bread_alert_dialog, null);
-        TextView titleText = (TextView) view.findViewById(R.id.dialog_title);
-        TextView messageText = (TextView) view.findViewById(R.id.dialog_text);
-        Button positiveButton = (Button) view.findViewById(R.id.pos_button);
-        negativeButton = (Button) view.findViewById(R.id.neg_button);
-//        ImageView icon = (ImageView) view.findViewById(R.id.dialog_icon);
-        mainLayout = (ConstraintLayout) view.findViewById(R.id.main_layout);
-        buttonsLayout = (LinearLayout) view.findViewById(R.id.linearLayout3);
+        TextView titleText = view.findViewById(R.id.dialog_title);
+        TextView messageText = view.findViewById(R.id.dialog_text);
+        Button positiveButton = view.findViewById(R.id.pos_button);
+        negativeButton = view.findViewById(R.id.neg_button);
+        buttonsLayout = view.findViewById(R.id.linearLayout3);
 
         titleText.setText(title);
         messageText.setText(message);
@@ -86,13 +78,10 @@ public class BRDialogView extends DialogFragment {
             messageText.setMovementMethod(LinkMovementMethod.getInstance());
         }
         positiveButton.setText(posButton);
-        positiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                if (posListener != null)
-                    posListener.onClick(BRDialogView.this);
-            }
+        positiveButton.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            if (posListener != null)
+                posListener.onClick(BRDialogView.this);
         });
         if (Utils.isNullOrEmpty(negButton)) {
             Log.e(TAG, "onCreateDialog: removing negative button");
@@ -100,21 +89,15 @@ public class BRDialogView extends DialogFragment {
             buttonsLayout.requestLayout();
         }
         negativeButton.setText(negButton);
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                if (negListener != null)
-                    negListener.onClick(BRDialogView.this);
-            }
+        negativeButton.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            if (negListener != null)
+                negListener.onClick(BRDialogView.this);
         });
-//        if (iconRes != 0)
-//            icon.setImageResource(iconRes);
-
         builder.setView(view);
-//        builder.setOnDismissListener(dismissListener);
-        // Create the AlertDialog object and return it
-        return builder.create();
+        Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        return dialog;
     }
 
     @Override
@@ -122,12 +105,6 @@ public class BRDialogView extends DialogFragment {
         super.onDismiss(dialog);
         if (dismissListener != null)
             dismissListener.onDismiss(dialog);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
     }
 
     public void setTitle(String title) {
@@ -166,11 +143,7 @@ public class BRDialogView extends DialogFragment {
         this.dismissListener = dismissListener;
     }
 
-    public void setIconRes(int iconRes) {
-        this.iconRes = iconRes;
-    }
-
-    public static interface BROnClickListener {
+    public interface BROnClickListener {
         void onClick(BRDialogView brDialogView);
     }
 
@@ -178,10 +151,4 @@ public class BRDialogView extends DialogFragment {
         BRDialogView.this.dismiss();
 
     }
-
-//    public interface SpanClickListener {
-//        void onClick();
-//
-//    }
-
 }

@@ -27,8 +27,12 @@
             android:id="@+id/signal_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:animateLayoutChanges="true"
-            android:background="@drawable/receive_layout"
+            android:background="@drawable/signal_layout"
+            android:clickable="true"
+            android:focusable="true"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -46,13 +50,14 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/bread_margin"
-                    android:layout_marginStart="@dimen/bread_margin"
+                    android:layout_marginStart="12dp"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:background="@drawable/ic_close_black_24dp"
                     android:onClick="@{() -> callback.onCloseClickListener()}"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="81dp" />
 
-                <io.digibyte.presenter.customviews.BRText
+                <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,155 +65,124 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/bread_margin"
                     android:text="@string/Send.title"
-                    android:textColor="@color/almost_black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/header"
-                    app:customTFont="CircularPro-Bold.otf"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="81dp" />
 
             </RelativeLayout>
 
-            <View
-                android:id="@+id/separator0"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/extra_light_gray" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <io.digibyte.presenter.customviews.BREdit
+                <EditText
                     android:id="@+id/address_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
-                    android:layout_weight="0.6"
-                    android:background="@android:color/transparent"
-                    android:ellipsize="middle"
-                    android:ems="10"
+                    android:layout_weight="1"
+                    android:background="@drawable/dashed_edittext_underline"
                     android:hint="@string/Send.toLabel"
                     android:inputType="textPersonName"
                     android:text="@={data.address}"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
                     app:onEditorActionListener="@{(v, actionId, event) -> callback.onEditorAction(v, actionId, event)}" />
 
-                <io.digibyte.presenter.customviews.BRButton
+                <Button
                     android:id="@+id/paste_button"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/bread_margin"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="0.7"
-                    android:background="@android:color/transparent"
-                    android:minHeight="50dp"
+                    android:background="@drawable/intro_create_button"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onPasteClickListener()}"
-                    android:paddingBottom="12dp"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:paddingTop="12dp"
                     android:text="@string/Send.pasteLabel"
-                    android:textColor="@color/light_gray"
-                    android:textSize="16sp"
-                    app:buttonType="2"
-                    app:isBreadButton="true" />
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
-                <io.digibyte.presenter.customviews.BRButton
+                <Button
                     android:id="@+id/scan"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="@dimen/bread_margin"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="0.7"
-                    android:background="@android:color/transparent"
-                    android:minHeight="50dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="14dp"
+                    android:background="@drawable/intro_create_button"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onScanClickListener()}"
-                    android:paddingBottom="12dp"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:paddingTop="12dp"
                     android:text="@string/Send.scanLabel"
-                    android:textColor="@color/light_gray"
-                    android:textSize="16sp"
-                    app:buttonType="2"
-                    app:isBreadButton="true" />
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </LinearLayout>
-
-            <View
-                android:id="@+id/separator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/extra_light_gray" />
 
             <LinearLayout
                 android:id="@+id/amount_layout"
                 android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content" android:orientation="horizontal">
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <io.digibyte.presenter.customviews.BRText
-                        android:id="@+id/iso_text"
+                        <EditText
+                            android:id="@+id/amount_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="16dp"
+                            android:cursorVisible="false"
+                            android:background="@drawable/dashed_edittext_underline"
+                            android:focusable="false"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:focusableInTouchMode="false"
+                            android:inputType="numberDecimal"
+                            android:onClick="@{() -> callback.onAmountClickListener()}"
+                            android:text="@{data.amount}"
+
+                            android:textColor="@{data.amountEditTextColor}"
+                            android:textColorHint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/iso_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@{data.isoText}"
+                            android:textColor="@{data.ISOTextColor}"
+                            android:layout_gravity="start|center_vertical"
+                            android:textSize="20sp" />
+
+                    </FrameLayout>
+
+                    <Button
+                        android:id="@+id/iso_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="16dp"
-                        android:text="@{data.isoText}"
-                        android:textColor="@{data.ISOTextColor}"
-                        android:textSize="20sp"
-                        app:customTFont="CircularPro-Medium.otf"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <io.digibyte.presenter.customviews.BREdit
-                        android:id="@+id/amount_edit"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="numberDecimal"
-                        android:onClick="@{() -> callback.onAmountClickListener()}"
-                        android:text="@{data.amount}"
-                        android:textColor="@{data.amountEditTextColor}"
-                        android:textIsSelectable="false" />
-
-                    <io.digibyte.presenter.customviews.BRButton
-                        android:id="@+id/iso_button"
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@android:color/transparent"
-                        android:drawablePadding="4dp"
-                        android:minHeight="40dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:background="@drawable/intro_create_button"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> callback.onIsoButtonClickListener()}"
                         android:text="@{data.isoButtonText}"
-                        android:textColor="@color/light_gray"
-                        android:textSize="18sp"
-                        app:buttonType="2"
-                        app:isBreadButton="true" />
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/balance_container"
@@ -216,144 +190,29 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:paddingEnd="12dp"
-                    android:paddingStart="12dp"
-                    android:visibility="gone">
+                    android:paddingStart="16dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/balance_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginEnd="12dp"
+                        android:text="@{data.balanceText}"
+                        android:textColor="@{data.balanceTextColor}" />
 
-                        <io.digibyte.presenter.customviews.BRText
-                            android:id="@+id/balance_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/iso_text"
-                            android:layout_marginEnd="24dp"
-                            android:layout_marginTop="8dp"
-                            android:text="@{data.balanceText}"
-                            android:textColor="@{data.balanceTextColor}" />
+                    <TextView
+                        android:id="@+id/fee_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.feeText}"
+                        android:textColor="@{data.feeTextColor}" />
 
-                        <io.digibyte.presenter.customviews.BRText
-                            android:id="@+id/fee_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/balance_text"
-                            android:layout_marginTop="8dp"
-                            android:text="@{data.feeText}"
-                            android:textColor="@{data.feeTextColor}" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/edit"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-
-                        android:layout_marginBottom="0dp"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/edit"
-                        android:onClick="@{() -> callback.onEditClickListener()}" />
                 </LinearLayout>
-
 
             </LinearLayout>
-
-            <io.digibyte.presenter.customviews.BRLinearLayoutWithCaret xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/fee_buttons_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:weightSum="2.0"
-                app:backgroundColor="@color/extra_light_blue_background"
-                app:strokeColor="@color/extra_light_gray"
-                app:withStroke="true">
-
-                <io.digibyte.presenter.customviews.BRText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/FeeSelector.title"
-                    android:textColor="@color/almost_black"
-                    android:textSize="@dimen/sub_header"
-                    android:textStyle="bold" />
-
-                <io.digibyte.presenter.customviews.BRText
-                    android:id="@+id/fee_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@{data.feeDescription}"
-                    android:textColor="@color/light_gray" />
-
-                <LinearLayout
-                    android:id="@+id/buttons_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2.0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/BRText2">
-
-                    <io.digibyte.presenter.customviews.BRButton
-                        android:id="@+id/regular"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_weight="1.0"
-                        android:background="@{data.regualarFeeBackground}"
-                        android:onClick="@{() -> callback.onRegularClickListener()}"
-                        android:padding="0dp"
-                        android:text="@string/FeeSelector.regular"
-                        android:textColor="@{data.regularFeeTextColor}"
-                        android:textSize="14sp"
-                        app:customBFont="CircularPro-Medium.otf"
-                        app:isBreadButton="false" />
-
-                    <io.digibyte.presenter.customviews.BRButton
-                        android:id="@+id/economy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.0"
-                        android:background="@{data.economyBackground}"
-                        android:onClick="@{() -> callback.onEconomyClickListener()}"
-                        android:padding="0dp"
-                        android:text="@string/FeeSelector.economy"
-                        android:textColor="@{data.economyTextColor}"
-                        android:textSize="14sp"
-                        app:customBFont="CircularPro-Medium.otf"
-                        app:isBreadButton="false" />
-                </LinearLayout>
-
-                <io.digibyte.presenter.customviews.BRText
-                    android:id="@+id/warning_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/FeeSelector.economyWarning"
-                    android:textColor="@color/red_text"
-                    android:textSize="@dimen/paragraph"
-                    android:visibility="@{data.warningVisibility}" />
-
-            </io.digibyte.presenter.customviews.BRLinearLayoutWithCaret>
-
-            <View
-                android:id="@+id/separator2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/extra_light_gray" />
 
             <LinearLayout
                 android:id="@+id/keyboard_layout"
@@ -366,16 +225,9 @@
                     android:id="@+id/keyboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/extra_light_gray"
                     app:addOnInsertListener="@{(key) -> callback.onClick(key)}"
-                    app:setBRButtonBackgroundResId="@{data.BRButtonBackgroundRedId}"
-                    app:setBRKeyboardColor="@{data.BRKeyboardColor}" />
+                    app:setBRButtonTextColor="@{data.BRKeyboardColor}" />
 
-                <View
-                    android:id="@+id/separator3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/extra_light_gray" />
             </LinearLayout>
 
 
@@ -383,6 +235,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
                 android:orientation="horizontal">
 
                 <ViewAnimator
@@ -393,21 +247,18 @@
                     android:outAnimation="@android:anim/fade_out"
                     app:setDisplayedChild="@{data.showSendWaiting}">
 
-                    <io.digibyte.presenter.customviews.BRButton
+                    <Button
                         android:id="@+id/send_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/intro_create_button"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> callback.onSendClickListener()}"
-                        android:padding="10dp"
                         android:text="@string/Send.sendLabel"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
-                        app:buttonType="1"
-                        app:isBreadButton="true" />
+                        android:textSize="14sp" />
 
                     <ProgressBar
                         android:id="@+id/sending_progress"
@@ -417,35 +268,29 @@
 
                 </ViewAnimator>
 
-                <View
-                    android:id="@+id/separator4"
-                    android:layout_width="1dp"
-                    android:layout_height="55dp"
-                    android:background="@color/extra_light_gray" />
-
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <io.digibyte.presenter.customviews.BREdit
+                    <EditText
                         android:id="@+id/comment_edit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@android:color/transparent"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/dashed_edittext_underline"
                         android:hint="@string/Send.descriptionLabel"
+                        android:textColorHint="@color/light_gray"
                         android:inputType="textPersonName"
                         android:maxLength="250"
+                        android:textColor="@color/white"
                         android:text="@={data.memo}"
-                        android:textSize="@dimen/sub_header"
                         app:setOnKeyListener="@{(v, keyCode, event) -> callback.onKey(v, keyCode, event)}" />
 
                 </LinearLayout>
             </LinearLayout>
-
 
         </LinearLayout>
     </io.digibyte.presenter.customviews.BRLinearLayout>

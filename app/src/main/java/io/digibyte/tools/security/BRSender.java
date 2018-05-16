@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
@@ -72,7 +73,7 @@ public class BRSender {
     /**
      * Create tx from the PaymentItem object and try to send it
      */
-    public void sendTransaction(final Context app, final PaymentItem request,
+    public void sendTransaction(final AppCompatActivity app, final PaymentItem request,
             UpdateTxFeeCallback updateTxFeeCallback) {
         //array in order to be able to modify the first element from an inner block (can't be final)
         final String[] errTitle = {null};
@@ -158,7 +159,7 @@ public class BRSender {
      * Try transaction and throw appropriate exceptions if something was wrong
      * BLOCKS
      */
-    public void tryPay(final Context app, final PaymentItem paymentRequest)
+    public void tryPay(final AppCompatActivity app, final PaymentItem paymentRequest)
             throws InsufficientFundsException,
             AmountSmallerThanMinException, SpendingNotAllowed, FeeNeedsAdjust, SomethingWentWrong {
         if (paymentRequest == null || paymentRequest.addresses == null) {
@@ -249,7 +250,7 @@ public class BRSender {
         }
     }
 
-    public void confirmPay(final Context ctx, final PaymentItem request) {
+    public void confirmPay(final AppCompatActivity ctx, final PaymentItem request) {
         if (ctx == null) {
             Log.e(TAG, "confirmPay: context is null");
             return;
@@ -297,8 +298,8 @@ public class BRSender {
                 BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
                     PostAuth.getInstance().onPublishTxAuth(ctx, false);
                     BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-                        BRAnimator.killAllFragments((Activity) ctx);
-                        BRAnimator.startBreadIfNotStarted((Activity) ctx);
+                        BRAnimator.killAllFragments(ctx);
+                        BRAnimator.startBreadIfNotStarted(ctx);
                     });
                 });
             }
