@@ -7,6 +7,7 @@ import android.util.Log;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityPinTemplateBinding;
+import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
@@ -26,6 +27,7 @@ public class UpdatePinActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pin_template);
+        binding.setData(new PinActivityModel());
         setMode(ENTER_PIN);
         binding.brkeyboard.addOnInsertListener(key -> handleClick(key));
         binding.brkeyboard.setShowDot(false);
