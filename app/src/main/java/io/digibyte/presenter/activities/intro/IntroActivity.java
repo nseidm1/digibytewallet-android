@@ -3,6 +3,7 @@ package io.digibyte.presenter.activities.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -47,9 +48,15 @@ public class IntroActivity extends BRActivity implements Serializable {
     public Button newWalletButton;
     public TextView recoverWalletButton;
 
+    public static void open(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, IntroActivity.class);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         setContentView(R.layout.activity_intro);
         newWalletButton = findViewById(R.id.button_new_wallet);
         recoverWalletButton = findViewById(R.id.button_recover_wallet);
@@ -63,15 +70,12 @@ public class IntroActivity extends BRActivity implements Serializable {
         if (!isFirstAddressCorrect) {
             BRWalletManager.getInstance().wipeWalletButKeystore(this);
         }
-
-        PostAuth.getInstance().onCanaryCheck(this, false);
     }
 
     private void setListeners() {
         newWalletButton.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         });
@@ -79,7 +83,6 @@ public class IntroActivity extends BRActivity implements Serializable {
         recoverWalletButton.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;
             Intent intent = new Intent(IntroActivity.this, RecoverActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         });

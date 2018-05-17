@@ -427,8 +427,5 @@ public class PostAuth {
                 }
             }
         }
-        BRWalletManager.getInstance().startTheWalletIfExists(app);
     }
-
-
 }
