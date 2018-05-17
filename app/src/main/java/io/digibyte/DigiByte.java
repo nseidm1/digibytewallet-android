@@ -3,12 +3,14 @@ package io.digibyte;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.util.BRConstants;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -61,6 +63,11 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
 
     public Activity getActivity() {
         return activeActivity;
+    }
+
+    static {
+        System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override

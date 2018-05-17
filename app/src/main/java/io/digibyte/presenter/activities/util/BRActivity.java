@@ -57,11 +57,6 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     private final String TAG = this.getClass().getName();
     private CopyOnWriteArrayList<OnBackPressListener> backClickListeners = new CopyOnWriteArrayList<>();
 
-    static {
-        System.loadLibrary(BRConstants.NATIVE_LIB_NAME);
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
