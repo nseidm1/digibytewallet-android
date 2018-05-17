@@ -102,8 +102,11 @@ public class SendFragmentModel extends BaseObservable {
 
     @Bindable
     public String getFeeText() {
-        return String.format(DigiByte.getContext().getString(R.string.Send_fee),
-                getApproximateFee());
+        String approximateFee = getApproximateFee();
+        if (TextUtils.isEmpty(approximateFee)) {
+            return "";
+        }
+        return String.format(DigiByte.getContext().getString(R.string.Send_fee), approximateFee);
     }
 
     @Bindable
