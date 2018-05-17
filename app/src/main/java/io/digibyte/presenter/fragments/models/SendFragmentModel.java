@@ -2,9 +2,7 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.View;
 
 import java.math.BigDecimal;
 
@@ -31,13 +29,8 @@ public class SendFragmentModel extends BaseObservable {
     }
 
     @Bindable
-    public int getBRButtonBackgroundRedId() {
-        return R.drawable.keyboard_white_button;
-    }
-
-    @Bindable
     public int getBRKeyboardColor() {
-        return R.color.white;
+        return R.color.keyboard_text_color;
     }
 
     @Bindable
@@ -60,7 +53,6 @@ public class SendFragmentModel extends BaseObservable {
     public void setAddress(String address) {
         this.enteredAddress = address;
         notifyPropertyChanged(BR.address);
-        updateFeeButtons();
     }
 
     @Bindable
@@ -69,7 +61,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.light_gray);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -79,7 +71,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.light_gray);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -89,7 +81,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.light_gray);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -99,7 +91,7 @@ public class SendFragmentModel extends BaseObservable {
                 > getBalanceForISO().doubleValue()) {
             return DigiByte.getContext().getColor(R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.almost_black);
+            return DigiByte.getContext().getColor(R.color.white);
         }
     }
 
@@ -120,70 +112,6 @@ public class SendFragmentModel extends BaseObservable {
     }
 
     @Bindable
-    public int getRegularFeeTextColor() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getColor(R.color.white);
-            case ECONOMY:
-                return DigiByte.getContext().getColor(R.color.dark_blue);
-        }
-    }
-
-    @Bindable
-    public Drawable getRegualarFeeBackground() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_left_blue);
-            case ECONOMY:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_left_blue_stroke);
-        }
-    }
-
-    @Bindable
-    public int getEconomyTextColor() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getColor(R.color.dark_blue);
-            case ECONOMY:
-                return DigiByte.getContext().getColor(R.color.white);
-        }
-    }
-
-    @Bindable
-    public Drawable getEconomyBackground() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_right_blue_stroke);
-            case ECONOMY:
-                return DigiByte.getContext().getDrawable(R.drawable.b_half_right_blue);
-        }
-    }
-
-    @Bindable
-    public String getFeeDescription() {
-        switch (feeType) {
-            default:
-            case REGULAR:
-                return String.format(
-                        DigiByte.getContext().getString(R.string.FeeSelector_estimatedDeliver),
-                        DigiByte.getContext().getString(R.string.FeeSelector_regularTime));
-            case ECONOMY:
-                return String.format(
-                        DigiByte.getContext().getString(R.string.FeeSelector_estimatedDeliver),
-                        DigiByte.getContext().getString(R.string.FeeSelector_economyTime));
-        }
-    }
-
-    @Bindable
-    public int getWarningVisibility() {
-        return feeType == FeeType.ECONOMY ? View.VISIBLE : View.GONE;
-    }
-
-    @Bindable
     public String getMemo() {
         return memo;
     }
@@ -191,6 +119,11 @@ public class SendFragmentModel extends BaseObservable {
     @Bindable
     public int getShowSendWaiting() {
         return showSendWaiting ? 1 : 0;
+    }
+
+    @Bindable
+    public boolean getMaxSendVisibility() {
+        return BRSharedPrefs.getGenericSettingsSwitch(DigiByte.getContext(), "max_send_enabled");
     }
 
     public void showSendWaiting(boolean show) {
@@ -222,14 +155,17 @@ public class SendFragmentModel extends BaseObservable {
 
     public void appendAmount(Integer append) {
         amountBuilder.append(append);
+        notifyPropertyChanged(BR.amountEditTextColor);
     }
 
     public void appendAmount(String append) {
         amountBuilder.append(append);
+        notifyPropertyChanged(BR.amountEditTextColor);
     }
 
     public void setAmount(String amount) {
         amountBuilder = new StringBuilder(amount);
+        notifyPropertyChanged(BR.amountEditTextColor);
     }
 
     public void handleDeleteClick() {
@@ -243,7 +179,7 @@ public class SendFragmentModel extends BaseObservable {
         if (getSatoshis() == 0 || TextUtils.isEmpty(getAddress())) {
             return 0;
         }
-        if (TextUtils.isEmpty(getAddress())) {
+        if (TextUtils.isEmpty(getAddress()) || !BRWalletManager.validateAddress(getAddress())) {
             return BRWalletManager.getInstance().feeForTransactionAmount(getSatoshis());
         } else {
             return BRWalletManager.getInstance().feeForTransaction(getAddress(), getSatoshis());
@@ -271,6 +207,14 @@ public class SendFragmentModel extends BaseObservable {
         return satoshis;
     }
 
+    public void populateMaxAmount() {
+        setSelectedIso("dgb");
+        setAmount(new BigDecimal(
+                BRWalletManager.getInstance().getBalance(DigiByte.getContext())).divide(
+                new BigDecimal(100000000)).toString());
+        notifyPropertyChanged(BR.amount);
+    }
+
     private BigDecimal getBalanceForISO() {
         return BRExchange.getAmountFromSatoshis(DigiByte.getContext(), getSelectedIso(),
                 new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext())));
@@ -291,30 +235,5 @@ public class SendFragmentModel extends BaseObservable {
         notifyPropertyChanged(BR.feeTextColor);
         notifyPropertyChanged(BR.amountEditTextColor);
         notifyPropertyChanged(BR.iSOTextColor);
-    }
-
-    public void updateFeeButtons() {
-        updateFeeButtons(feeType == FeeType.REGULAR);
-    }
-
-    public void updateFeeButtons(boolean isRegular) {
-        feeType = isRegular ? FeeType.REGULAR : FeeType.ECONOMY;
-        switch (feeType) {
-            case REGULAR:
-                BRWalletManager.getInstance().setFeePerKb(
-                        BRSharedPrefs.getFeePerKb(DigiByte.getContext()), false);
-                break;
-            case ECONOMY:
-                BRWalletManager.getInstance().setFeePerKb(
-                        BRSharedPrefs.getEconomyFeePerKb(DigiByte.getContext()), false);
-                break;
-        }
-        notifyPropertyChanged(BR.feeDescription);
-        notifyPropertyChanged(BR.economyBackground);
-        notifyPropertyChanged(BR.economyTextColor);
-        notifyPropertyChanged(BR.regualarFeeBackground);
-        notifyPropertyChanged(BR.regularFeeTextColor);
-        notifyPropertyChanged(BR.warningVisibility);
-        updateText();
     }
 }

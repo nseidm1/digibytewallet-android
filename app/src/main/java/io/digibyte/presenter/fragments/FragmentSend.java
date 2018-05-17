@@ -79,7 +79,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         @Override
         public void onAmountClickListener() {
             showKeyboard(true);
-            binding.balanceContainer.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -208,7 +207,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
             }
 
             if (allFilled) {
-                BRSender.getInstance().sendTransaction(getContext(),
+                BRSender.getInstance().sendTransaction((AppCompatActivity) getActivity(),
                         new PaymentItem(new String[]{address}, null, satoshiAmount.longValue(),
                                 null, false, comment),
                         () -> sendFragmentModel.showSendWaiting(false));
@@ -235,23 +234,13 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         }
 
         @Override
-        public void onRegularClickListener() {
-            sendFragmentModel.updateFeeButtons(true);
-        }
-
-        @Override
         public void onClick(String key) {
             handleClick(key);
         }
 
         @Override
-        public void onEconomyClickListener() {
-            sendFragmentModel.updateFeeButtons(false);
-        }
-
-        @Override
-        public void onEditClickListener() {
-            toggleFeeSelectionButtons();
+        public void onMaxSendButtonClickListener() {
+            sendFragmentModel.populateMaxAmount();
         }
     };
 
@@ -275,12 +264,9 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
             Bundle savedInstanceState) {
         binding = FragmentSendBinding.inflate(inflater);
         binding.setCallback(fragmentSendCallbacks);
-        binding.feeButtonsLayout.getLayoutTransition().enableTransitionType(
-                LayoutTransition.CHANGING);
         binding.signalLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         sendFragmentModel = new SendFragmentModel();
         binding.setData(sendFragmentModel);
-        sendFragmentModel.updateFeeButtons(true);
         if (getArguments() != null && getArguments()
                 .getString("url") != null) {
             setUrl(getArguments().getString("url"));
@@ -302,7 +288,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
             binding.keyboardLayout.setVisibility(View.GONE);
         } else {
             Utils.hideKeyboard(getActivity());
-            binding.feeButtonsLayout.setVisibility(View.GONE);
             binding.keyboardLayout.setVisibility(View.VISIBLE);
         }
     }
@@ -373,12 +358,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         }
     }
 
-    private void toggleFeeSelectionButtons() {
-        binding.keyboardLayout.setVisibility(View.GONE);
-        binding.feeButtonsLayout.setVisibility(
-                binding.feeButtonsLayout.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
-    }
-
     private boolean isInputValid(String input) {
         return input.matches("[a-zA-Z0-9]*");
     }
@@ -404,8 +383,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
     public void onBackPressed() {
         if (binding.keyboardLayout.getVisibility() == View.VISIBLE) {
             showKeyboard(false);
-        } else if (binding.feeButtonsLayout.getVisibility() == View.VISIBLE) {
-            toggleFeeSelectionButtons();
         } else {
             fadeOutRemove();
         }

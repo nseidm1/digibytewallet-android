@@ -42,8 +42,7 @@
         android:launchMode="singleTask"
         android:process=":DigiProcess"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateVisible|adjustResize">
+        android:theme="@style/AppTheme">
 
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
@@ -61,7 +60,6 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
@@ -176,6 +174,7 @@
         <activity
             android:name=".presenter.activities.InputWordsActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
         </activity>
         <activity

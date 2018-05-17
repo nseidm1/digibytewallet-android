@@ -6,7 +6,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
-    <io.digibyte.presenter.customviews.BRText
+    <TextView
         android:id="@+id/syncing_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,10 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/SyncingView.header"
         android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"
-        app:customTFont="CircularPro-Bold.otf"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textSize="@dimen/sub_header"/>
 
     <ProgressBar
         android:id="@+id/sync_progress"
@@ -35,7 +32,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:gravity="bottom"
@@ -43,14 +40,12 @@
         app:layout_constraintStart_toStartOf="@+id/syncing_label"
         app:layout_constraintTop_toBottomOf="@+id/sync_progress">
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/sync_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:textColor="@color/white"
-            android:textSize="@dimen/paragraph"
-            app:customTFont="CircularPro-Book.otf"/>
+            android:textSize="16sp"/>
 
         <ProgressBar android:id="@+id/progress_bar" style="@style/Widget.AppCompat.ProgressBar"
                      android:layout_width="12dp"

@@ -38,4 +38,8 @@ public class PinFragmentViewModel extends BaseObservable {
     public String getMessage() {
         return message;
     }
+
+    public int getKeyboardTextColor() {
+        return R.color.keyboard_text_color;
+    }
 }

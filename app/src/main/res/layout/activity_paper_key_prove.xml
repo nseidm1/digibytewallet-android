@@ -1,200 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_write_down"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/extra_light_blue_background"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="io.digibyte.presenter.activities.intro.WriteDownActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/gradient_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
         android:background="@drawable/write_down_gradient"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/bread_margin"
-            android:layout_weight="0.5"
             android:text="@string/SecurityCenter.paperKeyTitle"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/header"
-            app:customTFont="CircularPro-Bold.otf"
-            app:layout_constraintLeft_toLeftOf="@+id/description"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:textSize="@dimen/header"/>
 
-        <io.digibyte.presenter.customviews.BRText
+        <TextView
             android:id="@+id/description"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="@dimen/bread_margin"
             android:layout_marginStart="@dimen/bread_margin"
             android:layout_marginTop="8dp"
-            android:layout_weight="0.5"
-            android:lineSpacingMultiplier="1.3"
             android:text="@string/ConfirmPaperPhrase.label"
             android:textAlignment="textStart"
             android:textColor="@color/white"
-            android:textSize="@dimen/sub_header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"/>
+            android:textSize="@dimen/sub_header"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="-10dp"
-        android:animateLayoutChanges="true"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gradient_layout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:animateLayoutChanges="true">
 
-
-        <io.digibyte.presenter.customviews.BRButton
+        <Button
             android:id="@+id/button_submit"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/big_button_height"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="@dimen/bread_margin"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="32dp"
-            android:elevation="8dp"
-            android:padding="10dp"
-            android:text="@string/Button.submit"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:buttonType="1"
-            app:isBreadButton="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line2"/>
-
-        <ImageView
-            android:id="@+id/check_mark_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/ic_check_mark_blue"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/word_edittext_first"
-            app:layout_constraintLeft_toRightOf="@+id/word_edittext_first"
-            app:layout_constraintTop_toTopOf="@+id/word_edittext_first"/>
+            android:background="@drawable/intro_create_button"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/Send.scanLabel"
+            android:textColor="@color/white" />
 
-        <ImageView
-            android:id="@+id/check_mark_2"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/word_container_first"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/ic_check_mark_blue"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/word_edittext_second"
-            app:layout_constraintLeft_toRightOf="@+id/word_edittext_second"
-            app:layout_constraintTop_toTopOf="@+id/word_edittext_second"/>
+            android:textColorHint="@color/white">
 
-        <io.digibyte.presenter.customviews.BRText
-            android:id="@+id/word_number_first"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/word_edittext_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/bread_margin"
+                android:layout_marginStart="@dimen/bread_margin"
+                android:background="@drawable/dashed_edittext_underline"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:inputType="textPersonName"
+                android:textColor="@color/white"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/word_container_second"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="@dimen/bread_margin"
-            android:lineSpacingMultiplier="1.3"
-            android:textColor="@color/light_gray"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:textColorHint="@color/white">
 
-        <io.digibyte.presenter.customviews.BREdit
-            android:id="@+id/word_edittext_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/bread_margin"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="0dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_number_first"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            <EditText
+                android:id="@+id/word_edittext_second"
+                android:layout_width="match_parent"
+                android:minHeight="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/bread_margin"
+                android:layout_marginStart="@dimen/bread_margin"
+                android:background="@drawable/dashed_edittext_underline"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:inputType="textPersonName"
+                android:imeOptions="actionSend"
+                android:textColor="@color/white"/>
 
-        <View
-            android:id="@+id/line1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/extra_light_gray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_edittext_first"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <io.digibyte.presenter.customviews.BRText
-            android:id="@+id/word_number_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="@dimen/bread_margin"
-            android:textColor="@color/light_gray"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line1"/>
+    </LinearLayout>
 
-        <io.digibyte.presenter.customviews.BREdit
-            android:id="@+id/word_edittext_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/bread_margin"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="0dp"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:imeActionId="@+id/submit"
-            android:imeOptions="actionSend"
-            android:inputType="textPersonName"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_number_second"/>
-
-        <View
-            android:id="@+id/line2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/extra_light_gray"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_edittext_second"
-            />
-
-    </android.support.constraint.ConstraintLayout>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

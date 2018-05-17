@@ -754,4 +754,6 @@
   <string name="processed">Processed</string>
   <string name="completed">Completed</string>
   <string name="digi_share">https://redirect.digibyteprojects.com/?address=%s&amp;amount=%s</string>
+  <string name="max_send_enabled">Send Max Button Visible</string>
+  <string name="max">max</string>
 </resources>

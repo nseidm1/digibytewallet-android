@@ -24,8 +24,8 @@ android {
         applicationId = 'io.digibyte'
         minSdkVersion 23
         targetSdkVersion 27
-        versionCode 2064
-        versionName "2.0.0b2064"
+        versionCode 2094
+        versionName "2.0.0b2094"
         multiDexEnabled true
         externalNativeBuild {
             cmake {

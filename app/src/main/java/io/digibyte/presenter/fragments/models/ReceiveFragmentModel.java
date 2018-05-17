@@ -51,16 +51,6 @@ public class ReceiveFragmentModel extends BaseObservable {
     }
 
     @Bindable
-    public boolean isSeparatorVisibility() {
-        return separatorVisibility;
-    }
-
-    public void setSeparatorVisibility(boolean separatorVisibility) {
-        this.separatorVisibility = separatorVisibility;
-        notifyPropertyChanged(BR.separatorVisibility);
-    }
-
-    @Bindable
     public boolean isRequestButtonVisibility() {
         return requestButtonVisibility;
     }

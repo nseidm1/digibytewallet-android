@@ -39,10 +39,6 @@ public class SecurityCenterActivity extends BRActivity {
     private ImageButton close;
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_center);
@@ -54,14 +50,10 @@ public class SecurityCenterActivity extends BRActivity {
         mListView.setVerticalScrollBarEnabled(false);
         mListView.setClickable(false);
         close = findViewById(R.id.close_button);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-                onBackPressed();
-            }
+        close.setOnClickListener(v -> {
+            if (!BRAnimator.isClickAllowed()) return;
+            onBackPressed();
         });
-
         updateList();
     }
 
@@ -102,10 +94,7 @@ public class SecurityCenterActivity extends BRActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-//            Log.e(TAG, "getView: pos: " + position + ", item: " + items.get(position));
             if (convertView == null) {
-                // inflate the layout
                 LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
                 convertView = inflater.inflate(defaultLayoutResource, parent, false);
             }

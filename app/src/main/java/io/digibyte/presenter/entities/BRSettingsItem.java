@@ -28,16 +28,25 @@ import android.view.View;
  */
 public class BRSettingsItem {
 
-    public boolean isSection;
+    public static enum Type {
+        SECTION, ITEM, SWITCH
+    }
+    public Type type;
     public String title;
+    public String switchKey;
     public String addonText;
     public View.OnClickListener listener;
 
-    public BRSettingsItem(String title, String addonText, View.OnClickListener listener, boolean isSection) {
+    public BRSettingsItem(String title, String addonText, View.OnClickListener listener, Type type) {
         this.title = title;
         this.addonText = addonText;
         this.listener = listener;
-        this.isSection = isSection;
+        this.type = type;
     }
 
+    public BRSettingsItem(String title, String switchKey, Type type) {
+        this.title = title;
+        this.switchKey = switchKey;
+        this.type = type;
+    }
 }

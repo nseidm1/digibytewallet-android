@@ -11,12 +11,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.platform.tools.BRBitId;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import io.digibyte.R;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
@@ -24,7 +28,6 @@ import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
-import io.digibyte.wallet.BRWalletManager;
 
 /**
  * BreadWallet
@@ -50,7 +53,7 @@ import io.digibyte.wallet.BRWalletManager;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public class BRActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public abstract class BRActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
     private final String TAG = this.getClass().getName();
     private CopyOnWriteArrayList<OnBackPressListener> backClickListeners = new CopyOnWriteArrayList<>();
 
@@ -63,6 +66,20 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+    }
+
+    protected void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    protected void setToolbarTitle(String text) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = toolbar.findViewById(R.id.toolbar_title);
+        title.setText(text);
     }
 
     @Override
@@ -137,7 +154,7 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case BRConstants.CAMERA_REQUEST_ID: {
@@ -175,5 +192,13 @@ public class BRActivity extends AppCompatActivity implements FragmentManager.OnB
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home || item.getItemId() == R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
