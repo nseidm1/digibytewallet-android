@@ -42,8 +42,4 @@ public class WipeActivity extends BRActivity {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_up, R.anim.exit_to_bottom);
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
 }

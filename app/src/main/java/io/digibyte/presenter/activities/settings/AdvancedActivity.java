@@ -20,6 +20,7 @@ import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.BRSettingsItem;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static io.digibyte.R.layout.settings_list_item;
@@ -28,23 +29,16 @@ import static io.digibyte.R.layout.settings_list_section;
 public class AdvancedActivity extends BRActivity {
     private static final String TAG = AdvancedActivity.class.getName();
     private ListView listView;
-    public List<BRSettingsItem> items;
-    public static boolean appVisible = false;
-    private static AdvancedActivity app;
-
-    public static AdvancedActivity getApp() {
-        return app;
-    }
+    public List<BRSettingsItem> items = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced);
-
-        listView = (ListView) findViewById(R.id.settings_list);
-
+        listView = findViewById(R.id.settings_list);
+        populateItems();
+        listView.setAdapter(new SettingsListAdapter(this, R.layout.settings_list_item, items));
     }
-
 
     public class SettingsListAdapter extends ArrayAdapter<String> {
 
@@ -61,21 +55,23 @@ public class AdvancedActivity extends BRActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-            View v;
+            View v = null;
             BRSettingsItem item = items.get(position);
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
 
-            if (item.isSection) {
-                v = inflater.inflate(settings_list_section, parent, false);
-            } else {
-                v = inflater.inflate(settings_list_item, parent, false);
-                TextView addon = (TextView) v.findViewById(R.id.item_addon);
-                addon.setText(item.addonText);
-                v.setOnClickListener(item.listener);
+            switch (item.type) {
+                case ITEM:
+                    v = inflater.inflate(settings_list_item, parent, false);
+                    TextView addon = v.findViewById(R.id.item_addon);
+                    addon.setText(item.addonText);
+                    v.setOnClickListener(item.listener);
+                    ((TextView) v.findViewById(R.id.item_title)).setText(item.title);
+                    break;
+                case SECTION:
+                    v = inflater.inflate(settings_list_section, parent, false);
+                    ((TextView) v.findViewById(R.id.item_title)).setText(item.title);
+                    break;
             }
-
-            TextView title = (TextView) v.findViewById(R.id.item_title);
-            title.setText(item.title);
             return v;
 
         }
@@ -92,21 +88,6 @@ public class AdvancedActivity extends BRActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        appVisible = true;
-        app = this;
-        if (items == null)
-            items = new ArrayList<>();
-        items.clear();
-
-        populateItems();
-
-        listView.setAdapter(new SettingsListAdapter(this, R.layout.settings_list_item, items));
-    }
-
-
-    @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
@@ -114,7 +95,7 @@ public class AdvancedActivity extends BRActivity {
 
     private void populateItems() {
 
-        items.add(new BRSettingsItem("", "", null, true));
+        items.add(new BRSettingsItem("", "", null, BRSettingsItem.Type.SECTION));
 
         items.add(new BRSettingsItem(getString(R.string.NodeSelector_title), "", new View.OnClickListener() {
             @Override
@@ -124,18 +105,6 @@ public class AdvancedActivity extends BRActivity {
                 overridePendingTransition(R.anim.enter_from_right, R.anim.empty_300);
 
             }
-        }, false));
-
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        appVisible = false;
+        }, BRSettingsItem.Type.ITEM));
     }
 }

@@ -485,4 +485,16 @@ public class BRSharedPrefs {
         editor.putLong("suspendTime", suspendTime);
         editor.apply();
     }
+
+    public static boolean getGenericSettingsSwitch(Context context, String key) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(key, false);
+    }
+
+    public static void setGenericSettingsSwitch(Context context, String key, boolean value) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
 }

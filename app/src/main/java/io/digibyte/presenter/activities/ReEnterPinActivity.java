@@ -15,7 +15,7 @@ import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
 public class ReEnterPinActivity extends BRActivity {
-    private static final String TAG = ReEnterPinActivity.class.getName();
+    private static final String PIN_STATE = "ReEnterPinActivity:PinState";
     private StringBuilder pin = new StringBuilder();
     private String firstPIN;
     private ActivityPinTemplateBinding binding;
@@ -38,22 +38,24 @@ public class ReEnterPinActivity extends BRActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(PIN_STATE, pin);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.getSerializable(PIN_STATE) != null) {
+            pin = (StringBuilder) savedInstanceState.getSerializable(PIN_STATE);
+        }
     }
 
     private void handleClick(String key) {
-        if (key == null) {
-            Log.e(TAG, "handleClick: key is null! ");
-            return;
-        }
-
         if (key.isEmpty()) {
             handleDeleteClick();
         } else if (Character.isDigit(key.charAt(0))) {
             handleDigitClick(Integer.parseInt(key.substring(0, 1)));
-        } else {
-            Log.e(TAG, "handleClick: oops: " + key);
         }
     }
 
@@ -84,10 +86,6 @@ public class ReEnterPinActivity extends BRActivity {
     private void verifyPin() {
         if (firstPIN.equalsIgnoreCase(pin.toString())) {
             AuthManager.getInstance().authSuccess(this);
-            new Handler().postDelayed(() -> {
-                pin = new StringBuilder("");
-                updateDots();
-            }, 200);
             AuthManager.getInstance().setPinCode(pin.toString(), this);
             if (getIntent().getBooleanExtra("noPin", false)) {
                 BRAnimator.startBreadActivity(this, false);
@@ -97,7 +95,6 @@ public class ReEnterPinActivity extends BRActivity {
 
         } else {
             AuthManager.getInstance().authFail(this);
-            Log.e(TAG, "verifyPin: FAIL: firs: " + firstPIN + ", reEnter: " + pin.toString());
             SpringAnimator.failShakeAnimation(this, binding.pinLayout);
             pin = new StringBuilder();
         }

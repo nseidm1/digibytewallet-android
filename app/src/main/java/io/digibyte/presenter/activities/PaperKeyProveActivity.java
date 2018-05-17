@@ -2,28 +2,20 @@ package io.digibyte.presenter.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.transition.TransitionManager;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.SparseArray;
-import android.view.KeyEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.Locale;
 import java.util.Random;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRDialogView;
-import io.digibyte.presenter.interfaces.BROnSignalCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SpringAnimator;
@@ -39,123 +31,65 @@ public class PaperKeyProveActivity extends BRActivity {
     private Button submit;
     private EditText wordEditFirst;
     private EditText wordEditSecond;
-    private TextView wordTextFirst;
-    private TextView wordTextSecond;
-    private ImageView checkMark1;
-    private ImageView checkMark2;
+    private TextInputLayout wordContainerFirst;
+    private TextInputLayout wordContainerSecond;
     private SparseArray<String> sparseArrayWords = new SparseArray<>();
-    private ConstraintLayout constraintLayout;
-    private ConstraintSet applyConstraintSet = new ConstraintSet();
-    private ConstraintSet resetConstraintSet = new ConstraintSet();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paper_key_prove);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-
-        submit = (Button) findViewById(R.id.button_submit);
-        wordEditFirst = (EditText) findViewById(R.id.word_edittext_first);
-        wordEditSecond = (EditText) findViewById(R.id.word_edittext_second);
-        wordTextFirst = (TextView) findViewById(R.id.word_number_first);
-        wordTextSecond = (TextView) findViewById(R.id.word_number_second);
-
-        checkMark1 = (ImageView) findViewById(R.id.check_mark_1);
-        checkMark2 = (ImageView) findViewById(R.id.check_mark_2);
-
-//        wordEditFirst.setOnFocusChangeListener(new FocusListener());
-//        wordEditSecond.setOnFocusChangeListener(new FocusListener());
-
+        submit = findViewById(R.id.button_submit);
+        wordEditFirst = findViewById(R.id.word_edittext_first);
+        wordContainerFirst = findViewById(R.id.word_container_first);
+        wordEditSecond = findViewById(R.id.word_edittext_second);
+        wordContainerSecond = findViewById(R.id.word_container_second);
         wordEditFirst.addTextChangedListener(new BRTextWatcher());
         wordEditSecond.addTextChangedListener(new BRTextWatcher());
-
-        constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
-        resetConstraintSet.clone(constraintLayout);
-        applyConstraintSet.clone(constraintLayout);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                TransitionManager.beginDelayedTransition(constraintLayout);
-                applyConstraintSet.setMargin(R.id.word_number_first, ConstraintSet.TOP, 8);
-                applyConstraintSet.setMargin(R.id.line1, ConstraintSet.TOP, 16);
-                applyConstraintSet.setMargin(R.id.line2, ConstraintSet.TOP, 16);
-                applyConstraintSet.setMargin(R.id.word_number_second, ConstraintSet.TOP, 8);
-                applyConstraintSet.applyTo(constraintLayout);
-
-
+        wordEditSecond.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_NULL) {
+                submit.performClick();
+                return true;
             }
-        }, 500);
-
-
-        wordEditSecond.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.submit || id == EditorInfo.IME_NULL) {
-                    submit.performClick();
-                    return true;
-                }
-                return false;
-            }
+            return false;
         });
 
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!BRAnimator.isClickAllowed()) return;
-
-                if (isWordCorrect(true) && isWordCorrect(false)) {
-                    Utils.hideKeyboard(PaperKeyProveActivity.this);
-                    BRSharedPrefs.putPhraseWroteDown(PaperKeyProveActivity.this, true);
-                    BRAnimator.showBreadSignal(PaperKeyProveActivity.this, getString(R.string.Alerts_paperKeySet), getString(R.string.Alerts_paperKeySetSubheader), R.drawable.signal_icon_graphic, new BROnSignalCompletion() {
-                        @Override
-                        public void onComplete() {
-                            BRAnimator.startBreadActivity(PaperKeyProveActivity.this, false);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                            finishAffinity();
-                        }
-                    });
-                } else {
-
-                    if (!isWordCorrect(true)) {
-                        wordEditFirst.setTextColor(getColor(R.color.red_text));
-                        SpringAnimator.failShakeAnimation(PaperKeyProveActivity.this, wordEditFirst);
-                    }
-
-                    if (!isWordCorrect(false)) {
-                        wordEditSecond.setTextColor(getColor(R.color.red_text));
-                        SpringAnimator.failShakeAnimation(PaperKeyProveActivity.this, wordEditSecond);
-                    }
+        submit.setOnClickListener(v -> {
+            if (isWordCorrect(true) && isWordCorrect(false)) {
+                Utils.hideKeyboard(PaperKeyProveActivity.this);
+                BRSharedPrefs.putPhraseWroteDown(PaperKeyProveActivity.this, true);
+                BRAnimator.showBreadSignal(PaperKeyProveActivity.this, getString(R.string.Alerts_paperKeySet), getString(R.string.Alerts_paperKeySetSubheader), R.drawable.signal_icon_graphic, () -> {
+                    BRAnimator.startBreadActivity(PaperKeyProveActivity.this, false);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                    finishAffinity();
+                });
+            } else {
+                if (!isWordCorrect(true)) {
+                    wordEditFirst.setTextColor(getColor(R.color.red_text));
+                    SpringAnimator.failShakeAnimation(PaperKeyProveActivity.this, wordEditFirst);
                 }
-
+                if (!isWordCorrect(false)) {
+                    wordEditSecond.setTextColor(getColor(R.color.red_text));
+                    SpringAnimator.failShakeAnimation(PaperKeyProveActivity.this, wordEditSecond);
+                }
             }
         });
-        String cleanPhrase = null;
-
-        cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
-
-        if (Utils.isNullOrEmpty(cleanPhrase)) {
-            throw new RuntimeException(TAG + ": cleanPhrase is null");
-        }
-
+        String cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
         String wordArray[] = cleanPhrase.split(" ");
-
         if (wordArray.length == 12 && cleanPhrase.charAt(cleanPhrase.length() - 1) == '\0') {
             BRDialog.showCustomDialog(this, getString(R.string.JailbreakWarnings_title),
-                    getString(R.string.Alert_keystore_generic_android), getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            brDialogView.dismissWithAnimation();
-                        }
-                    }, null, null, 0);
+                    getString(R.string.Alert_keystore_generic_android), getString(R.string.Button_ok), null, brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
             BRReportsManager.reportBug(new IllegalArgumentException("Paper Key error, please contact support at breadwallet.com"), false);
         } else {
             randomWordsSetUp(wordArray);
-
         }
-
+        new Handler().postDelayed(() -> {
+            wordContainerFirst.setHint(String.format(Locale.getDefault(), getString(R.string.ConfirmPaperPhrase_word), (sparseArrayWords.keyAt(0) + 1)));
+            wordContainerFirst.bringToFront();
+            wordContainerSecond.setHint(String.format(Locale.getDefault(), getString(R.string.ConfirmPaperPhrase_word), (sparseArrayWords.keyAt(1) + 1)));
+            wordContainerSecond.bringToFront();
+        }, 10);
     }
 
     @Override
@@ -167,18 +101,11 @@ public class PaperKeyProveActivity extends BRActivity {
     private void randomWordsSetUp(String[] words) {
         final Random random = new Random();
         int n = random.nextInt(10) + 1;
-
         sparseArrayWords.append(n, words[n]);
-
         while (sparseArrayWords.get(n) != null) {
             n = random.nextInt(10) + 1;
         }
-
         sparseArrayWords.append(n, words[n]);
-
-        wordTextFirst.setText(String.format(Locale.getDefault(), getString(R.string.ConfirmPaperPhrase_word), (sparseArrayWords.keyAt(0) + 1)));
-        wordTextSecond.setText(String.format(Locale.getDefault(), getString(R.string.ConfirmPaperPhrase_word), (sparseArrayWords.keyAt(1) + 1)));
-
     }
 
     private boolean isWordCorrect(boolean first) {
@@ -191,38 +118,12 @@ public class PaperKeyProveActivity extends BRActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
-
-//    private class FocusListener implements View.OnFocusChangeListener {
-//
-//        @Override
-//        public void onFocusChange(View v, boolean hasFocus) {
-//            if (!hasFocus) {
-//                validateWord((EditText) v);
-//            } else {
-//                ((EditText) v).setTextColor(getColor(R.color.light_gray));
-//            }
-//        }
-//    }
-
     private void validateWord(EditText view) {
         String word = view.getText().toString();
         boolean valid = SmartValidator.isWordValid(this, word);
         view.setTextColor(getColor(valid ? R.color.light_gray : R.color.red_text));
-//        if (!valid)
-//            SpringAnimator.failShakeAnimation(this, view);
         if (isWordCorrect(true)) {
-            checkMark1.setVisibility(View.VISIBLE);
-        } else {
-            checkMark1.setVisibility(View.INVISIBLE);
-        }
-
-        if (isWordCorrect(false)) {
-            checkMark2.setVisibility(View.VISIBLE);
-        } else {
-            checkMark2.setVisibility(View.INVISIBLE);
+            view.setTextColor(getColor(R.color.green_text));
         }
     }
 
@@ -245,6 +146,4 @@ public class PaperKeyProveActivity extends BRActivity {
 
         }
     }
-
-
 }

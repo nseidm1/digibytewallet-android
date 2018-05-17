@@ -79,7 +79,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         @Override
         public void onAmountClickListener() {
             showKeyboard(true);
-            binding.balanceContainer.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -237,6 +236,11 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         @Override
         public void onClick(String key) {
             handleClick(key);
+        }
+
+        @Override
+        public void onMaxSendButtonClickListener() {
+            sendFragmentModel.populateMaxAmount();
         }
     };
 

@@ -30,10 +30,6 @@ public class ImportActivity extends BRActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
-
-    @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_up, R.anim.exit_to_bottom);

@@ -23,6 +23,7 @@ import android.view.animation.DecelerateInterpolator;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentBreadPinBinding;
+import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.presenter.fragments.interfaces.PinFragmentCallback;
 import io.digibyte.presenter.fragments.models.PinFragmentViewModel;
@@ -75,7 +76,6 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
             fadeOutRemove(false);
         }
     };
-
 
     public static void show(AppCompatActivity activity, String title, String message, BRAuthCompletion completion) {
         FragmentPin fragmentPin = new FragmentPin();
