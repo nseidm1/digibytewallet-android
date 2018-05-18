@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -60,6 +59,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
@@ -69,6 +69,10 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    protected void setToolbarTitle(int resId) {
+        setToolbarTitle(getString(resId));
     }
 
     protected void setToolbarTitle(String text) {
@@ -166,6 +170,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     public void onBackPressed() {
         if (backClickListeners.size() == 0) {
             super.onBackPressed();
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
         } else {
             for (OnBackPressListener onBackPressListener : backClickListeners) {
                 onBackPressListener.onBackPressed();
@@ -193,6 +198,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home || item.getItemId() == R.id.home) {
             finish();
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
         }
         return super.onOptionsItemSelected(item);
     }

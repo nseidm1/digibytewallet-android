@@ -1,6 +1,5 @@
 package io.digibyte.presenter.activities.settings;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,12 +23,7 @@ public class WipeActivity extends BRActivity {
         close = findViewById(R.id.close_button);
 
         nextButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            Intent intent = new Intent(WipeActivity.this, InputWordsActivity.class);
-            intent.putExtra("restore", true);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-            if (!WipeActivity.this.isDestroyed()) finish();
+            InputWordsActivity.open(WipeActivity.this, InputWordsActivity.Type.WIPE);
         });
         close.setOnClickListener(v -> {
             if (!BRAnimator.isClickAllowed()) return;

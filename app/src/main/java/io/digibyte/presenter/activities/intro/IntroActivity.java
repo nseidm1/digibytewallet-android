@@ -2,19 +2,18 @@
 package io.digibyte.presenter.activities.intro;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.io.Serializable;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityIntroBinding;
 import io.digibyte.presenter.activities.SetPinActivity;
+import io.digibyte.presenter.activities.callbacks.IntroActivityCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.security.SmartValidator;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -45,8 +44,22 @@ import io.digibyte.wallet.BRWalletManager;
  */
 
 public class IntroActivity extends BRActivity implements Serializable {
-    public Button newWalletButton;
-    public TextView recoverWalletButton;
+
+    private IntroActivityCallback callback = new IntroActivityCallback() {
+        @Override
+        public void onNewWalletClick() {
+            Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        }
+
+        @Override
+        public void onRestoreClick() {
+            Intent intent = new Intent(IntroActivity.this, RecoverActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        }
+    };
 
     public static void open(AppCompatActivity activity) {
         Intent intent = new Intent(activity, IntroActivity.class);
@@ -56,12 +69,13 @@ public class IntroActivity extends BRActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        setContentView(R.layout.activity_intro);
-        newWalletButton = findViewById(R.id.button_new_wallet);
-        recoverWalletButton = findViewById(R.id.button_recover_wallet);
-        setListeners();
+        ActivityIntroBinding binding = DataBindingUtil.setContentView(this,
+                R.layout.activity_intro);
+        binding.setCallback(callback);
+        cleanup();
+    }
 
+    private void cleanup() {
         byte[] masterPubKey = BRKeyStore.getMasterPublicKey(this);
         boolean isFirstAddressCorrect = false;
         if (masterPubKey != null && masterPubKey.length != 0) {
@@ -70,21 +84,5 @@ public class IntroActivity extends BRActivity implements Serializable {
         if (!isFirstAddressCorrect) {
             BRWalletManager.getInstance().wipeWalletButKeystore(this);
         }
-    }
-
-    private void setListeners() {
-        newWalletButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        });
-
-        recoverWalletButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            Intent intent = new Intent(IntroActivity.this, RecoverActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        });
     }
 }
