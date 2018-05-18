@@ -45,6 +45,7 @@ public class WriteDownActivity extends BRActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.home:
+            case android.R.id.home:
                 BRAnimator.startBreadActivity(WriteDownActivity.this, false);
                 return true;
             default:
