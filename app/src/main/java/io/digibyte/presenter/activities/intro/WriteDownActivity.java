@@ -46,10 +46,16 @@ public class WriteDownActivity extends BRActivity {
         switch(item.getItemId()) {
             case R.id.home:
             case android.R.id.home:
-                BRAnimator.startBreadActivity(WriteDownActivity.this, false);
+                BRAnimator.openBreadActivity(WriteDownActivity.this, false);
                 return true;
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        BRAnimator.openBreadActivity(WriteDownActivity.this, false);
     }
 }
