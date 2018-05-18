@@ -164,7 +164,7 @@ public class BRAnimator {
         return itemLayoutTransition;
     }
 
-    public static void showRequestFragment(AppCompatActivity app, String address) {
+    public static void showRequestFragment(AppCompatActivity app) {
         FragmentRequestAmount.show(app);
     }
 
