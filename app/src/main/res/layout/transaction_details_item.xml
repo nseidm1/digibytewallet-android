@@ -68,6 +68,7 @@
                     android:ellipsize="middle"
                     android:gravity="center_horizontal"
                     android:paddingEnd="24dp"
+                    android:onClick="@{() -> callback.onAddressClick()}"
                     android:paddingStart="24dp"
                     android:singleLine="true"
                     android:text="@{data.address}"
