@@ -102,7 +102,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings.txPager.setOffscreenPageLimit(2);
         bindings.tabLayout.setupWithViewPager(bindings.txPager);
         bindings.syncContainer.addView(getSyncView());
-        bindings.mainContainer.getLayoutTransition()
+        bindings.contentContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         ViewUtils.increaceClickableArea(bindings.qrButton);
         ViewUtils.increaceClickableArea(bindings.navDrawer);
@@ -177,8 +177,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 newTransactions);
         if (transactionsToAdd.size() > 0) {
             allAdapter.addTransactions(transactionsToAdd);
-            sentAdapter.addTransactions(convertNewTransactionsForAdapter(Adapter.SENT, transactionsToAdd));
-            receivedAdapter.addTransactions(convertNewTransactionsForAdapter(Adapter.RECEIVED, transactionsToAdd));
+            sentAdapter.addTransactions(
+                    convertNewTransactionsForAdapter(Adapter.SENT, transactionsToAdd));
+            receivedAdapter.addTransactions(
+                    convertNewTransactionsForAdapter(Adapter.RECEIVED, transactionsToAdd));
             allRecycler.smoothScrollToPosition(0);
             sentRecycler.smoothScrollToPosition(0);
             receivedRecycler.smoothScrollToPosition(0);
@@ -194,7 +196,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     private ArrayList<ListItemTransactionData> convertNewTransactionsForAdapter(Adapter adapter,
-                                                                                ArrayList<ListItemTransactionData> transactions) {
+            ArrayList<ListItemTransactionData> transactions) {
         ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
         for (int index = 0; index < transactions.size(); index++) {
             ListItemTransactionData transactionData = transactions.get(index);
