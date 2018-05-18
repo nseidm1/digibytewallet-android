@@ -184,10 +184,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             allRecycler.smoothScrollToPosition(0);
             sentRecycler.smoothScrollToPosition(0);
             receivedRecycler.smoothScrollToPosition(0);
+            notifyDataSetChangeForAll();
         } else {
             allAdapter.updateTransactions(newTransactions);
             sentAdapter.updateTransactions(newTransactions);
             receivedAdapter.updateTransactions(newTransactions);
+            notifyDataSetChangeForAll();
         }
     }
 
@@ -290,14 +292,16 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @OnClick(R.id.primary_price)
     void onPrimaryPriceClick(View view) {
         BRSharedPrefs.putPreferredBTC(BreadActivity.this, true);
-        allAdapter.notifyDataChanged();
-        sentAdapter.notifyDataChanged();
-        receivedAdapter.notifyDataChanged();
+        notifyDataSetChangeForAll();
     }
 
     @OnClick(R.id.secondary_price)
     void onSecondaryPriceClick(View view) {
         BRSharedPrefs.putPreferredBTC(BreadActivity.this, false);
+        notifyDataSetChangeForAll();
+    }
+
+    private void notifyDataSetChangeForAll() {
         allAdapter.notifyDataChanged();
         sentAdapter.notifyDataChanged();
         receivedAdapter.notifyDataChanged();
