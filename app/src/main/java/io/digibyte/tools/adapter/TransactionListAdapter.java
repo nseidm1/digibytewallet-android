@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import io.digibyte.DigiByte;
+import io.digibyte.R;
 import io.digibyte.databinding.ListItemTransactionBinding;
 import io.digibyte.tools.animation.BRAnimator;
+import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.list.items.ListItemTransactionViewHolder;
@@ -164,6 +166,16 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public void onBindViewHolder(ListItemTransactionViewHolder holder, int aPosition) {
         holder.process(this.getListItemDataForPosition(aPosition));
         holder.getView().setOnClickListener(mOnClickListener);
+        holder.binding.amount.setOnClickListener(v -> displayAmountInfo());
+    }
+
+    private void displayAmountInfo() {
+        if (!BRSharedPrefs.getPreferredBTC(DigiByte.getContext())) {
+            BRDialog.showCustomDialog(recyclerView.getContext(), recyclerView.getContext().getString(R.string.Alert_info),
+                    recyclerView.getContext().getString(R.string.Alert_Amount_info),
+                    recyclerView.getContext().getString(R.string.AccessibilityLabels_close), null,
+                    brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
+        }
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {

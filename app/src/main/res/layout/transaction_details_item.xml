@@ -45,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:drawablePadding="4dp"
                     android:paddingEnd="6dp"
                     android:paddingStart="6dp"
                     android:text="@{data.amount}"

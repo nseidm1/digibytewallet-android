@@ -11,6 +11,7 @@ import java.util.Date;
 import io.digibyte.R;
 import io.digibyte.databinding.ListItemTransactionBinding;
 import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.tools.database.Database;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -19,7 +20,7 @@ import io.digibyte.tools.util.BRDateUtil;
 import io.digibyte.tools.util.BRExchange;
 
 public class ListItemTransactionViewHolder extends ListItemViewHolder {
-    private ListItemTransactionBinding binding;
+    public ListItemTransactionBinding binding;
 
     public ListItemTransactionViewHolder(ListItemTransactionBinding binding) {
         super(binding.getRoot());
@@ -30,6 +31,15 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
     public void process(ListItemData aListItemData) {
         super.process(aListItemData);
         binding.setData((ListItemTransactionData) aListItemData);
+    }
+
+    @BindingAdapter("info")
+    public static void setInfoVisibility(TextView textView, ListItemTransactionData listItemTransactionData) {
+        if (BRSharedPrefs.getPreferredBTC(textView.getContext())) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(null, null, textView.getContext().getDrawable(R.drawable.info), null);
+        }
     }
 
     @BindingAdapter("arrowIcon")
@@ -49,9 +59,22 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
         String iso = isBTCPreferred ? "DGB" : BRSharedPrefs.getIso(textView.getContext());
         long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
         textView.setTextColor(received ? Color.parseColor("#3fe77b") : Color.parseColor("#ff7416"));
-        textView.setText((received ? "+" : "-") + BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
-                 BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
-                        new BigDecimal(satoshisAmount))));
+        String transactionText;
+        if (isBTCPreferred) {
+            transactionText = BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
+                    BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
+                            new BigDecimal(satoshisAmount)));
+        } else {
+            if (Database.instance.containsTransaction(item.getTxHash())) {
+                transactionText = Database.instance.findTransaction(item.getTxHash()).getTxAmount();
+            } else {
+                transactionText = BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
+                        BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
+                                new BigDecimal(satoshisAmount)));
+                Database.instance.saveTransaction(item.getTxHash(), transactionText);
+            }
+        }
+        textView.setText((received ? "+" : "-") + transactionText);
     }
 
     @BindingAdapter("timestamp")

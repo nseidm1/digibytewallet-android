@@ -11,22 +11,22 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="24dp"
-        android:background="@drawable/transaction_background">
+        android:background="@drawable/transaction_background"
+        android:paddingTop="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/cad_bg"
-            android:elevation="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:background="@drawable/cad_bg"
+            android:elevation="4dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:minHeight="75dp"
-            android:paddingTop="12dp"
             android:orientation="horizontal"
+            android:paddingEnd="12dp"
             android:paddingStart="12dp"
-            android:paddingEnd="12dp">
+            android:paddingTop="12dp">
 
             <ImageView
                 android:id="@+id/arrow_icon"
@@ -39,20 +39,24 @@
 
             <io.digibyte.presenter.customviews.BRText
                 android:id="@+id/amount"
-                android:layout_width="0dp"
-                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="6dp"
+                app:info="@{data}"
+                android:drawablePadding="4dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:amount="@{data}"/>
+
+            <View android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:layout_weight="1"/>
 
             <io.digibyte.presenter.customviews.BRText
                 android:id="@+id/timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:layout_marginEnd="24dp"
+                android:layout_marginTop="6dp"
                 android:textColor="#6d6d7e"
                 android:textSize="16sp"
                 app:timestamp="@{data}"/>
