@@ -48,6 +48,7 @@ import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
+import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
@@ -103,6 +104,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings.syncContainer.addView(getSyncView());
         bindings.mainContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
+        ViewUtils.increaceClickableArea(bindings.qrButton);
+        ViewUtils.increaceClickableArea(bindings.navDrawer);
+        ViewUtils.increaceClickableArea(bindings.digiidButton);
         unbinder = ButterKnife.bind(this);
     }
 
