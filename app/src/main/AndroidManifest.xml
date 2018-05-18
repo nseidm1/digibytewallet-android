@@ -198,7 +198,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".presenter.activities.QRCodeActivity"
-                  android:screenOrientation="portrait"
                   android:theme="@style/Theme.AppCompat.Translucent"/>
 
         <service android:name=".presenter.activities.RestartService"
