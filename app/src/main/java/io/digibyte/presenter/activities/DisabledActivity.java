@@ -81,10 +81,6 @@ public class DisabledActivity extends BRActivity {
 
     @Override
     public void onBackPressed() {
-        if (AuthManager.getInstance().isWalletDisabled(DisabledActivity.this)) {
-            SpringAnimator.failShakeAnimation(DisabledActivity.this, disabled);
-        } else {
-            finishAffinity();
-        }
+        finishAffinity();
     }
 }
