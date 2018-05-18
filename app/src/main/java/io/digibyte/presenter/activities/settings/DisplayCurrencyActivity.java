@@ -2,26 +2,22 @@ package io.digibyte.presenter.activities.settings;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Point;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
-import android.text.Html;
-import android.text.SpannableString;
-import android.util.TypedValue;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityDisplayCurrencyBinding;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.CurrencyEntity;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -32,20 +28,25 @@ import io.digibyte.tools.util.BRCurrency;
 
 
 public class DisplayCurrencyActivity extends BRActivity {
-    private static final String TAG = DisplayCurrencyActivity.class.getName();
-    private TextView exchangeText;
-    private ListView listView;
+
+    private ActivityDisplayCurrencyBinding binding;
     private CurrencyListAdapter adapter;
+
+    public static void show(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, DisplayCurrencyActivity.class);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_currency);
-        exchangeText = findViewById(R.id.exchange_text);
-        listView = findViewById(R.id.currency_list_view);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_display_currency);
+        setupToolbar();
+        setToolbarTitle(R.string.Settings_currency);
+
         adapter = new CurrencyListAdapter(this);
         adapter.addAll(CurrencyDataSource.getInstance(this).getAllCurrencies());
-        listView.setOnItemClickListener((parent, view, position, id) -> {
+        binding.currencyListView.setOnItemClickListener((parent, view, position, id) -> {
             TextView currencyItemText = (TextView) view.findViewById(R.id.currency_item_text);
             final String selectedCurrency = currencyItemText.getText().toString();
             String iso = selectedCurrency.substring(0, 3);
@@ -53,7 +54,7 @@ public class DisplayCurrencyActivity extends BRActivity {
             BRSharedPrefs.putCurrencyListPosition(DisplayCurrencyActivity.this, position);
             updateExchangeRate();
         });
-        listView.setAdapter(adapter);
+        binding.currencyListView.setAdapter(adapter);
         updateExchangeRate();
     }
 
@@ -64,7 +65,7 @@ public class DisplayCurrencyActivity extends BRActivity {
         if (entity != null) {
             String finalExchangeRate = BRCurrency.getFormattedCurrencyString(DisplayCurrencyActivity.this, BRSharedPrefs.getIso(this), new BigDecimal(entity.rate));
             boolean bits = BRSharedPrefs.getCurrencyUnit(this) == BRConstants.CURRENT_UNIT_BITS;
-            exchangeText.setText(BRCurrency.getFormattedCurrencyString(this, "DGB", new BigDecimal(bits ? 1000000 : 1)) + " = " + finalExchangeRate);
+            binding.exchangeText.setText(BRCurrency.getFormattedCurrencyString(this, "DGB", new BigDecimal(bits ? 1000000 : 1)) + " = " + finalExchangeRate);
         }
         adapter.notifyDataSetChanged();
     }

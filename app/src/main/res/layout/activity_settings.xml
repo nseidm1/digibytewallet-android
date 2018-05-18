@@ -3,11 +3,11 @@
 
     <data>
         <variable name="callback" type="io.digibyte.presenter.activities.SettingsCallback"/>
-        <variable name="adapter" type="io.digibyte.presenter.activities.settings.SettingsActivity.SettingsListAdapter"/>
+        <variable name="adapter"
+                  type="io.digibyte.presenter.activities.settings.SettingsActivity.SettingsListAdapter"/>
     </data>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_intro_set_pit"
         android:layout_width="match_parent"
@@ -15,25 +15,26 @@
         android:orientation="vertical"
         tools:context="io.digibyte.presenter.activities.SetPinActivity">
 
-        <io.digibyte.presenter.customviews.BRText
-            app:customTFont="CircularPro-Bold.otf"
-            android:id="@+id/title"
-            android:padding="8dp"
-            android:layout_width="wrap_content"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:onClick="@{() -> callback.onTitleClick()}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/header"
-            android:layout_margin="@dimen/bread_margin"/>
+        <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbar" style="@style/MyToolBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/toolbar_title" style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="@{() -> callback.onTitleClick()}"
+                android:text="Settings"/>
+
+        </android.support.v7.widget.Toolbar>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/settings_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="32dp"
             android:adapter="@{adapter}"/>
 
     </LinearLayout>

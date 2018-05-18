@@ -50,6 +50,7 @@ public class SettingsActivity extends BRActivity {
         super.onCreate(savedInstanceState);
         ActivitySettingsBinding binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_settings);
+        setupToolbar();
         binding.setCallback(callback);
         binding.settingsList.setLayoutManager(new LinearLayoutManager(this));
         populateItems();
@@ -162,9 +163,7 @@ public class SettingsActivity extends BRActivity {
         }, false));*/
 
         items.add(new BRSettingsItem(getString(R.string.Settings_wipe), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this, WipeActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+            WipeActivity.show(SettingsActivity.this);
         }, BRSettingsItem.Type.ITEM));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_manage), "", null,
@@ -177,11 +176,7 @@ public class SettingsActivity extends BRActivity {
                             new BRAuthCompletion() {
                                 @Override
                                 public void onComplete() {
-                                    Intent intent = new Intent(SettingsActivity.this,
-                                            SpendLimitActivity.class);
-                                    overridePendingTransition(R.anim.enter_from_right,
-                                            R.anim.exit_to_left);
-                                    startActivity(intent);
+                                    SpendLimitActivity.show(SettingsActivity.this);
                                 }
 
                                 @Override
@@ -196,9 +191,7 @@ public class SettingsActivity extends BRActivity {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_currency),
                 BRSharedPrefs.getIso(this), v -> {
-            Intent intent = new Intent(SettingsActivity.this, DisplayCurrencyActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            DisplayCurrencyActivity.show(SettingsActivity.this);
         }, BRSettingsItem.Type.ITEM));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_sync), "", v -> {

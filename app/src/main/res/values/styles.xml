@@ -62,6 +62,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="Text.Description.Paddless" parent="Text">
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
     <style name="Text.Description" parent="Text">
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginStart">16dp</item>

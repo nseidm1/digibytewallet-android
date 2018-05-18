@@ -1,9 +1,12 @@
 package io.digibyte.presenter.activities.settings;
 
 import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivitySpendLimitBinding;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.manager.FontManager;
 import io.digibyte.tools.security.BRKeyStore;
@@ -26,26 +30,32 @@ import io.digibyte.tools.util.BRCurrency;
 
 public class SpendLimitActivity extends BRActivity {
     private static final String TAG = SpendLimitActivity.class.getName();
-    private RecyclerView recyclerView;
     private RecyclerView.Adapter<LimitHolder> adapter;
     List<Integer> items = new ArrayList<>();
+
+    public static void show(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, SpendLimitActivity.class);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spend_limit);
-        recyclerView = findViewById(R.id.limit_list);
+        ActivitySpendLimitBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_spend_limit);
+        setupToolbar();
+        setToolbarTitle(R.string.TouchIdSpendingLimit_title_android);
         adapter = new LimitAdaptor(this);
         items.add(getAmountByStep(0).intValue());
         items.add(getAmountByStep(1).intValue());
         items.add(getAmountByStep(2).intValue());
         items.add(getAmountByStep(3).intValue());
         items.add(getAmountByStep(4).intValue());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        binding.limitList.setLayoutManager(new LinearLayoutManager(this));
+        binding.setAdapter((LimitAdaptor) adapter);
+
     }
 
-    private class LimitHolder extends RecyclerView.ViewHolder {
+    public class LimitHolder extends RecyclerView.ViewHolder {
 
         private TextView limit;
         private ImageView check;
@@ -81,28 +91,6 @@ public class SpendLimitActivity extends BRActivity {
         return result;
     }
 
-    private int getStepFromLimit(long limit) {
-        switch ((int) limit) {
-            default:
-            case 0:
-                return 0;
-            case 50:
-                return 1;
-            case 500:
-                return 2;
-            case 5000:
-                return 3;
-            case 50000:
-                return 4;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-    }
-
     public class LimitAdaptor extends RecyclerView.Adapter<LimitHolder> {
 
         private LayoutInflater inflater;
@@ -122,7 +110,7 @@ public class SpendLimitActivity extends BRActivity {
             holder.itemView.setOnClickListener(v -> {
                 Log.e(TAG, "onItemClick: " + position);
                 BRKeyStore.putSpendLimit(items.get(position), SpendLimitActivity.this);
-                handler.postDelayed(() -> adapter.notifyDataSetChanged(), 100);
+                handler.postDelayed(() -> adapter.notifyDataSetChanged(), 500);
             });
             FontManager.overrideFonts(holder.limit);
             int limit = items.get(position);

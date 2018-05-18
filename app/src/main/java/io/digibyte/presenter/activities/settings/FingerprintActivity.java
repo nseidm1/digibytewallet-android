@@ -2,6 +2,7 @@ package io.digibyte.presenter.activities.settings;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -11,16 +12,13 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import java.math.BigDecimal;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityFingerprintBinding;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -34,22 +32,16 @@ import io.digibyte.tools.util.Utils;
 public class FingerprintActivity extends BRActivity {
     private static final String TAG = FingerprintActivity.class.getName();
 
-    public RelativeLayout layout;
-    private TextView limitExchange;
-    private TextView limitInfo;
-
-    private ToggleButton toggleButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fingerprint);
-        toggleButton = findViewById(R.id.toggleButton);
-        limitExchange = findViewById(R.id.limit_exchange);
-        limitInfo = findViewById(R.id.limit_info);
-        toggleButton.setChecked(BRSharedPrefs.getUseFingerprint(this));
-        limitExchange.setText(getLimitText());
-        toggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        ActivityFingerprintBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_fingerprint);
+        setupToolbar();
+        setToolbarTitle(R.string.TouchIdSettings_title_android);
+
+        binding.toggleButton.setChecked(BRSharedPrefs.getUseFingerprint(this));
+        binding.limitExchange.setText(getLimitText());
+        binding.toggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Activity app = FingerprintActivity.this;
             if (isChecked && !Utils.isFingerprintAvailable(app)) {
                 Log.e(TAG, "onCheckedChanged: fingerprint not setup");
@@ -57,17 +49,11 @@ public class FingerprintActivity extends BRActivity {
                         getString(R.string.TouchIdSettings_disabledWarning_title_android),
                         getString(R.string.TouchIdSettings_disabledWarning_body_android),
                         getString(R.string.Button_ok), null,
-                        new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, null, 0);
+                        brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
                 buttonView.setChecked(false);
             } else {
                 BRSharedPrefs.putUseFingerprint(app, isChecked);
             }
-
         });
         SpannableString ss = new SpannableString(
                 getString(R.string.TouchIdSettings_customizeText_android));
@@ -100,15 +86,14 @@ public class FingerprintActivity extends BRActivity {
             }
         };
         //start index of the last space (beginning of the last word)
-        int indexOfSpace = limitInfo.getText().toString().lastIndexOf(" ");
+        int indexOfSpace = binding.limitInfo.getText().toString().lastIndexOf(" ");
         // make the whole text clickable if failed to select the last word
         ss.setSpan(clickableSpan, indexOfSpace == -1 ? 0 : indexOfSpace,
-                limitInfo.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                binding.limitInfo.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        limitInfo.setText(ss);
-        limitInfo.setMovementMethod(LinkMovementMethod.getInstance());
-        limitInfo.setHighlightColor(Color.TRANSPARENT);
-
+        binding.limitInfo.setText(ss);
+        binding.limitInfo.setMovementMethod(LinkMovementMethod.getInstance());
+        binding.limitInfo.setHighlightColor(Color.TRANSPARENT);
     }
 
     private String getLimitText() {
@@ -125,16 +110,5 @@ public class FingerprintActivity extends BRActivity {
         return String.format(getString(R.string.TouchIdSettings_spendingLimit),
                 BRCurrency.getFormattedCurrencyString(this, "DGB", digibyte),
                 BRCurrency.getFormattedCurrencyString(this, iso, curAmount));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 }
