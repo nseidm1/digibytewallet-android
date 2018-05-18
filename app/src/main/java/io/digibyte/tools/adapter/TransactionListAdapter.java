@@ -71,7 +71,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
             //Check to see if the transaction time changed
             String currentTime = listItemTransactionData.getTransactionDisplayTimeHolder();
 
-            ListItemTransactionData updatedTransaction = findTransaction(listItemTransactionData, transactions);
+            ListItemTransactionData updatedTransaction = findTransaction(listItemTransactionData,
+                    transactions);
 
             if (updatedTransaction == null) {
                 continue;
@@ -110,6 +111,10 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
                                         listItemData.indexOf(listItemTransactionData));
                 if (listItemTransactionViewHolder != null) {
                     listItemTransactionViewHolder.process(listItemTransactionData);
+                    listItemTransactionViewHolder.binding.amount.setClickable(
+                            !BRSharedPrefs.getPreferredBTC(DigiByte.getContext()));
+                    listItemTransactionViewHolder.binding.amount.setFocusable(
+                            !BRSharedPrefs.getPreferredBTC(DigiByte.getContext()));
                 }
             }
         }
@@ -170,12 +175,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     private void displayAmountInfo() {
-        if (!BRSharedPrefs.getPreferredBTC(DigiByte.getContext())) {
-            BRDialog.showCustomDialog(recyclerView.getContext(), recyclerView.getContext().getString(R.string.Alert_info),
-                    recyclerView.getContext().getString(R.string.Alert_Amount_info),
-                    recyclerView.getContext().getString(R.string.AccessibilityLabels_close), null,
-                    brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
-        }
+        BRDialog.showCustomDialog(recyclerView.getContext(),
+                recyclerView.getContext().getString(R.string.Alert_info),
+                recyclerView.getContext().getString(R.string.Alert_Amount_info),
+                recyclerView.getContext().getString(R.string.AccessibilityLabels_close), null,
+                brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
