@@ -2,10 +2,8 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.text.TextUtils;
 
 import io.digibyte.BR;
-import io.digibyte.DigiByte;
 import io.digibyte.R;
 
 public class PinFragmentViewModel extends BaseObservable {
@@ -15,9 +13,6 @@ public class PinFragmentViewModel extends BaseObservable {
 
     public void setTitle(String title) {
         this.title = title;
-        if (TextUtils.isEmpty(this.title)) {
-            this.title = DigiByte.getContext().getString(R.string.VerifyPin_title);
-        }
         notifyPropertyChanged(BR.title);
     }
 
@@ -28,9 +23,6 @@ public class PinFragmentViewModel extends BaseObservable {
 
     public void setMessage(String message) {
         this.message = message;
-        if (TextUtils.isEmpty(this.message)) {
-            this.message = DigiByte.getContext().getString(R.string.VerifyPin_authorize);
-        }
         notifyPropertyChanged(BR.message);
     }
 
