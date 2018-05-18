@@ -1,53 +1,70 @@
 package io.digibyte.presenter.activities;
 
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityPaperKeyBinding;
+import io.digibyte.presenter.activities.callbacks.ActivityPaperKeyCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.fragments.FragmentPhraseWord;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.security.PostAuth;
-import io.digibyte.tools.util.Utils;
 
 
 public class PaperKeyActivity extends BRActivity {
-    private static final String TAG = PaperKeyActivity.class.getName();
-    private ViewPager wordViewPager;
-    private Button nextButton;
-    private Button previousButton;
-    private TextView itemIndexText;
+    public static final String CLEAN_PHRASE = "PaperKeyActivity:CleanPhrase";
     private SparseArray<String> wordMap;
-    private ImageButton close;
+    private ActivityPaperKeyBinding binding;
+
+    private ActivityPaperKeyCallback callback = new ActivityPaperKeyCallback() {
+        @Override
+        public void onNextButtonClick() {
+            updateWordView(true);
+        }
+
+        @Override
+        public void onPreviousButtonClick() {
+            updateWordView(false);
+        }
+    };
+
+    public static void show(AppCompatActivity activity, String phrase) {
+        Intent intent = new Intent(activity, PaperKeyActivity.class);
+        intent.putExtra(CLEAN_PHRASE, phrase);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_paper_key);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_paper_key);
+        binding.setCallback(callback);
+        setupToolbar();
+        setToolbarTitle(R.string.SecurityCenter_paperKeyTitle);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
-        wordViewPager = findViewById(R.id.phrase_words_pager);
-        wordViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        binding.setPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {
 
             }
 
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                    int positionOffsetPixels) {
 
             }
 
@@ -61,44 +78,28 @@ public class PaperKeyActivity extends BRActivity {
             }
         });
 
-        nextButton = findViewById(R.id.send_button);
-        previousButton = findViewById(R.id.button_previous);
-        close = findViewById(R.id.close_button);
-        itemIndexText = findViewById(R.id.item_index_text);
-
-        nextButton.setOnClickListener(v -> updateWordView(true));
-
-        close.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            BRAnimator.startBreadActivity(PaperKeyActivity.this, false);
-            if (!isDestroyed()) finish();
-        });
-        previousButton.setOnClickListener(v -> updateWordView(false));
-        String cleanPhrase = getIntent().getExtras() == null ? null : getIntent().getStringExtra("phrase");
+        String cleanPhrase = getPhrase();
         wordMap = new SparseArray<>();
-
-        if (Utils.isNullOrEmpty(cleanPhrase)) {
-            throw new RuntimeException(TAG + ": cleanPhrase is null");
-        }
 
         List<String> wordArray = Arrays.asList(cleanPhrase.split(" "));
 
         if (cleanPhrase.charAt(cleanPhrase.length() - 1) == '\0') {
             BRDialog.showCustomDialog(this, getString(R.string.JailbreakWarnings_title),
-                    getString(R.string.Alert_keystore_generic_android), getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            brDialogView.dismissWithAnimation();
-                        }
-                    }, null, null, 0);
-            BRReportsManager.reportBug(new IllegalArgumentException("Paper Key error, please contact support at breadwallet.com: " + wordArray.size()), true);
+                    getString(R.string.Alert_keystore_generic_android),
+                    getString(R.string.Button_ok), null,
+                    brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
+            BRReportsManager.reportBug(new IllegalArgumentException(
+                    "Paper Key error, please contact support at breadwallet.com: "
+                            + wordArray.size()), true);
         } else {
             if (wordArray.size() != 12) {
-                BRReportsManager.reportBug(new IllegalArgumentException("Wrong number of paper keys: " + wordArray.size() + ", lang: " + Locale.getDefault().getLanguage()), true);
+                BRReportsManager.reportBug(new IllegalArgumentException(
+                        "Wrong number of paper keys: " + wordArray.size() + ", lang: "
+                                + Locale.getDefault().getLanguage()), true);
             }
             WordPagerAdapter adapter = new WordPagerAdapter(getSupportFragmentManager());
             adapter.setWords(wordArray);
-            wordViewPager.setAdapter(adapter);
+            binding.setAdapter(adapter);
             for (int i = 0; i < wordArray.size(); i++) {
                 wordMap.append(i, wordArray.get(i));
             }
@@ -106,42 +107,40 @@ public class PaperKeyActivity extends BRActivity {
         }
     }
 
+    private String getPhrase() {
+        return getIntent().getStringExtra(CLEAN_PHRASE);
+    }
+
     private void updateWordView(boolean isNext) {
-        int currentIndex = wordViewPager.getCurrentItem();
+        int currentIndex = binding.phraseWordsPager.getCurrentItem();
         if (isNext) {
             setButtonEnabled(true);
             if (currentIndex >= 11) {
                 PostAuth.getInstance().onPhraseProveAuth(this, false);
             } else {
-                wordViewPager.setCurrentItem(currentIndex + 1);
+                binding.phraseWordsPager.setCurrentItem(currentIndex + 1);
             }
         } else {
             if (currentIndex <= 1) {
-                wordViewPager.setCurrentItem(currentIndex - 1);
+                binding.phraseWordsPager.setCurrentItem(currentIndex - 1);
                 setButtonEnabled(false);
             } else {
-                wordViewPager.setCurrentItem(currentIndex - 1);
+                binding.phraseWordsPager.setCurrentItem(currentIndex - 1);
             }
         }
     }
 
     private void setButtonEnabled(boolean b) {
-        previousButton.setTextColor(getColor(b ? R.color.white : R.color.light_gray));
+        binding.buttonPrevious.setTextColor(getColor(b ? R.color.white : R.color.light_gray));
     }
 
     private void updateItemIndexText() {
-        int wordNumber = wordViewPager.getCurrentItem() + 1;
+        int wordNumber = binding.phraseWordsPager.getCurrentItem() + 1;
         int totalWords = wordMap.size();
-        itemIndexText.setText(wordNumber + " / " + totalWords);
+        binding.itemIndexText.setText(wordNumber + " / " + totalWords);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-    }
-
-    private class WordPagerAdapter extends FragmentStatePagerAdapter {
+    public class WordPagerAdapter extends FragmentStatePagerAdapter {
 
         private List<String> words;
 

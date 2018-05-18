@@ -10,21 +10,19 @@
         android:id="@+id/activity_intro_set_pit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textDirection="locale"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:textDirection="locale"
         tools:context="io.digibyte.presenter.activities.SetPinActivity">
+
+        <include layout="@layout/toolbar"/>
 
         <TextView
             android:id="@+id/title"
+            style="@style/Text.Description.Top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="32dp"
-            android:text="@string/About.title"
-            android:textColor="@color/white"
-            android:textSize="@dimen/header"/>
+            android:text="@string/About.title"/>
 
         <View
             android:id="@+id/view3"
@@ -43,8 +41,8 @@
             android:text="DigiByte"
             android:textColor="@color/white"
             android:textSize="26sp"
-            app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="@+id/view3"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintTop_toBottomOf="@+id/view3"/>
 
         <LinearLayout android:layout_width="match_parent"
@@ -56,8 +54,8 @@
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/white"
                 android:text="@string/About.blog"
+                android:textColor="@color/white"
                 android:textSize="18sp"/>
 
             <ImageView
@@ -92,8 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/About.twitter"
-                android:textSize="18sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/view4"
                 app:layout_constraintStart_toStartOf="@+id/divider1"/>
 
@@ -128,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/About.reddit"
-                android:textSize="18sp"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/divider1"
                 app:layout_constraintStart_toStartOf="@+id/divider1"/>
 
@@ -162,21 +160,21 @@
             android:layout_marginStart="8dp"
             android:alpha="0.8"
             android:text="@string/About.privacy"
-            android:textSize="16sp"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/info_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.525"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/info_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:textColor="@color/white"
             android:layout_marginStart="8dp"
-            android:text="@string/About.footer"/>
+            android:text="@string/About.footer"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 </ScrollView>

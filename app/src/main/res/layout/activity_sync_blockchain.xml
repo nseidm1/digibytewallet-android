@@ -1,100 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:textDirection="locale"
-    android:id="@+id/activity_intro_set_pit"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="io.digibyte.presenter.activities.SetPinActivity">
+<layout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:layout_marginTop="32dp"
-        android:text="@string/Settings.sync"
-        android:textColor="@color/white"
-        android:textSize="@dimen/header"/>
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:layout_marginTop="24dp"
-        android:text="@string/ReScan.subheader1"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:layout_marginTop="8dp"
-        android:text="@string/ReScan.body1"
-        android:textColor="@color/white"
-        android:textSize="@dimen/paragraph"/>
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:lineSpacingMultiplier="1.3"
-        android:text="@string/ReScan.subheader2"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"/>
-
-    <TextView
-        android:id="@+id/textView15"
+    <data>
+        <variable name="callback"
+                  type="io.digibyte.presenter.activities.callbacks.ActivitySyncCallback"/>
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_intro_set_pit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/ReScan.body2"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:textDirection="locale"
+        tools:context="io.digibyte.presenter.activities.SetPinActivity">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:text="@string/ReScan.body3"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"/>
+        <include layout="@layout/toolbar"/>
 
-    <Button
-        android:id="@+id/button_scan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/intro_create_button"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/ReScan.buttonTitle"
-        android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/description"
+            style="@style/Text.Description.Top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ReScan.subheader1"/>
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:textColor="@color/white"
-        android:text="@string/ReScan.footer"
-        android:textSize="@dimen/sub_header"/>
+        <TextView
+            style="@style/Text.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ReScan.body1"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/Text.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ReScan.subheader2"/>
+
+        <TextView
+            android:id="@+id/textView15"
+            style="@style/Text.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ReScan.body2"/>
+
+        <TextView
+            android:id="@+id/textView16"
+            style="@style/Text.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ReScan.body3"/>
+
+        <TextView
+            android:id="@+id/textView17"
+            style="@style/Text.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ReScan.footer"/>
+
+        <View android:layout_width="match_parent" android:layout_height="0dp"
+              android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/button_scan"
+            style="@style/ButtonTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() ->  callback.onScanButtonClick()}"
+            android:text="@string/ReScan.buttonTitle"/>
+
+    </LinearLayout>
+</layout>
+

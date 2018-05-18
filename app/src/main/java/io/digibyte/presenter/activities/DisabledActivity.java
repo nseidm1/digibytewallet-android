@@ -34,10 +34,7 @@ public class DisabledActivity extends BRActivity {
         resetButton = findViewById(R.id.reset_button);
         resetButton.setEnabled(false);
         resetButton.setOnClickListener(v -> {
-            Intent intent = new Intent(DisabledActivity.this, InputWordsActivity.class);
-            intent.putExtra("resetPin", true);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            InputWordsActivity.open(DisabledActivity.this, InputWordsActivity.Type.RESET_PIN);
         });
         layout.setOnClickListener(v -> refresh());
         untilLabel.setText("");
