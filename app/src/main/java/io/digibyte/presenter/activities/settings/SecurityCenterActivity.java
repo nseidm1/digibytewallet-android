@@ -3,6 +3,7 @@ package io.digibyte.presenter.activities.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -11,71 +12,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.digibyte.R;
+import io.digibyte.databinding.ActivitySecurityCenterBinding;
 import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.BRSecurityCenterItem;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
 import io.digibyte.tools.util.Utils;
 
 public class SecurityCenterActivity extends BRActivity {
 
-    public ListView mListView;
-    public RelativeLayout layout;
-    public List<BRSecurityCenterItem> itemList;
-    private ImageButton close;
+    public List<BRSecurityCenterItem> itemList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_security_center);
-
-        itemList = new ArrayList<>();
-        mListView = findViewById(R.id.menu_listview);
-        mListView.addFooterView(new View(this), null, true);
-        mListView.addHeaderView(new View(this), null, true);
-        mListView.setVerticalScrollBarEnabled(false);
-        mListView.setClickable(false);
-        close = findViewById(R.id.close_button);
-        close.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            onBackPressed();
-        });
+        ActivitySecurityCenterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_security_center);
+        setupToolbar();
+        setToolbarTitle(R.string.SecurityCenter_title);
         updateList();
-    }
+        binding.setAdapter(new SecurityCenterListAdapter(this, R.layout.menu_list_item, itemList));
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateList();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (ActivityUTILS.isLast(this)) {
-            BRAnimator.startBreadActivity(this, false);
-        } else {
-            super.onBackPressed();
-        }
-        overridePendingTransition(R.anim.fade_up, R.anim.exit_to_bottom);
-    }
-
-    public RelativeLayout getMainLayout() {
-        return layout;
     }
 
     public class SecurityCenterListAdapter extends ArrayAdapter<BRSecurityCenterItem> {
@@ -152,8 +117,5 @@ public class SecurityCenterActivity extends BRActivity {
                     startActivity(intent);
                     overridePendingTransition(R.anim.enter_from_bottom, R.anim.fade_down);
                 }));
-
-        mListView.setAdapter(
-                new SecurityCenterListAdapter(this, R.layout.menu_list_item, itemList));
     }
 }

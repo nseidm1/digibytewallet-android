@@ -73,7 +73,14 @@ public abstract class BasePinActivity extends BRActivity {
         updateDots();
     }
 
-    private void updateDots() {
+    protected void updateDots() {
+        AuthManager.getInstance().updateDots(pin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
+            onPinConfirmed();
+        }, 100));
+    }
+
+    protected void clearDots() {
+        pin = new StringBuilder();
         AuthManager.getInstance().updateDots(pin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
             onPinConfirmed();
         }, 100));
