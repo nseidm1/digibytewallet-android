@@ -577,5 +577,5 @@
   <string name="max_send_enabled">Send Max Button Visible</string>
   <string name="max">max</string>
   <string name="Alert.info">Info</string>
-  <string name="Alert.Amount.info">This fiat price is at the time the transaction first appeared in the wallet</string>
+  <string name="Alert.Amount.info">This fiat price is at the time the transaction first appeared in the wallet, and is only available in the currency type selected at the time</string>
 </resources>
