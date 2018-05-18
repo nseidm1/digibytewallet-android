@@ -27,12 +27,19 @@ android {
         versionCode 2094
         versionName "2.0.0b2094"
         multiDexEnabled true
+        // Similar to other properties in the defaultConfig block,
+        // you can configure the ndk block for each product flavor
+        // in your build configuration.
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+        }
         externalNativeBuild {
             cmake {
                 arguments "-DANDROID_TOOLCHAIN=clang"
             }
         }
-
     }
 
     testOptions {
@@ -167,6 +174,7 @@ dependencies {
     implementation 'org.eclipse.jetty:jetty-continuation:9.2.19.v20160908'
     implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:gridlayout-v7:27.1.1'
     implementation 'com.android.support:support-v13:27.1.1'

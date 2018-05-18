@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import io.digibyte.R;
 import io.digibyte.databinding.TransactionDetailsItemBinding;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.fragments.interfaces.TransactionDetailsCallback;
 import io.digibyte.presenter.fragments.models.TransactionDetailsViewModel;
+import io.digibyte.tools.manager.BRClipboardManager;
 
 /**
  * BreadWallet
@@ -41,12 +44,21 @@ public class FragmentTransactionItem extends Fragment {
 
     private TransactionDetailsViewModel viewModel;
 
-    private TransactionDetailsCallback callback = () -> {
-        FragmentTransactionDetails fragment =
-                (FragmentTransactionDetails) getActivity().getSupportFragmentManager()
-                        .findFragmentByTag(
-                        FragmentTransactionDetails.class.getName());
-        fragment.onBackPressed();
+    private TransactionDetailsCallback callback = new TransactionDetailsCallback() {
+        @Override
+        public void onBackgroundClick() {
+            FragmentTransactionDetails fragment =
+                    (FragmentTransactionDetails) getActivity().getSupportFragmentManager()
+                            .findFragmentByTag(
+                                    FragmentTransactionDetails.class.getName());
+            fragment.onBackPressed();
+        }
+
+        @Override
+        public void onAddressClick() {
+            BRClipboardManager.putClipboard(getContext(), viewModel.getAddress());
+            Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
+        }
     };
 
     public static FragmentTransactionItem newInstance(TxItem item) {

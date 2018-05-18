@@ -26,7 +26,8 @@ public class AboutActivity extends BRActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
+        setupToolbar();
+        setToolbarTitle(R.string.Settings_about);
         infoText = findViewById(R.id.info_text);
         policyText = findViewById(R.id.policy_text);
 

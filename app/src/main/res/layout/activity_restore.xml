@@ -1,131 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_intro_recover"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="io.digibyte.presenter.activities.intro.RecoverActivity">
+<layout>
 
-    <Button
-        android:id="@+id/send_button"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/big_button_height"
-        android:layout_marginEnd="@dimen/bread_margin"
-        android:layout_marginStart="@dimen/bread_margin"
-        android:background="@drawable/intro_create_button"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/RecoverWallet.next"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <data>
+        <variable name="callback" type="io.digibyte.presenter.activities.callbacks.ActivityWipeCallback"/>
+    </data>
+    <io.digibyte.presenter.customviews.BRLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_intro_recover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="io.digibyte.presenter.activities.intro.RecoverActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/WipeWallet.startMessage"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"/>
+        <include layout="@layout/toolbar"/>
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/WipeWallet.startWarning"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_header"
-        app:layout_constraintBottom_toTopOf="@+id/send_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.100000024"/>
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/restore_gradient">
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:src="@drawable/icon_delete_cirlce_grey"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/textView12"/>
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_below="@+id/textView2"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/restore_image"/>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:background="@drawable/restore_gradient"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintBaseline_creator="1"
-        tools:layout_constraintEnd_creator="1"
-        tools:layout_constraintStart_creator="1">
+            <TextView
+                android:id="@+id/restoreLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/Settings.restore_label"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:layout_constraintTop_creator="1"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView8"
+            style="@style/Text.Description.Top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/Settings.wipe"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            tools:layout_constraintTop_creator="1"/>
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_below="@+id/textView2"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/restore_image"/>
+            android:text="@string/WipeWallet.startMessage"/>
 
         <TextView
-            android:id="@+id/restoreLabel"
+            android:id="@+id/textView12"
+            style="@style/Text.Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/Settings.restore_label"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            tools:layout_constraintTop_creator="1"/>
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/icon_delete_cirlce_grey"
+            android:text="@string/WipeWallet.startWarning"/>
 
+        <View android:layout_width="match_parent" android:layout_height="0dp"
+              android:layout_weight="1"/>
 
-        <ImageButton
-            android:id="@+id/close_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/textView2"
-            android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_close_white_24dp"/>
+        <Button
+            android:id="@+id/send_button"
+            style="@style/ButtonTheme"
+            android:onClick="@{() -> callback.onNextButtonClick()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/RecoverWallet.next"/>
 
-    </RelativeLayout>
+    </io.digibyte.presenter.customviews.BRLinearLayout>
+</layout>
 
-</android.support.constraint.ConstraintLayout>

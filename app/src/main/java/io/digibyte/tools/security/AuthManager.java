@@ -50,7 +50,7 @@ public class AuthManager {
     private static AuthManager instance;
     private String previousTry;
     private static Drawable pinSelected = DigiByte.getContext().getDrawable(R.drawable.pin_selected);
-    private static Drawable pinUnselected = DigiByte.getContext().getDrawable(R.drawable.ic_pin_dot_white);
+    private static Drawable pinUnselected = DigiByte.getContext().getDrawable(R.drawable.pin_unselected);
 
     private AuthManager() {
         previousTry = "";

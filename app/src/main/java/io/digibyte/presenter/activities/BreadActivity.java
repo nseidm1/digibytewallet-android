@@ -251,8 +251,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                             : getString(R.string.Alert_error),
                     error == 0 ? getString(R.string.Alerts_sendSuccessSubheader)
                             : message, error == 0 ? R.drawable.signal_icon_graphic
-                            : R.drawable.ic_error_outline_black_24dp,
-                    () -> getSupportFragmentManager().popBackStack());
+                            : R.drawable.ic_error_outline_black_24dp, () -> {
+                        try {
+                            getSupportFragmentManager().popBackStack();
+                        } catch (IllegalStateException e) {
+                        }
+                    });
         });
     }
 

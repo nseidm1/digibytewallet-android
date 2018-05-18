@@ -1,114 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_write_down"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    tools:context="io.digibyte.presenter.activities.intro.WriteDownActivity">
+<layout>
 
-    <LinearLayout
-        android:id="@+id/gradient_layout"
+    <data>
+
+        <variable name="textWatcher"
+                  type="io.digibyte.presenter.activities.PaperKeyProveActivity.BRTextWatcher"/>
+
+        <variable name="editorActionListener"
+                  type="android.widget.TextView.OnEditorActionListener"/>
+
+        <variable name="callback"
+                  type="io.digibyte.presenter.activities.callbacks.ActivityPaperKeyProveCallback"/>
+
+    </data>
+    <io.digibyte.presenter.customviews.BRLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_write_down"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@drawable/write_down_gradient"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/bread_margin"
-            android:text="@string/SecurityCenter.paperKeyTitle"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/header"/>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="@dimen/bread_margin"
-            android:layout_marginStart="@dimen/bread_margin"
-            android:layout_marginTop="8dp"
-            android:text="@string/ConfirmPaperPhrase.label"
-            android:textAlignment="textStart"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sub_header"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:animateLayoutChanges="true">
+        tools:context="io.digibyte.presenter.activities.intro.WriteDownActivity">
 
-        <Button
-            android:id="@+id/button_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/intro_create_button"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/Send.scanLabel"
-            android:textColor="@color/white" />
+        <include layout="@layout/toolbar"/>
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
+            android:id="@+id/gradient_layout"
             android:layout_width="match_parent"
-            android:id="@+id/word_container_first"
-            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/white">
+            android:layout_height="150dp"
+            android:background="@drawable/write_down_gradient"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/word_edittext_first"
+            <TextView
+                android:id="@+id/description"
+                style="@style/Text.Description"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/ConfirmPaperPhrase.label"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:animateLayoutChanges="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/word_container_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/bread_margin"
-                android:layout_marginStart="@dimen/bread_margin"
-                android:background="@drawable/dashed_edittext_underline"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:inputType="textPersonName"
-                android:textColor="@color/white"/>
+                android:textColorHint="@color/white"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/word_edittext_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/bread_margin"
+                    android:layout_marginStart="@dimen/bread_margin"
+                    android:background="@drawable/dashed_edittext_underline"
+                    android:inputType="textPersonName"
+                    android:minHeight="50dp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/white"
+                    app:addTextChangedListener="@{textWatcher}"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/word_container_second"
-            android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/white">
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/word_edittext_second"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/word_container_second"
                 android:layout_width="match_parent"
-                android:minHeight="50dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="@dimen/bread_margin"
-                android:layout_marginStart="@dimen/bread_margin"
-                android:background="@drawable/dashed_edittext_underline"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:inputType="textPersonName"
-                android:imeOptions="actionSend"
-                android:textColor="@color/white"/>
+                android:layout_marginTop="12dp"
+                android:textColorHint="@color/white"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/word_edittext_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/bread_margin"
+                    android:layout_marginStart="@dimen/bread_margin"
+                    android:background="@drawable/dashed_edittext_underline"
+                    android:imeOptions="actionSend"
+                    android:inputType="textPersonName"
+                    android:minHeight="50dp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/white"
+                    app:addTextChangedListener="@{textWatcher}"
+                    app:setOnEditorActionListener="@{(textView, id, keyEvent) -> editorActionListener.onEditorAction(textView, id, keyEvent)}"/>
 
-    </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
 
-</LinearLayout>
+            <Button
+                android:id="@+id/button_submit"
+                style="@style/ButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() ->  callback.onSubmitClick()}"
+                android:text="@string/Send.scanLabel"/>
+
+        </LinearLayout>
+
+    </io.digibyte.presenter.customviews.BRLinearLayout>
+
+</layout>
+

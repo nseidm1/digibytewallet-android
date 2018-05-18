@@ -2,20 +2,24 @@ package io.digibyte.presenter.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
+import io.digibyte.databinding.ActivityInputWordsBinding;
+import io.digibyte.presenter.activities.callbacks.ActivityInputWordsCallback;
 import io.digibyte.presenter.activities.intro.IntroActivity;
+import io.digibyte.presenter.activities.models.InputWordsViewModel;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -25,30 +29,80 @@ import io.digibyte.tools.security.SmartValidator;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 
-public class InputWordsActivity extends BRActivity {
-    private Button nextButton;
-    private EditText word1;
-    private EditText word2;
-    private EditText word3;
-    private EditText word4;
-    private EditText word5;
-    private EditText word6;
-    private EditText word7;
-    private EditText word8;
-    private EditText word9;
-    private EditText word10;
-    private EditText word11;
-    private EditText word12;
-    private TextView title;
-    private TextView description;
-    private boolean restore = false;
-    private boolean resetPin = false;
+public class InputWordsActivity extends BRActivity implements TextView.OnEditorActionListener {
+    private static final String INPUT_WORDS_TYPE = "InputWordsActivity:Type";
+    private FocusListener focusListener = new FocusListener();
+    private ActivityInputWordsBinding binding;
+    private InputWordsViewModel model = new InputWordsViewModel();
+
+    private ActivityInputWordsCallback callback = () -> {
+        final Activity app = InputWordsActivity.this;
+        String phraseToCheck = getPhrase();
+        if (phraseToCheck == null) {
+            return;
+        }
+        String cleanPhrase = SmartValidator.cleanPaperKey(app, phraseToCheck);
+        if (SmartValidator.isPaperKeyValid(app, cleanPhrase)) {
+            Utils.hideKeyboard(app);
+            switch(getType()) {
+                case WIPE:
+                    BRDialog.showCustomDialog(InputWordsActivity.this, getString(R.string.WipeWallet_alertTitle), getString(R.string.WipeWallet_alertMessage), getString(R.string.WipeWallet_wipe), getString(R.string.Button_cancel),
+                            brDialogView -> {
+                                brDialogView.dismissWithAnimation();
+                                BRWalletManager m = BRWalletManager.getInstance();
+                                m.wipeWalletButKeystore(app);
+                                m.wipeKeyStore(app);
+                                Intent intent = new Intent(app, IntroActivity.class);
+                                finalizeIntent(intent);
+                            }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
+                    break;
+                case RESET_PIN:
+                    if (SmartValidator.isPaperKeyCorrect(cleanPhrase, app)) {
+                        AuthManager.getInstance().setPinCode("", InputWordsActivity.this);
+                        Intent intent = new Intent(app, SetPinActivity.class);
+                        intent.putExtra("noPin", true);
+                        finalizeIntent(intent);
+                    } else {
+                        BRDialog.showCustomDialog(app, "", getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null,
+                                brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
+                    }
+                    break;
+                case RESTORE:
+                    BRWalletManager m = BRWalletManager.getInstance();
+                    m.wipeWalletButKeystore(app);
+                    m.wipeKeyStore(app);
+                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase);
+                    BRSharedPrefs.putAllowSpend(app, false);
+                    //if this screen is shown then we did not upgrade to the new app, we installed it
+                    BRSharedPrefs.putGreetingsShown(app, true);
+                    PostAuth.getInstance().onRecoverWalletAuth(app, false);                    break;
+            }
+        } else {
+            BRDialog.showCustomDialog(app, "", getResources().getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null,
+                    brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
+        }
+    };
+
+    public enum Type {
+        WIPE, RESET_PIN, RESTORE
+    }
+
+    public static void open(AppCompatActivity activity, Type type) {
+        Intent intent = new Intent(activity, InputWordsActivity.class);
+        intent.putExtra(INPUT_WORDS_TYPE, type);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_words);
-        nextButton = findViewById(R.id.send_button);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_input_words);
+        setupToolbar();
+        binding.setData(model);
+        binding.setFocusListener(focusListener);
+        binding.setEditorAction(this);
+        binding.setCallback(callback);
+
         if (Utils.isUsingCustomInputMethod(this)) {
             BRDialog.showCustomDialog(this, getString(R.string.JailbreakWarnings_title), getString(R.string.Alert_customKeyboard_android),
                     getString(R.string.Button_ok), getString(R.string.JailbreakWarnings_close), new BRDialogView.BROnClickListener() {
@@ -61,121 +115,24 @@ public class InputWordsActivity extends BRActivity {
                     }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
         }
 
-        title = findViewById(R.id.title);
-        description = findViewById(R.id.description);
-
-        word1 = findViewById(R.id.word1);
-        word2 = findViewById(R.id.word2);
-        word3 = findViewById(R.id.word3);
-        word4 = findViewById(R.id.word4);
-        word5 = findViewById(R.id.word5);
-        word6 = findViewById(R.id.word6);
-        word7 = findViewById(R.id.word7);
-        word8 = findViewById(R.id.word8);
-        word9 = findViewById(R.id.word9);
-        word10 = findViewById(R.id.word10);
-        word11 = findViewById(R.id.word11);
-        word12 = findViewById(R.id.word12);
-
-        word1.setOnFocusChangeListener(new FocusListener());
-        word2.setOnFocusChangeListener(new FocusListener());
-        word3.setOnFocusChangeListener(new FocusListener());
-        word4.setOnFocusChangeListener(new FocusListener());
-        word5.setOnFocusChangeListener(new FocusListener());
-        word6.setOnFocusChangeListener(new FocusListener());
-        word7.setOnFocusChangeListener(new FocusListener());
-        word8.setOnFocusChangeListener(new FocusListener());
-        word9.setOnFocusChangeListener(new FocusListener());
-        word10.setOnFocusChangeListener(new FocusListener());
-        word11.setOnFocusChangeListener(new FocusListener());
-        word12.setOnFocusChangeListener(new FocusListener());
-
-        restore = getIntent().getExtras() != null && getIntent().getExtras().getBoolean("restore");
-        resetPin = getIntent().getExtras() != null && getIntent().getExtras().getBoolean("resetPin");
-
-        if (restore) {
-            //change the labels
-            title.setText(getString(R.string.MenuViewController_recoverButton));
-            description.setText(getString(R.string.WipeWallet_instruction));
-        } else if (resetPin) {
-            //change the labels
-            title.setText(getString(R.string.RecoverWallet_header_reset_pin));
-            description.setText(getString(R.string.RecoverWallet_subheader_reset_pin));
+        switch(getType()) {
+            case WIPE:
+                setToolbarTitle(R.string.MenuViewController_recoverButton);
+                binding.setDescription(getString(R.string.WipeWallet_instruction));
+                break;
+            case RESTORE:
+                setToolbarTitle(R.string.RecoverWallet_header);
+                binding.setDescription(getString(R.string.RecoverWallet_subheader));
+                break;
+            case RESET_PIN:
+                setToolbarTitle(R.string.RecoverWallet_header_reset_pin);
+                binding.setDescription(getString(R.string.RecoverWallet_subheader_reset_pin));
+                break;
         }
+    }
 
-        word12.setOnEditorActionListener((v, actionId, event) -> {
-            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                nextButton.performClick();
-            }
-            return false;
-        });
-
-        nextButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            final Activity app = InputWordsActivity.this;
-            String phraseToCheck = getPhrase();
-            if (phraseToCheck == null) {
-                return;
-            }
-            String cleanPhrase = SmartValidator.cleanPaperKey(app, phraseToCheck);
-            if (SmartValidator.isPaperKeyValid(app, cleanPhrase)) {
-                if (restore || resetPin) {
-                    if (SmartValidator.isPaperKeyCorrect(cleanPhrase, app)) {
-                        Utils.hideKeyboard(app);
-                        clearWords();
-                        if (restore) {
-                            BRDialog.showCustomDialog(InputWordsActivity.this, getString(R.string.WipeWallet_alertTitle), getString(R.string.WipeWallet_alertMessage), getString(R.string.WipeWallet_wipe), getString(R.string.Button_cancel), new BRDialogView.BROnClickListener() {
-                                @Override
-                                public void onClick(BRDialogView brDialogView) {
-                                    brDialogView.dismissWithAnimation();
-                                    BRWalletManager m = BRWalletManager.getInstance();
-                                    m.wipeWalletButKeystore(app);
-                                    m.wipeKeyStore(app);
-                                    Intent intent = new Intent(app, IntroActivity.class);
-                                    finalizeIntent(intent);
-                                }
-                            }, new BRDialogView.BROnClickListener() {
-                                @Override
-                                public void onClick(BRDialogView brDialogView) {
-                                    brDialogView.dismissWithAnimation();
-                                }
-                            }, null, 0);
-                        } else {
-                            AuthManager.getInstance().setPinCode("", InputWordsActivity.this);
-                            Intent intent = new Intent(app, SetPinActivity.class);
-                            intent.putExtra("noPin", true);
-                            finalizeIntent(intent);
-                        }
-                    } else {
-                        BRDialog.showCustomDialog(app, "", getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, null, 0);
-                    }
-                } else {
-                    Utils.hideKeyboard(app);
-                    BRWalletManager m = BRWalletManager.getInstance();
-                    m.wipeWalletButKeystore(app);
-                    m.wipeKeyStore(app);
-                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase);
-                    BRSharedPrefs.putAllowSpend(app, false);
-                    //if this screen is shown then we did not upgrade to the new app, we installed it
-                    BRSharedPrefs.putGreetingsShown(app, true);
-                    PostAuth.getInstance().onRecoverWalletAuth(app, false);
-                }
-
-            } else {
-                BRDialog.showCustomDialog(app, "", getResources().getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null, new BRDialogView.BROnClickListener() {
-                    @Override
-                    public void onClick(BRDialogView brDialogView) {
-                        brDialogView.dismissWithAnimation();
-                    }
-                }, null, null, 0);
-            }
-        });
-
+    private Type getType() {
+        return (Type) getIntent().getSerializableExtra(INPUT_WORDS_TYPE);
     }
 
     private void finalizeIntent(Intent intent) {
@@ -184,79 +141,63 @@ public class InputWordsActivity extends BRActivity {
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-    }
-
     private String getPhrase() {
         boolean success = true;
-        String w1 = word1.getText().toString().toLowerCase();
-        String w2 = word2.getText().toString().toLowerCase();
-        String w3 = word3.getText().toString().toLowerCase();
-        String w4 = word4.getText().toString().toLowerCase();
-        String w5 = word5.getText().toString().toLowerCase();
-        String w6 = word6.getText().toString().toLowerCase();
-        String w7 = word7.getText().toString().toLowerCase();
-        String w8 = word8.getText().toString().toLowerCase();
-        String w9 = word9.getText().toString().toLowerCase();
-        String w10 = word10.getText().toString().toLowerCase();
-        String w11 = word11.getText().toString().toLowerCase();
-        String w12 = word12.getText().toString().toLowerCase();
-
-        if (Utils.isNullOrEmpty(w1)) {
-            SpringAnimator.failShakeAnimation(this, word1);
+        if (Utils.isNullOrEmpty(model.getWord1())) {
+            SpringAnimator.failShakeAnimation(this, binding.word1);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w2)) {
-            SpringAnimator.failShakeAnimation(this, word2);
+        if (Utils.isNullOrEmpty(model.getWord2())) {
+            SpringAnimator.failShakeAnimation(this, binding.word2);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w3)) {
-            SpringAnimator.failShakeAnimation(this, word3);
+        if (Utils.isNullOrEmpty(model.getWord3())) {
+            SpringAnimator.failShakeAnimation(this, binding.word3);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w4)) {
-            SpringAnimator.failShakeAnimation(this, word4);
+        if (Utils.isNullOrEmpty(model.getWord4())) {
+            SpringAnimator.failShakeAnimation(this, binding.word4);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w5)) {
-            SpringAnimator.failShakeAnimation(this, word5);
+        if (Utils.isNullOrEmpty(model.getWord5())) {
+            SpringAnimator.failShakeAnimation(this, binding.word5);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w6)) {
-            SpringAnimator.failShakeAnimation(this, word6);
+        if (Utils.isNullOrEmpty(model.getWord6())) {
+            SpringAnimator.failShakeAnimation(this, binding.word6);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w7)) {
-            SpringAnimator.failShakeAnimation(this, word7);
+        if (Utils.isNullOrEmpty(model.getWord7())) {
+            SpringAnimator.failShakeAnimation(this, binding.word7);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w8)) {
-            SpringAnimator.failShakeAnimation(this, word8);
+        if (Utils.isNullOrEmpty(model.getWord8())) {
+            SpringAnimator.failShakeAnimation(this, binding.word8);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w9)) {
-            SpringAnimator.failShakeAnimation(this, word9);
+        if (Utils.isNullOrEmpty(model.getWord9())) {
+            SpringAnimator.failShakeAnimation(this, binding.word9);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w10)) {
-            SpringAnimator.failShakeAnimation(this, word10);
+        if (Utils.isNullOrEmpty(model.getWord10())) {
+            SpringAnimator.failShakeAnimation(this, binding.word10);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w11)) {
-            SpringAnimator.failShakeAnimation(this, word11);
+        if (Utils.isNullOrEmpty(model.getWord11())) {
+            SpringAnimator.failShakeAnimation(this, binding.word11);
             success = false;
         }
-        if (Utils.isNullOrEmpty(w12)) {
-            SpringAnimator.failShakeAnimation(this, word12);
+        if (Utils.isNullOrEmpty(model.getWord12())) {
+            SpringAnimator.failShakeAnimation(this, binding.word12);
             success = false;
         }
 
         if (!success) return null;
 
-        return w(w1) + " " + w(w2) + " " + w(w3) + " " + w(w4) + " " + w(w5) + " " + w(w6) + " " + w(w7) + " " + w(w8) + " " + w(w9) + " " + w(w10) + " " + w(w11) + " " + w(w12);
+        return w(model.getWord1()) + " " + w(model.getWord2()) + " " + w(model.getWord3()) +
+                " " + w(model.getWord4()) + " " + w(model.getWord5()) + " " + w(model.getWord6()) +
+                " " + w(model.getWord7()) + " " + w(model.getWord8()) + " " + w(model.getWord9()) +
+                " " + w(model.getWord10()) + " " + w(model.getWord11()) + " " + w(model.getWord12());
     }
 
     private String w(String word) {
@@ -264,36 +205,44 @@ public class InputWordsActivity extends BRActivity {
     }
 
     private void clearWords() {
-        word1.setText("");
-        word2.setText("");
-        word3.setText("");
-        word4.setText("");
-        word5.setText("");
-        word6.setText("");
-        word7.setText("");
-        word8.setText("");
-        word9.setText("");
-        word10.setText("");
-        word11.setText("");
-        word12.setText("");
+        model.setWord1("");
+        model.setWord2("");
+        model.setWord3("");
+        model.setWord4("");
+        model.setWord5("");
+        model.setWord6("");
+        model.setWord7("");
+        model.setWord8("");
+        model.setWord9("");
+        model.setWord10("");
+        model.setWord11("");
+        model.setWord12("");
     }
 
-    private class FocusListener implements View.OnFocusChangeListener {
+    public static class FocusListener implements View.OnFocusChangeListener {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
             if (!hasFocus) {
                 validateWord((EditText) v);
             } else {
-                ((EditText) v).setTextColor(getColor(R.color.white));
+                ((EditText) v).setTextColor(DigiByte.getContext().getColor(R.color.white));
             }
+        }
+
+        private void validateWord(EditText view) {
+            String word = view.getText().toString();
+            boolean valid = SmartValidator.isWordValid(DigiByte.getContext(), word);
+            view.setTextColor(DigiByte.getContext().getColor(valid ? R.color.white : R.color.red_text));
+            if (!valid)
+                SpringAnimator.failShakeAnimation(DigiByte.getContext(), view);
         }
     }
 
-    private void validateWord(EditText view) {
-        String word = view.getText().toString();
-        boolean valid = SmartValidator.isWordValid(this, word);
-        view.setTextColor(getColor(valid ? R.color.white : R.color.red_text));
-        if (!valid)
-            SpringAnimator.failShakeAnimation(this, view);
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+            binding.sendButton.performClick();
+        }
+        return false;
     }
 }

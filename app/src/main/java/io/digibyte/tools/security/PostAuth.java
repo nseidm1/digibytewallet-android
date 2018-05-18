@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.platform.APIClient;
@@ -101,15 +102,10 @@ public class PostAuth {
         }
     }
 
-    public void onPhraseCheckAuth(Activity app, boolean authAsked) {
-        String cleanPhrase;
+    public void onPhraseCheckAuth(AppCompatActivity app, boolean authAsked) {
         try {
             byte[] raw = BRKeyStore.getPhrase(app, BRConstants.SHOW_PHRASE_REQUEST_CODE);
-            if (raw == null) {
-                BRReportsManager.reportBug(new NullPointerException("onPhraseCheckAuth: getPhrase = null"), true);
-                return;
-            }
-            cleanPhrase = new String(raw);
+            PaperKeyActivity.show(app, new String(raw));
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
                 Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
@@ -117,13 +113,9 @@ public class PostAuth {
             }
             return;
         }
-        Intent intent = new Intent(app, PaperKeyActivity.class);
-        intent.putExtra("phrase", cleanPhrase);
-        app.startActivity(intent);
-        app.overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
     }
 
-    public void onPhraseProveAuth(Activity app, boolean authAsked) {
+    public void onPhraseProveAuth(AppCompatActivity app, boolean authAsked) {
         String cleanPhrase;
         try {
             cleanPhrase = new String(BRKeyStore.getPhrase(app, BRConstants.PROVE_PHRASE_REQUEST));
@@ -134,10 +126,7 @@ public class PostAuth {
             }
             return;
         }
-        Intent intent = new Intent(app, PaperKeyProveActivity.class);
-        intent.putExtra("phrase", cleanPhrase);
-        app.startActivity(intent);
-        app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        PaperKeyProveActivity.show(app, cleanPhrase);
     }
 
     public void onRecoverWalletAuth(Activity app, boolean authAsked) {
@@ -427,8 +416,5 @@ public class PostAuth {
                 }
             }
         }
-        BRWalletManager.getInstance().startTheWalletIfExists(app);
     }
-
-
 }

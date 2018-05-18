@@ -34,6 +34,7 @@ public class LoginActivity extends BRActivity {
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pin);
         binding.setData(new PinActivityModel());
         binding.setCallback(callback);
