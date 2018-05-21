@@ -69,11 +69,16 @@ public class IntroActivity extends BRActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PostAuth.getInstance().onCanaryCheck(this, false);
-        BRWalletManager.getInstance().showLockscreenRequiredDialog(this);
         ActivityIntroBinding binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_intro);
         binding.setCallback(callback);
         cleanup();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BRWalletManager.getInstance().showLockscreenRequiredDialog(this);
     }
 
     private void cleanup() {

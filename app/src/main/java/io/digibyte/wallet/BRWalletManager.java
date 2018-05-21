@@ -523,6 +523,7 @@ public class BRWalletManager {
                     app.getString(R.string.Prompts_NoScreenLock_body_android),
                     app.getString(R.string.AccessibilityLabels_close), null,
                     brDialogView -> {
+                        brDialogView.dismiss();
                         Intent intent = new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
                         app.startActivity(intent);
                     }, null, dialog -> app.finish(), 0);
