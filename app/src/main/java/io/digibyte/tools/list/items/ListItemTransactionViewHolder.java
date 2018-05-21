@@ -59,10 +59,6 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
             transactionText = BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
                     BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
                             new BigDecimal(satoshisAmount)));
-            //Save the transaction text in fiat mode, the first time the transaction is displayed in the app
-            if (!Database.instance.containsTransaction(item.getTxHash())) {
-                Database.instance.saveTransaction(item.getTxHash(), transactionText);
-            }
         }
         textView.setText((received ? "+" : "-") + transactionText);
     }

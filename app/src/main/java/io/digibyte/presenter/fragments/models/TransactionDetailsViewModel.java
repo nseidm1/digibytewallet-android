@@ -3,6 +3,7 @@ package io.digibyte.presenter.fragments.models;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
 import java.math.BigDecimal;
@@ -32,7 +33,7 @@ public class TransactionDetailsViewModel extends BaseObservable {
     @Bindable
     public String getCryptoAmount() {
         if (!BRSharedPrefs.getPreferredBTC(DigiByte.getContext()) && currentFiatAmountEqualsOriginalFiatAmount()) {
-            return getRawFiatAmount();
+            return getRawFiatAmount(item);
         } else {
             boolean received = item.getSent() == 0;
             long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
@@ -42,9 +43,9 @@ public class TransactionDetailsViewModel extends BaseObservable {
         }
     }
 
-    private String getRawFiatAmount() {
-        boolean received = item.getSent() == 0;
-        long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
+    public static String getRawFiatAmount(TxItem txItem) {
+        boolean received = txItem.getSent() == 0;
+        long satoshisAmount = received ? txItem.getReceived() : (txItem.getSent() - txItem.getReceived());
         return BRCurrency.getFormattedCurrencyString(DigiByte.getContext(),
                 BRSharedPrefs.getIso(DigiByte.getContext()),
                 BRExchange.getAmountFromSatoshis(DigiByte.getContext(),
@@ -54,9 +55,7 @@ public class TransactionDetailsViewModel extends BaseObservable {
 
     @Bindable
     public String getFiatAmount() {
-        boolean received = item.getSent() == 0;
-        long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
-        return String.format(DigiByte.getContext().getString(R.string.current_amount), getRawFiatAmount());
+        return String.format(DigiByte.getContext().getString(R.string.current_amount), getRawFiatAmount(item));
     }
 
     public String getOriginalFiatAmount() {
@@ -101,11 +100,6 @@ public class TransactionDetailsViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getComment() {
-        return item.metaData.comment;
-    }
-
-    @Bindable
     public String getDate() {
         return getFormattedDate(item.getTimeStamp());
     }
@@ -119,6 +113,23 @@ public class TransactionDetailsViewModel extends BaseObservable {
     public boolean getCompleted() {
         return BRSharedPrefs.getLastBlockHeight(DigiByte.getContext()) - item.getBlockHeight() + 1
                 >= 6;
+    }
+
+    @Bindable
+    public String getMemo() {
+        return item.metaData != null ? item.metaData.comment : "";
+    }
+
+    public void setMemo(String memo) {
+        TxMetaData metaData = item.metaData;
+        if (metaData == null) {
+            item.metaData = new TxMetaData();
+        }
+        item.metaData.comment = memo;
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            KVStoreManager.getInstance().putTxMetaData(DigiByte.getContext(), item.metaData, item.getTxHash());
+            TxManager.getInstance().updateTxList();
+        });
     }
 
     public void setComment(String comment) {
@@ -146,10 +157,6 @@ public class TransactionDetailsViewModel extends BaseObservable {
         SimpleDateFormat date2 = new SimpleDateFormat("HH:mm a", Locale.getDefault());
         return date2.format(currentLocalTime);
     }
-//
-//    private String getShortAddress(String addr) {
-//        String p1 = addr.substring(0, 5);
-//        String p2 = addr.substring(addr.length() - 5, addr.length());
-//        return p1 + "..." + p2;
-//    }
+
+
 }
