@@ -13,6 +13,8 @@ import java.util.Locale;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.tools.database.Database;
+import io.digibyte.tools.database.DigiTransaction;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.threads.BRExecutor;
@@ -28,19 +30,55 @@ public class TransactionDetailsViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getAmount() {
-        boolean isBTCPreferred = BRSharedPrefs.getPreferredBTC(DigiByte.getContext());
+    public String getCryptoAmount() {
+        if (!BRSharedPrefs.getPreferredBTC(DigiByte.getContext()) && currentFiatAmountEqualsOriginalFiatAmount()) {
+            return getRawFiatAmount();
+        } else {
+            boolean received = item.getSent() == 0;
+            long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
+            return BRCurrency.getFormattedCurrencyString(DigiByte.getContext(), "DGB",
+                    BRExchange.getAmountFromSatoshis(DigiByte.getContext(), "DGB",
+                            new BigDecimal(satoshisAmount)));
+        }
+    }
+
+    private String getRawFiatAmount() {
         boolean received = item.getSent() == 0;
-        String iso = isBTCPreferred ? "DGB" : BRSharedPrefs.getIso(DigiByte.getContext());
         long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
-        return BRCurrency.getFormattedCurrencyString(DigiByte.getContext(), iso,
-                BRExchange.getAmountFromSatoshis(DigiByte.getContext(), iso,
+        return BRCurrency.getFormattedCurrencyString(DigiByte.getContext(),
+                BRSharedPrefs.getIso(DigiByte.getContext()),
+                BRExchange.getAmountFromSatoshis(DigiByte.getContext(),
+                        BRSharedPrefs.getIso(DigiByte.getContext()),
                         new BigDecimal(satoshisAmount)));
     }
 
     @Bindable
+    public String getFiatAmount() {
+        boolean received = item.getSent() == 0;
+        long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
+        return String.format(DigiByte.getContext().getString(R.string.current_amount), getRawFiatAmount());
+    }
+
+    public String getOriginalFiatAmount() {
+        DigiTransaction transaction = Database.instance.findTransaction(item.getTxHash());
+        return String.format(DigiByte.getContext().getString(R.string.original_amount), transaction.getTxAmount());
+    }
+
+    public boolean currentFiatAmountEqualsOriginalFiatAmount() {
+        DigiTransaction transaction = Database.instance.findTransaction(item.getTxHash());
+        boolean received = item.getSent() == 0;
+        long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
+        return transaction.getTxAmount().equals(BRCurrency.getFormattedCurrencyString(DigiByte.getContext(),
+                BRSharedPrefs.getIso(DigiByte.getContext()),
+                BRExchange.getAmountFromSatoshis(DigiByte.getContext(),
+                        BRSharedPrefs.getIso(DigiByte.getContext()),
+                        new BigDecimal(satoshisAmount))));
+    }
+
+    @Bindable
     public String getToFrom() {
-        return item.getReceived() - item.getSent() < 0 ? DigiByte.getContext().getString(R.string.sent) : DigiByte.getContext().getString(R.string.received);
+        return item.getReceived() - item.getSent() < 0 ? DigiByte.getContext().getString(
+                R.string.sent) : DigiByte.getContext().getString(R.string.received);
     }
 
     @Bindable
@@ -79,29 +117,34 @@ public class TransactionDetailsViewModel extends BaseObservable {
 
     @Bindable
     public boolean getCompleted() {
-        return BRSharedPrefs.getLastBlockHeight(DigiByte.getContext()) - item.getBlockHeight() + 1 >= 6;
+        return BRSharedPrefs.getLastBlockHeight(DigiByte.getContext()) - item.getBlockHeight() + 1
+                >= 6;
     }
+
     public void setComment(String comment) {
         item.metaData.comment = comment;
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
             @Override
             public void run() {
-                KVStoreManager.getInstance().putTxMetaData(DigiByte.getContext(), item.metaData, item.getTxHash());
+                KVStoreManager.getInstance().putTxMetaData(DigiByte.getContext(), item.metaData,
+                        item.getTxHash());
                 TxManager.getInstance().updateTxList();
             }
         });
     }
 
     private String getFormattedDate(long timeStamp) {
-        Date currentLocalTime = new Date(timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
+        Date currentLocalTime = new Date(
+                timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
         SimpleDateFormat date1 = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
         return date1.format(currentLocalTime);
     }
 
     private String getFormattedTime(long timeStamp) {
-        Date currentLocalTime = new Date(timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
+        Date currentLocalTime = new Date(
+                timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
         SimpleDateFormat date2 = new SimpleDateFormat("HH:mm a", Locale.getDefault());
-        return  date2.format(currentLocalTime);
+        return date2.format(currentLocalTime);
     }
 //
 //    private String getShortAddress(String addr) {

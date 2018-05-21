@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.TransactionDetailsItemBinding;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.fragments.interfaces.TransactionDetailsCallback;
 import io.digibyte.presenter.fragments.models.TransactionDetailsViewModel;
-import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 
@@ -78,16 +78,10 @@ public class FragmentTransactionItem extends Fragment {
         TransactionDetailsItemBinding binding = TransactionDetailsItemBinding.inflate(inflater);
         binding.setData(viewModel);
         binding.setCallback(callback);
-        if (BRSharedPrefs.getPreferredBTC(getContext())) {
-            binding.amountText.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        } else {
-            binding.amountText.setCompoundDrawablesWithIntrinsicBounds(null, null, getContext().getDrawable(R.drawable.info), null);
-            binding.amountText.setOnClickListener(
-                    v -> BRDialog.showCustomDialog(getContext(), getContext().getString(R.string.Alert_info),
-                            getContext().getString(R.string.Alert_Amount_info),
-                            getContext().getString(R.string.AccessibilityLabels_close), null,
-                            brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0));
-        }
+        binding.amountSwitcher.setDisplayedChild(
+                (BRSharedPrefs.getPreferredBTC(DigiByte.getContext())
+                        || viewModel.currentFiatAmountEqualsOriginalFiatAmount() && !BRSharedPrefs.getPreferredBTC(
+                        DigiByte.getContext())) ? 0 : 1);
         return binding.getRoot();
     }
 }

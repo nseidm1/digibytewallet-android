@@ -33,15 +33,6 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
         binding.setData((ListItemTransactionData) aListItemData);
     }
 
-    @BindingAdapter("info")
-    public static void setInfoVisibility(TextView textView, ListItemTransactionData listItemTransactionData) {
-        if (BRSharedPrefs.getPreferredBTC(textView.getContext())) {
-            textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        } else {
-            textView.setCompoundDrawablesWithIntrinsicBounds(null, null, textView.getContext().getDrawable(R.drawable.info), null);
-        }
-    }
-
     @BindingAdapter("arrowIcon")
     public static void setArrowIcon(ImageView imageView,
             ListItemTransactionData listItemTransactionData) {
@@ -65,12 +56,11 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
                     BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
                             new BigDecimal(satoshisAmount)));
         } else {
-            if (Database.instance.containsTransaction(item.getTxHash())) {
-                transactionText = Database.instance.findTransaction(item.getTxHash()).getTxAmount();
-            } else {
-                transactionText = BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
-                        BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
-                                new BigDecimal(satoshisAmount)));
+            transactionText = BRCurrency.getFormattedCurrencyString(textView.getContext(), iso,
+                    BRExchange.getAmountFromSatoshis(textView.getContext(), iso,
+                            new BigDecimal(satoshisAmount)));
+            //Save the transaction text in fiat mode, the first time the transaction is displayed in the app
+            if (!Database.instance.containsTransaction(item.getTxHash())) {
                 Database.instance.saveTransaction(item.getTxHash(), transactionText);
             }
         }
