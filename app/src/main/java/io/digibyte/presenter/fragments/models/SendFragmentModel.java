@@ -2,6 +2,8 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
@@ -14,7 +16,7 @@ import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.wallet.BRWalletManager;
 
-public class SendFragmentModel extends BaseObservable {
+public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     private StringBuilder amountBuilder = new StringBuilder("");
     private String selectedIso = BRSharedPrefs.getPreferredBTC(DigiByte.getContext()) ? "DGB"
@@ -23,9 +25,7 @@ public class SendFragmentModel extends BaseObservable {
     private String memo = "";
     private boolean showSendWaiting = false;
 
-    enum FeeType {
-        REGULAR, ECONOMY
-    }
+    public SendFragmentModel(){}
 
     @Bindable
     public int getBRKeyboardColor() {
@@ -240,4 +240,39 @@ public class SendFragmentModel extends BaseObservable {
         notifyPropertyChanged(BR.amountEditTextColor);
         notifyPropertyChanged(BR.iSOTextColor);
     }
+
+    protected SendFragmentModel(Parcel in) {
+        amountBuilder = (StringBuilder) in.readValue(StringBuilder.class.getClassLoader());
+        selectedIso = in.readString();
+        enteredAddress = in.readString();
+        memo = in.readString();
+        showSendWaiting = in.readByte() != 0x00;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(amountBuilder);
+        dest.writeString(selectedIso);
+        dest.writeString(enteredAddress);
+        dest.writeString(memo);
+        dest.writeByte((byte) (showSendWaiting ? 0x01 : 0x00));
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<SendFragmentModel> CREATOR = new Parcelable.Creator<SendFragmentModel>() {
+        @Override
+        public SendFragmentModel createFromParcel(Parcel in) {
+            return new SendFragmentModel(in);
+        }
+
+        @Override
+        public SendFragmentModel[] newArray(int size) {
+            return new SendFragmentModel[size];
+        }
+    };
 }

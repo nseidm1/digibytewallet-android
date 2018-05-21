@@ -204,7 +204,7 @@ public class BRAnimator {
             return false;
         }
     }
-    
+
     public static void startBreadActivity(Context from, boolean auth) {
         if (from == null) return;
         Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
