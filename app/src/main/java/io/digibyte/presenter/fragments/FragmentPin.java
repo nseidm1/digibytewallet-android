@@ -23,7 +23,6 @@ import android.view.animation.DecelerateInterpolator;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentBreadPinBinding;
-import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.presenter.fragments.interfaces.PinFragmentCallback;
 import io.digibyte.presenter.fragments.models.PinFragmentViewModel;
@@ -31,7 +30,6 @@ import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
-import io.digibyte.tools.security.BRKeyStore;
 
 /**
  * BreadWallet
@@ -201,7 +199,11 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
         if (getFragmentManager() == null) {
             return;
         }
-        getFragmentManager().popBackStack();
+        try {
+            getFragmentManager().popBackStack();
+        } catch(IllegalStateException e) {
+            //Race condition
+        }
     }
 
     @Override
