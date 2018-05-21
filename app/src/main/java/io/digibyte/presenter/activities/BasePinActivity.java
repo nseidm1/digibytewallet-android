@@ -38,7 +38,7 @@ public abstract class BasePinActivity extends BRActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(PIN_STATE, currentPin);
+        outState.putString(PIN_STATE, currentPin.toString());
         super.onSaveInstanceState(outState);
     }
 
@@ -46,7 +46,7 @@ public abstract class BasePinActivity extends BRActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null && savedInstanceState.getSerializable(PIN_STATE) != null) {
-            currentPin = (StringBuilder) savedInstanceState.getSerializable(PIN_STATE);
+            currentPin = new StringBuilder(savedInstanceState.getString(PIN_STATE));
         }
     }
 
