@@ -13,22 +13,11 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
-public class WriteDownActivity extends BRActivity {
+public class WriteDownActivity extends BRActivity implements BRAuthCompletion {
 
     private ActivityWriteDownCallback callback = () -> AuthManager.getInstance().authPrompt(
             WriteDownActivity.this, null,
-            getString(R.string.VerifyPin_continueBody), new BRAuthCompletion() {
-                @Override
-                public void onComplete() {
-                    PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this,
-                            false);
-                }
-
-                @Override
-                public void onCancel() {
-
-                }
-            });
+            getString(R.string.VerifyPin_continueBody), new AuthType(AuthType.Type.POST_AUTH));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +45,25 @@ public class WriteDownActivity extends BRActivity {
     public void onBackPressed() {
         super.onBackPressed();
         BRAnimator.openBreadActivity(WriteDownActivity.this, false);
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        switch(authType.type) {
+            case LOGIN:
+                break;
+            case DIGI_ID:
+                break;
+            case POST_AUTH:
+                PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this,false);
+                break;
+            default:
+                super.onComplete(authType);
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType authType) {
+
     }
 }

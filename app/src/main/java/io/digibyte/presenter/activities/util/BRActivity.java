@@ -21,6 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.digibyte.R;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
+import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
@@ -52,7 +53,8 @@ import io.digibyte.tools.util.BRConstants;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public abstract class BRActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public abstract class BRActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,
+        BRAuthCompletion {
     private final String TAG = this.getClass().getName();
     private CopyOnWriteArrayList<OnBackPressListener> backClickListeners = new CopyOnWriteArrayList<>();
 
@@ -140,7 +142,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
                             if (BitcoinUrlHandler.isBitcoinUrl(result)) {
                                 BRAnimator.showOrUpdateSendFragment(BRActivity.this, result);
                             } else if (BRBitId.isBitId(result)) {
-                                BRBitId.signAndRespond(BRActivity.this, result, false);
+                                BRBitId.digiIDAuthPrompt(BRActivity.this, result, false);
                             } else {
                                 Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                             }
@@ -201,5 +203,27 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
             overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        //These two switch cases are in the base activity because they can both be invoked
+        //from the Login screen and from the main transaction list screen
+        switch(authType.type) {
+            case SEND:
+                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+                    PostAuth.getInstance().onPublishTxAuth(BRActivity.this, false);
+                });
+                break;
+            case DIGI_ID:
+                BRBitId.digiIDSignAndRespond(BRActivity.this, authType.bitId, authType.deepLink,
+                        authType.callbackUrl);
+                break;
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType type) {
+
     }
 }

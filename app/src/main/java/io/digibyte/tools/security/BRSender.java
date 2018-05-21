@@ -15,7 +15,6 @@ import java.util.Locale;
 import io.digibyte.R;
 import io.digibyte.presenter.entities.PaymentItem;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRReportsManager;
@@ -282,25 +281,8 @@ public class BRSender {
 
         boolean fingerprintEnabled = (
                 AuthManager.isFingerPrintAvailableAndSetup(ctx) && limit == 0) || (AuthManager.isFingerPrintAvailableAndSetup(ctx) && requestAmount < limit);
-
         //successfully created the transaction, authenticate user
-        AuthManager.getInstance().authPrompt(ctx, "", message, fingerprintEnabled, new BRAuthCompletion() {
-            @Override
-            public void onComplete() {
-                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-                    PostAuth.getInstance().onPublishTxAuth(ctx, false);
-                    BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-                        BRAnimator.killAllFragments(ctx);
-                        BRAnimator.startBreadIfNotStarted(ctx);
-                    });
-                });
-            }
-
-            @Override
-            public void onCancel() {
-                //nothing
-            }
-        });
+        AuthManager.getInstance().authPrompt(ctx, "", message, fingerprintEnabled, new BRAuthCompletion.AuthType(BRAuthCompletion.AuthType.Type.SEND));
     }
 
     public String createConfirmation(Context ctx, PaymentItem request) {

@@ -17,6 +17,7 @@ package io.digibyte.presenter.fragments;/*
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +49,7 @@ import io.digibyte.tools.security.FingerprintUiHelper;
 public class FragmentFingerprint extends Fragment implements FingerprintUiHelper.Callback,
         OnBackPressListener {
     public static final String TAG = FragmentFingerprint.class.getName();
+    private static final String AUTH_TYPE = "FragmentFingerprint:AuthType";
     private FingerprintManager.CryptoObject mCryptoObject;
     private FingerprintUiHelper.FingerprintUiHelperBuilder mFingerprintUiHelperBuilder;
     private FingerprintUiHelper mFingerprintUiHelper;
@@ -72,13 +74,12 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         }
     };
 
-    public static void show(AppCompatActivity activity, String title, String message,
-            BRAuthCompletion completion) {
+    public static void show(AppCompatActivity activity, String title, String message, BRAuthCompletion.AuthType type) {
         FragmentFingerprint fingerprintFragment = new FragmentFingerprint();
-        fingerprintFragment.setCompletion(completion);
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("message", message);
+        args.putSerializable(AUTH_TYPE, type);
         fingerprintFragment.setArguments(args);
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
@@ -87,6 +88,16 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
                 FragmentFingerprint.class.getName());
         transaction.addToBackStack(FragmentFingerprint.class.getName());
         transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof BRAuthCompletion) {
+            completion = (BRAuthCompletion) context;
+        } else {
+            throw new RuntimeException("Failed to have the containing activity implement BRAuthCompletion");
+        }
     }
 
     @Override
@@ -145,6 +156,10 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         fadeOutRemove(true, false);
     }
 
+    private BRAuthCompletion.AuthType getType() {
+        return (BRAuthCompletion.AuthType) getArguments().getSerializable(AUTH_TYPE);
+    }
+
     private void fadeOutRemove(boolean authenticated, boolean goToBackup) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
                 () -> {
@@ -152,14 +167,14 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
                     Handler handler = new Handler(Looper.getMainLooper());
                     if (authenticated) {
                         handler.postDelayed(() -> {
-                            if (completion != null) completion.onComplete();
+                            if (completion != null) completion.onComplete(getType());
                         }, 350);
                     }
                     if (goToBackup) {
                         handler.postDelayed(() -> {
                             AuthManager.getInstance().authPrompt(getContext(),
                                     viewModel.getTitle(),
-                                    viewModel.getMessage(), false, completion);
+                                    viewModel.getMessage(), false, getType());
                         }, 350);
                     }
                 });
@@ -172,10 +187,6 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
         }
         try { getFragmentManager().popBackStack(); }
         catch(IllegalStateException e) { e.printStackTrace(); }
-    }
-
-    public void setCompletion(BRAuthCompletion completion) {
-        this.completion = completion;
     }
 
     @Override

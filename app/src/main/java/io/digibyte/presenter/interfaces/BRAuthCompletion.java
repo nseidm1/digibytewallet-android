@@ -1,5 +1,7 @@
 package io.digibyte.presenter.interfaces;
 
+import java.io.Serializable;
+
 /**
  * BreadWallet
  * <p/>
@@ -25,6 +27,37 @@ package io.digibyte.presenter.interfaces;
  * THE SOFTWARE.
  */
 public interface BRAuthCompletion {
-    void onComplete();
-    void onCancel();
+    class AuthType implements Serializable {
+
+        public enum Type {
+            DIGI_ID, LOGIN, POST_AUTH, SPENDING_LIMIT, SEND
+        }
+
+        public Type type;
+        public String bitId;
+        public boolean deepLink;
+        public String callbackUrl;
+
+        public AuthType(Type type) {
+            this.type = type;
+            if (type == Type.DIGI_ID) {
+                throw new RuntimeException("Wrong constructor, use the one with the corresponding params");
+            }
+        }
+
+        /**
+         * This constructor is associated with Digi-ID inherently considering the types of the params
+         * @param bitId
+         * @param deepLink
+         * @param callbackUrl
+         */
+        public AuthType(String bitId, boolean deepLink, String callbackUrl) {
+            this.type = Type.DIGI_ID;
+            this.bitId = bitId;
+            this.deepLink = deepLink;
+            this.callbackUrl = callbackUrl;
+        }
+    }
+    void onComplete(AuthType authType);
+    void onCancel(AuthType type);
 }

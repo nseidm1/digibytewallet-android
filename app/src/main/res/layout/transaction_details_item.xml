@@ -38,7 +38,7 @@
                 android:layout_marginTop="37dp"
                 android:background="@drawable/transaction_details_background"
                 android:gravity="center_horizontal" android:orientation="vertical"
-                android:paddingTop="56dp">
+                android:paddingTop="54dp">
 
                 <ViewSwitcher android:id="@+id/amount_switcher" android:layout_width="match_parent"
                               android:layout_height="wrap_content">

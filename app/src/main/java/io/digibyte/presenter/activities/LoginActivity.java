@@ -23,7 +23,7 @@ import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.wallet.BRWalletManager;
 
-public class LoginActivity extends BRActivity {
+public class LoginActivity extends BRActivity implements BRAuthCompletion {
     private static final String TAG = LoginActivity.class.getName();
     ActivityPinBinding binding;
     private StringBuilder pin = new StringBuilder();
@@ -69,7 +69,7 @@ public class LoginActivity extends BRActivity {
     private final boolean processDeepLink(@Nullable final Intent intent) {
         Uri data = intent.getData();
         if (data != null && BRBitId.isBitId(data.toString())) {
-            BRBitId.signAndRespond(this, data.toString(), true);
+            BRBitId.digiIDAuthPrompt(this, data.toString(), true);
             return true;
         } else if (data != null && BitcoinUrlHandler.isBitcoinUrl(data.toString())) {
             BRAnimator.showOrUpdateSendFragment(this, data.toString());
@@ -99,18 +99,8 @@ public class LoginActivity extends BRActivity {
 
     private void showFingerprintDialog() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            AuthManager.getInstance().authPrompt(LoginActivity.this, "", "",
-                    new BRAuthCompletion() {
-                        @Override
-                        public void onComplete() {
-                            unlockWallet();
-                        }
-
-                        @Override
-                        public void onCancel() {
-
-                        }
-                    });
+            AuthManager.getInstance().authPrompt(LoginActivity.this, "", "", new AuthType(
+                    AuthType.Type.LOGIN));
         }, 500);
     }
 
@@ -156,5 +146,21 @@ public class LoginActivity extends BRActivity {
                         showFailedToUnlock();
                     }
                 });
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        switch (authType.type) {
+            case LOGIN:
+                unlockWallet();
+                break;
+            default:
+                super.onComplete(authType);
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType authType) {
+
     }
 }

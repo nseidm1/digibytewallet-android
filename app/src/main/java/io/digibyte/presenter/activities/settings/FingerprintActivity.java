@@ -29,7 +29,7 @@ import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 
 
-public class FingerprintActivity extends BRActivity {
+public class FingerprintActivity extends BRActivity implements BRAuthCompletion {
     private static final String TAG = FingerprintActivity.class.getName();
 
     @Override
@@ -61,22 +61,8 @@ public class FingerprintActivity extends BRActivity {
             @Override
             public void onClick(View textView) {
                 AuthManager.getInstance().authPrompt(FingerprintActivity.this, null,
-                        getString(R.string.VerifyPin_continueBody), new BRAuthCompletion() {
-                            @Override
-                            public void onComplete() {
-                                Intent intent = new Intent(FingerprintActivity.this,
-                                        SpendLimitActivity.class);
-                                overridePendingTransition(R.anim.enter_from_right,
-                                        R.anim.exit_to_left);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                            @Override
-                            public void onCancel() {
-
-                            }
-                        });
+                        getString(R.string.VerifyPin_continueBody), new AuthType(
+                                AuthType.Type.SPENDING_LIMIT));
             }
 
             @Override
@@ -110,5 +96,24 @@ public class FingerprintActivity extends BRActivity {
         return String.format(getString(R.string.TouchIdSettings_spendingLimit),
                 BRCurrency.getFormattedCurrencyString(this, "DGB", digibyte),
                 BRCurrency.getFormattedCurrencyString(this, iso, curAmount));
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        switch(authType.type) {
+            case SPENDING_LIMIT:
+                Intent intent = new Intent(FingerprintActivity.this,
+                        SpendLimitActivity.class);
+                overridePendingTransition(R.anim.enter_from_right,
+                        R.anim.exit_to_left);
+                startActivity(intent);
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType type) {
+
     }
 }

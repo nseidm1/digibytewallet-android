@@ -174,10 +174,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".presenter.activities.settings.WithdrawBchActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".presenter.activities.settings.NodesActivity"
             android:screenOrientation="portrait">
         </activity>
