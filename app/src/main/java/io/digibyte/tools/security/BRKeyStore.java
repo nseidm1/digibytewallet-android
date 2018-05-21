@@ -12,6 +12,7 @@ import android.security.keystore.UserNotAuthenticatedException;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.platform.entities.WalletInfo;
 import com.platform.tools.KVStoreManager;
@@ -42,6 +43,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.IvParameterSpec;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.exceptions.BRKeystoreErrorException;
 import io.digibyte.tools.animation.BRDialog;
@@ -280,7 +282,8 @@ public class BRKeyStore {
                     }
                 } catch (IllegalBlockSizeException | BadPaddingException e) {
                     e.printStackTrace();
-                    throw new RuntimeException("failed to decrypt data: " + e.getMessage());
+                    Toast.makeText(DigiByte.getContext(), R.string.failed_data, Toast.LENGTH_LONG).show();
+                    return null;
                 }
             }
             //no new format data, get the old one and migrate it to the new format
