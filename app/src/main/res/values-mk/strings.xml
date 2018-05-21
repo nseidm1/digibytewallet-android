@@ -248,8 +248,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Копирано во клипбоардот</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Е-маил</string>
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">Барање за Износ</string>
   <!-- Share button label -->
   <string name="Receive.share">Сподели</string>
@@ -519,18 +518,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">Ажурирајте го PIN-от</string>
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">Ве молиме внесете ваш PIN  за да ја авторзирате оваа трансакција.</string>
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">Ве молиме внесете го вашиот PIN за да продолжите</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">Барање PIN</string>
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->

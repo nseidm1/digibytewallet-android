@@ -248,8 +248,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">클립보드에 복사</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">이메일</string>
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">비트코인의 양을 설정해주세요.</string>
   <!-- Share button label -->
   <string name="Receive.share">공유</string>
@@ -519,18 +518,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">핀 업데이트</string>
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">전송을 완료하기위해 핀번호를 입력하세요.</string>
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">계속하려면 핀번호를 입력하세요.</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">핀번호가 요구됩니다.</string>
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->

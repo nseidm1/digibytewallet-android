@@ -244,8 +244,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">已複製到剪貼闆</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">電郵</string>
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">請求一個金額</string>
   <!-- Share button label -->
   <string name="Receive.share">分享</string>
@@ -515,18 +514,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">更新PIN碼</string>
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">請輸入PIN碼來授權這交易</string>
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">請輸入您的PIN碼來繼續</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">需要PIN碼</string>
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->

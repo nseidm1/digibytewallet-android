@@ -138,7 +138,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
                         public void run() {
                             String result = data.getStringExtra("result");
                             if (BitcoinUrlHandler.isBitcoinUrl(result)) {
-                                BRAnimator.showSendFragment(BRActivity.this, result);
+                                BRAnimator.showOrUpdateSendFragment(BRActivity.this, result);
                             } else if (BRBitId.isBitId(result)) {
                                 BRBitId.signAndRespond(BRActivity.this, result, false);
                             } else {

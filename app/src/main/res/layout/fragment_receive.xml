@@ -217,7 +217,7 @@
                     android:background="@drawable/intro_create_button"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.shareEmailClick()}"
-                    android:text="@string/Receive.emailButton"
+                    android:text="@string/share_qr"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
 

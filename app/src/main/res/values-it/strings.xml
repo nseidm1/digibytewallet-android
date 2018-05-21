@@ -247,8 +247,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Copiato negli appunti.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Email e Social</string>
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">Richiedi un Importo</string>
   <!-- Share button label -->
   <string name="Receive.share">Condividi</string>
@@ -518,18 +517,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">Aggiorna PIN</string>
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">Inserisci il tuo PIN per autorizzare questa transazione.</string>
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">Inserisci il tuo PIN per continuare.</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">PIN Richiesto</string>
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->

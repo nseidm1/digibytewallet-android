@@ -248,8 +248,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">மின் அஞ்சல்</string>
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">"தொகை கோரிக்கை "</string>
   <!-- Share button label -->
   <string name="Receive.share">பகிர்\n</string>
@@ -519,18 +518,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">பின்னை மேம்படுத்தவும்</string>
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">இந்த பரிவர்த்தனையை அங்கீகரிக்க உங்கள் பின்னை உள்ளிடவும்.</string>
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">தொடர்வதற்கு உங்கள் பின்னை உள்ளிடுக.</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">பின் தேவைபடுகிறது</string>
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->

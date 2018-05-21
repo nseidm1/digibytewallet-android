@@ -248,7 +248,6 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Copied to clipboard.</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">Email</string>
   <!-- Request button label -->
   <string name="Receive.request">Request an Amount</string>
   <!-- Share button label -->
@@ -519,17 +518,14 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">Update PIN</string>
   <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">Please enter your PIN to authorize this transaction.</string>
   <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">Please enter your PIN to continue.</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">PIN Required</string>
   <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
@@ -576,8 +572,8 @@
   <string name="digi_share">https://redirect.digibyteprojects.com/?address=%s&amp;amount=%s</string>
   <string name="max_send_enabled">Send Max Button Visible</string>
   <string name="max">max</string>
-  <string name="Alert.info">Info</string>
   <string name="current_amount">Current Value: %s</string>
   <string name="original_amount">Original Value: %s</string>
   <string name="failed_data">Bad data, device malfunction or reinstallation required</string>
+  <string name="share_qr">Share QR</string>
 </resources>
