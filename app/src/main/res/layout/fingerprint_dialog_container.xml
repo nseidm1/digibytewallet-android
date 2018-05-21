@@ -45,6 +45,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:animateLayoutChanges="true"
+            android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/pin_round_corner"
             android:orientation="vertical">
 

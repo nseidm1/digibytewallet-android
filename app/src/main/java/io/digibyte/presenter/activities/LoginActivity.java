@@ -29,7 +29,11 @@ public class LoginActivity extends BRActivity {
     private StringBuilder pin = new StringBuilder();
     private boolean inputAllowed = true;
 
-    private LoginActivityCallback callback = () -> showFingerprintDialog();
+    private LoginActivityCallback callback = () -> {
+        if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
+            showFingerprintDialog();
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
