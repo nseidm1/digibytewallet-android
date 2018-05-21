@@ -13,8 +13,9 @@ import io.digibyte.tools.security.AuthManager;
 
 public abstract class BasePinActivity extends BRActivity {
 
-    private static final String PIN_STATE = "ReEnterPinActivity:PinState";
-    protected StringBuilder pin = new StringBuilder();
+    private static final String PIN_STATE = "BasePinActivity:PinState";
+    protected StringBuilder currentPin = new StringBuilder();
+    protected StringBuilder previousPin = new StringBuilder();
     protected ActivityPinTemplateBinding binding;
     protected abstract void onPinConfirmed();
 
@@ -37,7 +38,7 @@ public abstract class BasePinActivity extends BRActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(PIN_STATE, pin);
+        outState.putSerializable(PIN_STATE, currentPin);
         super.onSaveInstanceState(outState);
     }
 
@@ -45,8 +46,17 @@ public abstract class BasePinActivity extends BRActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState.getSerializable(PIN_STATE) != null) {
-            pin = (StringBuilder) savedInstanceState.getSerializable(PIN_STATE);
+            currentPin = (StringBuilder) savedInstanceState.getSerializable(PIN_STATE);
         }
+    }
+
+    protected void setPreviousPin() {
+        previousPin = new StringBuilder(currentPin);
+        currentPin = new StringBuilder("");
+    }
+
+    protected boolean pinsMatch() {
+        return previousPin.toString().equals(currentPin.toString());
     }
 
     private void handleClick(String key) {
@@ -62,26 +72,26 @@ public abstract class BasePinActivity extends BRActivity {
 
 
     private void handleDigitClick(Integer dig) {
-        if (pin.length() < 6)
-            pin.append(dig);
+        if (currentPin.length() < 6)
+            currentPin.append(dig);
         updateDots();
     }
 
     private void handleDeleteClick() {
-        if (pin.length() > 0)
-            pin.deleteCharAt(pin.length() - 1);
+        if (currentPin.length() > 0)
+            currentPin.deleteCharAt(currentPin.length() - 1);
         updateDots();
     }
 
     protected void updateDots() {
-        AuthManager.getInstance().updateDots(pin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
+        AuthManager.getInstance().updateDots(currentPin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
             onPinConfirmed();
         }, 100));
     }
 
     protected void clearDots() {
-        pin = new StringBuilder();
-        AuthManager.getInstance().updateDots(pin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
+        currentPin = new StringBuilder();
+        AuthManager.getInstance().updateDots(currentPin.toString(), binding.dot1, binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> new Handler().postDelayed(() -> {
             onPinConfirmed();
         }, 100));
     }

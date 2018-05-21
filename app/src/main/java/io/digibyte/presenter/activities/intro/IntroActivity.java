@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityIntroBinding;
-import io.digibyte.presenter.activities.SetPinActivity;
+import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.callbacks.IntroActivityCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.security.BRKeyStore;
@@ -48,9 +48,7 @@ public class IntroActivity extends BRActivity implements Serializable {
     private IntroActivityCallback callback = new IntroActivityCallback() {
         @Override
         public void onNewWalletClick() {
-            Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            UpdatePinActivity.open(IntroActivity.this, UpdatePinActivity.Mode.SET_PIN);
         }
 
         @Override

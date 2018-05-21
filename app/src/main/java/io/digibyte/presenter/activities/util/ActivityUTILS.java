@@ -1,5 +1,7 @@
 package io.digibyte.presenter.activities.util;
 
+import static android.content.Context.ACTIVITY_SERVICE;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
@@ -8,14 +10,12 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-import io.digibyte.R;
-import io.digibyte.presenter.activities.DisabledActivity;
-import io.digibyte.presenter.activities.InputWordsActivity;
-import io.digibyte.presenter.activities.SetPinActivity;
-
 import java.util.List;
 
-import static android.content.Context.ACTIVITY_SERVICE;
+import io.digibyte.R;
+import io.digibyte.presenter.activities.BasePinActivity;
+import io.digibyte.presenter.activities.DisabledActivity;
+import io.digibyte.presenter.activities.InputWordsActivity;
 
 
 /**
@@ -57,7 +57,7 @@ public class ActivityUTILS {
 
     //return true if the app does need to show the disabled wallet screen
     public static boolean isAppSafe(Activity app) {
-        return app instanceof SetPinActivity || app instanceof InputWordsActivity;
+        return app instanceof BasePinActivity || app instanceof InputWordsActivity;
     }
 
     public static void showWalletDisabled(Activity app) {
