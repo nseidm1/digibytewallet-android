@@ -53,9 +53,16 @@ public class SettingsActivity extends BRActivity {
         setupToolbar();
         binding.setCallback(callback);
         binding.settingsList.setLayoutManager(new LinearLayoutManager(this));
-        populateItems();
         adapter = new SettingsListAdapter(items);
         binding.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        items.clear();
+        populateItems();
+        adapter.notifyDataSetChanged();
     }
 
     public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {

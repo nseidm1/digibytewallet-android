@@ -14,7 +14,6 @@ import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
 public class WriteDownActivity extends BRActivity {
-    private static final String TAG = WriteDownActivity.class.getName();
 
     private ActivityWriteDownCallback callback = () -> AuthManager.getInstance().authPrompt(
             WriteDownActivity.this, null,

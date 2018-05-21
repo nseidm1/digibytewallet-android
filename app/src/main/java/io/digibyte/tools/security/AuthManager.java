@@ -82,7 +82,7 @@ public class AuthManager {
         return match;
     }
 
-    //when pin auth success
+    //when currentPin auth success
     public void authSuccess(final Context app) {
         BRKeyStore.putFailCount(0, app);
         BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), app);

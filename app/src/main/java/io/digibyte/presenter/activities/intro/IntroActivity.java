@@ -10,10 +10,11 @@ import java.io.Serializable;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityIntroBinding;
-import io.digibyte.presenter.activities.SetPinActivity;
+import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.callbacks.IntroActivityCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.security.SmartValidator;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -48,9 +49,7 @@ public class IntroActivity extends BRActivity implements Serializable {
     private IntroActivityCallback callback = new IntroActivityCallback() {
         @Override
         public void onNewWalletClick() {
-            Intent intent = new Intent(IntroActivity.this, SetPinActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            UpdatePinActivity.open(IntroActivity.this, UpdatePinActivity.Mode.SET_PIN);
         }
 
         @Override
@@ -69,10 +68,17 @@ public class IntroActivity extends BRActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PostAuth.getInstance().onCanaryCheck(this, false);
         ActivityIntroBinding binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_intro);
         binding.setCallback(callback);
         cleanup();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BRWalletManager.getInstance().showLockscreenRequiredDialog(this);
     }
 
     private void cleanup() {

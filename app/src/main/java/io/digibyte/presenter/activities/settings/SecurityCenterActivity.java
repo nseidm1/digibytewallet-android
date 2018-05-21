@@ -87,9 +87,8 @@ public class SecurityCenterActivity extends BRActivity {
         itemList.add(new BRSecurityCenterItem(getString(R.string.SecurityCenter_pinTitle),
                 getString(R.string.SecurityCenter_pinDescription),
                 isPinSet ? R.drawable.ic_check_mark_blue : R.drawable.ic_check_mark_grey, v -> {
-            Intent intent = new Intent(SecurityCenterActivity.this, UpdatePinActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            UpdatePinActivity.open(SecurityCenterActivity.this,
+                    UpdatePinActivity.Mode.ENTER_CURRENT_PIN);
         }));
 
         int resId = BRSharedPrefs.getUseFingerprint(SecurityCenterActivity.this)

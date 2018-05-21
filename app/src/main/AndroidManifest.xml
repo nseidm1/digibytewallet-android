@@ -76,10 +76,6 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".presenter.activities.SetPinActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".presenter.activities.intro.RecoverActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -89,10 +85,6 @@
         </activity>
         <activity
             android:name=".presenter.activities.settings.ImportActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".presenter.activities.ReEnterPinActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity

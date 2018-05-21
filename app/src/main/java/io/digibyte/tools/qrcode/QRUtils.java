@@ -143,7 +143,7 @@ public class QRUtils {
             intent.setAction(android.content.Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_SUBJECT, "DigiByte Address");
             intent.putExtra(Intent.EXTRA_STREAM,qrImageUri);
-            intent.setType("application/image");
+            intent.setType("image/*");
             app.startActivity(Intent.createChooser(intent, app.getString(R.string.Receive_share)));
         }
     }

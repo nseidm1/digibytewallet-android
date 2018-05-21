@@ -20,8 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:textDirection="locale"
-        tools:context="io.digibyte.presenter.activities.SetPinActivity">
+        android:textDirection="locale">
 
         <include layout="@layout/toolbar"/>
 

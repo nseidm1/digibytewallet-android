@@ -92,7 +92,12 @@ public class BRAnimator {
         transaction.commitAllowingStateLoss();
     }
 
-    public static void showSendFragment(AppCompatActivity app, final String bitcoinUrl) {
+    public static void showOrUpdateSendFragment(AppCompatActivity app, final String bitcoinUrl) {
+        FragmentSend fragmentSend = (FragmentSend) app.getSupportFragmentManager().findFragmentByTag(FragmentSend.class.getName());
+        if (fragmentSend != null) {
+            fragmentSend.setUrl(bitcoinUrl);
+            return;
+        }
         FragmentSend.show(app, bitcoinUrl);
     }
 

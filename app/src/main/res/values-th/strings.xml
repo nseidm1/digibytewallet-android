@@ -248,8 +248,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
   <!-- Share via email button label -->
-  <string name="Receive.emailButton">อีเมล</string>
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">ระบุจำนวน</string>
   <!-- Share button label -->
   <string name="Receive.share">แบ่งปัน</string>
@@ -519,18 +518,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <string name="UpdatePin.updateTitle">ปรับปรุง PIN</string>
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <string name="VerifyPin.authorize">กรุณาป้อน PIN ของคุณเพื่ออนุญาตรายการนี้</string>
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">กรุณาป้อน PIN ของคุกเพื่อดำเนินการต่อ</string>
   <!-- Verify PIN view title -->
-  <string name="VerifyPin.title">ระบุ PIN</string>
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
