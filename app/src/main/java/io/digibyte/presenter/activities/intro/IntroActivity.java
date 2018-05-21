@@ -14,6 +14,7 @@ import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.callbacks.IntroActivityCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.security.BRKeyStore;
+import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.security.SmartValidator;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -67,6 +68,8 @@ public class IntroActivity extends BRActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PostAuth.getInstance().onCanaryCheck(this, false);
+        BRWalletManager.getInstance().showLockscreenRequiredDialog(this);
         ActivityIntroBinding binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_intro);
         binding.setCallback(callback);

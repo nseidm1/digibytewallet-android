@@ -3,8 +3,10 @@ package io.digibyte.wallet;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -47,8 +49,6 @@ import io.digibyte.presenter.entities.BRPeerEntity;
 import io.digibyte.presenter.entities.BRTransactionEntity;
 import io.digibyte.presenter.entities.ImportPrivKeyEntity;
 import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.presenter.interfaces.BROnSignalCompletion;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRApiManager;
@@ -515,20 +515,17 @@ public class BRWalletManager {
     }
 
 
-    public void startTheWalletIfExists(final Activity app) {
+    public void showLockscreenRequiredDialog(final Activity app) {
         final BRWalletManager m = BRWalletManager.getInstance();
         if (!m.isPasscodeEnabled(app)) {
             //Device passcode/password should be enabled for the app to work
             BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
                     app.getString(R.string.Prompts_NoScreenLock_body_android),
                     app.getString(R.string.AccessibilityLabels_close), null,
-                    brDialogView -> app.finish(), null, dialog -> app.finish(), 0);
-        } else {
-            if (!m.noWallet(app)) {
-                BRAnimator.startBreadActivity(app, true);
-            }
-            //else just sit in the intro screen
-
+                    brDialogView -> {
+                        Intent intent = new Intent(DevicePolicyManager.ACTION_SET_NEW_PASSWORD);
+                        app.startActivity(intent);
+                    }, null, dialog -> app.finish(), 0);
         }
     }
 
