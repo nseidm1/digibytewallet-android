@@ -20,7 +20,6 @@ public class SendFragmentModel extends BaseObservable {
     private String selectedIso = BRSharedPrefs.getPreferredBTC(DigiByte.getContext()) ? "DGB"
             : BRSharedPrefs.getIso(DigiByte.getContext());
     private String enteredAddress = "";
-    private FeeType feeType = FeeType.REGULAR;
     private String memo = "";
     private boolean showSendWaiting = false;
 
@@ -141,6 +140,7 @@ public class SendFragmentModel extends BaseObservable {
 
     public void setSelectedIso(String iso) {
         selectedIso = iso;
+        updateText();
     }
 
     public String getSelectedIso() {
@@ -211,11 +211,12 @@ public class SendFragmentModel extends BaseObservable {
     }
 
     public void populateMaxAmount() {
-        setSelectedIso("dgb");
-        setAmount(new BigDecimal(
-                BRWalletManager.getInstance().getBalance(DigiByte.getContext())).divide(
+        BigDecimal maxAvailable =new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext()));
+        BigDecimal fee = new BigDecimal(BRWalletManager.getInstance().feeForTransactionAmount(maxAvailable.intValue()));
+        setAmount(maxAvailable.subtract(fee).divide(
                 new BigDecimal(100000000)).toString());
         notifyPropertyChanged(BR.amount);
+        notifyPropertyChanged(BR.feeText);
     }
 
     private BigDecimal getBalanceForISO() {
