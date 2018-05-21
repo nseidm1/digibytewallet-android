@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:textDirection="locale"
-        tools:context="io.digibyte.presenter.activities.SetPinActivity">
+        android:textDirection="locale">
 
         <include layout="@layout/toolbar"/>
 
@@ -34,7 +33,6 @@
             android:background="@drawable/logo_circle"/>
 
         <TextView
-            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

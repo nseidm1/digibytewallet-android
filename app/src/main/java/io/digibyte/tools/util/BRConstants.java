@@ -129,8 +129,8 @@ public class BRConstants {
     public static final String requestAmount = "request-amount";
     public static final String send = "send-bitcoin";
     public static final String walletDisabled = "wallet-disabled";
-    public static final String resetPinWithPaperKey = "reset-pin-paper-key";
-    public static final String setPin = "set-pin";
+    public static final String resetPinWithPaperKey = "reset-currentPin-paper-key";
+    public static final String setPin = "set-currentPin";
     public static final String importWallet = "import-wallet";
     public static final String writePhrase = "write-phrase";
 //    public static final String confirmPhrase = "confirm-phrase";

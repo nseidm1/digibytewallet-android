@@ -14,7 +14,6 @@ import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
 public class WriteDownActivity extends BRActivity {
-    private static final String TAG = WriteDownActivity.class.getName();
 
     private ActivityWriteDownCallback callback = () -> AuthManager.getInstance().authPrompt(
             WriteDownActivity.this, null,
@@ -45,10 +44,17 @@ public class WriteDownActivity extends BRActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.home:
-                BRAnimator.startBreadActivity(WriteDownActivity.this, false);
+            case android.R.id.home:
+                BRAnimator.openBreadActivity(WriteDownActivity.this, false);
                 return true;
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        BRAnimator.openBreadActivity(WriteDownActivity.this, false);
     }
 }

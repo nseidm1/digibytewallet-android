@@ -94,8 +94,8 @@ public class QRUtils {
         return bitmap;
     }
 
-    public static boolean generateQR(Context ctx, String bitcoinURL, ImageView qrcode) {
-        if (qrcode == null || bitcoinURL == null || bitcoinURL.isEmpty()) return false;
+    public static Bitmap generateQR(Context ctx, String bitcoinURL, ImageView qrcode) {
+        if (qrcode == null || bitcoinURL == null || bitcoinURL.isEmpty()) return null;
         WindowManager manager = (WindowManager) ctx.getSystemService(Activity.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         Point point = new Point();
@@ -104,13 +104,9 @@ public class QRUtils {
         int height = point.y;
         int smallerDimension = width < height ? width : height;
         smallerDimension = (int) (smallerDimension * 0.45f);
-        Bitmap bitmap = null;
-        bitmap = QRUtils.encodeAsBitmap(bitcoinURL, smallerDimension);
-        //qrcode.setPadding(1, 1, 1, 1);
-        //qrcode.setBackgroundResource(R.color.gray);
-        if (bitmap == null) return false;
+        Bitmap bitmap = QRUtils.encodeAsBitmap(bitcoinURL, smallerDimension);
         qrcode.setImageBitmap(bitmap);
-        return true;
+        return bitmap;
     }
 
     public static Bitmap getQRImage(Context ctx, String bitcoinURL) {
@@ -147,7 +143,7 @@ public class QRUtils {
             intent.setAction(android.content.Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_SUBJECT, "DigiByte Address");
             intent.putExtra(Intent.EXTRA_STREAM,qrImageUri);
-            intent.setType("application/image");
+            intent.setType("image/*");
             app.startActivity(Intent.createChooser(intent, app.getString(R.string.Receive_share)));
         }
     }

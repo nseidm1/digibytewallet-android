@@ -208,22 +208,19 @@ public class BRSender {
             throw new FeeNeedsAdjust(amount, balance, feeForTx);
         }
         // payment successful
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                byte[] tmpTx = m.tryTransaction(paymentRequest.addresses[0], paymentRequest.amount);
-                if (tmpTx == null) {
-                    //something went wrong, failed to create tx
-                    ((Activity) app).runOnUiThread(() -> BRDialog.showCustomDialog(app, "",
-                            app.getString(R.string.Alerts_sendFailure),
-                            app.getString(R.string.AccessibilityLabels_close), null,
-                            brDialogView -> brDialogView.dismiss(), null, null, 0));
-                    return;
-                }
-                paymentRequest.serializedTx = tmpTx;
-                PostAuth.getInstance().setPaymentItem(paymentRequest);
-                confirmPay(app, paymentRequest);
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            byte[] tmpTx = m.tryTransaction(paymentRequest.addresses[0], paymentRequest.amount);
+            if (tmpTx == null) {
+                //something went wrong, failed to create tx
+                ((Activity) app).runOnUiThread(() -> BRDialog.showCustomDialog(app, "",
+                        app.getString(R.string.Alerts_sendFailure),
+                        app.getString(R.string.AccessibilityLabels_close), null,
+                        brDialogView -> brDialogView.dismiss(), null, null, 0));
+                return;
             }
+            paymentRequest.serializedTx = tmpTx;
+            PostAuth.getInstance().setPaymentItem(paymentRequest);
+            confirmPay(app, paymentRequest);
         });
 
     }
@@ -273,15 +270,10 @@ public class BRSender {
                             new BigDecimal("100")));
 
 
-            ((Activity) ctx).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
-                            bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close),
-                            null,
-                            brDialogView -> brDialogView.dismiss(), null, null, 0);
-                }
-            });
+            ((Activity) ctx).runOnUiThread(() -> BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
+                    bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close),
+                    null,
+                    brDialogView -> brDialogView.dismiss(), null, null, 0));
             return;
         }
         String selectedIso = BRSharedPrefs.getPreferredBTC(ctx) ? "DGB" : BRSharedPrefs.getIso(ctx);
@@ -351,14 +343,14 @@ public class BRSender {
                 BRExchange.getAmountFromSatoshis(ctx, iso, new BigDecimal(total)));
 
         //formatted text
-        return receiver + "\n\n"
-                + ctx.getString(R.string.Confirmation_amountLabel) + " " + formattedAmountBTC + " ("
+        return  ctx.getString(R.string.Confirmation_amountLabel) + " " + formattedAmountBTC + " ("
                 + formattedAmount + ")"
                 + "\n" + ctx.getString(R.string.Confirmation_feeLabel) + " " + formattedFeeBTC
                 + " (" + formattedFee + ")"
                 + "\n" + ctx.getString(R.string.Confirmation_totalLabel) + " " + formattedTotalBTC
-                + " (" + formattedTotal + ")"
-                + (request.comment == null ? "" : "\n\n" + request.comment);
+                + " (" + formattedTotal + ")\n"
+                + receiver + "\n"
+                + (request.comment == null ? "" : "\n" + request.comment);
     }
 
     public String getReceiver(PaymentItem item) {
@@ -369,7 +361,7 @@ public class BRSender {
         }
         StringBuilder allAddresses = new StringBuilder();
         for (String s : item.addresses) {
-            allAddresses.append(s + ", ");
+            allAddresses.append(s + " ");
         }
         receiver = allAddresses.toString();
         allAddresses.delete(allAddresses.length() - 2, allAddresses.length());

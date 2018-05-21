@@ -346,7 +346,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         }
     }
 
-    private void setUrl(String url) {
+    public void setUrl(String url) {
         RequestObject obj = BitcoinUrlHandler.getScannedQRRequest(url);
         if (obj == null) return;
         if (obj.address != null) {

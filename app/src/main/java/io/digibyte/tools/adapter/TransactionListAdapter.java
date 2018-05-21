@@ -12,7 +12,10 @@ import java.util.ArrayList;
 
 import io.digibyte.DigiByte;
 import io.digibyte.databinding.ListItemTransactionBinding;
+import io.digibyte.presenter.entities.TxItem;
+import io.digibyte.presenter.fragments.models.TransactionDetailsViewModel;
 import io.digibyte.tools.animation.BRAnimator;
+import io.digibyte.tools.database.Database;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.list.items.ListItemTransactionViewHolder;
@@ -69,7 +72,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
             //Check to see if the transaction time changed
             String currentTime = listItemTransactionData.getTransactionDisplayTimeHolder();
 
-            ListItemTransactionData updatedTransaction = findTransaction(listItemTransactionData, transactions);
+            ListItemTransactionData updatedTransaction = findTransaction(listItemTransactionData,
+                    transactions);
 
             if (updatedTransaction == null) {
                 continue;
@@ -101,11 +105,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     public void notifyDataChanged() {
         for (ListItemTransactionData listItemTransactionData : listItemData) {
-            if (isPositionOnscreen(listItemData.indexOf(listItemTransactionData))) {
+            int index = listItemData.indexOf(listItemTransactionData);
+            if (isPositionOnscreen(index)) {
                 ListItemTransactionViewHolder listItemTransactionViewHolder =
                         (ListItemTransactionViewHolder) recyclerView
-                                .findViewHolderForAdapterPosition(
-                                        listItemData.indexOf(listItemTransactionData));
+                                .findViewHolderForAdapterPosition(index);
                 if (listItemTransactionViewHolder != null) {
                     listItemTransactionViewHolder.process(listItemTransactionData);
                 }
@@ -140,6 +144,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     public void addTransactions(ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData transaction : transactions) {
+            saveFiatValue(transaction.transactionItem);
             listItemData.add(0, transaction);
             notifyItemInserted(0);
         }
@@ -195,5 +200,13 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public long getItemId(int position) {
         return Integer.valueOf(listItemData.get(
                 position).getTransactionItem().hashCode()).longValue();
+    }
+
+    private void saveFiatValue(TxItem txItem) {
+        //Save the transaction text in fiat mode, the first time the transaction is displayed in the app
+        if (!Database.instance.containsTransaction(txItem.getTxHash())) {
+            Database.instance.saveTransaction(txItem.getTxHash(), TransactionDetailsViewModel.getRawFiatAmount(txItem));
+        }
+
     }
 }

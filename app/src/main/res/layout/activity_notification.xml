@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_intro_set_pit"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/extra_light_blue_background"
-    tools:context="io.digibyte.presenter.activities.SetPinActivity">
+    android:layout_height="match_parent">
 
     <io.digibyte.presenter.customviews.BRText
         android:id="@+id/title"
@@ -37,7 +35,6 @@
         app:layout_constraintTop_toBottomOf="@+id/title"/>
 
     <View
-        android:id="@+id/separator"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginEnd="16dp"

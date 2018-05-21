@@ -9,6 +9,7 @@
         <item name="colorControlNormal">@color/bluetrans</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="colorControlActivated">@color/bluetrans</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="MyToolBarStyle" parent="Widget.AppCompat.Toolbar">
@@ -79,5 +80,11 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
     </style>
-
+    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
 </resources>

@@ -92,7 +92,12 @@ public class BRAnimator {
         transaction.commitAllowingStateLoss();
     }
 
-    public static void showSendFragment(AppCompatActivity app, final String bitcoinUrl) {
+    public static void showOrUpdateSendFragment(AppCompatActivity app, final String bitcoinUrl) {
+        FragmentSend fragmentSend = (FragmentSend) app.getSupportFragmentManager().findFragmentByTag(FragmentSend.class.getName());
+        if (fragmentSend != null) {
+            fragmentSend.setUrl(bitcoinUrl);
+            return;
+        }
         FragmentSend.show(app, bitcoinUrl);
     }
 
@@ -164,7 +169,7 @@ public class BRAnimator {
         return itemLayoutTransition;
     }
 
-    public static void showRequestFragment(AppCompatActivity app, String address) {
+    public static void showRequestFragment(AppCompatActivity app) {
         FragmentRequestAmount.show(app);
     }
 
@@ -219,6 +224,15 @@ public class BRAnimator {
         Class toStart = auth ? LoginActivity.class : BreadActivity.class;
         Intent intent = new Intent(from, toStart);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        from.startActivity(intent);
+    }
+
+    public static void openBreadActivity(Context from, boolean auth) {
+        if (from == null) return;
+        Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
+        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
+        Intent intent = new Intent(from, toStart);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         from.startActivity(intent);
     }
 

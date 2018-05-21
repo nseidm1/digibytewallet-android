@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentReceiveBinding;
+import io.digibyte.presenter.activities.QRCodeActivity;
 import io.digibyte.presenter.fragments.interfaces.FragmentReceiveCallbacks;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.presenter.fragments.models.ReceiveFragmentModel;
@@ -22,7 +25,6 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.qrcode.QRUtils;
-import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -54,10 +56,11 @@ import io.digibyte.wallet.BRWalletManager;
 public class FragmentReceive extends Fragment implements OnBackPressListener {
 
     protected static final String IS_RECEIVE = "FragmentReceive:IsReceive";
-    private String receiveAddress;
     private boolean shareButtonsShown = false;
     private Handler copyCloseHandler = new Handler(Looper.getMainLooper());
     protected FragmentReceiveBinding fragmentReceiveBinding;
+    protected String address;
+    protected String qrUrl;
 
     protected ReceiveFragmentModel receiveFragmentModel = new ReceiveFragmentModel();
 
@@ -69,7 +72,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
                 //This allows for extending fragments to override thd function of this callback
                 return;
             }
-            String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, 0, null, null, null);
+            String bitcoinUri = Utils.createBitcoinUrl(address, 0, null, null, null);
             Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
             QRUtils.share("mailto:", getActivity(), qrImageUri, null, null);
         }
@@ -81,7 +84,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
                 return;
             }
             try {
-                QRUtils.share("sms:", getActivity(), null, receiveAddress, "");
+                QRUtils.share("sms:", getActivity(), null, address, "");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -108,13 +111,11 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         @Override
         public void backgroundClick() {
             fadeOutRemove(false);
-
         }
 
         @Override
         public void qrImageClick() {
-            FragmentReceive.this.onQRClick();
-            copyText();
+            QRCodeActivity.show((AppCompatActivity) getActivity(), fragmentReceiveBinding.qrImage, qrUrl);
         }
 
         @Override
@@ -182,23 +183,26 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BRWalletManager.refreshAddress(getContext());
+        address = BRSharedPrefs.getReceiveAddress(DigiByte.getContext());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentReceiveBinding = FragmentReceiveBinding.inflate(inflater);
         fragmentReceiveBinding.setCallback(callbacks);
         fragmentReceiveBinding.setData(receiveFragmentModel);
         fragmentReceiveBinding.addressText.setSelected(true);
-        BRWalletManager.getInstance().addBalanceChangedListener(new BRWalletManager.OnBalanceChanged() {
-            @Override
-            public void onBalanceChanged(long balance) {
-                updateQr();
-            }
-
-            @Override
-            public void showSendConfirmDialog(String message, int error, byte[] txHash) {
-
-            }
-        });
+        receiveFragmentModel.setAddress(address);
         return fragmentReceiveBinding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        updateQRImage();
     }
 
     private boolean getIsReceive() {
@@ -215,21 +219,6 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         } else {
             receiveFragmentModel.setShareVisibility(true);
             receiveFragmentModel.setShareButtonType(3);
-            showCopiedLayout(false);
-        }
-    }
-
-    private void showCopiedLayout(boolean show) {
-        if (!show) {
-            receiveFragmentModel.setCopiedButtonLayoutVisibility(false);
-            copyCloseHandler.removeCallbacksAndMessages(null);
-        } else {
-            if (!receiveFragmentModel.isCopiedButtonLayoutVisibility()) {
-                receiveFragmentModel.setCopiedButtonLayoutVisibility(true);
-                showShareButtons(false);
-                shareButtonsShown = false;
-                copyCloseHandler.postDelayed(() -> showCopiedLayout(false), 2000);
-            }
         }
     }
 
@@ -242,34 +231,24 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         if (!getIsReceive()) {
             receiveFragmentModel.setTitle(getString(R.string.UnlockScreen_myAddress));
         }
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> updateQr());
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(fragmentReceiveBinding.backgroundLayout, false, null);
         colorFade.setStartDelay(350);
         colorFade.setDuration(500);
         colorFade.start();
     }
 
+    protected void updateQRImage() {
+        qrUrl = "digibyte:" + address;
+        QRUtils.generateQR(getContext(), qrUrl, fragmentReceiveBinding.qrImage);
+    }
+
     protected boolean allowRequestAmountButtonShow() {
         return true;
     }
 
-    private void updateQr() {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-            if (getContext() == null) {
-                return;
-            }
-            BRWalletManager.refreshAddress(getContext());
-            copyCloseHandler.post(() -> {
-                receiveAddress = BRSharedPrefs.getReceiveAddress(getContext());
-                receiveFragmentModel.setAddress(receiveAddress);
-                QRUtils.generateQR(getContext(), "digibyte:" + receiveAddress, fragmentReceiveBinding.qrImage);
-            });
-        });
-    }
-
     private void copyText() {
-        BRClipboardManager.putClipboard(getContext(), receiveAddress);
-        showCopiedLayout(true);
+        BRClipboardManager.putClipboard(getContext(), address);
+        Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
     }
 
     protected void fadeOutRemove(boolean showRequestAmountPopup) {
@@ -281,7 +260,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
                             if (getActivity() == null) {
                                 return;
                             }
-                            BRAnimator.showRequestFragment((AppCompatActivity) getActivity(), receiveAddress);
+                            BRAnimator.showRequestFragment((AppCompatActivity) getActivity());
                         }, 350);
                     }
                 });

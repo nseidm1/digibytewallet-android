@@ -18,7 +18,7 @@ import io.digibyte.wallet.BRWalletManager;
 /**
  * Created by Noah Seidman on 2/18/18.
  * The SyncService is only registered to the JobScheduler in the onResume of the BRActivity,
- * thus it's fully assumed the wallet has already been created (seeds saved, pin, etc...)
+ * thus it's fully assumed the wallet has already been created (seeds saved, currentPin, etc...)
  * Initializing the wallet starts all native block syncing functions, thus all that's needed
  * for sync to occur, is for this job to init the wallet.
  */

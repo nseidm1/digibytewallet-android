@@ -48,6 +48,7 @@ import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
+import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
 import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
@@ -101,8 +102,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings.txPager.setOffscreenPageLimit(2);
         bindings.tabLayout.setupWithViewPager(bindings.txPager);
         bindings.syncContainer.addView(getSyncView());
-        bindings.mainContainer.getLayoutTransition()
+        bindings.contentContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
+        ViewUtils.increaceClickableArea(bindings.qrButton);
+        ViewUtils.increaceClickableArea(bindings.navDrawer);
+        ViewUtils.increaceClickableArea(bindings.digiidButton);
         unbinder = ButterKnife.bind(this);
     }
 
@@ -173,15 +177,19 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 newTransactions);
         if (transactionsToAdd.size() > 0) {
             allAdapter.addTransactions(transactionsToAdd);
-            sentAdapter.addTransactions(convertNewTransactionsForAdapter(Adapter.SENT, transactionsToAdd));
-            receivedAdapter.addTransactions(convertNewTransactionsForAdapter(Adapter.RECEIVED, transactionsToAdd));
+            sentAdapter.addTransactions(
+                    convertNewTransactionsForAdapter(Adapter.SENT, transactionsToAdd));
+            receivedAdapter.addTransactions(
+                    convertNewTransactionsForAdapter(Adapter.RECEIVED, transactionsToAdd));
             allRecycler.smoothScrollToPosition(0);
             sentRecycler.smoothScrollToPosition(0);
             receivedRecycler.smoothScrollToPosition(0);
+            notifyDataSetChangeForAll();
         } else {
             allAdapter.updateTransactions(newTransactions);
             sentAdapter.updateTransactions(newTransactions);
             receivedAdapter.updateTransactions(newTransactions);
+            notifyDataSetChangeForAll();
         }
     }
 
@@ -190,7 +198,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     private ArrayList<ListItemTransactionData> convertNewTransactionsForAdapter(Adapter adapter,
-                                                                                ArrayList<ListItemTransactionData> transactions) {
+            ArrayList<ListItemTransactionData> transactions) {
         ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
         for (int index = 0; index < transactions.size(); index++) {
             ListItemTransactionData transactionData = transactions.get(index);
@@ -284,14 +292,16 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @OnClick(R.id.primary_price)
     void onPrimaryPriceClick(View view) {
         BRSharedPrefs.putPreferredBTC(BreadActivity.this, true);
-        allAdapter.notifyDataChanged();
-        sentAdapter.notifyDataChanged();
-        receivedAdapter.notifyDataChanged();
+        notifyDataSetChangeForAll();
     }
 
     @OnClick(R.id.secondary_price)
     void onSecondaryPriceClick(View view) {
         BRSharedPrefs.putPreferredBTC(BreadActivity.this, false);
+        notifyDataSetChangeForAll();
+    }
+
+    private void notifyDataSetChangeForAll() {
         allAdapter.notifyDataChanged();
         sentAdapter.notifyDataChanged();
         receivedAdapter.notifyDataChanged();

@@ -19,7 +19,7 @@ import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.PaperKeyActivity;
 import io.digibyte.presenter.activities.PaperKeyProveActivity;
-import io.digibyte.presenter.activities.SetPinActivity;
+import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
 import io.digibyte.presenter.activities.settings.WithdrawBchActivity;
 import io.digibyte.presenter.activities.util.ActivityUTILS;
@@ -129,7 +129,7 @@ public class PostAuth {
         PaperKeyProveActivity.show(app, cleanPhrase);
     }
 
-    public void onRecoverWalletAuth(Activity app, boolean authAsked) {
+    public void onRecoverWalletAuth(AppCompatActivity app, boolean authAsked) {
         if (phraseForKeyStore == null) {
             Log.e(TAG, "onRecoverWalletAuth: phraseForKeyStore is null!");
             BRReportsManager.reportBug(new NullPointerException("onRecoverWalletAuth: phraseForKeyStore is null"));
@@ -138,7 +138,7 @@ public class PostAuth {
         byte[] bytePhrase = new byte[0];
 
         try {
-            boolean success = false;
+            boolean success;
             try {
                 success = BRKeyStore.putPhrase(phraseForKeyStore.getBytes(),
                         app, BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE);
@@ -164,12 +164,7 @@ public class PostAuth {
                     BRKeyStore.putAuthKey(authKey, app);
                     byte[] pubKey = BRWalletManager.getInstance().getMasterPubKey(bytePhrase);
                     BRKeyStore.putMasterPublicKey(pubKey, app);
-                    app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                    Intent intent = new Intent(app, SetPinActivity.class);
-                    intent.putExtra("noPin", true);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    app.startActivity(intent);
-                    if (!app.isDestroyed()) app.finish();
+                    UpdatePinActivity.open(app, UpdatePinActivity.Mode.ENTER_NEW_PIN);
                     phraseForKeyStore = null;
                 }
 

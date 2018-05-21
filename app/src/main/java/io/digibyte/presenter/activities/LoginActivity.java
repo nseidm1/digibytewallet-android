@@ -68,7 +68,7 @@ public class LoginActivity extends BRActivity {
             BRBitId.signAndRespond(this, data.toString(), true);
             return true;
         } else if (data != null && BitcoinUrlHandler.isBitcoinUrl(data.toString())) {
-            BRAnimator.showSendFragment(this, data.toString());
+            BRAnimator.showOrUpdateSendFragment(this, data.toString());
             return true;
         }
         return false;
