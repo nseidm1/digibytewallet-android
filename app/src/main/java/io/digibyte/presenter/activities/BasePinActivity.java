@@ -45,7 +45,7 @@ public abstract class BasePinActivity extends BRActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState.getSerializable(PIN_STATE) != null) {
+        if (savedInstanceState != null && savedInstanceState.getSerializable(PIN_STATE) != null) {
             currentPin = (StringBuilder) savedInstanceState.getSerializable(PIN_STATE);
         }
     }
