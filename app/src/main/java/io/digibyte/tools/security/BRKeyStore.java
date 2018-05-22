@@ -186,11 +186,10 @@ public class BRKeyStore {
                 PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                 boolean useNewStorage = pInfo.versionCode > 2147 && BRSharedPrefs.getLastSyncTime(context) == 0;
                 BRSharedPrefs.setUseNewStorage(context, useNewStorage);
-                return useNewStorage;
             } catch (Exception e) {
-                BRSharedPrefs.setUseNewStorage(context, true);
-                return true;
+                BRSharedPrefs.setUseNewStorage(context, BRSharedPrefs.getLastSyncTime(context) == 0);
             }
+            return BRSharedPrefs.getUseNewStorage(context);
         }
     }
 
