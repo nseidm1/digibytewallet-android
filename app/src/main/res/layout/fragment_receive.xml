@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_marginStart="16dp"
             android:animateLayoutChanges="true"
             android:background="@drawable/signal_layout"
@@ -109,7 +111,9 @@
 
                 <Button
                     android:id="@+id/iso_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="75dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="14dp"
@@ -209,7 +213,9 @@
 
                 <Button
                     android:id="@+id/share_email"
-                    android:layout_width="match_parent"
+                    android:layout_width="75dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
                     android:layout_marginStart="12dp"
@@ -223,7 +229,9 @@
 
                 <Button
                     android:id="@+id/share_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="75dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
                     android:layout_marginStart="12dp"
