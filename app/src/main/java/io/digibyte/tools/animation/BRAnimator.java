@@ -16,7 +16,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -206,33 +205,12 @@ public class BRAnimator {
         }
     }
 
-    public static void killAllFragments(AppCompatActivity app) {
-        if (app != null && !app.isDestroyed()) {
-            app.getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-
-    public static void startBreadIfNotStarted(Activity app) {
-        if (!(app instanceof BreadActivity)) {
-            startBreadActivity(app, false);
-        }
-    }
-
     public static void startBreadActivity(Context from, boolean auth) {
         if (from == null) return;
         Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
         Class toStart = auth ? LoginActivity.class : BreadActivity.class;
         Intent intent = new Intent(from, toStart);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        from.startActivity(intent);
-    }
-
-    public static void openBreadActivity(Context from, boolean auth) {
-        if (from == null) return;
-        Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
-        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
-        Intent intent = new Intent(from, toStart);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         from.startActivity(intent);
     }
 

@@ -68,7 +68,6 @@ public class IntroActivity extends BRActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PostAuth.getInstance().onCanaryCheck(this, false);
         ActivityIntroBinding binding = DataBindingUtil.setContentView(this,
                 R.layout.activity_intro);
         binding.setCallback(callback);

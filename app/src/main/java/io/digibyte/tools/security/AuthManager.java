@@ -85,7 +85,6 @@ public class AuthManager {
     //when currentPin auth success
     public void authSuccess(final Context app) {
         BRKeyStore.putFailCount(0, app);
-        BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), app);
     }
 
     public void authFail(Context app) {
@@ -113,7 +112,6 @@ public class AuthManager {
     public void setPinCode(String pass, Activity context) {
         BRKeyStore.putFailCount(0, context);
         BRKeyStore.putPinCode(pass, context);
-        BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), context);
     }
 
     public void updateDots(String pin, View dot1, View dot2,
@@ -178,21 +176,35 @@ public class AuthManager {
         view.setBackground(pinUnselected);
     }
 
-    public void authPrompt(final Context context, String title, String message, BRAuthCompletion completion) {
-        authPrompt(context, title, message, isFingerPrintAvailableAndSetup(context), completion);
+    /**
+     * This version of authPrompt is used when either fingerprint or pin can be used
+     * @param context
+     * @param title
+     * @param message
+     * @param type
+     */
+    public void authPrompt(final Context context, String title, String message, BRAuthCompletion.AuthType type) {
+        authPrompt(context, title, message, isFingerPrintAvailableAndSetup(context), type);
     }
 
-    public void authPrompt(final Context context, String title, String message, boolean fingerprint,
-                           BRAuthCompletion completion) {
+    /**
+     * This version of authPrompt is used when fingerprint enabled or not is desired to be set specifically
+     * @param context
+     * @param title
+     * @param message
+     * @param fingerprint
+     * @param type
+     */
+    public void authPrompt(final Context context, String title, String message, boolean fingerprint, BRAuthCompletion.AuthType type) {
         if (context instanceof Activity) {
             final AppCompatActivity app = (AppCompatActivity) context;
             final KeyguardManager keyguardManager =
                     (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
             if (keyguardManager.isKeyguardSecure()) {
                 if (fingerprint) {
-                    FragmentFingerprint.show(app, title, message, completion);
+                    FragmentFingerprint.show(app, title, message, type);
                 } else {
-                    FragmentPin.show(app, title, message, completion);
+                    FragmentPin.show(app, title, message, type);
                 }
             } else {
                 BRDialog.showCustomDialog(app,

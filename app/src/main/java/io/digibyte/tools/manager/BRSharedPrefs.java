@@ -497,4 +497,21 @@ public class BRSharedPrefs {
         editor.putBoolean(key, value);
         editor.apply();
     }
+
+    public static boolean getUseNewStorage(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean("new_storage", true);
+    }
+
+    public static void setUseNewStorage(Context context, boolean value) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("new_storage", value);
+        editor.apply();
+    }
+
+    public static boolean useNewStorageSet(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.contains("new_storage");
+    }
 }

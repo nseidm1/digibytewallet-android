@@ -70,11 +70,11 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
                     BRWalletManager m = BRWalletManager.getInstance();
                     m.wipeWalletButKeystore(app);
                     m.wipeKeyStore(app);
-                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase);
+                    PostAuth.instance.setPhraseForKeyStore(cleanPhrase);
                     BRSharedPrefs.putAllowSpend(app, false);
                     //if this screen is shown then we did not upgrade to the new app, we installed it
                     BRSharedPrefs.putGreetingsShown(app, true);
-                    PostAuth.getInstance().onRecoverWalletAuth(app, false);                    break;
+                    PostAuth.instance.onRecoverWalletAuth(app, false);                    break;
             }
         } else {
             BRDialog.showCustomDialog(app, "", getResources().getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null,

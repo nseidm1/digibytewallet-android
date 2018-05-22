@@ -1,27 +1,13 @@
 package io.digibyte.tools.security;
 
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 
-import io.digibyte.R;
-import io.digibyte.presenter.customviews.BRDialogView;
-import io.digibyte.presenter.entities.PaymentItem;
 import io.digibyte.presenter.entities.PaymentRequestWrapper;
 import io.digibyte.presenter.entities.RequestObject;
-import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.animation.BRDialog;
-import io.digibyte.tools.manager.BREventManager;
-import io.digibyte.tools.manager.BRReportsManager;
-import io.digibyte.tools.threads.PaymentProtocolTask;
 import io.digibyte.wallet.BRWalletManager;
 
 
@@ -53,58 +39,6 @@ import io.digibyte.wallet.BRWalletManager;
 public class BitcoinUrlHandler {
     private static final String TAG = BitcoinUrlHandler.class.getName();
     private static final Object lockObject = new Object();
-
-    public static synchronized boolean processRequest(AppCompatActivity app, String url) {
-        if (url == null) {
-            Log.e(TAG, "processRequest: url is null");
-            return false;
-        }
-
-        Map<String, String> attr = new HashMap<>();
-        URI uri = null;
-        try {
-            uri = new URI(url);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        attr.put("scheme", uri == null ? "null" : uri.getScheme());
-        attr.put("host", uri == null ? "null" : uri.getHost());
-        attr.put("path", uri == null ? "null" : uri.getPath());
-        BREventManager.getInstance().pushEvent("send.handleURL", attr);
-
-        RequestObject requestObject = getRequestFromString(url);
-        if (BRWalletManager.getInstance().confirmSweep(app, url)) {
-            return true;
-        }
-        if (requestObject == null) {
-            if (app != null) {
-                BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
-                        app.getString(R.string.Send_invalidAddressTitle), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, null, 0);
-            }
-            return false;
-        }
-        if (requestObject.r != null) {
-            return tryPaymentRequest(requestObject);
-        } else if (requestObject.address != null) {
-            return tryBitcoinURL(url, app);
-        } else {
-            if (app != null) {
-                BRDialog.showCustomDialog(app, app.getString(R.string.JailbreakWarnings_title),
-                        app.getString(R.string.Send_remoteRequestError), app.getString(R.string.Button_ok), null, new BRDialogView.BROnClickListener() {
-                            @Override
-                            public void onClick(BRDialogView brDialogView) {
-                                brDialogView.dismissWithAnimation();
-                            }
-                        }, null, null, 0);
-            }
-            return false;
-        }
-    }
 
     public static boolean isBitcoinUrl(String url) {
         RequestObject requestObject = getRequestFromString(url);
@@ -199,45 +133,6 @@ public class BitcoinUrlHandler {
             }
         }
         return obj;
-    }
-
-    private static boolean tryPaymentRequest(RequestObject requestObject) {
-        String theURL = null;
-        String url = requestObject.r;
-        synchronized (lockObject) {
-            try {
-                theURL = URLDecoder.decode(url, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                return false;
-            }
-            new PaymentProtocolTask().execute(theURL, requestObject.label);
-        }
-        return true;
-    }
-
-    private static boolean tryBitcoinURL(final String url, final AppCompatActivity app) {
-        RequestObject requestObject = getRequestFromString(url);
-        if (requestObject == null || requestObject.address == null || requestObject.address.isEmpty())
-            return false;
-        final String[] addresses = new String[1];
-        addresses[0] = requestObject.address;
-
-        String amount = requestObject.amount;
-
-        if (amount == null || amount.isEmpty() || new BigDecimal(amount).doubleValue() == 0) {
-            app.runOnUiThread(() -> BRAnimator.showOrUpdateSendFragment(app, url));
-        } else {
-            if (app != null) {
-                BRAnimator.killAllFragments(app);
-                BRSender.getInstance().sendTransaction(app, new PaymentItem(addresses, null, new BigDecimal(amount).longValue(), null, true), null);
-            } else {
-                BRReportsManager.reportBug(new NullPointerException("tryBitcoinURL, app is null!"));
-            }
-        }
-
-        return true;
-
     }
 
     public static native PaymentRequestWrapper parsePaymentRequest(byte[] req);

@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -58,10 +59,12 @@ import io.digibyte.tools.security.AuthManager;
 
 public class FragmentPin extends Fragment implements OnBackPressListener {
     private static final String TAG = FragmentPin.class.getName();
+    private static final String AUTH_TYPE = "FragmentPin:AuthType";
 
     private BRAuthCompletion completion;
     private FragmentBreadPinBinding binding;
     private final StringBuilder pin = new StringBuilder();
+    private BRAuthCompletion.AuthType type;
 
     private PinFragmentCallback mPinFragmentCallback = new PinFragmentCallback() {
         @Override
@@ -75,18 +78,28 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
         }
     };
 
-    public static void show(AppCompatActivity activity, String title, String message, BRAuthCompletion completion) {
+    public static void show(AppCompatActivity activity, String title, String message, BRAuthCompletion.AuthType type) {
         FragmentPin fragmentPin = new FragmentPin();
-        fragmentPin.setCompletion(completion);
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("message", message);
+        args.putSerializable(AUTH_TYPE, type);
         fragmentPin.setArguments(args);
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom, R.animator.from_bottom, R.animator.to_bottom);
         transaction.add(android.R.id.content, fragmentPin, FragmentPin.class.getName());
         transaction.addToBackStack(FragmentPin.class.getName());
         transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof BRAuthCompletion) {
+            completion = (BRAuthCompletion) context;
+        } else {
+            throw new RuntimeException("Failed to have the containing activity implement BRAuthCompletion");
+        }
     }
 
     @Override
@@ -167,8 +180,8 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
                 });
     }
 
-    public void setCompletion(BRAuthCompletion completion) {
-        this.completion = completion;
+    private BRAuthCompletion.AuthType getType() {
+        return (BRAuthCompletion.AuthType) getArguments().getSerializable(AUTH_TYPE);
     }
 
     private void fadeOutRemove(boolean authenticated) {
@@ -187,7 +200,7 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
                 if (authenticated) {
                     Handler handler = new Handler(Looper.myLooper());
                     handler.postDelayed(() -> {
-                        if (completion != null) completion.onComplete();
+                        if (completion != null) completion.onComplete(getType());
                     }, 350);
                 }
             }
