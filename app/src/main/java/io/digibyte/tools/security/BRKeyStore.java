@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
@@ -180,11 +179,18 @@ public class BRKeyStore {
     }
 
     private static boolean useNewStorage(Context context) {
-        try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return pInfo.versionCode > 2147;
-        } catch (PackageManager.NameNotFoundException e) {
-            return true;
+        if (BRSharedPrefs.useNewStorageSet(context)) {
+            return BRSharedPrefs.getUseNewStorage(context);
+        } else {
+            try {
+                PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                boolean useNewStorage = pInfo.versionCode > 2147 && BRSharedPrefs.getLastSyncTime(context) == 0;
+                BRSharedPrefs.setUseNewStorage(context, useNewStorage);
+                return useNewStorage;
+            } catch (Exception e) {
+                BRSharedPrefs.setUseNewStorage(context, true);
+                return true;
+            }
         }
     }
 
