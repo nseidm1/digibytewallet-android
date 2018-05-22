@@ -212,6 +212,9 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     public void populateMaxAmount() {
         BigDecimal maxAvailable =new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext()));
+        if (maxAvailable.intValue() == 0) {
+            return;
+        }
         BigDecimal fee = new BigDecimal(BRWalletManager.getInstance().feeForTransactionAmount(maxAvailable.intValue()));
         setAmount(maxAvailable.subtract(fee).divide(
                 new BigDecimal(100000000)).toString());

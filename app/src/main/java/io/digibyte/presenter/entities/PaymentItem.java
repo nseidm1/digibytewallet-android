@@ -45,5 +45,4 @@ public class PaymentItem  implements Serializable {
         this.cn = theCn;
         this.comment = comment;
     }
-
 }
