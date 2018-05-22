@@ -43,11 +43,15 @@ public interface BRAuthCompletion {
 
         public AuthType(Type type) {
             this.type = type;
-            if (type == Type.DIGI_ID) {
+            if (type == Type.DIGI_ID || type == Type.SEND) {
                 throw new RuntimeException("Wrong constructor, use the one with the corresponding params");
             }
         }
 
+        /**
+         * This constructor is associated with send functionality, see the input param type
+         * @param paymentRequest
+         */
         public AuthType(PaymentItem paymentRequest) {
             this.type = Type.SEND;
             this.paymentItem = paymentRequest;

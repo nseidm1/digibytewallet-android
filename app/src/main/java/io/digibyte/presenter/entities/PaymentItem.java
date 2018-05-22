@@ -1,5 +1,7 @@
 package io.digibyte.presenter.entities;
 
+import java.io.Serializable;
+
 /**
  * BreadWallet
  * <p/>
@@ -25,7 +27,7 @@ package io.digibyte.presenter.entities;
  * THE SOFTWARE.
  */
 
-public class PaymentItem {
+public class PaymentItem  implements Serializable {
     public static final String TAG = PaymentItem.class.getName();
 
     public byte[] serializedTx;
