@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.soloader.SoLoader;
+
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -73,6 +75,7 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
     @Override
     public void onCreate() {
         super.onCreate();
+        SoLoader.init(this, false);
         Fabric.with(this, new Crashlytics());
         application = this;
         activeActivity = null;

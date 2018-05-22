@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -71,6 +72,7 @@ import io.digibyte.wallet.BRWalletManager;
 
 public class FragmentSend extends Fragment implements OnBackPressListener {
     private static final String TAG = FragmentSend.class.getName();
+    private static final String SEND_FRAGMENT_MODEL = "FragmentSend:SendFragmentModel";
     private FragmentSendBinding binding;
     private SendFragmentModel sendFragmentModel;
 
@@ -265,7 +267,8 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         binding = FragmentSendBinding.inflate(inflater);
         binding.setCallback(fragmentSendCallbacks);
         binding.signalLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        sendFragmentModel = new SendFragmentModel();
+        sendFragmentModel = savedInstanceState != null ? savedInstanceState.getParcelable(
+                SEND_FRAGMENT_MODEL) : new SendFragmentModel();
         binding.setData(sendFragmentModel);
         if (getArguments() != null && getArguments()
                 .getString("url") != null) {
@@ -281,6 +284,12 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         colorFade.setStartDelay(350);
         colorFade.setDuration(500);
         colorFade.start();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable(SEND_FRAGMENT_MODEL, sendFragmentModel);
+        super.onSaveInstanceState(outState);
     }
 
     private void showKeyboard(boolean show) {

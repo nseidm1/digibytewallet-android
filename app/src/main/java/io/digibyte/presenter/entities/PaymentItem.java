@@ -1,5 +1,7 @@
 package io.digibyte.presenter.entities;
 
+import java.io.Serializable;
+
 /**
  * BreadWallet
  * <p/>
@@ -25,7 +27,7 @@ package io.digibyte.presenter.entities;
  * THE SOFTWARE.
  */
 
-public class PaymentItem {
+public class PaymentItem  implements Serializable {
     public static final String TAG = PaymentItem.class.getName();
 
     public byte[] serializedTx;
@@ -35,14 +37,6 @@ public class PaymentItem {
     public boolean isAmountRequested;
     public String comment;
 
-    public PaymentItem(String[] addresses, byte[] tx, long theAmount, String theCn, boolean isAmountRequested) {
-        this.isAmountRequested = isAmountRequested;
-        this.serializedTx = tx;
-        this.addresses = addresses;
-        this.amount = theAmount;
-        this.cn = theCn;
-    }
-
     public PaymentItem(String[] addresses, byte[] tx,long theAmount, String theCn, boolean isAmountRequested, String comment) {
         this.isAmountRequested = isAmountRequested;
         this.serializedTx = tx;
@@ -51,5 +45,4 @@ public class PaymentItem {
         this.cn = theCn;
         this.comment = comment;
     }
-
 }

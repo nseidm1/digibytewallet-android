@@ -132,12 +132,7 @@ public class ImportPrivKeyTask extends AsyncTask<String, String, String> {
                 brDialogView.dismissWithAnimation();
 
             }
-        }, new BRDialogView.BROnClickListener() {
-            @Override
-            public void onClick(BRDialogView brDialogView) {
-                brDialogView.dismissWithAnimation();
-            }
-        }, null, 0);
+        }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
         super.onPostExecute(s);
     }
 
