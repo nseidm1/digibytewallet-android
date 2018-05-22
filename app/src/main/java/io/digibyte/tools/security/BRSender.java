@@ -218,7 +218,6 @@ public class BRSender {
                 return;
             }
             paymentRequest.serializedTx = tmpTx;
-            PostAuth.getInstance().setPaymentItem(paymentRequest);
             confirmPay(app, paymentRequest);
         });
 
@@ -247,11 +246,6 @@ public class BRSender {
     }
 
     public void confirmPay(final AppCompatActivity ctx, final PaymentItem request) {
-        if (ctx == null) {
-            Log.e(TAG, "confirmPay: context is null");
-            return;
-        }
-
         String message = createConfirmation(ctx, request);
 
         double minOutput;
@@ -269,7 +263,7 @@ public class BRSender {
                             new BigDecimal("100")));
 
 
-            ((Activity) ctx).runOnUiThread(() -> BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
+            ctx.runOnUiThread(() -> BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
                     bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close),
                     null,
                     brDialogView -> brDialogView.dismiss(), null, null, 0));
@@ -282,7 +276,7 @@ public class BRSender {
         boolean fingerprintEnabled = (
                 AuthManager.isFingerPrintAvailableAndSetup(ctx) && limit == 0) || (AuthManager.isFingerPrintAvailableAndSetup(ctx) && requestAmount < limit);
         //successfully created the transaction, authenticate user
-        AuthManager.getInstance().authPrompt(ctx, "", message, fingerprintEnabled, new BRAuthCompletion.AuthType(BRAuthCompletion.AuthType.Type.SEND));
+        AuthManager.getInstance().authPrompt(ctx, "", message, fingerprintEnabled, new BRAuthCompletion.AuthType(request));
     }
 
     public String createConfirmation(Context ctx, PaymentItem request) {

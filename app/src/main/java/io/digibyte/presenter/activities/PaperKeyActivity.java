@@ -116,7 +116,7 @@ public class PaperKeyActivity extends BRActivity {
         if (isNext) {
             setButtonEnabled(true);
             if (currentIndex >= 11) {
-                PostAuth.getInstance().onPhraseProveAuth(this, false);
+                PostAuth.instance.onPhraseProveAuth(this, false);
             } else {
                 binding.phraseWordsPager.setCurrentItem(currentIndex + 1);
             }

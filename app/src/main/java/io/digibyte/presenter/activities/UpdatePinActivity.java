@@ -55,7 +55,7 @@ public class UpdatePinActivity extends BasePinActivity {
                     BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.signal_icon_graphic, () -> {
                         switch(initialCreateMode) {
                             case SET_PIN:
-                                PostAuth.getInstance().onCreateWalletAuth(UpdatePinActivity.this, false);
+                                PostAuth.instance.onCreateWalletAuth(UpdatePinActivity.this, false);
                                 break;
                             default:
                                 BRAnimator.startBreadActivity(UpdatePinActivity.this, false);

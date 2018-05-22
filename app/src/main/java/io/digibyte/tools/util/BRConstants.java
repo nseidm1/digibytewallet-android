@@ -48,7 +48,6 @@ public class BRConstants {
     public static final int CANARY_REQUEST_CODE = 113;
     public static final int PUT_PHRASE_NEW_WALLET_REQUEST_CODE = 114;
     public static final int PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE = 115;
-    public static final int PAYMENT_PROTOCOL_REQUEST_CODE = 116;
     public static final int REQUEST_PHRASE_BITID = 117;
     public static final int PROVE_PHRASE_REQUEST = 119;
 
@@ -74,9 +73,7 @@ public class BRConstants {
     public static final String CURRENT_UNIT = "currencyUnit";
     public static final String CURRENT_CURRENCY = "currentCurrency";
     public static final String POSITION = "position";
-    public static final String RATE = "rate";
     public static final String PHRASE_WRITTEN = "phraseWritten";
-    public static final String LIMIT_PREFS = "fingerprintLimit";
     public static final String ALLOW_SPEND = "allowSpend";
     public static final String USER_ID = "userId";
     public static final String GEO_PERMISSIONS_REQUESTED = "geoPermissionsRequested";
@@ -91,7 +88,6 @@ public class BRConstants {
     public static final String bitcoinLowercase = "\u018A";
     public static final String bitcoinUppercase = "\u018A";
 
-    public static boolean PLATFORM_ON = false;
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     public static final boolean WAL = true;
 

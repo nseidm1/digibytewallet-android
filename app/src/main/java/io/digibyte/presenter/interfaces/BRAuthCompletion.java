@@ -2,6 +2,8 @@ package io.digibyte.presenter.interfaces;
 
 import java.io.Serializable;
 
+import io.digibyte.presenter.entities.PaymentItem;
+
 /**
  * BreadWallet
  * <p/>
@@ -37,12 +39,18 @@ public interface BRAuthCompletion {
         public String bitId;
         public boolean deepLink;
         public String callbackUrl;
+        public PaymentItem paymentItem;
 
         public AuthType(Type type) {
             this.type = type;
             if (type == Type.DIGI_ID) {
                 throw new RuntimeException("Wrong constructor, use the one with the corresponding params");
             }
+        }
+
+        public AuthType(PaymentItem paymentRequest) {
+            this.type = Type.SEND;
+            this.paymentItem = paymentRequest;
         }
 
         /**

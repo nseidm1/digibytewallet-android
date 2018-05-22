@@ -1,19 +1,25 @@
 package io.digibyte.presenter.activities.intro;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityWriteDownBinding;
 import io.digibyte.presenter.activities.callbacks.ActivityWriteDownCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
 public class WriteDownActivity extends BRActivity {
+
+    public static void open(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, WriteDownActivity.class);
+        activity.startActivity(intent);
+    }
 
     private ActivityWriteDownCallback callback = () -> AuthManager.getInstance().authPrompt(
             WriteDownActivity.this, null,
@@ -55,7 +61,7 @@ public class WriteDownActivity extends BRActivity {
             case DIGI_ID:
                 break;
             case POST_AUTH:
-                PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this,false);
+                PostAuth.instance.onPhraseCheckAuth(WriteDownActivity.this,false);
                 break;
             default:
                 super.onComplete(authType);

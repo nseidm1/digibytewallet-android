@@ -2,32 +2,26 @@ package io.digibyte.tools.security;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.NetworkOnMainThreadException;
 import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
 import java.util.Arrays;
 
-import io.digibyte.R;
 import io.digibyte.presenter.activities.PaperKeyActivity;
 import io.digibyte.presenter.activities.PaperKeyProveActivity;
 import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.intro.WriteDownActivity;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.entities.PaymentItem;
 import io.digibyte.presenter.entities.PaymentRequestWrapper;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
-import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.threads.PaymentProtocolPostPaymentTask;
 import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.TypesConverter;
-import io.digibyte.tools.util.Utils;
 import io.digibyte.wallet.BRWalletManager;
 
 /**
@@ -59,33 +53,22 @@ public class PostAuth {
     public static final String TAG = PostAuth.class.getName();
 
     private String phraseForKeyStore;
-    public PaymentItem paymentItem;
     private PaymentRequestWrapper paymentRequest;
     public static boolean isStuckWithAuthLoop;
 
-    private static PostAuth instance;
+    public static PostAuth instance = new PostAuth();
 
     private PostAuth() {
     }
 
-    public static PostAuth getInstance() {
-        if (instance == null) {
-            instance = new PostAuth();
-        }
-        return instance;
-    }
-
-    public void onCreateWalletAuth(Activity app, boolean authAsked) {
-//        Log.e(TAG, "onCreateWalletAuth: " + authAsked + ", " + app.getClass().getName());
-        long start = System.currentTimeMillis();
+    public void onCreateWalletAuth(AppCompatActivity app, boolean authAsked) {
         boolean success = BRWalletManager.getInstance().generateRandomSeed(app);
         if (success) {
-            Intent intent = new Intent(app, WriteDownActivity.class);
-            app.startActivity(intent);
-            app.overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            WriteDownActivity.open(app);
         } else {
             if (authAsked) {
-                Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                Log.e(TAG, new Object() {
+                }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                 isStuckWithAuthLoop = true;
             }
             return;
@@ -98,7 +81,8 @@ public class PostAuth {
             PaperKeyActivity.show(app, new String(raw));
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
-                Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                Log.e(TAG, new Object() {
+                }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                 isStuckWithAuthLoop = true;
             }
             return;
@@ -111,7 +95,8 @@ public class PostAuth {
             cleanPhrase = new String(BRKeyStore.getPhrase(app, BRConstants.PROVE_PHRASE_REQUEST));
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
-                Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                Log.e(TAG, new Object() {
+                }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                 isStuckWithAuthLoop = true;
             }
             return;
@@ -134,7 +119,8 @@ public class PostAuth {
                         app, BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE);
             } catch (UserNotAuthenticatedException e) {
                 if (authAsked) {
-                    Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                    Log.e(TAG, new Object() {
+                    }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                     isStuckWithAuthLoop = true;
 
                 }
@@ -166,106 +152,43 @@ public class PostAuth {
         } finally {
             Arrays.fill(bytePhrase, (byte) 0);
         }
-
     }
 
-    public void onPublishTxAuth(final Context app, boolean authAsked) {
-        if (ActivityUTILS.isMainThread()) throw new NetworkOnMainThreadException();
-
-        final BRWalletManager walletManager = BRWalletManager.getInstance();
-        byte[] rawSeed;
+    public void onPublishTxAuth(final Context app, PaymentItem paymentItem) {
         try {
-            rawSeed = BRKeyStore.getPhrase(app, BRConstants.PAY_REQUEST_CODE);
-        } catch (UserNotAuthenticatedException e) {
-            if (authAsked) {
-                Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
-                isStuckWithAuthLoop = true;
-            }
-            return;
-        }
-        if (rawSeed.length < 10) return;
-        final byte[] seed = TypesConverter.getNullTerminatedPhrase(rawSeed);
-        try {
-            if (seed.length != 0) {
-                if (paymentItem != null && paymentItem.serializedTx != null) {
-                    byte[] txHash = walletManager.publishSerializedTransaction(paymentItem.serializedTx, seed);
-                    Log.e(TAG, "onPublishTxAuth: txhash:" + Arrays.toString(txHash));
-                    if (Utils.isNullOrEmpty(txHash)) {
-                        Log.e(TAG, "onPublishTxAuth: publishSerializedTransaction returned FALSE");
-                        //todo fix this
-//                        BRWalletManager.getInstance().offerToChangeTheAmount(app, new PaymentItem(paymentRequest.addresses, paymentItem.serializedTx, paymentRequest.amount, null, paymentRequest.isPaymentRequest));
-                    } else {
-                        TxMetaData txMetaData = new TxMetaData();
-                        txMetaData.comment = paymentItem.comment;
-                        KVStoreManager.getInstance().putTxMetaData(app, txMetaData, txHash);
-                    }
-                    paymentItem = null;
-                } else {
-                    throw new NullPointerException("payment item is null");
-                }
-            } else {
-                Log.e(TAG, "onPublishTxAuth: seed length is 0!");
-                return;
-            }
-        } finally {
+            final BRWalletManager walletManager = BRWalletManager.getInstance();
+            byte[] rawSeed = BRKeyStore.getPhrase(app, BRConstants.PAY_REQUEST_CODE);
+            byte[] seed = TypesConverter.getNullTerminatedPhrase(rawSeed);
+            byte[] txHash = walletManager.publishSerializedTransaction(paymentItem.serializedTx, seed);
+            Log.e(TAG, "onPublishTxAuth: txhash:" + Arrays.toString(txHash));
+            TxMetaData txMetaData = new TxMetaData();
+            txMetaData.comment = paymentItem.comment;
+            KVStoreManager.getInstance().putTxMetaData(app, txMetaData, txHash);
             Arrays.fill(seed, (byte) 0);
+            seed = null;
+        } catch (Exception e) {
+            Crashlytics.logException(e);
         }
-
-    }
-
-    public void onPaymentProtocolRequest(Context app, boolean authAsked) {
-
-        byte[] rawSeed;
-        try {
-            rawSeed = BRKeyStore.getPhrase(app, BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE);
-        } catch (UserNotAuthenticatedException e) {
-            if (authAsked) {
-                Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
-                isStuckWithAuthLoop = true;
-            }
-            return;
-        }
-        if (rawSeed == null || rawSeed.length < 10 || paymentRequest.serializedTx == null) {
-            Log.d(TAG, "onPaymentProtocolRequest() returned: rawSeed is malformed: " + Arrays.toString(rawSeed));
-            return;
-        }
-        if (rawSeed.length < 10) return;
-
-        final byte[] seed = TypesConverter.getNullTerminatedPhrase(rawSeed);
-
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                byte[] txHash = BRWalletManager.getInstance().publishSerializedTransaction(paymentRequest.serializedTx, seed);
-                if (Utils.isNullOrEmpty(txHash)) throw new NullPointerException("txHash is null!");
-                PaymentProtocolPostPaymentTask.sent = true;
-                Arrays.fill(seed, (byte) 0);
-                paymentRequest = null;
-            }
-        });
-
     }
 
     public void setPhraseForKeyStore(String phraseForKeyStore) {
         this.phraseForKeyStore = phraseForKeyStore;
     }
 
-
-    public void setPaymentItem(PaymentItem item) {
-        this.paymentItem = item;
-    }
-
-    public void setTmpPaymentRequest(PaymentRequestWrapper paymentRequest) {
-        this.paymentRequest = paymentRequest;
-    }
-
+    /**
+     * This is legacy Bread code that looks to be designed to check for data storage tampering
+     *
+     * @param app
+     * @param authAsked
+     */
     public void onCanaryCheck(final Activity app, boolean authAsked) {
         String canary = null;
         try {
             canary = BRKeyStore.getCanary(app, BRConstants.CANARY_REQUEST_CODE);
         } catch (UserNotAuthenticatedException e) {
             if (authAsked) {
-                Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                Log.e(TAG, new Object() {
+                }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                 isStuckWithAuthLoop = true;
             }
             return;
@@ -276,7 +199,8 @@ public class PostAuth {
                 phrase = BRKeyStore.getPhrase(app, BRConstants.CANARY_REQUEST_CODE);
             } catch (UserNotAuthenticatedException e) {
                 if (authAsked) {
-                    Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                    Log.e(TAG, new Object() {
+                    }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                     isStuckWithAuthLoop = true;
                 }
                 return;
@@ -293,7 +217,8 @@ public class PostAuth {
                     BRKeyStore.putCanary(BRConstants.CANARY_STRING, app, 0);
                 } catch (UserNotAuthenticatedException e) {
                     if (authAsked) {
-                        Log.e(TAG, new Object(){}.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
+                        Log.e(TAG, new Object() {
+                        }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
                         isStuckWithAuthLoop = true;
                     }
                     return;

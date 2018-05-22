@@ -96,43 +96,6 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         switch (requestCode) {
-            case BRConstants.PAY_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                            () -> PostAuth.getInstance().onPublishTxAuth(BRActivity.this, true));
-                }
-                break;
-            case BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPaymentProtocolRequest(this, true);
-                }
-                break;
-
-            case BRConstants.CANARY_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onCanaryCheck(this, true);
-                } else {
-                    finish();
-                }
-                break;
-
-            case BRConstants.SHOW_PHRASE_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPhraseCheckAuth(this, true);
-                }
-                break;
-            case BRConstants.PROVE_PHRASE_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPhraseProveAuth(this, true);
-                }
-                break;
-            case BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onRecoverWalletAuth(this, true);
-                } else {
-                    finish();
-                }
-                break;
             case BRConstants.SCANNER_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
                     new Handler().postDelayed(new Runnable() {
@@ -212,7 +175,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         switch(authType.type) {
             case SEND:
                 BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-                    PostAuth.getInstance().onPublishTxAuth(BRActivity.this, false);
+                    PostAuth.instance.onPublishTxAuth(BRActivity.this, authType.paymentItem);
                 });
                 break;
             case DIGI_ID:
