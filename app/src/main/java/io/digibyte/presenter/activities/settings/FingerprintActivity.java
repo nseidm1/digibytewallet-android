@@ -29,7 +29,7 @@ import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 
 
-public class FingerprintActivity extends BRActivity implements BRAuthCompletion {
+public class FingerprintActivity extends BRActivity {
     private static final String TAG = FingerprintActivity.class.getName();
 
     @Override

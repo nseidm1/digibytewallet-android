@@ -13,7 +13,7 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
-public class WriteDownActivity extends BRActivity implements BRAuthCompletion {
+public class WriteDownActivity extends BRActivity {
 
     private ActivityWriteDownCallback callback = () -> AuthManager.getInstance().authPrompt(
             WriteDownActivity.this, null,

@@ -24,7 +24,7 @@ import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 
-public class SettingsActivity extends BRActivity implements BRAuthCompletion {
+public class SettingsActivity extends BRActivity {
     public List<BRSettingsItem> items = new LinkedList();
     private SettingsListAdapter adapter;
 

@@ -23,7 +23,7 @@ import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.wallet.BRWalletManager;
 
-public class LoginActivity extends BRActivity implements BRAuthCompletion {
+public class LoginActivity extends BRActivity {
     private static final String TAG = LoginActivity.class.getName();
     ActivityPinBinding binding;
     private StringBuilder pin = new StringBuilder();
