@@ -34,7 +34,7 @@ public class WriteDownActivity extends BRActivity implements BRAuthCompletion {
         switch(item.getItemId()) {
             case R.id.home:
             case android.R.id.home:
-                BRAnimator.openBreadActivity(WriteDownActivity.this, false);
+                BRAnimator.startBreadActivity(WriteDownActivity.this, false);
                 return true;
             default:
                 return false;
@@ -44,7 +44,7 @@ public class WriteDownActivity extends BRActivity implements BRAuthCompletion {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        BRAnimator.openBreadActivity(WriteDownActivity.this, false);
+        BRAnimator.startBreadActivity(WriteDownActivity.this, false);
     }
 
     @Override

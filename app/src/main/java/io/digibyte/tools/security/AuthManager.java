@@ -85,7 +85,6 @@ public class AuthManager {
     //when currentPin auth success
     public void authSuccess(final Context app) {
         BRKeyStore.putFailCount(0, app);
-        BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), app);
     }
 
     public void authFail(Context app) {
@@ -113,7 +112,6 @@ public class AuthManager {
     public void setPinCode(String pass, Activity context) {
         BRKeyStore.putFailCount(0, context);
         BRKeyStore.putPinCode(pass, context);
-        BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), context);
     }
 
     public void updateDots(String pin, View dot1, View dot2,

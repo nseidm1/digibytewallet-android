@@ -214,15 +214,6 @@ public class BRAnimator {
         from.startActivity(intent);
     }
 
-    public static void openBreadActivity(Context from, boolean auth) {
-        if (from == null) return;
-        Log.e(TAG, "startBreadActivity: " + from.getClass().getName());
-        Class toStart = auth ? LoginActivity.class : BreadActivity.class;
-        Intent intent = new Intent(from, toStart);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        from.startActivity(intent);
-    }
-
     public static void animateSignalSlide(ViewGroup signalLayout, final boolean reverse,
             final OnSlideAnimationEnd listener) {
         float translationY = signalLayout.getTranslationY();
