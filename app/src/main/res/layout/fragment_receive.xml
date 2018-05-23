@@ -200,43 +200,42 @@
             </LinearLayout>
 
             <LinearLayout
-                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/share_buttons_layout"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:animateLayoutChanges="true"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:visibility="@{data.shareVisibility ? View.VISIBLE : View.GONE}">
 
-                <Button
+                <ImageView
                     android:id="@+id/share_email"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/intro_create_button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="24dp"
                     android:ellipsize="end"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.shareEmailClick()}"
+                    android:padding="6dp"
                     android:singleLine="true"
+                    android:src="@drawable/send_qr_scan"
                     android:text="@string/share_qr"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
 
-                <Button
+                <ImageView
                     android:id="@+id/share_text"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/intro_create_button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="24dp"
                     android:ellipsize="end"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.shareTextClick()}"
+                    android:padding="6dp"
                     android:singleLine="true"
+                    android:src="@drawable/share_sms"
                     android:text="@string/Receive.textButton"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
