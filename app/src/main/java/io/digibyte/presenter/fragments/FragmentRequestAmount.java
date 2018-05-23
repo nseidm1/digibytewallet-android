@@ -75,6 +75,11 @@ public class FragmentRequestAmount extends FragmentReceive {
     }
 
     @Override
+    protected void setTitle() {
+        receiveFragmentModel.setTitle(getString(R.string.Receive_request));
+    }
+
+    @Override
     protected void updateQRImage() {
         if (selectedIso.equalsIgnoreCase("dgb")) {
             qrUrl = "digibyte:" + address + "?amount=" + amountBuilder.toString();

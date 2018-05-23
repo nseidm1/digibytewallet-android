@@ -61,7 +61,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/bread_margin"
-                    android:text="@string/Receive.title"
+                    android:text="@{data.title}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/header"/>
 
@@ -116,7 +116,7 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="14dp"
                     android:layout_marginStart="12dp"
-                    android:background="@drawable/intro_create_button"
+                    app:backgroundTint="#0066cc"
                     android:ellipsize="end"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onIsoButtonClick()}"
@@ -163,8 +163,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:layout_marginBottom="4dp"
-
                     android:padding="12dp">
 
                     <io.digibyte.presenter.customviews.BRText
@@ -195,7 +193,7 @@
                             android:id="@+id/share_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/intro_create_button"
+                            app:backgroundTint="#0066cc"
                             android:foreground="?android:attr/selectableItemBackground"
                             android:onClick="@{() -> callback.shareButtonClick()}"
                             android:text="@string/Receive.share"
@@ -214,7 +212,7 @@
                                 android:id="@+id/share_email"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:layout_marginEnd="24dp"
+                                android:layout_marginEnd="12dp"
                                 android:ellipsize="end"
                                 android:foreground="?android:attr/selectableItemBackground"
                                 android:onClick="@{() -> callback.shareEmailClick()}"
@@ -229,7 +227,7 @@
                                 android:id="@+id/share_text"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:layout_marginStart="24dp"
+                                android:layout_marginStart="12dp"
                                 android:ellipsize="end"
                                 android:foreground="?android:attr/selectableItemBackground"
                                 android:onClick="@{() -> callback.shareTextClick()}"

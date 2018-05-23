@@ -196,7 +196,13 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         fragmentReceiveBinding.setData(receiveFragmentModel);
         fragmentReceiveBinding.addressText.setSelected(true);
         receiveFragmentModel.setAddress(address);
+        setTitle();
         return fragmentReceiveBinding.getRoot();
+    }
+
+    protected void setTitle() {
+        receiveFragmentModel.setTitle(getString(R.string.Receive_title));
+
     }
 
     @Override
