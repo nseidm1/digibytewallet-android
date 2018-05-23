@@ -146,7 +146,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" android:orientation="horizontal">
+                android:gravity="bottom" android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/qr_image"
@@ -162,8 +162,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
                     android:orientation="vertical"
+                    android:layout_marginBottom="4dp"
+
                     android:padding="12dp">
 
                     <io.digibyte.presenter.customviews.BRText
@@ -184,61 +185,65 @@
                         android:textColor="@color/light_gray"
                         android:textSize="16sp"/>
 
-                    <Button
-                        android:id="@+id/share_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/intro_create_button"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:onClick="@{() -> callback.shareButtonClick()}"
-                        android:text="@string/Receive.share"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"/>
+                    <ViewAnimator android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:inAnimation="@android:anim/fade_in"
+                                  android:outAnimation="@android:anim/fade_out"
+                                  app:setDisplayedChild="@{data.shareVisibility ? 1 : 0}">
+
+                        <Button
+                            android:id="@+id/share_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/intro_create_button"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> callback.shareButtonClick()}"
+                            android:text="@string/Receive.share"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"/>
+
+                        <LinearLayout
+                            android:id="@+id/share_buttons_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/share_email"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginEnd="24dp"
+                                android:ellipsize="end"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:onClick="@{() -> callback.shareEmailClick()}"
+                                android:padding="6dp"
+                                android:singleLine="true"
+                                android:src="@drawable/receive_share_qr"
+                                android:text="@string/share_qr"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:id="@+id/share_text"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="24dp"
+                                android:ellipsize="end"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:onClick="@{() -> callback.shareTextClick()}"
+                                android:padding="6dp"
+                                android:singleLine="true"
+                                android:src="@drawable/share_sms"
+                                android:text="@string/Receive.textButton"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"/>
+
+                        </LinearLayout>
+                    </ViewAnimator>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/share_buttons_layout"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:animateLayoutChanges="true"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:visibility="@{data.shareVisibility ? View.VISIBLE : View.GONE}">
-
-                <ImageView
-                    android:id="@+id/share_email"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="24dp"
-                    android:ellipsize="end"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> callback.shareEmailClick()}"
-                    android:padding="6dp"
-                    android:singleLine="true"
-                    android:src="@drawable/send_qr_scan"
-                    android:text="@string/share_qr"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
-
-                <ImageView
-                    android:id="@+id/share_text"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="24dp"
-                    android:ellipsize="end"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> callback.shareTextClick()}"
-                    android:padding="6dp"
-                    android:singleLine="true"
-                    android:src="@drawable/share_sms"
-                    android:text="@string/Receive.textButton"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
 
             </LinearLayout>
 
