@@ -95,14 +95,15 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
     public void onActivityStarted(Activity anActivity) {
     }
 
+    /**
+     * This called is used to ensure that no matter what activity is being started or resumed
+     * the application will go back to the login screen if the timeout period has been exceeded
+     * @param anActivity
+     */
     @Override
     public void onActivityResumed(Activity anActivity) {
         activeActivity = anActivity;
-        // TODO: I don't fully understand the usefulness of the DisabledActivity
-        // TODO: maybe it's checking if the app has been modified?? But if it's been modified
-        // TODO: the modifier could easily remove this check also, thus what's the usefulness
-        // TODO: See ActivityUTILS.isAppSafe()
-        if (!(activeActivity instanceof DisabledActivity)&& !(activeActivity instanceof LoginActivity)) {
+        if (!(activeActivity instanceof DisabledActivity) && !(activeActivity instanceof LoginActivity)) {
             // lock wallet if 3 minutes passed
             long suspendedTime = BRSharedPrefs.getSuspendTime(anActivity);
             if (suspendedTime != 0 && (System.currentTimeMillis() - suspendedTime >= 180 * 1000)) {
