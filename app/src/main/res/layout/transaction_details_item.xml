@@ -4,6 +4,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
 
         <variable name="callback"
                   type="io.digibyte.presenter.fragments.interfaces.TransactionDetailsCallback"/>
@@ -116,9 +117,10 @@
 
                 <TextView android:id="@+id/fee" android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:text="@{data.fee}" android:gravity="center_horizontal"
-                          android:textColor="@color/white"
-                          android:textSize="18sp"/>
+                          android:gravity="center_horizontal"
+                          android:text="@{data.fee}" android:textColor="@color/white"
+                          android:textSize="18sp"
+                          android:visibility="@{TextUtils.isEmpty(data.fee) ? View.GONE : View.VISIBLE}"/>
 
                 <EditText
                     android:id="@+id/memo"

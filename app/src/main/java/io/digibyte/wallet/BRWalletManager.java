@@ -574,7 +574,7 @@ public class BRWalletManager {
             createBRWalletManager();
             createBRPeerManager();
             BRPeerManager.getInstance().connect();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //TODO if the wallet fails to init, wtf to do?
         }
     }
