@@ -61,7 +61,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/bread_margin"
-                    android:text="@string/Receive.title"
+                    android:text="@{data.title}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/header"/>
 
@@ -73,50 +73,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" android:visibility="gone">
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/amount_edit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/iso_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="16dp"
-                        android:text="@{data.isoText}"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"/>
-
-                    <EditText
-                        android:id="@+id/amount_edit"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/dashed_edittext_underline"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="numberDecimal"
-                        android:onClick="@{() -> callback.onAmountEditClick()}"
-                        android:text="@{data.amount}"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"/>
-
-                </LinearLayout>
+                    android:background="@drawable/dashed_edittext_underline"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="numberDecimal"
+                    android:hint="@{data.isoText}"
+                    android:onClick="@{() -> callback.onAmountEditClick()}"
+                    android:text="@{data.amount}"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"/>
 
                 <Button
                     android:id="@+id/iso_button"
-                    android:layout_width="75dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="14dp"
                     android:layout_marginStart="12dp"
-                    android:background="@drawable/intro_create_button"
+                    app:backgroundTint="#0066cc"
                     android:ellipsize="end"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onIsoButtonClick()}"
@@ -146,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" android:orientation="horizontal">
+                android:gravity="bottom" android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/qr_image"
@@ -162,7 +144,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:padding="12dp">
 
@@ -184,62 +165,65 @@
                         android:textColor="@color/light_gray"
                         android:textSize="16sp"/>
 
-                    <Button
-                        android:id="@+id/share_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/intro_create_button"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:onClick="@{() -> callback.shareButtonClick()}"
-                        android:text="@string/Receive.share"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"/>
+                    <ViewAnimator android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:inAnimation="@android:anim/fade_in"
+                                  android:outAnimation="@android:anim/fade_out"
+                                  app:setDisplayedChild="@{data.shareVisibility ? 1 : 0}">
+
+                        <Button
+                            android:id="@+id/share_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:backgroundTint="#0066cc"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> callback.shareButtonClick()}"
+                            android:text="@string/Receive.share"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"/>
+
+                        <LinearLayout
+                            android:id="@+id/share_buttons_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/share_email"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginEnd="12dp"
+                                android:ellipsize="end"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:onClick="@{() -> callback.shareEmailClick()}"
+                                android:padding="6dp"
+                                android:singleLine="true"
+                                android:src="@drawable/receive_share_qr"
+                                android:text="@string/share_qr"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:id="@+id/share_text"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="12dp"
+                                android:ellipsize="end"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:onClick="@{() -> callback.shareTextClick()}"
+                                android:padding="6dp"
+                                android:singleLine="true"
+                                android:src="@drawable/share_sms"
+                                android:text="@string/Receive.textButton"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"/>
+
+                        </LinearLayout>
+                    </ViewAnimator>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="?android:attr/buttonBarButtonStyle"
-                android:id="@+id/share_buttons_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:animateLayoutChanges="true"
-                android:orientation="horizontal"
-                android:visibility="@{data.shareVisibility ? View.VISIBLE : View.GONE}">
-
-                <Button
-                    android:id="@+id/share_email"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/intro_create_button"
-                    android:ellipsize="end"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> callback.shareEmailClick()}"
-                    android:singleLine="true"
-                    android:text="@string/share_qr"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
-
-                <Button
-                    android:id="@+id/share_text"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/intro_create_button"
-                    android:ellipsize="end"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="@{() -> callback.shareTextClick()}"
-                    android:singleLine="true"
-                    android:text="@string/Receive.textButton"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"/>
 
             </LinearLayout>
 

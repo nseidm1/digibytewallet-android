@@ -116,6 +116,13 @@ public class TransactionDetailsViewModel extends BaseObservable {
     }
 
     @Bindable
+    public String getFee() {
+        return String.format(DigiByte.getContext().getString(R.string.Send_fee, BRCurrency.getFormattedCurrencyString(DigiByte.getContext(), "DGB",
+                BRExchange.getAmountFromSatoshis(DigiByte.getContext(), "DGB",
+                        new BigDecimal(item.getFee())))));
+    }
+
+    @Bindable
     public String getMemo() {
         return item.metaData != null ? item.metaData.comment : "";
     }
@@ -129,18 +136,6 @@ public class TransactionDetailsViewModel extends BaseObservable {
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
             KVStoreManager.getInstance().putTxMetaData(DigiByte.getContext(), item.metaData, item.getTxHash());
             TxManager.getInstance().updateTxList();
-        });
-    }
-
-    public void setComment(String comment) {
-        item.metaData.comment = comment;
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                KVStoreManager.getInstance().putTxMetaData(DigiByte.getContext(), item.metaData,
-                        item.getTxHash());
-                TxManager.getInstance().updateTxList();
-            }
         });
     }
 

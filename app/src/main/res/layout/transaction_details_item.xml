@@ -45,12 +45,12 @@
                     <TextView
                         android:id="@+id/crypto_amount_text"
                         android:layout_width="match_parent"
-                        android:gravity="center_horizontal"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:gravity="center_horizontal"
                         android:paddingEnd="6dp"
                         android:paddingStart="6dp"
+                        android:singleLine="true"
                         android:text="@{data.cryptoAmount}"
                         android:textColor="@color/white"
                         android:textIsSelectable="true"
@@ -66,9 +66,9 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="4dp"
                             android:ellipsize="end"
-                            android:singleLine="true"
                             android:paddingEnd="6dp"
                             android:paddingStart="6dp"
+                            android:singleLine="true"
                             android:text="@{data.fiatAmount}"
                             android:textColor="@color/white"
                             android:textIsSelectable="true"
@@ -79,9 +79,9 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="4dp"
                             android:ellipsize="end"
-                            android:singleLine="true"
                             android:paddingEnd="6dp"
                             android:paddingStart="6dp"
+                            android:singleLine="true"
                             android:text="@{data.originalFiatAmount}"
                             android:textColor="@color/white"
                             android:textIsSelectable="true"
@@ -114,6 +114,12 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
+                <TextView android:id="@+id/fee" android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="@{data.fee}" android:gravity="center_horizontal"
+                          android:textColor="@color/white"
+                          android:textSize="18sp"/>
+
                 <EditText
                     android:id="@+id/memo"
                     android:layout_width="match_parent"
@@ -121,16 +127,16 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="@dimen/bread_margin"
                     android:layout_marginStart="@dimen/bread_margin"
-                    android:minHeight="40dp"
-                    android:singleLine="true"
                     android:background="@drawable/dashed_edittext_underline"
-                    android:inputType="textPersonName"
-                    android:paddingEnd="10dp"
-                    android:textColorHint="@color/light_gray"
                     android:hint="@string/Send.descriptionLabel"
+                    android:inputType="textPersonName"
+                    android:minHeight="40dp"
+                    android:paddingEnd="10dp"
                     android:paddingStart="10dp"
+                    android:singleLine="true"
+                    android:text="@={data.memo}"
                     android:textColor="@color/white"
-                    android:text="@={data.memo}"/>
+                    android:textColorHint="@color/light_gray"/>
 
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="wrap_content"

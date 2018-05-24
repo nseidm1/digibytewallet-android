@@ -11,5 +11,7 @@
     <dimen name="header">18sp</dimen>
     <dimen name="sub_header">16sp</dimen>
 
+    <dimen name="pin_pad_key_margin_top">10dp</dimen>
+    <dimen name="pin_pad_key_margin_bottom">10dp</dimen>
 
 </resources>
