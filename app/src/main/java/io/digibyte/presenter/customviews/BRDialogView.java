@@ -101,6 +101,15 @@ public class BRDialogView extends DialogFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //Because the callback is passed un-optimally, it's not view recreation safe especially
+        //after activity recreation restoring from an activity saved state. Dismiss the dialog and
+        //the user can just reinvoke it again by initiating the desired action
+        dismissAllowingStateLoss();
+    }
+
+    @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         if (dismissListener != null)
@@ -148,7 +157,7 @@ public class BRDialogView extends DialogFragment {
     }
 
     public void dismissWithAnimation() {
-        BRDialogView.this.dismiss();
+        BRDialogView.this.dismissAllowingStateLoss();
 
     }
 }

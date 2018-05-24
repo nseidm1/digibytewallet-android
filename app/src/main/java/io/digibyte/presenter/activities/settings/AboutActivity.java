@@ -17,6 +17,7 @@ import io.digibyte.tools.animation.BRAnimator;
 
 public class AboutActivity extends BRActivity {
     private TextView policyText;
+    private TextView fontAwesomeText;
     private TextView infoText;
     private ImageView redditShare;
     private ImageView twitterShare;
@@ -30,6 +31,7 @@ public class AboutActivity extends BRActivity {
         setToolbarTitle(R.string.Settings_about);
         infoText = findViewById(R.id.info_text);
         policyText = findViewById(R.id.policy_text);
+        fontAwesomeText = findViewById(R.id.font_awesome_license);
 
         PackageInfo pInfo = null;
         try {
@@ -67,6 +69,12 @@ public class AboutActivity extends BRActivity {
         policyText.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://digibyte.io/digibyte-privacy-policy"));
+            startActivity(browserIntent);
+            overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
+        });
+        fontAwesomeText.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://fontawesome.com/license"));
             startActivity(browserIntent);
             overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         });

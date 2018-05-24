@@ -103,9 +103,9 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     public String getFeeText() {
         String approximateFee = getApproximateFee();
         if (TextUtils.isEmpty(approximateFee)) {
-            return "";
+            approximateFee = "";
         }
-        return String.format(DigiByte.getContext().getString(R.string.Send_fee), approximateFee);
+        return DigiByte.getContext().getString(R.string.Send_fee).replace("%1$s", approximateFee);
     }
 
     @Bindable
@@ -245,7 +245,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     }
 
     protected SendFragmentModel(Parcel in) {
-        amountBuilder = (StringBuilder) in.readValue(StringBuilder.class.getClassLoader());
+        amountBuilder = new StringBuilder(in.readString());
         selectedIso = in.readString();
         enteredAddress = in.readString();
         memo = in.readString();
@@ -259,7 +259,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(amountBuilder);
+        dest.writeString(amountBuilder.toString());
         dest.writeString(selectedIso);
         dest.writeString(enteredAddress);
         dest.writeString(memo);
