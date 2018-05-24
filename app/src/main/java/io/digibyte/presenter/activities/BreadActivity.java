@@ -33,9 +33,6 @@ import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.list.ListItemViewHolder;
-import io.digibyte.tools.list.items.ListItemSyncingData;
-import io.digibyte.tools.list.items.ListItemSyncingViewHolder;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -46,6 +43,7 @@ import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
+import io.digibyte.tools.util.Utils;
 import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
@@ -81,8 +79,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TransactionDataSource.OnTxAddedListener, SyncManager.onStatusListener, onStatusListener {
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
-    private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
-    private ListItemViewHolder syncViewHolder;
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private RecyclerView allRecycler;
@@ -99,7 +95,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings.setPagerAdapter(new TxAdapter());
         bindings.txPager.setOffscreenPageLimit(2);
         bindings.tabLayout.setupWithViewPager(bindings.txPager);
-        bindings.syncContainer.addView(getSyncView());
         bindings.contentContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         ViewUtils.increaceClickableArea(bindings.qrButton);
@@ -134,34 +129,38 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    private View getSyncView() {
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(listItemSyncingData.resourceId, bindings.syncContainer,
-                false);
-        view.setVisibility(View.GONE);
-        syncViewHolder = new ListItemSyncingViewHolder(view);
-        return view;
-    }
-
     @Override
     public void onSyncManagerStarted() {
-        bindings.syncContainer.getChildAt(0).setVisibility(View.VISIBLE);
-        syncViewHolder.process(listItemSyncingData);
+        bindings.syncAnimator.setDisplayedChild(1);
+        bindings.animationView.playAnimation();
+        updateSyncText();
     }
 
     @Override
     public void onSyncManagerUpdate() {
-        syncViewHolder.process(listItemSyncingData);
+        updateSyncText();
     }
 
     @Override
     public void onSyncManagerFinished() {
-        bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
+        bindings.syncAnimator.setDisplayedChild(0);
+        bindings.animationView.cancelAnimation();
     }
 
     @Override
     public void onSyncFailed() {
-        bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
+        bindings.syncAnimator.setDisplayedChild(0);
+        bindings.animationView.cancelAnimation();
+    }
+
+    private void updateSyncText() {
+        bindings.syncText.setText(SyncManager.getInstance().getLastBlockTimestamp() == 0
+                ? DigiByte.getContext().getString(R.string.NodeSelector_statusLabel) + ": "
+                + DigiByte.getContext().getString(R.string.SyncingView_connecting)
+                : Integer.toString((int) (SyncManager.getInstance().getProgress() * 100)) + "%"
+                        + " - " + Utils.formatTimeStamp(
+                        SyncManager.getInstance().getLastBlockTimestamp() * 1000,
+                        "MMM. dd, yyyy 'at' hh:mm a"));
     }
 
     @Override
