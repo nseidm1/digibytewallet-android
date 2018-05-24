@@ -1,17 +1,16 @@
 package io.digibyte.tools.util;
 
-import android.content.Context;
+import static io.digibyte.tools.util.BRConstants.CURRENT_UNIT_BITS;
 
-import io.digibyte.tools.manager.BRSharedPrefs;
+import android.content.Context;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.Locale;
-import java.util.Objects;
 
-import static io.digibyte.tools.util.BRConstants.CURRENT_UNIT_BITS;
+import io.digibyte.tools.manager.BRSharedPrefs;
 
 /**
  * BreadWallet
@@ -56,7 +55,7 @@ public class BRCurrency {
         String symbol = null;
         decimalFormatSymbols = currencyFormat.getDecimalFormatSymbols();
       int decimalPoints = 0;
-        if (Objects.equals(isoCurrencyCode, "DGB")) {
+        if ("DGB".equals(isoCurrencyCode)) {
             symbol = BRExchange.getBitcoinSymbol(app);
         } else {
             try {
@@ -70,7 +69,7 @@ public class BRCurrency {
         decimalFormatSymbols.setCurrencySymbol(symbol);
 //        currencyFormat.setMaximumFractionDigits(decimalPoints);
         currencyFormat.setGroupingUsed(true);
-        if (Objects.equals(isoCurrencyCode, "DGB")){
+        if ("DGB".equals(isoCurrencyCode)) {
             currencyFormat.setMaximumFractionDigits(BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 8 : 2);
         } else {
             currencyFormat.setMaximumFractionDigits(decimalPoints);
@@ -83,7 +82,7 @@ public class BRCurrency {
 
     public static String getSymbolByIso(Context app, String iso) {
         String symbol;
-        if (Objects.equals(iso, "DGB")) {
+        if ("DGB".equals(iso)) {
             String currencySymbolString = BRConstants.bitcoinLowercase;
             if (app != null) {
                 int unit = BRSharedPrefs.getCurrencyUnit(app);
@@ -114,7 +113,7 @@ public class BRCurrency {
 
     //for now only use for BTC and Bits
     public static String getCurrencyName(Context app, String iso) {
-        if (Objects.equals(iso, "DGB")) {
+        if ("DGB".equals(iso)) {
             if (app != null) {
                 int unit = BRSharedPrefs.getCurrencyUnit(app);
                 switch (unit) {

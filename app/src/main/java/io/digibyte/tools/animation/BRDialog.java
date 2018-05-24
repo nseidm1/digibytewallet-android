@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
-import android.util.Log;
 
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.tools.threads.BRExecutor;
@@ -45,11 +44,6 @@ public class BRDialog {
     public static void showCustomDialog(@NonNull final Context app, @NonNull final String title, @NonNull final String message,
                                         @NonNull final String posButton, final String negButton, final BRDialogView.BROnClickListener posListener,
                                         final BRDialogView.BROnClickListener negListener, final DialogInterface.OnDismissListener dismissListener, final int iconRes) {
-        if (((Activity) app).isDestroyed()) {
-            Log.e(TAG, "showCustomDialog: FAILED, context is destroyed");
-            return;
-        }
-
         BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
             BRDialogView dialog = new BRDialogView();
             dialog.setTitle(title);
@@ -68,11 +62,6 @@ public class BRDialog {
     public static void showCustomDialog(@NonNull final Context app, @NonNull final String title, @NonNull final SpannableString message,
                                         @NonNull final String posButton, final String negButton, final BRDialogView.BROnClickListener posListener,
                                         final BRDialogView.BROnClickListener negListener, final DialogInterface.OnDismissListener dismissListener, final int iconRes) {
-        if (((Activity) app).isDestroyed()) {
-            Log.e(TAG, "showCustomDialog: FAILED, context is destroyed");
-            return;
-        }
-
         BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
             BRDialogView dialog = new BRDialogView();
             dialog.setTitle(title);

@@ -4,9 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
-import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
@@ -20,20 +18,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
+
+import com.google.zxing.client.android.CaptureActivity;
 
 import java.util.ArrayList;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.activities.LoginActivity;
-import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.fragments.FragmentMenu;
-import io.digibyte.presenter.fragments.FragmentReceive;
 import io.digibyte.presenter.fragments.FragmentRequestAmount;
 import io.digibyte.presenter.fragments.FragmentSend;
 import io.digibyte.presenter.fragments.FragmentSignal;
@@ -74,8 +71,9 @@ public class BRAnimator {
     private static boolean clickAllowed = true;
     public static int SLIDE_ANIMATION_DURATION = 300;
 
-    public static void showBreadSignal(AppCompatActivity activity, String title, String iconDescription,
-                                       int drawableId, BROnSignalCompletion completion) {
+    public static void showBreadSignal(AppCompatActivity activity, String title,
+            String iconDescription,
+            int drawableId, BROnSignalCompletion completion) {
         FragmentSignal fragmentSignal = new FragmentSignal();
         Bundle bundle = new Bundle();
         bundle.putString(FragmentSignal.TITLE, title);
@@ -92,7 +90,9 @@ public class BRAnimator {
     }
 
     public static void showOrUpdateSendFragment(AppCompatActivity app, final String bitcoinUrl) {
-        FragmentSend fragmentSend = (FragmentSend) app.getSupportFragmentManager().findFragmentByTag(FragmentSend.class.getName());
+        FragmentSend fragmentSend =
+                (FragmentSend) app.getSupportFragmentManager().findFragmentByTag(
+                        FragmentSend.class.getName());
         if (fragmentSend != null) {
             fragmentSend.setUrl(bitcoinUrl);
             return;
@@ -100,15 +100,14 @@ public class BRAnimator {
         FragmentSend.show(app, bitcoinUrl);
     }
 
-    public static void showTransactionPager(AppCompatActivity app, ArrayList<ListItemTransactionData> items,
+    public static void showTransactionPager(AppCompatActivity app,
+            ArrayList<ListItemTransactionData> items,
             int position) {
         FragmentTransactionDetails.show(app, items, position);
     }
 
-    public static void openScanner(Activity app, int requestID) {
+    public static void openScanner(Activity app) {
         try {
-            if (app == null) return;
-
             // Check if the camera permission is granted
             if (ContextCompat.checkSelfPermission(app,
                     Manifest.permission.CAMERA)
@@ -133,48 +132,18 @@ public class BRAnimator {
                             BRConstants.CAMERA_REQUEST_ID);
                 }
             } else {
-                // Permission is granted, open camera
-                Intent intent = new Intent(app, ScanQRActivity.class);
-                app.startActivityForResult(intent, requestID);
-                app.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
+                Intent intent = new Intent(app, CaptureActivity.class);
+                intent.setAction("com.google.zxing.client.android.SCAN");
+                intent.putExtra("SAVE_HISTORY", false);
+                app.startActivityForResult(intent, BRConstants.SCANNER_REQUEST);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static LayoutTransition getDefaultTransition() {
-        LayoutTransition itemLayoutTransition = new LayoutTransition();
-        itemLayoutTransition.setStartDelay(LayoutTransition.APPEARING, 0);
-        itemLayoutTransition.setStartDelay(LayoutTransition.DISAPPEARING, 0);
-        itemLayoutTransition.setStartDelay(LayoutTransition.CHANGE_APPEARING, 0);
-        itemLayoutTransition.setStartDelay(LayoutTransition.CHANGE_DISAPPEARING, 0);
-        itemLayoutTransition.setStartDelay(LayoutTransition.CHANGING, 0);
-        itemLayoutTransition.setDuration(100);
-        itemLayoutTransition.setInterpolator(LayoutTransition.CHANGING,
-                new OvershootInterpolator(2f));
-        Animator scaleUp = ObjectAnimator.ofPropertyValuesHolder((Object) null,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 1),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 0, 1));
-        scaleUp.setDuration(50);
-        scaleUp.setStartDelay(50);
-        Animator scaleDown = ObjectAnimator.ofPropertyValuesHolder((Object) null,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 1),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1, 0));
-        scaleDown.setDuration(2);
-        itemLayoutTransition.setAnimator(LayoutTransition.APPEARING, scaleUp);
-        itemLayoutTransition.setAnimator(LayoutTransition.DISAPPEARING, null);
-        itemLayoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-        return itemLayoutTransition;
-    }
-
     public static void showRequestFragment(AppCompatActivity app) {
         FragmentRequestAmount.show(app);
-    }
-
-    //isReceive tells the Animator that the Receive fragment is requested, not My Address
-    public static void showReceiveFragment(AppCompatActivity app, boolean isReceive) {
-        FragmentReceive.show(app, isReceive);
     }
 
     public static void showMenuFragment(AppCompatActivity app) {

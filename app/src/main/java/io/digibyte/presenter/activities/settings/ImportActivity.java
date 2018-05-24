@@ -24,8 +24,7 @@ public class ImportActivity extends BRActivity {
         close = findViewById(R.id.close_button);
         close.setOnClickListener(v -> onBackPressed());
         scan.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-            BRAnimator.openScanner(ImportActivity.this, BRConstants.SCANNER_REQUEST);
+            BRAnimator.openScanner(ImportActivity.this);
         });
     }
 
@@ -44,7 +43,7 @@ public class ImportActivity extends BRActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this,BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openScanner(this);
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 

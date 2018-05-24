@@ -26,7 +26,6 @@ import butterknife.Unbinder;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
-import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
 import io.digibyte.presenter.activities.settings.SettingsActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
@@ -41,7 +40,6 @@ import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.manager.SyncManager;
-import io.digibyte.tools.manager.SyncService;
 import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.manager.TxManager.onStatusListener;
 import io.digibyte.tools.sqlite.TransactionDataSource;
@@ -279,14 +277,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @OnClick(R.id.main_action)
     void onMenuButtonClick(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            BRAnimator.showMenuFragment(BreadActivity.this);
-        }
+        BRAnimator.showMenuFragment(BreadActivity.this);
     }
 
     @OnClick(R.id.digiid_button)
     void onDigiIDButtonClick(View view) {
-        ScanQRActivity.openScanner(this);
+        BRAnimator.openScanner(this);
     }
 
     @OnClick(R.id.primary_price)
@@ -325,7 +321,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @OnClick(R.id.qr_button)
     void onQRClick(View view) {
-        ScanQRActivity.openScanner(this);
+        BRAnimator.openScanner(this);
     }
 
     @Override
@@ -338,7 +334,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TxManager.getInstance().addListener(this);
         SyncManager.getInstance().addListener(this);
         BRWalletManager.getInstance().refreshBalance(this);
-        SyncService.scheduleBackgroundSync(this);
+        DigiByte.SyncBlockchainJob.scheduleJob();
         TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
         BRApiManager.getInstance().asyncUpdateFeeData(this);

@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import io.digibyte.R;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.util.Utils;
 
@@ -79,7 +78,6 @@ public class BRDialogView extends DialogFragment {
         }
         positiveButton.setText(posButton);
         positiveButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
             if (posListener != null)
                 posListener.onClick(BRDialogView.this);
         });
@@ -90,7 +88,6 @@ public class BRDialogView extends DialogFragment {
         }
         negativeButton.setText(negButton);
         negativeButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
             if (negListener != null)
                 negListener.onClick(BRDialogView.this);
         });

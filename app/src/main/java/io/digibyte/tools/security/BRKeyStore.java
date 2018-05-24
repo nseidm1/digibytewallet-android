@@ -816,6 +816,7 @@ public class BRKeyStore {
         return Base64.decode(base64, Base64.DEFAULT);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private synchronized static void showAuthenticationScreen(Context context, int requestCode,
             String alias) {
         // Create the Confirm Credentials screen. You can customize the title and description. Or

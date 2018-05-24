@@ -22,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.tools.manager.FontManager;
 import io.digibyte.tools.util.Utils;
@@ -80,16 +81,6 @@ public class BRButton extends Button {
         init(context, attrs);
     }
 
-    public BRButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    public BRButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context ctx, AttributeSet attrs) {
         shadow = BitmapFactory.decodeResource(getResources(), R.drawable.shadow);
         bPaint = new Paint();
@@ -122,7 +113,8 @@ public class BRButton extends Button {
         bPaintStroke.setAntiAlias(true);
 
         if (isBreadButton) {
-            setBackground(getContext().getDrawable(R.drawable.shadow_trans));
+            setBackground(
+                    ContextCompat.getDrawable(DigiByte.getContext(), R.drawable.shadow_trans));
         }
 
         setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);

@@ -7,16 +7,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.platform.tools.BRBitId;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityPinBinding;
 import io.digibyte.presenter.activities.callbacks.LoginActivityCallback;
 import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
@@ -44,7 +45,8 @@ public class LoginActivity extends BRActivity {
         binding.setCallback(callback);
         binding.brkeyboard.addOnInsertListener(key -> handleClick(key));
         binding.brkeyboard.setShowDot(false);
-        binding.brkeyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
+        binding.brkeyboard.setDeleteImage(
+                ContextCompat.getDrawable(DigiByte.getContext(), R.drawable.ic_delete_white));
         if (!processDeepLink(getIntent()) &&
                 AuthManager.isFingerPrintAvailableAndSetup(this)) {
             showFingerprintDialog();

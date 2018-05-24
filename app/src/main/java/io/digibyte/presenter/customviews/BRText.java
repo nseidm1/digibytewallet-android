@@ -53,11 +53,6 @@ public class BRText extends TextView {
         init(context, attrs);
     }
 
-    public BRText(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context ctx, AttributeSet attrs) {
         TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.BRText);
         String customFont = a.getString(R.styleable.BRText_customTFont);
