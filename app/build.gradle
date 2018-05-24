@@ -22,7 +22,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         applicationId = 'io.digibyte'
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 2148
         versionName "2.0.0b2094"

@@ -3,6 +3,7 @@ package io.digibyte.presenter.activities;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -218,14 +219,14 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
             if (!hasFocus) {
                 validateWord((EditText) v);
             } else {
-                ((EditText) v).setTextColor(DigiByte.getContext().getColor(R.color.white));
+                ((EditText) v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.white));
             }
         }
 
         private void validateWord(EditText view) {
             String word = view.getText().toString();
             boolean valid = SmartValidator.isWordValid(DigiByte.getContext(), word);
-            view.setTextColor(DigiByte.getContext().getColor(valid ? R.color.white : R.color.red_text));
+            view.setTextColor(ContextCompat.getColor(view.getContext(), valid ? R.color.white : R.color.red_text));
             if (!valid)
                 SpringAnimator.failShakeAnimation(DigiByte.getContext(), view);
         }

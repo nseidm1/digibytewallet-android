@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodInfo;
@@ -27,8 +26,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
-import io.digibyte.presenter.activities.intro.IntroActivity;
 
 
 /**
@@ -166,6 +163,9 @@ public class Utils {
     }
 
     public static boolean isFingerprintAvailable(Context app) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return false;
+        }
         FingerprintManager fingerprintManager = (FingerprintManager) app.getSystemService(FINGERPRINT_SERVICE);
         if (fingerprintManager == null) return false;
         // Device doesn't support fingerprint authentication

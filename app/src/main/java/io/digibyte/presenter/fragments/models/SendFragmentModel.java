@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
@@ -58,9 +59,9 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     public int getBalanceTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(), R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -68,9 +69,9 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     public int getFeeTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -78,9 +79,9 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     public int getAmountEditTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -88,9 +89,9 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     public int getISOTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 

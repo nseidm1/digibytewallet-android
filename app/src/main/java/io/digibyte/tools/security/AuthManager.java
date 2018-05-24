@@ -1,9 +1,11 @@
 package io.digibyte.tools.security;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -195,6 +197,7 @@ public class AuthManager {
      * @param fingerprint
      * @param type
      */
+    @TargetApi(Build.VERSION_CODES.M)
     public void authPrompt(final Context context, String title, String message, boolean fingerprint, BRAuthCompletion.AuthType type) {
         if (context instanceof Activity) {
             final AppCompatActivity app = (AppCompatActivity) context;

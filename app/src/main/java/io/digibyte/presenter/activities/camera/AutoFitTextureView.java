@@ -16,14 +16,12 @@ package io.digibyte.presenter.activities.camera;
  * limitations under the License.
  */
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.TextureView;
-
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
+import android.view.TextureView;
 
 import io.digibyte.R;
 
@@ -61,7 +59,7 @@ public class AutoFitTextureView extends TextureView {
         framePaint = new Paint();
         framePaint.setAntiAlias(true);
         framePaint.setStyle(Paint.Style.FILL);
-        framePaint.setColor(ctx.getColor(R.color.camera_guideline));
+        framePaint.setColor(ContextCompat.getColor(ctx, R.color.camera_guideline));
     }
 
     /**
