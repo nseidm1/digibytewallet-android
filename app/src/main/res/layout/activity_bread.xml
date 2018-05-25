@@ -88,6 +88,8 @@
                                     android:id="@+id/animation_view"
                                     android:layout_width="200dp"
                                     android:layout_height="140dp"
+                                    android:hardwareAccelerated="true"
+                                    app:lottie_enableMergePathsForKitKatAndAbove="true"
                                     android:layout_gravity="center"
                                     app:lottie_autoPlay="false"
                                     app:lottie_fileName="loading.json"

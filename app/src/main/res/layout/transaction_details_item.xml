@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="37dp"
-                android:background="@drawable/transaction_details_background"
+                android:background="@drawable/transaction_details_background_wrapper"
                 android:gravity="center_horizontal" android:orientation="vertical"
                 android:paddingTop="54dp">
 

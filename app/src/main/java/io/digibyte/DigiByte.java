@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
@@ -51,9 +52,8 @@ import io.fabric.sdk.android.Fabric;
  * THE SOFTWARE.
  */
 
-public class DigiByte extends Application implements Application.ActivityLifecycleCallbacks {
-    private static final String TAG = DigiByte.class.getName();
-
+public class DigiByte extends MultiDexApplication implements
+        Application.ActivityLifecycleCallbacks {
     public static final String HOST = "digibyte.io";
     public static final String FEE_URL = "https://go.digibyte.co/bws/api/v2/feelevels";
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);

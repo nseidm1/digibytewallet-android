@@ -343,8 +343,8 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
         }
     }
 
-    public void setDeleteImage(Drawable res) {
-        numDelete.setImageDrawable(res);
+    public void setDeleteImage(int resId) {
+        numDelete.setImageResource(resId);
     }
 
 }
