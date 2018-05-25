@@ -201,7 +201,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (SyncManager.getInstance().isSyncing()) {
+                if (SyncManager.getInstance().isSyncing()
+                        && bindings.syncAnimator.getDisplayedChild() == 0) {
                     handler.postDelayed(() -> {
                         bindings.syncAnimator.setDisplayedChild(1);
                         bindings.animationView.playAnimation();
