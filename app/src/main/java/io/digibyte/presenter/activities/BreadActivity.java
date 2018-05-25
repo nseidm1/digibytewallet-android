@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -188,6 +189,27 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             receivedAdapter.updateTransactions(newTransactions);
             notifyDataSetChangeForAll();
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (bindings.syncAnimator.getDisplayedChild() == 1) {
+                    bindings.syncAnimator.setDisplayedChild(0);
+                    bindings.animationView.cancelAnimation();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (SyncManager.getInstance().isSyncing()) {
+                    handler.postDelayed(() -> {
+                        bindings.syncAnimator.setDisplayedChild(1);
+                        bindings.animationView.playAnimation();
+                    }, 500);
+                }
+                break;
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     private enum Adapter {
