@@ -89,7 +89,7 @@
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/animation_view"
                             android:layout_width="wrap_content"
-                            android:layout_height="75dp"
+                            android:layout_height="90dp"
                             android:hardwareAccelerated="true"
                             app:lottie_enableMergePathsForKitKatAndAbove="true"
                             android:layout_gravity="center"
