@@ -16,7 +16,6 @@ import io.digibyte.databinding.ActivityPinBinding;
 import io.digibyte.presenter.activities.callbacks.LoginActivityCallback;
 import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
@@ -29,7 +28,11 @@ public class LoginActivity extends BRActivity {
     private StringBuilder pin = new StringBuilder();
     private boolean inputAllowed = true;
 
-    private LoginActivityCallback callback = () -> showFingerprintDialog();
+    private LoginActivityCallback callback = () -> {
+        if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
+            showFingerprintDialog();
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class LoginActivity extends BRActivity {
         binding.setCallback(callback);
         binding.brkeyboard.addOnInsertListener(key -> handleClick(key));
         binding.brkeyboard.setShowDot(false);
-        binding.brkeyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
+        binding.brkeyboard.setDeleteImage(R.drawable.ic_delete_white);
         if (!processDeepLink(getIntent()) &&
                 AuthManager.isFingerPrintAvailableAndSetup(this)) {
             showFingerprintDialog();
@@ -65,10 +68,10 @@ public class LoginActivity extends BRActivity {
     private final boolean processDeepLink(@Nullable final Intent intent) {
         Uri data = intent.getData();
         if (data != null && BRBitId.isBitId(data.toString())) {
-            BRBitId.signAndRespond(this, data.toString(), true);
+            BRBitId.digiIDAuthPrompt(this, data.toString(), true);
             return true;
         } else if (data != null && BitcoinUrlHandler.isBitcoinUrl(data.toString())) {
-            BRAnimator.showSendFragment(this, data.toString());
+            BRAnimator.showOrUpdateSendFragment(this, data.toString());
             return true;
         }
         return false;
@@ -95,18 +98,8 @@ public class LoginActivity extends BRActivity {
 
     private void showFingerprintDialog() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            AuthManager.getInstance().authPrompt(LoginActivity.this, "", "",
-                    new BRAuthCompletion() {
-                        @Override
-                        public void onComplete() {
-                            unlockWallet();
-                        }
-
-                        @Override
-                        public void onCancel() {
-
-                        }
-                    });
+            AuthManager.getInstance().authPrompt(LoginActivity.this, "", getString(R.string.VerifyPin_continueBody), new AuthType(
+                    AuthType.Type.LOGIN));
         }, 500);
     }
 
@@ -152,5 +145,21 @@ public class LoginActivity extends BRActivity {
                         showFailedToUnlock();
                     }
                 });
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        switch (authType.type) {
+            case LOGIN:
+                unlockWallet();
+                break;
+            default:
+                super.onComplete(authType);
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType authType) {
+
     }
 }

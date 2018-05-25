@@ -1,9 +1,9 @@
 package io.digibyte.presenter.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -36,7 +36,7 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
     private InputWordsViewModel model = new InputWordsViewModel();
 
     private ActivityInputWordsCallback callback = () -> {
-        final Activity app = InputWordsActivity.this;
+        final AppCompatActivity app = InputWordsActivity.this;
         String phraseToCheck = getPhrase();
         if (phraseToCheck == null) {
             return;
@@ -53,15 +53,15 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
                                 m.wipeWalletButKeystore(app);
                                 m.wipeKeyStore(app);
                                 Intent intent = new Intent(app, IntroActivity.class);
-                                finalizeIntent(intent);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                             }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
                     break;
                 case RESET_PIN:
                     if (SmartValidator.isPaperKeyCorrect(cleanPhrase, app)) {
                         AuthManager.getInstance().setPinCode("", InputWordsActivity.this);
-                        Intent intent = new Intent(app, SetPinActivity.class);
-                        intent.putExtra("noPin", true);
-                        finalizeIntent(intent);
+                        UpdatePinActivity.open(InputWordsActivity.this,
+                                UpdatePinActivity.Mode.ENTER_NEW_PIN);
                     } else {
                         BRDialog.showCustomDialog(app, "", getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null,
                                 brDialogView -> brDialogView.dismissWithAnimation(), null, null, 0);
@@ -71,11 +71,11 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
                     BRWalletManager m = BRWalletManager.getInstance();
                     m.wipeWalletButKeystore(app);
                     m.wipeKeyStore(app);
-                    PostAuth.getInstance().setPhraseForKeyStore(cleanPhrase);
+                    PostAuth.instance.setPhraseForKeyStore(cleanPhrase);
                     BRSharedPrefs.putAllowSpend(app, false);
                     //if this screen is shown then we did not upgrade to the new app, we installed it
                     BRSharedPrefs.putGreetingsShown(app, true);
-                    PostAuth.getInstance().onRecoverWalletAuth(app, false);                    break;
+                    PostAuth.instance.onRecoverWalletAuth(app, false);                    break;
             }
         } else {
             BRDialog.showCustomDialog(app, "", getResources().getString(R.string.RecoverWallet_invalid), getString(R.string.AccessibilityLabels_close), null,
@@ -133,12 +133,6 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
 
     private Type getType() {
         return (Type) getIntent().getSerializableExtra(INPUT_WORDS_TYPE);
-    }
-
-    private void finalizeIntent(Intent intent) {
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-        startActivity(intent);
     }
 
     private String getPhrase() {
@@ -225,14 +219,14 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
             if (!hasFocus) {
                 validateWord((EditText) v);
             } else {
-                ((EditText) v).setTextColor(DigiByte.getContext().getColor(R.color.white));
+                ((EditText) v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.white));
             }
         }
 
         private void validateWord(EditText view) {
             String word = view.getText().toString();
             boolean valid = SmartValidator.isWordValid(DigiByte.getContext(), word);
-            view.setTextColor(DigiByte.getContext().getColor(valid ? R.color.white : R.color.red_text));
+            view.setTextColor(ContextCompat.getColor(view.getContext(), valid ? R.color.white : R.color.red_text));
             if (!valid)
                 SpringAnimator.failShakeAnimation(DigiByte.getContext(), view);
         }

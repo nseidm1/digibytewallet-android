@@ -1,6 +1,5 @@
 package io.digibyte.presenter.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -49,12 +48,6 @@ public class DisabledActivity extends BRActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         long disabledUntil = AuthManager.getInstance().disabledUntil(this);
@@ -88,17 +81,6 @@ public class DisabledActivity extends BRActivity {
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else if (AuthManager.getInstance().isWalletDisabled(DisabledActivity.this)) {
-            SpringAnimator.failShakeAnimation(DisabledActivity.this, disabled);
-        } else {
-            BRAnimator.startBreadActivity(DisabledActivity.this, true);
-        }
-        overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
+        finishAffinity();
     }
 }

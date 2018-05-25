@@ -1,45 +1,74 @@
 package io.digibyte.presenter.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import io.digibyte.R;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
+import io.digibyte.tools.security.PostAuth;
 
 public class UpdatePinActivity extends BasePinActivity {
-    int mode = ENTER_PIN;
-    public static final int ENTER_PIN = 1;
-    public static final int ENTER_NEW_PIN = 2;
-    public static final int RE_ENTER_NEW_PIN = 3;
-    private String curNewPin = "";
+    private Mode initialCreateMode;
+    private Mode mode;
+
+    private static final String START_MODE = "UpdatePinActivity:StartMode";
+
+    public enum Mode {
+        SET_PIN, ENTER_CURRENT_PIN, ENTER_NEW_PIN, RE_ENTER_NEW_PIN
+    }
+
+    public static void open(AppCompatActivity activity, Mode startMode) {
+        Intent intent = new Intent(activity, UpdatePinActivity.class);
+        intent.putExtra(START_MODE, startMode);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onPinConfirmed() {
         switch (mode) {
-            case ENTER_PIN:
-                if (AuthManager.getInstance().checkAuth(pin.toString(), this)) {
-                    setMode(ENTER_NEW_PIN);
+            case SET_PIN:
+                setMode(Mode.RE_ENTER_NEW_PIN);
+                setPreviousPin();
+                clearDots();
+                break;
+            case ENTER_CURRENT_PIN:
+                if (AuthManager.getInstance().checkAuth(currentPin.toString(), this)) {
+                    setMode(Mode.ENTER_NEW_PIN);
                 } else {
                     SpringAnimator.failShakeAnimation(this, binding.pinLayout);
                 }
-                clearDots();
-                pin = new StringBuilder("");
+                setPreviousPin();
                 clearDots();
                 break;
             case ENTER_NEW_PIN:
-                setMode(RE_ENTER_NEW_PIN);
-                curNewPin = pin.toString();
+                setMode(Mode.RE_ENTER_NEW_PIN);
+                setPreviousPin();
                 clearDots();
                 break;
 
             case RE_ENTER_NEW_PIN:
-                if (curNewPin.equalsIgnoreCase(pin.toString())) {
-                    AuthManager.getInstance().setPinCode(pin.toString(), this);
-                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.signal_icon_graphic, () -> BRAnimator.startBreadActivity(UpdatePinActivity.this, false));
+                if (pinsMatch()) {
+                    AuthManager.getInstance().setPinCode(currentPin.toString(), this);
+                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.signal_icon_graphic, () -> {
+                        switch(initialCreateMode) {
+                            case SET_PIN:
+                                PostAuth.instance.onCreateWalletAuth(UpdatePinActivity.this, false);
+                                break;
+                            default:
+                                BRAnimator.startBreadActivity(UpdatePinActivity.this, false);
+                                break;
+                        }
+                    });
+                    AuthManager.getInstance().authSuccess(this);
+                    AuthManager.getInstance().setPinCode(currentPin.toString(), this);
                 } else {
                     SpringAnimator.failShakeAnimation(this, binding.pinLayout);
-                    setMode(ENTER_NEW_PIN);
+                    setMode(Mode.RE_ENTER_NEW_PIN);
+                    currentPin = new StringBuilder("");
+                    clearDots();
                 }
                 break;
         }
@@ -48,22 +77,33 @@ public class UpdatePinActivity extends BasePinActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setMode(ENTER_PIN);
-        setToolbarTitle(R.string.UpdatePin_updateTitle);
+        initialCreateMode = getMode();
+        setMode(initialCreateMode);
     }
 
-    private void setMode(int mode) {
+    private Mode getMode() {
+        return (Mode) getIntent().getSerializableExtra(START_MODE);
+    }
+
+    private void setMode(Mode mode) {
         String text = "";
         this.mode = mode;
         switch (mode) {
-            case ENTER_PIN:
+            case SET_PIN:
+                text = getString(R.string.UpdatePin_createInstruction);
+                setToolbarTitle(R.string.UpdatePin_createTitle);
+                break;
+            case ENTER_CURRENT_PIN:
                 text = getString(R.string.UpdatePin_enterCurrent);
+                setToolbarTitle(R.string.UpdatePin_createTitle);
                 break;
             case ENTER_NEW_PIN:
+                setToolbarTitle(R.string.UpdatePin_createTitle);
                 text = getString(R.string.UpdatePin_enterNew);
                 break;
             case RE_ENTER_NEW_PIN:
                 text = getString(R.string.UpdatePin_reEnterNew);
+                setToolbarTitle(R.string.UpdatePin_createTitleConfirm);
                 break;
         }
         binding.description.setText(text);

@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodInfo;
@@ -27,8 +26,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-
-import io.digibyte.presenter.activities.intro.IntroActivity;
 
 
 /**
@@ -87,7 +84,8 @@ public class Utils {
         if (fing != null) {
             isEmulator = fing.contains("vbox") || fing.contains("generic");
         }
-        return isEmulator || (0 != (app.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
+        return isEmulator || (0 != (app.getApplicationInfo().flags
+                & ApplicationInfo.FLAG_DEBUGGABLE));
     }
 
     public static String getFormattedDateFromLong(Context app, long time) {
@@ -95,7 +93,8 @@ public class Utils {
         SimpleDateFormat formatter = new SimpleDateFormat("M/d@ha", Locale.getDefault());
         boolean is24HoursFormat = false;
         if (app != null) {
-            is24HoursFormat = android.text.format.DateFormat.is24HourFormat(app.getApplicationContext());
+            is24HoursFormat = android.text.format.DateFormat.is24HourFormat(
+                    app.getApplicationContext());
             if (is24HoursFormat) {
                 formatter = new SimpleDateFormat("M/d H", Locale.getDefault());
             }
@@ -147,30 +146,43 @@ public class Utils {
         return data;
     }
 
-    public static String createBitcoinUrl(String address, long satoshiAmount, String label, String message, String rURL) {
+    public static String createBitcoinUrl(String address, long satoshiAmount, String label,
+            String message, String rURL) {
 
         Uri.Builder builder = new Uri.Builder();
         builder = builder.scheme("digibyte");
-        if (address != null && !address.isEmpty())
+        if (address != null && !address.isEmpty()) {
             builder = builder.appendPath(address);
-        if (satoshiAmount != 0)
+        }
+        if (satoshiAmount != 0) {
             builder = builder.appendQueryParameter("amount", new BigDecimal(satoshiAmount).
-                    divide(new BigDecimal(100000000), 8, BRConstants.ROUNDING_MODE).toPlainString());
-        if (label != null && !label.isEmpty())
+                    divide(new BigDecimal(100000000), 8,
+                            BRConstants.ROUNDING_MODE).toPlainString());
+        }
+        if (label != null && !label.isEmpty()) {
             builder = builder.appendQueryParameter("label", label);
-        if (message != null && !message.isEmpty())
+        }
+        if (message != null && !message.isEmpty()) {
             builder = builder.appendQueryParameter("message", message);
-        if (rURL != null && !rURL.isEmpty())
+        }
+        if (rURL != null && !rURL.isEmpty()) {
             builder = builder.appendQueryParameter("r", rURL);
+        }
         return builder.build().toString().replaceFirst("/", "");
     }
 
     public static boolean isFingerprintAvailable(Context app) {
-        FingerprintManager fingerprintManager = (FingerprintManager) app.getSystemService(FINGERPRINT_SERVICE);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return false;
+        }
+        FingerprintManager fingerprintManager = (FingerprintManager) app.getSystemService(
+                FINGERPRINT_SERVICE);
         if (fingerprintManager == null) return false;
         // Device doesn't support fingerprint authentication
-        if (ActivityCompat.checkSelfPermission(app, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(app, "Fingerprint authentication permission not enabled", Toast.LENGTH_LONG).show();
+        if (ActivityCompat.checkSelfPermission(app, Manifest.permission.USE_FINGERPRINT)
+                != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(app, "Fingerprint authentication permission not enabled",
+                    Toast.LENGTH_LONG).show();
             return false;
         }
         return fingerprintManager.isHardwareDetected();
@@ -180,9 +192,11 @@ public class Utils {
         if (app != null) {
             View view = ((Activity) app).getCurrentFocus();
             if (view != null) {
-                InputMethodManager imm = (InputMethodManager) app.getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null)
+                InputMethodManager imm = (InputMethodManager) app.getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
             }
         }
     }
@@ -201,7 +215,8 @@ public class Utils {
             }
         }
         String release = Build.VERSION.RELEASE;
-//        return String.format("%s/%d %s %s/%s", "Bread", versionNumber, cfnetwork, "Android", release);
+//        return String.format("%s/%d %s %s/%s", "Bread", versionNumber, cfnetwork, "Android",
+// release);
         return "Bread/" + String.valueOf(versionNumber) + " " + cfnetwork + " Android/" + release;
     }
 
@@ -214,12 +229,11 @@ public class Utils {
         return result.reverse().toString();
     }
 
-    public static Point getScreenSize(Context context)
-    {
+    public static Point getScreenSize(Context context) {
         Point size = new Point();
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if(null != windowManager)
-        {
+        WindowManager windowManager = (WindowManager) context.getSystemService(
+                Context.WINDOW_SERVICE);
+        if (null != windowManager) {
             windowManager.getDefaultDisplay().getSize(size);
         }
         return size;

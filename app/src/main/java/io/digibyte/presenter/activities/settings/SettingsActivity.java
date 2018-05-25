@@ -53,9 +53,32 @@ public class SettingsActivity extends BRActivity {
         setupToolbar();
         binding.setCallback(callback);
         binding.settingsList.setLayoutManager(new LinearLayoutManager(this));
-        populateItems();
         adapter = new SettingsListAdapter(items);
         binding.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        items.clear();
+        populateItems();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        switch(authType.type) {
+            case SPENDING_LIMIT:
+                SpendLimitActivity.show(SettingsActivity.this);
+                break;
+            default:
+                super.onComplete(authType);
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType type) {
+
     }
 
     public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
@@ -143,12 +166,6 @@ public class SettingsActivity extends BRActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.fade_up, R.anim.exit_to_bottom);
-    }
-
     private void populateItems() {
 
         items.add(new BRSettingsItem(getString(R.string.Settings_wallet), "", null,
@@ -173,17 +190,7 @@ public class SettingsActivity extends BRActivity {
             items.add(new BRSettingsItem(getString(R.string.Settings_touchIdLimit_android), "",
                     v -> AuthManager.getInstance().authPrompt(SettingsActivity.this, null,
                             getString(R.string.VerifyPin_continueBody),
-                            new BRAuthCompletion() {
-                                @Override
-                                public void onComplete() {
-                                    SpendLimitActivity.show(SettingsActivity.this);
-                                }
-
-                                @Override
-                                public void onCancel() {
-
-                                }
-                            }), BRSettingsItem.Type.ITEM));
+                            new AuthType(AuthType.Type.SPENDING_LIMIT)), BRSettingsItem.Type.ITEM));
         }
 
         items.add(new BRSettingsItem(getString(R.string.max_send_enabled), "max_send_enabled",

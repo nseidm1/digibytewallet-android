@@ -78,26 +78,17 @@ public class BRBitId {
         return false;
     }
 
-    public static void signAndRespond(@NonNull final Activity app, @NonNull final String bitID,
-            boolean isDeepLink) {
+    public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull final String bitID, boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
-        String u = bitUri.getQueryParameter("u");
-        String scheme = u != null && u.equalsIgnoreCase("1") ? "http://" : "https://";
+        String scheme = "https://";
         AuthManager.getInstance().authPrompt(app, null,
-                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + (scheme + bitUri.getHost()).toLowerCase(), new BRAuthCompletion() {
-                    @Override
-                    public void onComplete() {
-                        internalSignAndRespond(app, bitID, isDeepLink, scheme + bitUri.getHost() + bitUri.getPath());
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                });
+                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + (scheme
+                        + bitUri.getHost()).toLowerCase(),
+                new BRAuthCompletion.AuthType(bitID, isDeepLink,
+                        scheme + bitUri.getHost() + bitUri.getPath()));
     }
 
-    private static void internalSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
+    public static void digiIDSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
             boolean isDeepLink, String callbackUrl) {
         try {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
@@ -136,7 +127,8 @@ public class BRBitId {
         } catch (Exception e) {
             e.printStackTrace();
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing), Toast.LENGTH_SHORT).show());
+            handler.post(() -> Toast.makeText(app, app.getString(R.string.Import_Error_signing),
+                    Toast.LENGTH_SHORT).show());
             if (isDeepLink) {
                 app.finishAffinity();
             }

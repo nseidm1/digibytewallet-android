@@ -2,6 +2,9 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import java.math.BigDecimal;
@@ -14,19 +17,16 @@ import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.wallet.BRWalletManager;
 
-public class SendFragmentModel extends BaseObservable {
+public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     private StringBuilder amountBuilder = new StringBuilder("");
     private String selectedIso = BRSharedPrefs.getPreferredBTC(DigiByte.getContext()) ? "DGB"
             : BRSharedPrefs.getIso(DigiByte.getContext());
     private String enteredAddress = "";
-    private FeeType feeType = FeeType.REGULAR;
     private String memo = "";
     private boolean showSendWaiting = false;
 
-    enum FeeType {
-        REGULAR, ECONOMY
-    }
+    public SendFragmentModel(){}
 
     @Bindable
     public int getBRKeyboardColor() {
@@ -59,9 +59,9 @@ public class SendFragmentModel extends BaseObservable {
     public int getBalanceTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(), R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -69,9 +69,9 @@ public class SendFragmentModel extends BaseObservable {
     public int getFeeTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -79,9 +79,9 @@ public class SendFragmentModel extends BaseObservable {
     public int getAmountEditTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -89,9 +89,9 @@ public class SendFragmentModel extends BaseObservable {
     public int getISOTextColor() {
         if (validAmount() && new BigDecimal(getAmount()).doubleValue()
                 > getBalanceForISO().doubleValue()) {
-            return DigiByte.getContext().getColor(R.color.warning_color);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.warning_color);
         } else {
-            return DigiByte.getContext().getColor(R.color.white);
+            return ContextCompat.getColor(DigiByte.getContext(),R.color.white);
         }
     }
 
@@ -104,9 +104,9 @@ public class SendFragmentModel extends BaseObservable {
     public String getFeeText() {
         String approximateFee = getApproximateFee();
         if (TextUtils.isEmpty(approximateFee)) {
-            return "";
+            approximateFee = "";
         }
-        return String.format(DigiByte.getContext().getString(R.string.Send_fee), approximateFee);
+        return DigiByte.getContext().getString(R.string.Send_fee).replace("%1$s", approximateFee);
     }
 
     @Bindable
@@ -141,6 +141,7 @@ public class SendFragmentModel extends BaseObservable {
 
     public void setSelectedIso(String iso) {
         selectedIso = iso;
+        updateText();
     }
 
     public String getSelectedIso() {
@@ -211,11 +212,15 @@ public class SendFragmentModel extends BaseObservable {
     }
 
     public void populateMaxAmount() {
-        setSelectedIso("dgb");
-        setAmount(new BigDecimal(
-                BRWalletManager.getInstance().getBalance(DigiByte.getContext())).divide(
+        BigDecimal maxAvailable =new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext()));
+        if (maxAvailable.intValue() == 0) {
+            return;
+        }
+        BigDecimal fee = new BigDecimal(BRWalletManager.getInstance().feeForTransactionAmount(maxAvailable.intValue()));
+        setAmount(maxAvailable.subtract(fee).divide(
                 new BigDecimal(100000000)).toString());
         notifyPropertyChanged(BR.amount);
+        notifyPropertyChanged(BR.feeText);
     }
 
     private BigDecimal getBalanceForISO() {
@@ -239,4 +244,39 @@ public class SendFragmentModel extends BaseObservable {
         notifyPropertyChanged(BR.amountEditTextColor);
         notifyPropertyChanged(BR.iSOTextColor);
     }
+
+    protected SendFragmentModel(Parcel in) {
+        amountBuilder = new StringBuilder(in.readString());
+        selectedIso = in.readString();
+        enteredAddress = in.readString();
+        memo = in.readString();
+        showSendWaiting = in.readByte() != 0x00;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(amountBuilder.toString());
+        dest.writeString(selectedIso);
+        dest.writeString(enteredAddress);
+        dest.writeString(memo);
+        dest.writeByte((byte) (showSendWaiting ? 0x01 : 0x00));
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<SendFragmentModel> CREATOR = new Parcelable.Creator<SendFragmentModel>() {
+        @Override
+        public SendFragmentModel createFromParcel(Parcel in) {
+            return new SendFragmentModel(in);
+        }
+
+        @Override
+        public SendFragmentModel[] newArray(int size) {
+            return new SendFragmentModel[size];
+        }
+    };
 }

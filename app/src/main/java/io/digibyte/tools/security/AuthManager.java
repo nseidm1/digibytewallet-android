@@ -1,10 +1,13 @@
 package io.digibyte.tools.security;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,8 +52,10 @@ public class AuthManager {
     public static final String TAG = AuthManager.class.getName();
     private static AuthManager instance;
     private String previousTry;
-    private static Drawable pinSelected = DigiByte.getContext().getDrawable(R.drawable.pin_selected);
-    private static Drawable pinUnselected = DigiByte.getContext().getDrawable(R.drawable.pin_unselected);
+    private static Drawable pinSelected = ContextCompat.getDrawable(DigiByte.getContext(),
+            R.drawable.pin_selected);
+    private static Drawable pinUnselected = ContextCompat.getDrawable(DigiByte.getContext(),
+            R.drawable.pin_unselected);
 
     private AuthManager() {
         previousTry = "";
@@ -82,10 +87,9 @@ public class AuthManager {
         return match;
     }
 
-    //when pin auth success
+    //when currentPin auth success
     public void authSuccess(final Context app) {
         BRKeyStore.putFailCount(0, app);
-        BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), app);
     }
 
     public void authFail(Context app) {
@@ -113,7 +117,6 @@ public class AuthManager {
     public void setPinCode(String pass, Activity context) {
         BRKeyStore.putFailCount(0, context);
         BRKeyStore.putPinCode(pass, context);
-        BRKeyStore.putLastPinUsedTime(System.currentTimeMillis(), context);
     }
 
     public void updateDots(String pin, View dot1, View dot2,
@@ -178,21 +181,36 @@ public class AuthManager {
         view.setBackground(pinUnselected);
     }
 
-    public void authPrompt(final Context context, String title, String message, BRAuthCompletion completion) {
-        authPrompt(context, title, message, isFingerPrintAvailableAndSetup(context), completion);
+    /**
+     * This version of authPrompt is used when either fingerprint or pin can be used
+     * @param context
+     * @param title
+     * @param message
+     * @param type
+     */
+    public void authPrompt(final Context context, String title, String message, BRAuthCompletion.AuthType type) {
+        authPrompt(context, title, message, isFingerPrintAvailableAndSetup(context), type);
     }
 
-    public void authPrompt(final Context context, String title, String message, boolean fingerprint,
-                           BRAuthCompletion completion) {
+    /**
+     * This version of authPrompt is used when fingerprint enabled or not is desired to be set specifically
+     * @param context
+     * @param title
+     * @param message
+     * @param fingerprint
+     * @param type
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public void authPrompt(final Context context, String title, String message, boolean fingerprint, BRAuthCompletion.AuthType type) {
         if (context instanceof Activity) {
             final AppCompatActivity app = (AppCompatActivity) context;
             final KeyguardManager keyguardManager =
                     (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
             if (keyguardManager.isKeyguardSecure()) {
                 if (fingerprint) {
-                    FragmentFingerprint.show(app, title, message, completion);
+                    FragmentFingerprint.show(app, title, message, type);
                 } else {
-                    FragmentPin.show(app, title, message, completion);
+                    FragmentPin.show(app, title, message, type);
                 }
             } else {
                 BRDialog.showCustomDialog(app,

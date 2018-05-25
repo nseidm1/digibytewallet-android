@@ -4,6 +4,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
 
         <variable name="callback"
                   type="io.digibyte.presenter.fragments.interfaces.TransactionDetailsCallback"/>
@@ -24,11 +25,11 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
+            android:clickable="true"
+            android:focusable="true"
 
             android:orientation="vertical">
 
@@ -36,27 +37,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="37dp"
-                android:background="@drawable/transaction_details_background"
+                android:background="@drawable/transaction_details_background_wrapper"
                 android:gravity="center_horizontal" android:orientation="vertical"
-                android:paddingTop="48dp">
+                android:paddingTop="54dp">
 
-                <TextView
-                    android:id="@+id/amount_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:paddingEnd="6dp"
-                    android:paddingStart="6dp"
-                    android:text="@{data.amount}"
-                    android:textColor="@color/white"
-                    android:textIsSelectable="true"
-                    android:textSize="50sp"/>
+                <ViewSwitcher android:id="@+id/amount_switcher" android:layout_width="match_parent"
+                              android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/crypto_amount_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="center_horizontal"
+                        android:paddingEnd="6dp"
+                        android:paddingStart="6dp"
+                        android:singleLine="true"
+                        android:text="@{data.cryptoAmount}"
+                        android:textColor="@color/white"
+                        android:textIsSelectable="true"
+                        android:textSize="50sp"/>
+
+                    <LinearLayout android:layout_width="match_parent"
+                                  android:layout_height="match_parent"
+                                  android:gravity="center_horizontal"
+                                  android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/current_fiat_amount_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="4dp"
+                            android:ellipsize="end"
+                            android:paddingEnd="6dp"
+                            android:paddingStart="6dp"
+                            android:singleLine="true"
+                            android:text="@{data.fiatAmount}"
+                            android:textColor="@color/white"
+                            android:textIsSelectable="true"
+                            android:textSize="24sp"/>
+                        <TextView
+                            android:id="@+id/original_fiat_amount_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="4dp"
+                            android:ellipsize="end"
+                            android:paddingEnd="6dp"
+                            android:paddingStart="6dp"
+                            android:singleLine="true"
+                            android:text="@{data.originalFiatAmount}"
+                            android:textColor="@color/white"
+                            android:textIsSelectable="true"
+                            android:textSize="24sp"/>
+
+                    </LinearLayout>
+
+                </ViewSwitcher>
 
                 <TextView
                     android:id="@+id/to_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="34dp"
                     android:text="@{data.toFrom}"
                     android:textColor="@color/light_gray"
                     android:textSize="18sp"/>
@@ -67,23 +107,48 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
                     android:gravity="center_horizontal"
-                    android:paddingEnd="24dp"
                     android:onClick="@{() -> callback.onAddressClick()}"
+                    android:paddingEnd="24dp"
                     android:paddingStart="24dp"
                     android:singleLine="true"
                     android:text="@{data.address}"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
+                <TextView android:id="@+id/fee" android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:gravity="center_horizontal"
+                          android:text="@{data.fee}" android:textColor="@color/white"
+                          android:textSize="18sp"
+                          android:visibility="@{TextUtils.isEmpty(data.fee) ? View.GONE : View.VISIBLE}"/>
+
+                <EditText
+                    android:id="@+id/memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/bread_margin"
+                    android:layout_marginStart="@dimen/bread_margin"
+                    android:background="@drawable/dashed_edittext_underline"
+                    android:hint="@string/Send.descriptionLabel"
+                    android:inputType="textPersonName"
+                    android:minHeight="40dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:singleLine="true"
+                    android:text="@={data.memo}"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/light_gray"/>
+
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="wrap_content"
-                              android:layout_marginTop="24dp" android:orientation="horizontal">
+                              android:layout_marginTop="12dp" android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
+                        android:layout_marginStart="26dp"
                         android:layout_weight="1"
                         android:text="@string/date"
                         android:textColor="@color/white"
@@ -110,7 +175,7 @@
                         android:id="@+id/date_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
+                        android:layout_marginStart="26dp"
                         android:layout_weight="1"
                         android:text="@{data.date}"
                         android:textColor="@color/white"
@@ -137,7 +202,7 @@
                         android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
+                        android:layout_marginStart="26dp"
                         android:layout_weight="1"
                         android:text="@string/TransactionDetails.statusHeader"
                         android:textColor="@color/white"
@@ -147,7 +212,7 @@
                         android:id="@+id/status_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
+                        android:layout_marginStart="26dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
                         android:background="@drawable/completed_background"

@@ -18,7 +18,9 @@ package io.digibyte.tools.security;
 
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.CancellationSignal;
+import android.support.annotation.RequiresApi;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ import io.digibyte.R;
 /**
  * Small helper class to manage text/icon around fingerprint authentication UI.
  */
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallback {
 
     static final long ERROR_TIMEOUT_MILLIS = 1600;

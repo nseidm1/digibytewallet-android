@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import io.digibyte.R;
 import io.digibyte.tools.animation.BRAnimator;
+import io.digibyte.tools.security.PostAuth;
 import io.digibyte.wallet.BRWalletManager;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -14,6 +15,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
+        PostAuth.instance.onCanaryCheck(this, false);
         BRWalletManager wallet = BRWalletManager.getInstance();
         if (wallet.noWallet(this)) {
             IntroActivity.open(this);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.tools.adapter.TransactionPagerAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.items.ListItemTransactionData;
+import io.digibyte.tools.util.Utils;
 
 
 /**
@@ -78,6 +80,23 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
         binding.setAdapter(new TransactionPagerAdapter(getChildFragmentManager(),
                 getArguments().getParcelableArrayList(TRANSACTIONS_ARRAY)));
         binding.setTransactionNumber(getArguments().getInt(TRANSACTION_NUMBER, 0));
+        binding.txListPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset,
+                    int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Utils.hideKeyboard(getActivity());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return binding.getRoot();
     }
 
@@ -101,7 +120,14 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             if (getActivity() != null) {
-                                getActivity().getSupportFragmentManager().popBackStack();
+                                try {
+                                    getActivity().getSupportFragmentManager().popBackStack();
+                                    Utils.hideKeyboard(getActivity());
+                                } catch (IllegalStateException e) {
+                                    //Edge cases regarding activity destruction
+                                } catch (NullPointerException e) {
+                                    //Null activity references or a null fragment manager
+                                }
                             }
                         }
                     });

@@ -58,8 +58,6 @@ public class NodesActivity extends BRActivity {
 
         switchButton = findViewById(R.id.button_switch);
         switchButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
-
             if (BRSharedPrefs.getTrustNode(NodesActivity.this).isEmpty()) {
                 createDialog();
             } else {

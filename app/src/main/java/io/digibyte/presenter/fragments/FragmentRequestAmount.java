@@ -46,8 +46,7 @@ import io.digibyte.tools.util.Utils;
 public class FragmentRequestAmount extends FragmentReceive {
     private static final String TAG = FragmentRequestAmount.class.getName();
     private StringBuilder amountBuilder = new StringBuilder(0);
-    private String receiveAddress;
-    private String selectedIso;
+    private String selectedIso = "dgb";
 
     public static void show(AppCompatActivity activity) {
         FragmentRequestAmount fragmentRequestAmount = new FragmentRequestAmount();
@@ -65,14 +64,38 @@ public class FragmentRequestAmount extends FragmentReceive {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View fragmentReceiveRootView = super.onCreateView(inflater, container, savedInstanceState);
-        selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(getContext());
-        receiveAddress = BRSharedPrefs.getReceiveAddress(getContext());
+        selectedIso = BRSharedPrefs.getPreferredBTC(getContext()) ? "DGB" : BRSharedPrefs.getIso(
+                getContext());
         updateText();
         fragmentReceiveBinding.keyboardLayout.setVisibility(View.VISIBLE);
         fragmentReceiveBinding.amountLayout.setVisibility(View.VISIBLE);
         return fragmentReceiveRootView;
+    }
+
+    @Override
+    protected void setTitle() {
+        receiveFragmentModel.setTitle(getString(R.string.Receive_request));
+    }
+
+    @Override
+    protected void updateQRImage() {
+        if (selectedIso.equalsIgnoreCase("dgb")) {
+            qrUrl = "digibyte:" + address + "?amount=" + amountBuilder.toString();
+            QRUtils.generateQR(getActivity(), qrUrl,
+                    fragmentReceiveBinding.qrImage);
+        } else {
+            BigDecimal bigAmount = new BigDecimal(
+                    (Utils.isNullOrEmpty(amountBuilder.toString()) || amountBuilder.toString().equalsIgnoreCase(".")) ? "0"
+                            : amountBuilder.toString());
+            long amount = BRExchange.getSatoshisFromAmount(getActivity(), selectedIso,
+                    bigAmount).longValue();
+            String am = new BigDecimal(amount).divide(new BigDecimal(100000000)).toPlainString();
+            qrUrl = "digibyte:" + address + "?amount=" + am;
+            QRUtils.generateQR(getActivity(), qrUrl,
+                    fragmentReceiveBinding.qrImage);
+        }
     }
 
     @Override
@@ -93,11 +116,7 @@ public class FragmentRequestAmount extends FragmentReceive {
         } else {
             selectedIso = BRSharedPrefs.getIso(getContext());
         }
-        boolean generated = generateQrImage(receiveAddress, amountBuilder.toString(),
-                selectedIso);
-        if (!generated) {
-            throw new RuntimeException("failed to generate qr image for address");
-        }
+        updateQRImage();
         updateText();
     }
 
@@ -105,11 +124,12 @@ public class FragmentRequestAmount extends FragmentReceive {
     protected boolean onShareEmail() {
         showKeyboard(false);
         BigDecimal bigAmount = new BigDecimal(
-                (Utils.isNullOrEmpty(amountBuilder.toString()) || amountBuilder.toString().equalsIgnoreCase(".")) ? "0"
+                (Utils.isNullOrEmpty(amountBuilder.toString())
+                        || amountBuilder.toString().equalsIgnoreCase(".")) ? "0"
                         : amountBuilder.toString());
         long amount = BRExchange.getSatoshisFromAmount(getActivity(), selectedIso,
                 bigAmount).longValue();
-        String bitcoinUri = Utils.createBitcoinUrl(receiveAddress, amount, null, null,
+        String bitcoinUri = Utils.createBitcoinUrl(address, amount, null, null,
                 null);
         Uri qrImageUri = QRUtils.getQRImageUri(getContext(), bitcoinUri);
         QRUtils.share("mailto:", getActivity(), qrImageUri, null, null);
@@ -119,7 +139,7 @@ public class FragmentRequestAmount extends FragmentReceive {
     @Override
     protected boolean onShareSMS() {
         showKeyboard(false);
-        QRUtils.share("sms:", getActivity(), null, receiveAddress, amountBuilder.toString());
+        QRUtils.share("sms:", getActivity(), null, address, amountBuilder.toString());
         return true;
     }
 
@@ -155,8 +175,7 @@ public class FragmentRequestAmount extends FragmentReceive {
         } else if (key.charAt(0) == '.') {
             handleSeparatorClick();
         }
-
-        generateQrImage(receiveAddress, amountBuilder.toString(), selectedIso);
+        updateQRImage();
     }
 
     private void handleDigitClick(Integer dig) {
@@ -195,7 +214,9 @@ public class FragmentRequestAmount extends FragmentReceive {
     private void updateText() {
         receiveFragmentModel.setAmount(amountBuilder.toString());
         receiveFragmentModel.setIsoText(BRCurrency.getSymbolByIso(getActivity(), selectedIso));
-        receiveFragmentModel.setIsoButtonText(String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso), BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
+        receiveFragmentModel.setIsoButtonText(
+                String.format("%s(%s)", BRCurrency.getCurrencyName(getActivity(), selectedIso),
+                        BRCurrency.getSymbolByIso(getActivity(), selectedIso)));
     }
 
     private void showKeyboard(boolean show) {
@@ -206,17 +227,6 @@ public class FragmentRequestAmount extends FragmentReceive {
                 receiveFragmentModel.setShowKeyboard(true);
                 showShareButtons(false);
             }
-        }
-    }
-
-    private boolean generateQrImage(String address, String strAmount, String iso) {
-        if (iso.equalsIgnoreCase("dgb")) {
-            return QRUtils.generateQR(getActivity(), "digibyte:" + address + "?amount=" + strAmount, fragmentReceiveBinding.qrImage);
-        } else {
-            BigDecimal bigAmount = new BigDecimal((Utils.isNullOrEmpty(strAmount) || strAmount.equalsIgnoreCase(".")) ? "0" : strAmount);
-            long amount = BRExchange.getSatoshisFromAmount(getActivity(), iso, bigAmount).longValue();
-            String am = new BigDecimal(amount).divide(new BigDecimal(100000000)).toPlainString();
-            return QRUtils.generateQR(getActivity(), "digibyte:" + address + "?amount=" + am, fragmentReceiveBinding.qrImage);
         }
     }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
-import android.util.Log;
 
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.tools.threads.BRExecutor;
@@ -36,7 +35,6 @@ import io.digibyte.tools.threads.BRExecutor;
  */
 public class BRDialog {
     private static final String TAG = BRDialog.class.getName();
-    private static BRDialogView dialog;
 
     /**
      * Safe from any threads
@@ -46,13 +44,8 @@ public class BRDialog {
     public static void showCustomDialog(@NonNull final Context app, @NonNull final String title, @NonNull final String message,
                                         @NonNull final String posButton, final String negButton, final BRDialogView.BROnClickListener posListener,
                                         final BRDialogView.BROnClickListener negListener, final DialogInterface.OnDismissListener dismissListener, final int iconRes) {
-        if (((Activity) app).isDestroyed()) {
-            Log.e(TAG, "showCustomDialog: FAILED, context is destroyed");
-            return;
-        }
-
         BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-            dialog = new BRDialogView();
+            BRDialogView dialog = new BRDialogView();
             dialog.setTitle(title);
             dialog.setMessage(message);
             dialog.setPosButton(posButton);
@@ -69,13 +62,8 @@ public class BRDialog {
     public static void showCustomDialog(@NonNull final Context app, @NonNull final String title, @NonNull final SpannableString message,
                                         @NonNull final String posButton, final String negButton, final BRDialogView.BROnClickListener posListener,
                                         final BRDialogView.BROnClickListener negListener, final DialogInterface.OnDismissListener dismissListener, final int iconRes) {
-        if (((Activity) app).isDestroyed()) {
-            Log.e(TAG, "showCustomDialog: FAILED, context is destroyed");
-            return;
-        }
-
         BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-            dialog = new BRDialogView();
+            BRDialogView dialog = new BRDialogView();
             dialog.setTitle(title);
             dialog.setSpan(message);//setting Span instead of String
             dialog.setPosButton(posButton);
@@ -85,9 +73,5 @@ public class BRDialog {
             dialog.setDismissListener(dismissListener);
             dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
         });
-    }
-
-    public static void hideDialog() {
-        if (dialog != null) dialog.dismiss();
     }
 }

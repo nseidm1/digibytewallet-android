@@ -1,35 +1,29 @@
 package io.digibyte.presenter.activities.intro;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityWriteDownBinding;
 import io.digibyte.presenter.activities.callbacks.ActivityWriteDownCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
 public class WriteDownActivity extends BRActivity {
-    private static final String TAG = WriteDownActivity.class.getName();
+
+    public static void open(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, WriteDownActivity.class);
+        activity.startActivity(intent);
+    }
 
     private ActivityWriteDownCallback callback = () -> AuthManager.getInstance().authPrompt(
             WriteDownActivity.this, null,
-            getString(R.string.VerifyPin_continueBody), new BRAuthCompletion() {
-                @Override
-                public void onComplete() {
-                    PostAuth.getInstance().onPhraseCheckAuth(WriteDownActivity.this,
-                            false);
-                }
-
-                @Override
-                public void onCancel() {
-
-                }
-            });
+            getString(R.string.VerifyPin_continueBody), new AuthType(AuthType.Type.POST_AUTH));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +39,37 @@ public class WriteDownActivity extends BRActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.home:
+            case android.R.id.home:
                 BRAnimator.startBreadActivity(WriteDownActivity.this, false);
                 return true;
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        BRAnimator.startBreadActivity(WriteDownActivity.this, false);
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        switch(authType.type) {
+            case LOGIN:
+                break;
+            case DIGI_ID:
+                break;
+            case POST_AUTH:
+                PostAuth.instance.onPhraseCheckAuth(WriteDownActivity.this,false);
+                break;
+            default:
+                super.onComplete(authType);
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType authType) {
+
     }
 }

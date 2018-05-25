@@ -7,7 +7,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.google.firebase.crash.FirebaseCrash;
+import com.crashlytics.android.Crashlytics;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -15,7 +15,6 @@ import java.util.Locale;
 import io.digibyte.R;
 import io.digibyte.presenter.entities.PaymentItem;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRReportsManager;
@@ -122,7 +121,7 @@ public class BRSender {
                 return;
             } catch (FeeOutOfDate ex) {
                 //Fee is out of date, show not connected error
-                FirebaseCrash.report(ex);
+                Crashlytics.logException(ex);
                 BRExecutor.getInstance().forMainThreadTasks().execute(
                         () -> BRDialog.showCustomDialog(app,
                                 app.getString(R.string.Alerts_sendFailure),
@@ -132,7 +131,7 @@ public class BRSender {
                 return;
             } catch (SomethingWentWrong somethingWentWrong) {
                 somethingWentWrong.printStackTrace();
-                FirebaseCrash.report(somethingWentWrong);
+                Crashlytics.logException(somethingWentWrong);
                 BRExecutor.getInstance().forMainThreadTasks().execute(
                         () -> BRDialog.showCustomDialog(app,
                                 app.getString(R.string.Alerts_sendFailure),
@@ -208,22 +207,18 @@ public class BRSender {
             throw new FeeNeedsAdjust(amount, balance, feeForTx);
         }
         // payment successful
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                byte[] tmpTx = m.tryTransaction(paymentRequest.addresses[0], paymentRequest.amount);
-                if (tmpTx == null) {
-                    //something went wrong, failed to create tx
-                    ((Activity) app).runOnUiThread(() -> BRDialog.showCustomDialog(app, "",
-                            app.getString(R.string.Alerts_sendFailure),
-                            app.getString(R.string.AccessibilityLabels_close), null,
-                            brDialogView -> brDialogView.dismiss(), null, null, 0));
-                    return;
-                }
-                paymentRequest.serializedTx = tmpTx;
-                PostAuth.getInstance().setPaymentItem(paymentRequest);
-                confirmPay(app, paymentRequest);
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            byte[] tmpTx = m.tryTransaction(paymentRequest.addresses[0], paymentRequest.amount);
+            if (tmpTx == null) {
+                //something went wrong, failed to create tx
+                ((Activity) app).runOnUiThread(() -> BRDialog.showCustomDialog(app, "",
+                        app.getString(R.string.Alerts_sendFailure),
+                        app.getString(R.string.AccessibilityLabels_close), null,
+                        brDialogView -> brDialogView.dismiss(), null, null, 0));
+                return;
             }
+            paymentRequest.serializedTx = tmpTx;
+            confirmPay(app, paymentRequest);
         });
 
     }
@@ -251,11 +246,6 @@ public class BRSender {
     }
 
     public void confirmPay(final AppCompatActivity ctx, final PaymentItem request) {
-        if (ctx == null) {
-            Log.e(TAG, "confirmPay: context is null");
-            return;
-        }
-
         String message = createConfirmation(ctx, request);
 
         double minOutput;
@@ -273,15 +263,10 @@ public class BRSender {
                             new BigDecimal("100")));
 
 
-            ((Activity) ctx).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
-                            bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close),
-                            null,
-                            brDialogView -> brDialogView.dismiss(), null, null, 0);
-                }
-            });
+            ctx.runOnUiThread(() -> BRDialog.showCustomDialog(ctx, ctx.getString(R.string.Alerts_sendFailure),
+                    bitcoinMinMessage, ctx.getString(R.string.AccessibilityLabels_close),
+                    null,
+                    brDialogView -> brDialogView.dismiss(), null, null, 0));
             return;
         }
         String selectedIso = BRSharedPrefs.getPreferredBTC(ctx) ? "DGB" : BRSharedPrefs.getIso(ctx);
@@ -290,25 +275,8 @@ public class BRSender {
 
         boolean fingerprintEnabled = (
                 AuthManager.isFingerPrintAvailableAndSetup(ctx) && limit == 0) || (AuthManager.isFingerPrintAvailableAndSetup(ctx) && requestAmount < limit);
-
         //successfully created the transaction, authenticate user
-        AuthManager.getInstance().authPrompt(ctx, "", message, fingerprintEnabled, new BRAuthCompletion() {
-            @Override
-            public void onComplete() {
-                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-                    PostAuth.getInstance().onPublishTxAuth(ctx, false);
-                    BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
-                        BRAnimator.killAllFragments(ctx);
-                        BRAnimator.startBreadIfNotStarted(ctx);
-                    });
-                });
-            }
-
-            @Override
-            public void onCancel() {
-                //nothing
-            }
-        });
+        AuthManager.getInstance().authPrompt(ctx, "", message, fingerprintEnabled, new BRAuthCompletion.AuthType(request));
     }
 
     public String createConfirmation(Context ctx, PaymentItem request) {
@@ -351,14 +319,14 @@ public class BRSender {
                 BRExchange.getAmountFromSatoshis(ctx, iso, new BigDecimal(total)));
 
         //formatted text
-        return receiver + "\n\n"
-                + ctx.getString(R.string.Confirmation_amountLabel) + " " + formattedAmountBTC + " ("
+        return  ctx.getString(R.string.Confirmation_amountLabel) + " " + formattedAmountBTC + " ("
                 + formattedAmount + ")"
                 + "\n" + ctx.getString(R.string.Confirmation_feeLabel) + " " + formattedFeeBTC
                 + " (" + formattedFee + ")"
                 + "\n" + ctx.getString(R.string.Confirmation_totalLabel) + " " + formattedTotalBTC
-                + " (" + formattedTotal + ")"
-                + (request.comment == null ? "" : "\n\n" + request.comment);
+                + " (" + formattedTotal + ")\n"
+                + receiver + "\n"
+                + (request.comment == null ? "" : "\n" + request.comment);
     }
 
     public String getReceiver(PaymentItem item) {
@@ -369,7 +337,7 @@ public class BRSender {
         }
         StringBuilder allAddresses = new StringBuilder();
         for (String s : item.addresses) {
-            allAddresses.append(s + ", ");
+            allAddresses.append(s + " ");
         }
         receiver = allAddresses.toString();
         allAddresses.delete(allAddresses.length() - 2, allAddresses.length());

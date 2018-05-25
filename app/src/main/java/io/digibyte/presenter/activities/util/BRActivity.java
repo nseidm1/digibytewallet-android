@@ -21,6 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.digibyte.R;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
+import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
@@ -52,7 +53,8 @@ import io.digibyte.tools.util.BRConstants;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-public abstract class BRActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public abstract class BRActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,
+        BRAuthCompletion {
     private final String TAG = this.getClass().getName();
     private CopyOnWriteArrayList<OnBackPressListener> backClickListeners = new CopyOnWriteArrayList<>();
 
@@ -94,56 +96,16 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         switch (requestCode) {
-            case BRConstants.PAY_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                            () -> PostAuth.getInstance().onPublishTxAuth(BRActivity.this, true));
-                }
-                break;
-            case BRConstants.PAYMENT_PROTOCOL_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPaymentProtocolRequest(this, true);
-                }
-                break;
-
-            case BRConstants.CANARY_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onCanaryCheck(this, true);
-                } else {
-                    finish();
-                }
-                break;
-
-            case BRConstants.SHOW_PHRASE_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPhraseCheckAuth(this, true);
-                }
-                break;
-            case BRConstants.PROVE_PHRASE_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onPhraseProveAuth(this, true);
-                }
-                break;
-            case BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    PostAuth.getInstance().onRecoverWalletAuth(this, true);
-                } else {
-                    finish();
-                }
-                break;
             case BRConstants.SCANNER_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            String result = data.getStringExtra("result");
-                            if (BitcoinUrlHandler.isBitcoinUrl(result)) {
-                                BRAnimator.showSendFragment(BRActivity.this, result);
-                            } else if (BRBitId.isBitId(result)) {
-                                BRBitId.signAndRespond(BRActivity.this, result, false);
-                            } else {
-                                Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
-                            }
+                    new Handler().postDelayed(() -> {
+                        String result = data.getStringExtra("SCAN_RESULT");
+                        if (BitcoinUrlHandler.isBitcoinUrl(result)) {
+                            BRAnimator.showOrUpdateSendFragment(BRActivity.this, result);
+                        } else if (BRBitId.isBitId(result)) {
+                            BRBitId.digiIDAuthPrompt(BRActivity.this, result, false);
+                        } else {
+                            Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                         }
                     }, 500);
                 }
@@ -159,7 +121,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
             case BRConstants.CAMERA_REQUEST_ID: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openScanner(this);
                 }
                 break;
             }
@@ -201,5 +163,27 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
             overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onComplete(AuthType authType) {
+        //These two switch cases are in the base activity because they can both be invoked
+        //from the Login screen and from the main transaction list screen
+        switch(authType.type) {
+            case SEND:
+                BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+                    PostAuth.instance.onPublishTxAuth(BRActivity.this, authType.paymentItem);
+                });
+                break;
+            case DIGI_ID:
+                BRBitId.digiIDSignAndRespond(BRActivity.this, authType.bitId, authType.deepLink,
+                        authType.callbackUrl);
+                break;
+        }
+    }
+
+    @Override
+    public void onCancel(AuthType type) {
+
     }
 }

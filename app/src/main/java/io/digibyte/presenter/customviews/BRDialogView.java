@@ -15,8 +15,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import io.digibyte.R;
-import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.util.Utils;
 
@@ -79,7 +80,6 @@ public class BRDialogView extends DialogFragment {
         }
         positiveButton.setText(posButton);
         positiveButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
             if (posListener != null)
                 posListener.onClick(BRDialogView.this);
         });
@@ -90,7 +90,6 @@ public class BRDialogView extends DialogFragment {
         }
         negativeButton.setText(negButton);
         negativeButton.setOnClickListener(v -> {
-            if (!BRAnimator.isClickAllowed()) return;
             if (negListener != null)
                 negListener.onClick(BRDialogView.this);
         });
@@ -98,6 +97,19 @@ public class BRDialogView extends DialogFragment {
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         return dialog;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //Because the callback is passed un-optimally, it's not view recreation safe especially
+        //after activity recreation restoring from an activity saved state. Dismiss the dialog and
+        //the user can just reinvoke it again by initiating the desired action
+        try {
+            dismissAllowingStateLoss();
+        } catch(IllegalArgumentException e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override
@@ -148,7 +160,10 @@ public class BRDialogView extends DialogFragment {
     }
 
     public void dismissWithAnimation() {
-        BRDialogView.this.dismiss();
-
+        try {
+            dismissAllowingStateLoss();
+        } catch(IllegalArgumentException e) {
+            Crashlytics.logException(e);
+        }
     }
 }
