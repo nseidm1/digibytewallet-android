@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentMenuBinding;
-import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.entities.BRMenuItem;
 import io.digibyte.presenter.fragments.interfaces.MenuDialogCallback;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
@@ -148,7 +147,7 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
                                     FragmentReceive.show(activity, true);
                                     break;
                                 case SCAN:
-                                    ScanQRActivity.openScanner(activity);
+                                    BRAnimator.openScanner(getActivity());
                                     break;
                             }
                         }

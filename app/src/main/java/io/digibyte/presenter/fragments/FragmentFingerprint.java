@@ -19,10 +19,12 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +48,7 @@ import io.digibyte.tools.security.FingerprintUiHelper;
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
  * authentication if fingerprint is not available.
  */
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class FragmentFingerprint extends Fragment implements FingerprintUiHelper.Callback,
         OnBackPressListener {
     public static final String TAG = FragmentFingerprint.class.getName();
@@ -55,6 +58,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     private FingerprintUiHelper mFingerprintUiHelper;
     private FingerprintFragmentViewModel viewModel;
     private BRAuthCompletion completion;
+    private boolean authComplete = false;
 
     private final FingerprintManager mFingerprintManager =
             (FingerprintManager) DigiByte.getContext().getSystemService(
@@ -161,8 +165,12 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     }
 
     private void fadeOutRemove(boolean authenticated, boolean goToBackup) {
+        if (authComplete) {
+            return;
+        }
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
                 () -> {
+                    authComplete = true;
                     remove();
                     Handler handler = new Handler(Looper.getMainLooper());
                     if (authenticated) {

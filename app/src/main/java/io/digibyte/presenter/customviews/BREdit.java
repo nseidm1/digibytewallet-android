@@ -57,11 +57,6 @@ public class BREdit extends EditText {
         init(context, attrs);
     }
 
-    public BREdit(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context ctx, AttributeSet attrs) {
         TypedArray a = ctx.obtainStyledAttributes(attrs, R.styleable.BREdit);
         String customFont = a.getString(R.styleable.BREdit_customEFont);

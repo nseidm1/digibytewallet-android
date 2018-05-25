@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -21,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 
+import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.tools.manager.FontManager;
 import io.digibyte.tools.util.Utils;
@@ -79,16 +81,6 @@ public class BRButton extends Button {
         init(context, attrs);
     }
 
-    public BRButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    public BRButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context ctx, AttributeSet attrs) {
         shadow = BitmapFactory.decodeResource(getResources(), R.drawable.shadow);
         bPaint = new Paint();
@@ -121,7 +113,8 @@ public class BRButton extends Button {
         bPaintStroke.setAntiAlias(true);
 
         if (isBreadButton) {
-            setBackground(getContext().getDrawable(R.drawable.shadow_trans));
+            setBackground(
+                    ContextCompat.getDrawable(DigiByte.getContext(), R.drawable.shadow_trans));
         }
 
         setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
@@ -222,21 +215,21 @@ public class BRButton extends Button {
         this.type = type;
 
         if (type == 1) { //blue
-            bPaint.setColor(getContext().getColor(R.color.button_primary_normal));
-            setTextColor(getContext().getColor(R.color.white));
+            bPaint.setColor(ContextCompat.getColor(getContext(), R.color.button_primary_normal));
+            setTextColor(ContextCompat.getColor(getContext(),R.color.white));
         } else if (type == 2) { //gray stroke
-            bPaintStroke.setColor(getContext().getColor(R.color.extra_light_gray));
+            bPaintStroke.setColor(ContextCompat.getColor(getContext(),R.color.extra_light_gray));
             bPaintStroke.setStyle(Paint.Style.STROKE);
             bPaintStroke.setStrokeWidth(Utils.getPixelsFromDps(getContext(), 1));
-            setTextColor(getContext().getColor(R.color.light_gray));
-            bPaint.setColor(getContext().getColor(R.color.button_secondary));
+            setTextColor(ContextCompat.getColor(getContext(),R.color.light_gray));
+            bPaint.setColor(ContextCompat.getColor(getContext(),R.color.button_secondary));
             bPaint.setStyle(Paint.Style.FILL);
         } else if (type == 3) { //blue strokeww
-            bPaintStroke.setColor(getContext().getColor(R.color.button_primary_normal));
+            bPaintStroke.setColor(ContextCompat.getColor(getContext(),R.color.button_primary_normal));
             bPaintStroke.setStyle(Paint.Style.STROKE);
             bPaintStroke.setStrokeWidth(Utils.getPixelsFromDps(getContext(), 1));
-            setTextColor(getContext().getColor(R.color.button_primary_normal));
-            bPaint.setColor(getContext().getColor(R.color.button_secondary));
+            setTextColor(ContextCompat.getColor(getContext(),R.color.button_primary_normal));
+            bPaint.setColor(ContextCompat.getColor(getContext(),R.color.button_secondary));
             bPaint.setStyle(Paint.Style.FILL);
         }
         invalidate();

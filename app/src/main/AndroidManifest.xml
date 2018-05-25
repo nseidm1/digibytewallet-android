@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.digibyte">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="io.digibyte">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -42,7 +44,8 @@
         android:launchMode="singleTask"
         android:process=":DigiProcess"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
 
         <activity
             android:name=".presenter.activities.intro.LauncherActivity"
@@ -158,10 +161,6 @@
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
-            android:name=".presenter.activities.camera.ScanQRActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".presenter.activities.DisabledActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -178,10 +177,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".presenter.activities.camera.CameraActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".presenter.activities.settings.TestActivity"
             android:screenOrientation="portrait">
         </activity>
@@ -190,9 +185,6 @@
 
         <service android:name=".presenter.activities.RestartService"
                  android:process=":RestartProcess"/>
-
-        <service android:name=".tools.manager.SyncService"
-                 android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

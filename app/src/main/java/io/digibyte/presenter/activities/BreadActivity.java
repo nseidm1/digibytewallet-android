@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,7 +27,6 @@ import butterknife.Unbinder;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
-import io.digibyte.presenter.activities.camera.ScanQRActivity;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
 import io.digibyte.presenter.activities.settings.SettingsActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
@@ -34,20 +34,17 @@ import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
 import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
-import io.digibyte.tools.list.ListItemViewHolder;
-import io.digibyte.tools.list.items.ListItemSyncingData;
-import io.digibyte.tools.list.items.ListItemSyncingViewHolder;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.manager.SyncManager;
-import io.digibyte.tools.manager.SyncService;
 import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.manager.TxManager.onStatusListener;
 import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
+import io.digibyte.tools.util.Utils;
 import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
@@ -83,8 +80,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TransactionDataSource.OnTxAddedListener, SyncManager.onStatusListener, onStatusListener {
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
-    private ListItemSyncingData listItemSyncingData = new ListItemSyncingData();
-    private ListItemViewHolder syncViewHolder;
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private RecyclerView allRecycler;
@@ -101,7 +96,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings.setPagerAdapter(new TxAdapter());
         bindings.txPager.setOffscreenPageLimit(2);
         bindings.tabLayout.setupWithViewPager(bindings.txPager);
-        bindings.syncContainer.addView(getSyncView());
         bindings.contentContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
         ViewUtils.increaceClickableArea(bindings.qrButton);
@@ -136,34 +130,43 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
-    private View getSyncView() {
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(listItemSyncingData.resourceId, bindings.syncContainer,
-                false);
-        view.setVisibility(View.GONE);
-        syncViewHolder = new ListItemSyncingViewHolder(view);
-        return view;
-    }
-
     @Override
     public void onSyncManagerStarted() {
-        bindings.syncContainer.getChildAt(0).setVisibility(View.VISIBLE);
-        syncViewHolder.process(listItemSyncingData);
+        bindings.syncContainer.setVisibility(View.VISIBLE);
+        bindings.toolbarLayout.setVisibility(View.GONE);
+        bindings.animationView.playAnimation();
+        updateSyncText();
     }
 
     @Override
     public void onSyncManagerUpdate() {
-        syncViewHolder.process(listItemSyncingData);
+        updateSyncText();
     }
 
     @Override
     public void onSyncManagerFinished() {
-        bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
+        bindings.syncContainer.setVisibility(View.GONE);
+        bindings.toolbarLayout.setVisibility(View.VISIBLE);
+        bindings.animationView.playAnimation();
+        bindings.animationView.cancelAnimation();
     }
 
     @Override
     public void onSyncFailed() {
-        bindings.syncContainer.getChildAt(0).setVisibility(View.GONE);
+        bindings.syncContainer.setVisibility(View.GONE);
+        bindings.toolbarLayout.setVisibility(View.VISIBLE);
+        bindings.animationView.playAnimation();
+        bindings.animationView.cancelAnimation();
+    }
+
+    private void updateSyncText() {
+        bindings.syncText.setText(SyncManager.getInstance().getLastBlockTimestamp() == 0
+                ? DigiByte.getContext().getString(R.string.NodeSelector_statusLabel) + ": "
+                + DigiByte.getContext().getString(R.string.SyncingView_connecting)
+                : Integer.toString((int) (SyncManager.getInstance().getProgress() * 100)) + "%"
+                        + " - " + Utils.formatTimeStamp(
+                        SyncManager.getInstance().getLastBlockTimestamp() * 1000,
+                        "MMM. dd, yyyy 'at' hh:mm a"));
     }
 
     @Override
@@ -279,14 +282,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @OnClick(R.id.main_action)
     void onMenuButtonClick(View view) {
-        if (BRAnimator.isClickAllowed()) {
-            BRAnimator.showMenuFragment(BreadActivity.this);
-        }
+        BRAnimator.showMenuFragment(BreadActivity.this);
     }
 
     @OnClick(R.id.digiid_button)
     void onDigiIDButtonClick(View view) {
-        ScanQRActivity.openScanner(this);
+        BRAnimator.openScanner(this);
     }
 
     @OnClick(R.id.primary_price)
@@ -325,7 +326,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @OnClick(R.id.qr_button)
     void onQRClick(View view) {
-        ScanQRActivity.openScanner(this);
+        BRAnimator.openScanner(this);
     }
 
     @Override
@@ -338,7 +339,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TxManager.getInstance().addListener(this);
         SyncManager.getInstance().addListener(this);
         BRWalletManager.getInstance().refreshBalance(this);
-        SyncService.scheduleBackgroundSync(this);
+        DigiByte.SyncBlockchainJob.scheduleJob();
         TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
         BRApiManager.getInstance().asyncUpdateFeeData(this);

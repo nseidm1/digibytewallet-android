@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
+            android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/menu_bg"
             android:gravity="center_horizontal"
             android:orientation="vertical"

@@ -98,17 +98,14 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         switch (requestCode) {
             case BRConstants.SCANNER_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            String result = data.getStringExtra("result");
-                            if (BitcoinUrlHandler.isBitcoinUrl(result)) {
-                                BRAnimator.showOrUpdateSendFragment(BRActivity.this, result);
-                            } else if (BRBitId.isBitId(result)) {
-                                BRBitId.digiIDAuthPrompt(BRActivity.this, result, false);
-                            } else {
-                                Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
-                            }
+                    new Handler().postDelayed(() -> {
+                        String result = data.getStringExtra("SCAN_RESULT");
+                        if (BitcoinUrlHandler.isBitcoinUrl(result)) {
+                            BRAnimator.showOrUpdateSendFragment(BRActivity.this, result);
+                        } else if (BRBitId.isBitId(result)) {
+                            BRBitId.digiIDAuthPrompt(BRActivity.this, result, false);
+                        } else {
+                            Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                         }
                     }, 500);
                 }
@@ -124,7 +121,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
             case BRConstants.CAMERA_REQUEST_ID: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    BRAnimator.openScanner(this, BRConstants.SCANNER_REQUEST);
+                    BRAnimator.openScanner(this);
                 }
                 break;
             }

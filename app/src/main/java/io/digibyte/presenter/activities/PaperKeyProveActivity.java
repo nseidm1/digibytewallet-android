@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -52,12 +53,12 @@ public class PaperKeyProveActivity extends BRActivity implements TextView.OnEdit
                         });
             } else {
                 if (!isWordCorrect(true)) {
-                    binding.wordEdittextFirst.setTextColor(getColor(R.color.red_text));
+                    binding.wordEdittextFirst.setTextColor(ContextCompat.getColor(PaperKeyProveActivity.this,  R.color.red_text));
                     SpringAnimator.failShakeAnimation(PaperKeyProveActivity.this,
                             binding.wordEdittextFirst);
                 }
                 if (!isWordCorrect(false)) {
-                    binding.wordEdittextSecond.setTextColor(getColor(R.color.red_text));
+                    binding.wordEdittextSecond.setTextColor(ContextCompat.getColor(PaperKeyProveActivity.this,R.color.red_text));
                     SpringAnimator.failShakeAnimation(PaperKeyProveActivity.this,
                             binding.wordEdittextSecond);
                 }
@@ -151,9 +152,9 @@ public class PaperKeyProveActivity extends BRActivity implements TextView.OnEdit
     private void validateWord(EditText view) {
         String word = view.getText().toString();
         boolean valid = SmartValidator.isWordValid(PaperKeyProveActivity.this, word);
-        view.setTextColor(getColor(valid ? R.color.light_gray : R.color.red_text));
+        view.setTextColor(ContextCompat.getColor(PaperKeyProveActivity.this,valid ? R.color.light_gray : R.color.red_text));
         if (isWordCorrect(true)) {
-            view.setTextColor(getColor(R.color.green_text));
+            view.setTextColor(ContextCompat.getColor(PaperKeyProveActivity.this,R.color.green_text));
         }
     }
 

@@ -1,9 +1,6 @@
 package io.digibyte.tools.manager;
 
-import android.util.Log;
-
-import com.google.firebase.crash.FirebaseCrash;
-
+import com.crashlytics.android.Crashlytics;
 
 /**
  * BreadWallet
@@ -34,23 +31,10 @@ public class BRReportsManager {
     private static final String TAG = BRReportsManager.class.getName();
 
     public static void reportBug(RuntimeException er, boolean crash) {
-        Log.e(TAG, "reportBug: ", er);
-        try {
-            FirebaseCrash.report(er); //todo fix this crashing Firebase...
-        } catch (Exception e) {
-            Log.e(TAG, "reportBug: failed to report to FireBase: ", e);
-        }
-        if (crash) throw er;
+        Crashlytics.logException(er);
     }
 
     public static void reportBug(Exception er) {
-        //Log.e(TAG, "reportBug: ", er);
-        try {
-            er.printStackTrace();;
-            FirebaseCrash.report(er);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Log.e(TAG, "reportBug: failed to report to FireBase: ", e);
-        }
+        Crashlytics.logException(er);
     }
 }

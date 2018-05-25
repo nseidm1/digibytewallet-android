@@ -3,10 +3,19 @@ package io.digibyte;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
+import com.evernote.android.job.Job;
+import com.evernote.android.job.JobCreator;
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
 import com.facebook.soloader.SoLoader;
+
+import java.util.concurrent.TimeUnit;
 
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.presenter.activities.LoginActivity;
@@ -14,6 +23,7 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
 import io.digibyte.tools.util.BRConstants;
+import io.digibyte.wallet.BRWalletManager;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -42,11 +52,11 @@ import io.fabric.sdk.android.Fabric;
  * THE SOFTWARE.
  */
 
-public class DigiByte extends Application implements Application.ActivityLifecycleCallbacks {
-    private static final String TAG = DigiByte.class.getName();
-
+public class DigiByte extends MultiDexApplication implements
+        Application.ActivityLifecycleCallbacks {
     public static final String HOST = "digibyte.io";
     public static final String FEE_URL = "https://go.digibyte.co/bws/api/v2/feelevels";
+    private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
 
     private static DigiByte application;
 
@@ -81,6 +91,7 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
         application = this;
         activeActivity = null;
         registerActivityLifecycleCallbacks(this);
+        JobManager.create(this).addJobCreator(new SyncBlockchainJobCreator());
     }
 
 
@@ -98,12 +109,12 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
     /**
      * This called is used to ensure that no matter what activity is being started or resumed
      * the application will go back to the login screen if the timeout period has been exceeded
-     * @param anActivity
      */
     @Override
     public void onActivityResumed(Activity anActivity) {
         activeActivity = anActivity;
-        if (!(activeActivity instanceof DisabledActivity) && !(activeActivity instanceof LoginActivity)) {
+        if (!(activeActivity instanceof DisabledActivity)
+                && !(activeActivity instanceof LoginActivity)) {
             // lock wallet if 3 minutes passed
             long suspendedTime = BRSharedPrefs.getSuspendTime(anActivity);
             if (suspendedTime != 0 && (System.currentTimeMillis() - suspendedTime >= 180 * 1000)) {
@@ -131,5 +142,41 @@ public class DigiByte extends Application implements Application.ActivityLifecyc
 
     @Override
     public void onActivitySaveInstanceState(Activity anActivity, Bundle aBundle) {
+    }
+
+    public class SyncBlockchainJobCreator implements JobCreator {
+
+        @Override
+        @Nullable
+        public Job create(@NonNull String tag) {
+            switch (tag) {
+                case SyncBlockchainJob.TAG:
+                    return new SyncBlockchainJob();
+                default:
+                    return null;
+            }
+        }
+    }
+
+    public static class SyncBlockchainJob extends Job {
+
+        public static final String TAG = "sync_blockchain_job";
+
+        @Override
+        @NonNull
+        protected Result onRunJob(Params params) {
+            BRWalletManager.getInstance().smartInit(null,
+                    BRWalletManager.SmartInitType.SyncService);
+            return Result.SUCCESS;
+        }
+
+        public static void scheduleJob() {
+            JobManager.instance().cancelAll();
+            new JobRequest.Builder(SyncBlockchainJob.TAG)
+                    .setPeriodic(SYNC_PERIOD).setRequiredNetworkType(
+                    JobRequest.NetworkType.UNMETERED).setRequiresCharging(true)
+                    .build()
+                    .schedule();
+        }
     }
 }

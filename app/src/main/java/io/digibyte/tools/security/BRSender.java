@@ -7,7 +7,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.google.firebase.crash.FirebaseCrash;
+import com.crashlytics.android.Crashlytics;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -121,7 +121,7 @@ public class BRSender {
                 return;
             } catch (FeeOutOfDate ex) {
                 //Fee is out of date, show not connected error
-                FirebaseCrash.report(ex);
+                Crashlytics.logException(ex);
                 BRExecutor.getInstance().forMainThreadTasks().execute(
                         () -> BRDialog.showCustomDialog(app,
                                 app.getString(R.string.Alerts_sendFailure),
@@ -131,7 +131,7 @@ public class BRSender {
                 return;
             } catch (SomethingWentWrong somethingWentWrong) {
                 somethingWentWrong.printStackTrace();
-                FirebaseCrash.report(somethingWentWrong);
+                Crashlytics.logException(somethingWentWrong);
                 BRExecutor.getInstance().forMainThreadTasks().execute(
                         () -> BRDialog.showCustomDialog(app,
                                 app.getString(R.string.Alerts_sendFailure),
