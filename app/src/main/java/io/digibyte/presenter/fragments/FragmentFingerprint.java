@@ -58,6 +58,7 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     private FingerprintUiHelper mFingerprintUiHelper;
     private FingerprintFragmentViewModel viewModel;
     private BRAuthCompletion completion;
+    private boolean authComplete = false;
 
     private final FingerprintManager mFingerprintManager =
             (FingerprintManager) DigiByte.getContext().getSystemService(
@@ -164,8 +165,12 @@ public class FragmentFingerprint extends Fragment implements FingerprintUiHelper
     }
 
     private void fadeOutRemove(boolean authenticated, boolean goToBackup) {
+        if (authComplete) {
+            return;
+        }
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(binding.background, true,
                 () -> {
+                    authComplete = true;
                     remove();
                     Handler handler = new Handler(Looper.getMainLooper());
                     if (authenticated) {
