@@ -1,6 +1,7 @@
 <layout>
     <io.digibyte.presenter.customviews.BRLinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,11 +19,11 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:elevation="8dp"
-                android:src="@drawable/ic_fingerprint_large"/>
+                app:srcCompat="@drawable/ic_fingerprint_large"/>
 
         </LinearLayout>
 
@@ -42,21 +43,25 @@
                     android:id="@+id/enable_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/Text.Description.Paddless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/Text"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_height="match_parent"
                         android:text="@string/TouchIdSettings.switchLabel.android"/>
 
                     <ToggleButton
                         android:id="@+id/toggleButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bread_toggle"
-                        android:textColor="@color/white"/>
+                        android:layout_width="75dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="@color/logo_gradient_end"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
 
