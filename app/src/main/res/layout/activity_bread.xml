@@ -97,7 +97,7 @@
                                   android:id="@+id/sync_text"
                                   android:gravity="center_horizontal"
                                   android:layout_height="wrap_content"
-                                  android:textColor="@color/white" android:textSize="18sp"/>
+                                  android:textColor="@color/white" android:textSize="16sp"/>
 
                     </LinearLayout>
 
