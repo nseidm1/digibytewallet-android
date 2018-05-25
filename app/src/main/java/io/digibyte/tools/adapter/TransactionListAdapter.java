@@ -52,7 +52,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public static final String TAG = TransactionListAdapter.class.getName();
 
     private ArrayList<ListItemTransactionData> listItemData = new ArrayList<>();
-    private ArrayList<ListItemTransactionData> searchHolder = null;
 
     private RecyclerView recyclerView;
 
@@ -104,9 +103,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public void notifyDataChanged() {
-        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+        for (int i = 0; i < listItemData.size(); i++) {
             ListItemTransactionViewHolder listItemTransactionViewHolder =
-                    (ListItemTransactionViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
+                    (ListItemTransactionViewHolder) recyclerView.findViewHolderForAdapterPosition(i);
             if (listItemTransactionViewHolder != null) {
                 listItemTransactionViewHolder.process(listItemData.get(i));
             }
@@ -147,10 +146,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public ArrayList<ListItemTransactionData> getTransactions() {
-        //If search holder isn't null then we're in search mode
-        if (searchHolder != null) {
-            return searchHolder;
-        }
         return listItemData;
     }
 
