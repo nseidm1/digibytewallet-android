@@ -74,10 +74,10 @@
 
                 <LinearLayout android:id="@+id/content_container"
                               android:layout_width="match_parent"
+                              app:layout_behavior="@string/appbar_scrolling_view_behavior"
                               android:layout_height="match_parent"
                               android:animateLayoutChanges="true"
-                              android:orientation="vertical"
-                              app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                              android:orientation="vertical">
 
                     <LinearLayout android:id="@+id/sync_container" android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
@@ -110,7 +110,6 @@
                         style="@style/MyCustomTabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         app:tabGravity="fill"
                         app:tabMode="fixed"/>
 
