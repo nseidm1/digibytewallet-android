@@ -103,9 +103,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public void notifyDataChanged() {
-        for (int i = 0; i < listItemData.size(); i++) {
-            ListItemTransactionViewHolder listItemTransactionViewHolder =
-                    (ListItemTransactionViewHolder) recyclerView.findViewHolderForAdapterPosition(i);
+        for (int childCount = recyclerView.getChildCount(), i = 0; i < childCount; ++i) {
+            final ListItemTransactionViewHolder listItemTransactionViewHolder =
+                    (ListItemTransactionViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
             if (listItemTransactionViewHolder != null) {
                 listItemTransactionViewHolder.process(listItemData.get(i));
             }
