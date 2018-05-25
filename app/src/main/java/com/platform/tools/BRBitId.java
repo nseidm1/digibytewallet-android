@@ -80,8 +80,7 @@ public class BRBitId {
 
     public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull final String bitID, boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
-        String u = bitUri.getQueryParameter("u");
-        String scheme = u != null && u.equalsIgnoreCase("1") ? "http://" : "https://";
+        String scheme = "https://";
         AuthManager.getInstance().authPrompt(app, null,
                 app.getString(R.string.VerifyPin_continueBody) + "\n\n" + (scheme
                         + bitUri.getHost()).toLowerCase(),
