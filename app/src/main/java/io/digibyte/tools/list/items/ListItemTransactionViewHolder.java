@@ -29,6 +29,9 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
 
     @Override
     public void process(ListItemData aListItemData) {
+        if (aListItemData == null) {
+            return;
+        }
         super.process(aListItemData);
         binding.setData((ListItemTransactionData) aListItemData);
     }
