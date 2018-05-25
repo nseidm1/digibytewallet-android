@@ -63,7 +63,7 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
 
     private BRAuthCompletion completion;
     private FragmentBreadPinBinding binding;
-    private final StringBuilder pin = new StringBuilder();
+    private StringBuilder pin = new StringBuilder();
     private boolean authComplete = false;
 
     private PinFragmentCallback mPinFragmentCallback = new PinFragmentCallback() {
@@ -177,7 +177,8 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
                         fadeOutRemove(true);
                     } else {
                         SpringAnimator.failShakeAnimation(getActivity(), binding.pinLayout);
-                        new Handler().postDelayed(() -> updateDots(), 500);
+                        pin = new StringBuilder("");
+                        new Handler().postDelayed(() -> updateDots(), 250);
                         AuthManager.getInstance().authFail(getActivity());
                     }
                 });
