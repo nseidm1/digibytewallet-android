@@ -132,10 +132,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
-        if (bindings.syncAnimator.getDisplayedChild() == 0) {
-            bindings.syncAnimator.setDisplayedChild(1);
-            bindings.animationView.playAnimation();
-        }
+        bindings.syncContainer.setVisibility(View.VISIBLE);
+        bindings.toolbarLayout.setVisibility(View.GONE);
+        bindings.animationView.playAnimation();
         updateSyncText();
     }
 
@@ -146,18 +145,18 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerFinished() {
-        if (bindings.syncAnimator.getDisplayedChild() == 1) {
-            bindings.syncAnimator.setDisplayedChild(0);
-            bindings.animationView.cancelAnimation();
-        }
+        bindings.syncContainer.setVisibility(View.GONE);
+        bindings.toolbarLayout.setVisibility(View.VISIBLE);
+        bindings.animationView.playAnimation();
+        bindings.animationView.cancelAnimation();
     }
 
     @Override
     public void onSyncFailed() {
-        if (bindings.syncAnimator.getDisplayedChild() == 1) {
-            bindings.syncAnimator.setDisplayedChild(0);
-            bindings.animationView.cancelAnimation();
-        }
+        bindings.syncContainer.setVisibility(View.GONE);
+        bindings.toolbarLayout.setVisibility(View.VISIBLE);
+        bindings.animationView.playAnimation();
+        bindings.animationView.cancelAnimation();
     }
 
     private void updateSyncText() {
@@ -195,28 +194,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             receivedAdapter.updateTransactions(newTransactions);
             notifyDataSetChangeForAll();
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (bindings.syncAnimator.getDisplayedChild() == 1) {
-                    bindings.syncAnimator.setDisplayedChild(0);
-                    bindings.animationView.cancelAnimation();
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (SyncManager.getInstance().isSyncing()
-                        && bindings.syncAnimator.getDisplayedChild() == 0) {
-                    handler.postDelayed(() -> {
-                        bindings.syncAnimator.setDisplayedChild(1);
-                        bindings.animationView.playAnimation();
-                    }, 500);
-                }
-                break;
-        }
-        return super.dispatchTouchEvent(event);
     }
 
     private enum Adapter {

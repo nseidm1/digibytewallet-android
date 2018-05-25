@@ -104,15 +104,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public void notifyDataChanged() {
-        for (ListItemTransactionData listItemTransactionData : listItemData) {
-            int index = listItemData.indexOf(listItemTransactionData);
-            if (isPositionOnscreen(index)) {
-                ListItemTransactionViewHolder listItemTransactionViewHolder =
-                        (ListItemTransactionViewHolder) recyclerView
-                                .findViewHolderForAdapterPosition(index);
-                if (listItemTransactionViewHolder != null) {
-                    listItemTransactionViewHolder.process(listItemTransactionData);
-                }
+        for (int i = 0; i < recyclerView.getChildCount(); i++) {
+            ListItemTransactionViewHolder listItemTransactionViewHolder =
+                    (ListItemTransactionViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
+            if (listItemTransactionViewHolder != null) {
+                listItemTransactionViewHolder.process(listItemData.get(i));
             }
         }
     }
@@ -125,7 +121,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     @Nullable
     private ListItemTransactionData findTransaction(ListItemTransactionData listItemTransactionData,
-            ArrayList<ListItemTransactionData> transactions) {
+                                                    ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData checkTransaction : transactions) {
             if (checkTransaction.equals(listItemTransactionData)) {
                 return checkTransaction;
