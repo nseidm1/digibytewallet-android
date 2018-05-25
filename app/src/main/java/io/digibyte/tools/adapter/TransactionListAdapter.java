@@ -1,5 +1,6 @@
 package io.digibyte.tools.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.digibyte.DigiByte;
 import io.digibyte.databinding.ListItemTransactionBinding;
@@ -52,6 +55,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public static final String TAG = TransactionListAdapter.class.getName();
 
     private ArrayList<ListItemTransactionData> listItemData = new ArrayList<>();
+    private Set<ListItemTransactionViewHolder> boundViewHolders = new HashSet<>();
 
     private RecyclerView recyclerView;
 
@@ -103,11 +107,9 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public void notifyDataChanged() {
-        for (int childCount = recyclerView.getChildCount(), i = 0; i < childCount; ++i) {
-            final ListItemTransactionViewHolder listItemTransactionViewHolder =
-                    (ListItemTransactionViewHolder) recyclerView.getChildViewHolder(recyclerView.getChildAt(i));
+        for (ListItemTransactionViewHolder listItemTransactionViewHolder : boundViewHolders) {
             if (listItemTransactionViewHolder != null) {
-                listItemTransactionViewHolder.process(listItemData.get(i));
+                listItemTransactionViewHolder.process(listItemData.get(listItemTransactionViewHolder.getAdapterPosition()));
             }
         }
     }
@@ -160,6 +162,13 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public void onBindViewHolder(ListItemTransactionViewHolder holder, int aPosition) {
         holder.process(this.getListItemDataForPosition(aPosition));
         holder.getView().setOnClickListener(mOnClickListener);
+        boundViewHolders.add(holder);
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ListItemTransactionViewHolder holder) {
+        boundViewHolders.remove(holder);
+        super.onViewRecycled(holder);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
