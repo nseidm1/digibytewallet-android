@@ -132,8 +132,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
-        bindings.syncAnimator.setDisplayedChild(1);
-        bindings.animationView.playAnimation();
+        if (bindings.syncAnimator.getDisplayedChild() == 0) {
+            bindings.syncAnimator.setDisplayedChild(1);
+            bindings.animationView.playAnimation();
+        }
         updateSyncText();
     }
 
@@ -144,14 +146,18 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerFinished() {
-        bindings.syncAnimator.setDisplayedChild(0);
-        bindings.animationView.cancelAnimation();
+        if (bindings.syncAnimator.getDisplayedChild() == 1) {
+            bindings.syncAnimator.setDisplayedChild(0);
+            bindings.animationView.cancelAnimation();
+        }
     }
 
     @Override
     public void onSyncFailed() {
-        bindings.syncAnimator.setDisplayedChild(0);
-        bindings.animationView.cancelAnimation();
+        if (bindings.syncAnimator.getDisplayedChild() == 1) {
+            bindings.syncAnimator.setDisplayedChild(0);
+            bindings.animationView.cancelAnimation();
+        }
     }
 
     private void updateSyncText() {
