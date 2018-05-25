@@ -46,8 +46,6 @@ public class BRPeerManager {
     private static BRPeerManager instance;
 
     private static List<OnTxStatusUpdate> statusUpdateListeners;
-    private static OnSyncSucceeded onSyncFinished;
-
 
     private BRPeerManager() {
         statusUpdateListeners = new ArrayList<>();
@@ -87,7 +85,6 @@ public class BRPeerManager {
         BRSharedPrefs.putAllowSpend(app, true);
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
                 () -> BRSharedPrefs.putStartHeight(app, getCurrentBlockHeight()));
-        if (onSyncFinished != null) onSyncFinished.onFinished();
     }
 
     public static void syncFailed() {
@@ -95,7 +92,6 @@ public class BRPeerManager {
         SyncManager.getInstance().syncFailed();
         Context ctx = DigiByte.getContext();
         if (ctx == null) return;
-        if (onSyncFinished != null) onSyncFinished.onFinished();
     }
 
     public static void txStatusUpdate() {
@@ -179,10 +175,6 @@ public class BRPeerManager {
         }
         statusUpdateListeners.remove(listener);
 
-    }
-
-    public static void setOnSyncFinished(OnSyncSucceeded listener) {
-        onSyncFinished = listener;
     }
 
     public interface OnTxStatusUpdate {

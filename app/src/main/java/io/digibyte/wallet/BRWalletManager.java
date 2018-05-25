@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.security.InvalidKeyException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -181,7 +182,7 @@ public class BRWalletManager {
         try {
             success = BRKeyStore.putPhrase(strPhrase, ctx,
                     BRConstants.PUT_PHRASE_NEW_WALLET_REQUEST_CODE);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             return false;
         }
         if (!success) {
@@ -190,7 +191,7 @@ public class BRWalletManager {
         byte[] phrase;
         try {
             phrase = BRKeyStore.getPhrase(ctx, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             throw new RuntimeException(
                     "Failed to retrieve the phrase even though at this point the system auth was "
                             + "asked for sure.");
@@ -248,7 +249,7 @@ public class BRWalletManager {
                 if (phrase == null || phrase.length == 0) {
                     return true;
                 }
-            } catch (UserNotAuthenticatedException e) {
+            } catch (InvalidKeyException e) {
                 return false;
             }
 
@@ -573,7 +574,7 @@ public class BRWalletManager {
             createBRWalletManager();
             createBRPeerManager();
             BRPeerManager.getInstance().connect();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             //TODO if the wallet fails to init, wtf to do?
         }
     }

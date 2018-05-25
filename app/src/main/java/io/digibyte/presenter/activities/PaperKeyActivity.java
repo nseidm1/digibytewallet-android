@@ -1,11 +1,13 @@
 package io.digibyte.presenter.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
@@ -131,7 +133,7 @@ public class PaperKeyActivity extends BRActivity {
     }
 
     private void setButtonEnabled(boolean b) {
-        binding.buttonPrevious.setTextColor(getColor(b ? R.color.white : R.color.light_gray));
+        binding.buttonPrevious.setTextColor(ContextCompat.getColor(PaperKeyActivity.this, b ? R.color.white : R.color.light_gray));
     }
 
     private void updateItemIndexText() {

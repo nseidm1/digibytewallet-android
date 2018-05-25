@@ -2,6 +2,7 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
@@ -117,9 +118,16 @@ public class TransactionDetailsViewModel extends BaseObservable {
 
     @Bindable
     public String getFee() {
-        return String.format(DigiByte.getContext().getString(R.string.Send_fee, BRCurrency.getFormattedCurrencyString(DigiByte.getContext(), "DGB",
+        if (item.getSent() == 0) {
+            return "";
+        }
+        String approximateFee = BRCurrency.getFormattedCurrencyString(DigiByte.getContext(), "DGB",
                 BRExchange.getAmountFromSatoshis(DigiByte.getContext(), "DGB",
-                        new BigDecimal(item.getFee())))));
+                        new BigDecimal(item.getFee())));
+        if (TextUtils.isEmpty(approximateFee)) {
+            approximateFee = "";
+        }
+        return DigiByte.getContext().getString(R.string.Send_fee).replace("%1$s", approximateFee);
     }
 
     @Bindable

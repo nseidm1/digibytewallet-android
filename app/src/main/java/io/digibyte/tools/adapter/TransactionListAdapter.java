@@ -1,5 +1,6 @@
 package io.digibyte.tools.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.digibyte.DigiByte;
 import io.digibyte.databinding.ListItemTransactionBinding;
@@ -52,7 +55,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public static final String TAG = TransactionListAdapter.class.getName();
 
     private ArrayList<ListItemTransactionData> listItemData = new ArrayList<>();
-    private ArrayList<ListItemTransactionData> searchHolder = null;
+    private Set<ListItemTransactionViewHolder> boundViewHolders = new HashSet<>();
 
     private RecyclerView recyclerView;
 
@@ -104,15 +107,10 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public void notifyDataChanged() {
-        for (ListItemTransactionData listItemTransactionData : listItemData) {
-            int index = listItemData.indexOf(listItemTransactionData);
-            if (isPositionOnscreen(index)) {
-                ListItemTransactionViewHolder listItemTransactionViewHolder =
-                        (ListItemTransactionViewHolder) recyclerView
-                                .findViewHolderForAdapterPosition(index);
-                if (listItemTransactionViewHolder != null) {
-                    listItemTransactionViewHolder.process(listItemTransactionData);
-                }
+        for (ListItemTransactionViewHolder listItemTransactionViewHolder : boundViewHolders) {
+            if (listItemTransactionViewHolder != null) {
+                listItemTransactionViewHolder.
+                        process(listItemData.get(listItemTransactionViewHolder.getAdapterPosition()));
             }
         }
     }
@@ -125,7 +123,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
 
     @Nullable
     private ListItemTransactionData findTransaction(ListItemTransactionData listItemTransactionData,
-            ArrayList<ListItemTransactionData> transactions) {
+                                                    ArrayList<ListItemTransactionData> transactions) {
         for (ListItemTransactionData checkTransaction : transactions) {
             if (checkTransaction.equals(listItemTransactionData)) {
                 return checkTransaction;
@@ -151,10 +149,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     }
 
     public ArrayList<ListItemTransactionData> getTransactions() {
-        //If search holder isn't null then we're in search mode
-        if (searchHolder != null) {
-            return searchHolder;
-        }
         return listItemData;
     }
 
@@ -169,6 +163,13 @@ public class TransactionListAdapter extends RecyclerView.Adapter<ListItemTransac
     public void onBindViewHolder(ListItemTransactionViewHolder holder, int aPosition) {
         holder.process(this.getListItemDataForPosition(aPosition));
         holder.getView().setOnClickListener(mOnClickListener);
+        boundViewHolders.add(holder);
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ListItemTransactionViewHolder holder) {
+        boundViewHolders.remove(holder);
+        super.onViewRecycled(holder);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {

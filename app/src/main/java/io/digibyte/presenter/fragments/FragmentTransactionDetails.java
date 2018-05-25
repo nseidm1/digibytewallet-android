@@ -120,8 +120,14 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             if (getActivity() != null) {
-                                getActivity().getSupportFragmentManager().popBackStack();
-                                Utils.hideKeyboard(getActivity());
+                                try {
+                                    getActivity().getSupportFragmentManager().popBackStack();
+                                    Utils.hideKeyboard(getActivity());
+                                } catch (IllegalStateException e) {
+                                    //Edge cases regarding activity destruction
+                                } catch (NullPointerException e) {
+                                    //Null activity references or a null fragment manager
+                                }
                             }
                         }
                     });

@@ -1,15 +1,16 @@
 package io.digibyte.tools.security;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
-import android.security.keystore.UserNotAuthenticatedException;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -183,19 +184,23 @@ public class BRKeyStore {
             return BRSharedPrefs.getUseNewStorage(context);
         } else {
             try {
-                PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-                boolean useNewStorage = pInfo.versionCode > 2147 && BRSharedPrefs.getLastSyncTime(context) == 0;
+                PackageInfo pInfo = context.getPackageManager().getPackageInfo(
+                        context.getPackageName(), 0);
+                boolean useNewStorage = pInfo.versionCode > 2147 && BRSharedPrefs.getLastSyncTime(
+                        context) == 0;
                 BRSharedPrefs.setUseNewStorage(context, useNewStorage);
             } catch (Exception e) {
-                BRSharedPrefs.setUseNewStorage(context, BRSharedPrefs.getLastSyncTime(context) == 0);
+                BRSharedPrefs.setUseNewStorage(context,
+                        BRSharedPrefs.getLastSyncTime(context) == 0);
             }
             return BRSharedPrefs.getUseNewStorage(context);
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private synchronized static boolean _setData(Context context, byte[] data, String alias,
-                                                 String alias_file, String alias_iv,
-                                                 int request_code, boolean auth_required) throws UserNotAuthenticatedException {
+            String alias_file, String alias_iv,
+            int request_code, boolean auth_required) throws InvalidKeyException {
 
         if (useNewStorage(context)) {
             try {
@@ -212,7 +217,7 @@ public class BRKeyStore {
                 byte[] cipherText = crypto.encrypt(data, Entity.create(alias));
                 storeEncryptedData(context, cipherText, alias_iv);
                 return true;
-            } catch(Exception e) {
+            } catch (Exception e) {
                 return false;
             }
         } else {
@@ -232,7 +237,7 @@ public class BRKeyStore {
                     try {
                         inCipher.init(Cipher.ENCRYPT_MODE, secretKey);
                     } catch (InvalidKeyException ignored) {
-                        if (ignored instanceof UserNotAuthenticatedException) {
+                        if (ignored instanceof InvalidKeyException) {
                             throw ignored;
                         }
                         Log.e(TAG, "_setData: OLD KEY PRESENT: " + alias);
@@ -259,18 +264,10 @@ public class BRKeyStore {
                 //store the encrypted data
                 storeEncryptedData(context, encryptedData, alias);
                 return true;
-            } catch (UserNotAuthenticatedException e) {
+            } catch (InvalidKeyException e) {
                 Log.e(TAG, "_setData: showAuthenticationScreen: " + alias);
                 showAuthenticationScreen(context, request_code, alias);
                 throw e;
-            } catch (InvalidKeyException ex) {
-                if (ex instanceof KeyPermanentlyInvalidatedException) {
-                    showKeyInvalidated(context);
-                    throw new UserNotAuthenticatedException(); //just to make the flow stop
-                }
-
-                BRReportsManager.reportBug(ex);
-                return false;
             } catch (Exception e) {
                 BRReportsManager.reportBug(e);
                 e.printStackTrace();
@@ -279,6 +276,7 @@ public class BRKeyStore {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private static SecretKey createKeys(String alias, boolean auth_required)
             throws InvalidAlgorithmParameterException, KeyStoreException, NoSuchProviderException,
             NoSuchAlgorithmException {
@@ -298,8 +296,9 @@ public class BRKeyStore {
         return keyGenerator.generateKey();
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private synchronized static byte[] _getData(final Context context, String alias,
-                                                String alias_file, String alias_iv, int request_code) throws UserNotAuthenticatedException {
+            String alias_file, String alias_iv, int request_code) throws InvalidKeyException {
 
         if (useNewStorage(context)) {
             try {
@@ -313,8 +312,9 @@ public class BRKeyStore {
                     return null;
                 }
 
-                return crypto.decrypt(retrieveEncryptedData(context, alias_iv), Entity.create(alias));
-            } catch(Exception e) {
+                return crypto.decrypt(retrieveEncryptedData(context, alias_iv),
+                        Entity.create(alias));
+            } catch (Exception e) {
                 return null;
             }
         } else {
@@ -342,7 +342,8 @@ public class BRKeyStore {
                         }
                     } catch (IllegalBlockSizeException | BadPaddingException e) {
                         e.printStackTrace();
-                        Toast.makeText(DigiByte.getContext(), R.string.failed_data, Toast.LENGTH_LONG).show();
+                        Toast.makeText(DigiByte.getContext(), R.string.failed_data,
+                                Toast.LENGTH_LONG).show();
                         return null;
                     }
                 }
@@ -415,23 +416,15 @@ public class BRKeyStore {
                 return result;
 
             } catch (InvalidKeyException e) {
-                if (e instanceof UserNotAuthenticatedException) {
-                    /** user not authenticated, ask the system for authentication */
-                    Log.e(TAG, "_getData: showAuthenticationScreen: " + alias);
-                    showAuthenticationScreen(context, request_code, alias);
-                    throw (UserNotAuthenticatedException) e;
-                } else {
-                    Log.e(TAG, "_getData: InvalidKeyException", e);
-                    BRReportsManager.reportBug(e);
-                    if (e instanceof KeyPermanentlyInvalidatedException) {
-                        showKeyInvalidated(context);
-                    }
-                    throw new UserNotAuthenticatedException(); //just to not go any further
-                }
+                /** user not authenticated, ask the system for authentication */
+                Log.e(TAG, "_getData: showAuthenticationScreen: " + alias);
+                showAuthenticationScreen(context, request_code, alias);
+                throw (InvalidKeyException) e;
             } catch (IOException | KeyStoreException e) {
                 /** keyStore.load(null) threw the Exception, meaning the keystore is unavailable */
                 Log.e(TAG,
-                        "_getData: keyStore.load(null) threw the Exception, meaning the keystore is "
+                        "_getData: keyStore.load(null) threw the Exception, meaning the keystore "
+                                + "is "
                                 + "unavailable",
                         e);
                 BRReportsManager.reportBug(e);
@@ -472,7 +465,7 @@ public class BRKeyStore {
     }
 
     private static void validateSet(byte[] data, String alias, String alias_file, String alias_iv,
-                                    boolean auth_required) throws IllegalArgumentException {
+            boolean auth_required) throws IllegalArgumentException {
         if (data == null) throw new IllegalArgumentException("keystore insert data is null");
         AliasObject obj = aliasObjectMap.get(alias);
         if (!obj.alias.equals(alias) || !obj.datafileName.equals(alias_file)
@@ -493,7 +486,8 @@ public class BRKeyStore {
     private static void showKeyInvalidated(final Context app) {
         BRDialog.showCustomDialog(app, app.getString(R.string.Alert_keystore_title_android),
                 app.getString(R.string.Alert_keystore_invalidated_android),
-                app.getString(R.string.Button_ok), null, brDialogView -> brDialogView.dismissWithAnimation(), null, dialog -> {
+                app.getString(R.string.Button_ok), null,
+                brDialogView -> brDialogView.dismissWithAnimation(), null, dialog -> {
                     BRWalletManager.getInstance().wipeWalletButKeystore(app);
                     BRWalletManager.getInstance().wipeKeyStore(app);
                     dialog.dismiss();
@@ -506,10 +500,10 @@ public class BRKeyStore {
     }
 
     public synchronized static boolean putPhrase(byte[] strToStore, Context context,
-                                                 int requestCode) throws UserNotAuthenticatedException {
+            int requestCode) throws InvalidKeyException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
-            throw new UserNotAuthenticatedException();
+            throw new InvalidKeyException();
         }
         AliasObject obj = aliasObjectMap.get(PHRASE_ALIAS);
         return !(strToStore == null || strToStore.length == 0) && _setData(context, strToStore,
@@ -517,20 +511,20 @@ public class BRKeyStore {
     }
 
     public synchronized static byte[] getPhrase(final Context context, int requestCode)
-            throws UserNotAuthenticatedException {
+            throws InvalidKeyException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
-            throw new UserNotAuthenticatedException();
+            throw new InvalidKeyException();
         }
         AliasObject obj = aliasObjectMap.get(PHRASE_ALIAS);
         return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, requestCode);
     }
 
     public synchronized static boolean putCanary(String strToStore, Context context,
-                                                 int requestCode) throws UserNotAuthenticatedException {
+            int requestCode) throws InvalidKeyException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
-            throw new UserNotAuthenticatedException();
+            throw new InvalidKeyException();
         }
         if (strToStore == null || strToStore.isEmpty()) return false;
         AliasObject obj = aliasObjectMap.get(CANARY_ALIAS);
@@ -545,10 +539,10 @@ public class BRKeyStore {
     }
 
     public synchronized static String getCanary(final Context context, int requestCode)
-            throws UserNotAuthenticatedException {
+            throws InvalidKeyException {
         if (PostAuth.isStuckWithAuthLoop) {
             showLoopBugMessage(context);
-            throw new UserNotAuthenticatedException();
+            throw new InvalidKeyException();
         }
         AliasObject obj = aliasObjectMap.get(CANARY_ALIAS);
         byte[] data;
@@ -567,7 +561,7 @@ public class BRKeyStore {
         try {
             return masterPubKey != null && masterPubKey.length != 0 && _setData(context,
                     masterPubKey, obj.alias, obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -577,7 +571,7 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(PUB_KEY_ALIAS);
         try {
             return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return null;
@@ -588,7 +582,7 @@ public class BRKeyStore {
         try {
             return authKey != null && authKey.length != 0 && _setData(context, authKey, obj.alias,
                     obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -598,7 +592,7 @@ public class BRKeyStore {
         AliasObject obj = aliasObjectMap.get(AUTH_KEY_ALIAS);
         try {
             return _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return null;
@@ -610,7 +604,7 @@ public class BRKeyStore {
         try {
             return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
                     obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -621,7 +615,7 @@ public class BRKeyStore {
         byte[] result = null;
         try {
             result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         if (Utils.isNullOrEmpty(result)) {
@@ -645,7 +639,7 @@ public class BRKeyStore {
         try {
             return _setData(context, bytesToStore, obj.alias, obj.datafileName, obj.ivFileName, 0,
                     false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -656,7 +650,7 @@ public class BRKeyStore {
         byte[] result = null;
         try {
             result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         String pinCode = result == null ? "" : new String(result);
@@ -689,7 +683,7 @@ public class BRKeyStore {
         try {
             return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
                     obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -700,7 +694,7 @@ public class BRKeyStore {
         byte[] result = null;
         try {
             result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
 
@@ -713,7 +707,7 @@ public class BRKeyStore {
         try {
             return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
                     obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -724,7 +718,7 @@ public class BRKeyStore {
         byte[] result = null;
         try {
             result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         if (result == null) {
@@ -740,7 +734,7 @@ public class BRKeyStore {
         try {
             return bytesToStore.length != 0 && _setData(context, bytesToStore, obj.alias,
                     obj.datafileName, obj.ivFileName, 0, false);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
         return false;
@@ -751,7 +745,7 @@ public class BRKeyStore {
         byte[] result = null;
         try {
             result = _getData(context, obj.alias, obj.datafileName, obj.ivFileName, 0);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
 
@@ -822,8 +816,9 @@ public class BRKeyStore {
         return Base64.decode(base64, Base64.DEFAULT);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private synchronized static void showAuthenticationScreen(Context context, int requestCode,
-                                                             String alias) {
+            String alias) {
         // Create the Confirm Credentials screen. You can customize the title and description. Or
         // we will provide a generic one for you if you leave it null
         if (!alias.equalsIgnoreCase(PHRASE_ALIAS) && !alias.equalsIgnoreCase(CANARY_ALIAS)) {

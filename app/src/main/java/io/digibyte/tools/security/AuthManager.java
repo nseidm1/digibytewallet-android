@@ -1,10 +1,13 @@
 package io.digibyte.tools.security;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,8 +52,10 @@ public class AuthManager {
     public static final String TAG = AuthManager.class.getName();
     private static AuthManager instance;
     private String previousTry;
-    private static Drawable pinSelected = DigiByte.getContext().getDrawable(R.drawable.pin_selected);
-    private static Drawable pinUnselected = DigiByte.getContext().getDrawable(R.drawable.pin_unselected);
+    private static Drawable pinSelected = ContextCompat.getDrawable(DigiByte.getContext(),
+            R.drawable.pin_selected);
+    private static Drawable pinUnselected = ContextCompat.getDrawable(DigiByte.getContext(),
+            R.drawable.pin_unselected);
 
     private AuthManager() {
         previousTry = "";
@@ -195,6 +200,7 @@ public class AuthManager {
      * @param fingerprint
      * @param type
      */
+    @TargetApi(Build.VERSION_CODES.M)
     public void authPrompt(final Context context, String title, String message, boolean fingerprint, BRAuthCompletion.AuthType type) {
         if (context instanceof Activity) {
             final AppCompatActivity app = (AppCompatActivity) context;

@@ -2,7 +2,6 @@ package io.digibyte.tools.security;
 
 import android.app.Activity;
 import android.content.Context;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -10,6 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
+import java.security.InvalidKeyException;
 import java.util.Arrays;
 
 import io.digibyte.presenter.activities.PaperKeyActivity;
@@ -79,7 +79,7 @@ public class PostAuth {
         try {
             byte[] raw = BRKeyStore.getPhrase(app, BRConstants.SHOW_PHRASE_REQUEST_CODE);
             PaperKeyActivity.show(app, new String(raw));
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             if (authAsked) {
                 Log.e(TAG, new Object() {
                 }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
@@ -93,7 +93,7 @@ public class PostAuth {
         String cleanPhrase;
         try {
             cleanPhrase = new String(BRKeyStore.getPhrase(app, BRConstants.PROVE_PHRASE_REQUEST));
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             if (authAsked) {
                 Log.e(TAG, new Object() {
                 }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
@@ -117,7 +117,7 @@ public class PostAuth {
             try {
                 success = BRKeyStore.putPhrase(phraseForKeyStore.getBytes(),
                         app, BRConstants.PUT_PHRASE_RECOVERY_WALLET_REQUEST_CODE);
-            } catch (UserNotAuthenticatedException e) {
+            } catch (InvalidKeyException e) {
                 if (authAsked) {
                     Log.e(TAG, new Object() {
                     }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
@@ -185,7 +185,7 @@ public class PostAuth {
         String canary = null;
         try {
             canary = BRKeyStore.getCanary(app, BRConstants.CANARY_REQUEST_CODE);
-        } catch (UserNotAuthenticatedException e) {
+        } catch (InvalidKeyException e) {
             if (authAsked) {
                 Log.e(TAG, new Object() {
                 }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
@@ -197,7 +197,7 @@ public class PostAuth {
             byte[] phrase;
             try {
                 phrase = BRKeyStore.getPhrase(app, BRConstants.CANARY_REQUEST_CODE);
-            } catch (UserNotAuthenticatedException e) {
+            } catch (InvalidKeyException e) {
                 if (authAsked) {
                     Log.e(TAG, new Object() {
                     }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");
@@ -215,7 +215,7 @@ public class PostAuth {
                 Log.e(TAG, "onCanaryCheck: Canary wasn't there, but the phrase persists, adding canary to keystore.");
                 try {
                     BRKeyStore.putCanary(BRConstants.CANARY_STRING, app, 0);
-                } catch (UserNotAuthenticatedException e) {
+                } catch (InvalidKeyException e) {
                     if (authAsked) {
                         Log.e(TAG, new Object() {
                         }.getClass().getEnclosingMethod().getName() + ": WARNING!!!! LOOP");

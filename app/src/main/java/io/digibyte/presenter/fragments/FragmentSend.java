@@ -38,7 +38,6 @@ import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRSender;
 import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRConstants;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
@@ -85,7 +84,6 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
 
         @Override
         public void onPasteClickListener() {
-            if (!BRAnimator.isClickAllowed()) return;
             String bitcoinUrl = BRClipboardManager.getClipboard(getActivity());
             if (Utils.isNullOrEmpty(bitcoinUrl) || !isInputValid(bitcoinUrl)) {
                 showClipboardError();
@@ -164,7 +162,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
 
         @Override
         public void onScanClickListener() {
-            BRAnimator.openScanner(getActivity(), BRConstants.SCANNER_REQUEST);
+            BRAnimator.openScanner(getActivity());
         }
 
         @Override

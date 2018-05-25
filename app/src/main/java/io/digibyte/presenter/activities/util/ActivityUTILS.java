@@ -7,8 +7,6 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Looper;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 
 import java.util.List;
 
@@ -45,15 +43,6 @@ import io.digibyte.presenter.activities.InputWordsActivity;
 public class ActivityUTILS {
 
     private static final String TAG = ActivityUTILS.class.getName();
-
-    private static void setStatusBarColor(Activity app, int color) {
-        if (app == null) return;
-        Window window = app.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(app.getColor(color));
-    }
-
 
     //return true if the app does need to show the disabled wallet screen
     public static boolean isAppSafe(Activity app) {

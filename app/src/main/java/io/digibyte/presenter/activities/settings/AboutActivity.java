@@ -11,9 +11,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import io.digibyte.R;
-import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.tools.animation.BRAnimator;
 
 public class AboutActivity extends BRActivity {
     private TextView policyText;
@@ -78,15 +76,5 @@ public class AboutActivity extends BRActivity {
             startActivity(browserIntent);
             overridePendingTransition(R.anim.enter_from_bottom, R.anim.empty_300);
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (ActivityUTILS.isLast(this)) {
-            BRAnimator.startBreadActivity(this, false);
-        } else {
-            super.onBackPressed();
-        }
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 }

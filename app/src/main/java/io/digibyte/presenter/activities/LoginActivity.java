@@ -16,7 +16,6 @@ import io.digibyte.databinding.ActivityPinBinding;
 import io.digibyte.presenter.activities.callbacks.LoginActivityCallback;
 import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
@@ -44,7 +43,7 @@ public class LoginActivity extends BRActivity {
         binding.setCallback(callback);
         binding.brkeyboard.addOnInsertListener(key -> handleClick(key));
         binding.brkeyboard.setShowDot(false);
-        binding.brkeyboard.setDeleteImage(getDrawable(R.drawable.ic_delete_white));
+        binding.brkeyboard.setDeleteImage(R.drawable.ic_delete_white);
         if (!processDeepLink(getIntent()) &&
                 AuthManager.isFingerPrintAvailableAndSetup(this)) {
             showFingerprintDialog();
@@ -99,7 +98,7 @@ public class LoginActivity extends BRActivity {
 
     private void showFingerprintDialog() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            AuthManager.getInstance().authPrompt(LoginActivity.this, "", "", new AuthType(
+            AuthManager.getInstance().authPrompt(LoginActivity.this, "", getString(R.string.VerifyPin_continueBody), new AuthType(
                     AuthType.Type.LOGIN));
         }, 500);
     }
