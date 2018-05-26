@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -132,6 +133,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(null);
         bindings.syncContainer.setVisibility(View.VISIBLE);
         bindings.toolbarLayout.setVisibility(View.GONE);
         bindings.animationView.playAnimation();
@@ -145,6 +149,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerFinished() {
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.playAnimation();
@@ -153,6 +160,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncFailed() {
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.playAnimation();
