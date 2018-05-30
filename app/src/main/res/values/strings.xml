@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <!-- App name -->
-    <string name="digi_wallet_name">DigiByte</string>
     <!-- About screen blog label -->
   <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
@@ -561,7 +559,7 @@
   <string name="WritePaperPhrase.previous">Previous</string>
   <!-- 1 of 3 -->
 
-    <string name="no_limit">No Limit</string>
+  <string name="no_limit">No Limit</string>
   <string name="restarting">Restarting</string>
   <string name="all">ALL</string>
   <string name="sent">SENT</string>
@@ -569,9 +567,9 @@
   <string name="date">Date</string>
   <string name="processed">Processed</string>
   <string name="completed">Completed</string>
-  <string name="digi_share">https://redirect.digibyteprojects.com/?address=%s&amp;amount=%s</string>
   <string name="max_send_enabled">Send Max Button Visible</string>
   <string name="max">max</string>
   <string name="current_amount">Current Value: %s</string>
   <string name="original_amount">Original Value: %s</string>
+
 </resources>
