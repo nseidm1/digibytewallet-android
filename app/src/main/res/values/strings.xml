@@ -574,6 +574,4 @@
   <string name="max">max</string>
   <string name="current_amount">Current Value: %s</string>
   <string name="original_amount">Original Value: %s</string>
-  <string name="failed_data">Bad data, device malfunction or reinstallation required</string>
-  <string name="share_qr">Share QR</string>
 </resources>

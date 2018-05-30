@@ -201,7 +201,6 @@
                                 android:padding="6dp"
                                 android:singleLine="true"
                                 app:srcCompat="@drawable/receive_share_qr"
-                                android:text="@string/share_qr"
                                 android:textColor="@color/white"
                                 android:textSize="14sp"/>
 
@@ -216,7 +215,6 @@
                                 android:padding="6dp"
                                 android:singleLine="true"
                                 app:srcCompat="@drawable/share_sms"
-                                android:text="@string/Receive.textButton"
                                 android:textColor="@color/white"
                                 android:textSize="14sp"/>
 
