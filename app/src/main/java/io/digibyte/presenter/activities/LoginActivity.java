@@ -98,7 +98,7 @@ public class LoginActivity extends BRActivity {
 
     private void showFingerprintDialog() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            AuthManager.getInstance().authPrompt(LoginActivity.this, "", getString(R.string.VerifyPin_continueBody), new AuthType(
+            AuthManager.getInstance().authPrompt(LoginActivity.this, "", "", new AuthType(
                     AuthType.Type.LOGIN));
         }, 500);
     }
