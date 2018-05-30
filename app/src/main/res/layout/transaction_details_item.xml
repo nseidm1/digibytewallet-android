@@ -54,7 +54,6 @@
                         android:singleLine="true"
                         android:text="@{data.cryptoAmount}"
                         android:textColor="@color/white"
-                        android:textIsSelectable="true"
                         android:textSize="50sp"/>
 
                     <LinearLayout android:layout_width="match_parent"
