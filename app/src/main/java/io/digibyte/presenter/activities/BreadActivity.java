@@ -390,7 +390,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSharedPrefs.removeListener(this);
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
-        SyncManager.getInstance().stopSyncingProgressThread();
+        SyncManager.getInstance().stopSyncingProgressThread(false);
     }
 
     @Override

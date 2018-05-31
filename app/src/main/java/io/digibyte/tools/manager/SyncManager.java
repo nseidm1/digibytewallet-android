@@ -99,7 +99,7 @@ public class SyncManager {
         BRWalletManager.getInstance().smartInit(activity, BRWalletManager.SmartInitType.BreadActivity);
     }
 
-    public void stopSyncingProgressThread() {
+    public void stopSyncingProgressThread(boolean delayed) {
         Log.d(TAG, "stopSyncingProgressThread");
         if (!enabled) {
             return;
@@ -109,7 +109,7 @@ public class SyncManager {
             for (onStatusListener listener : theListeners) {
                 listener.onSyncManagerFinished();
             }
-        }, 2000);
+        }, delayed ? 2000 : 0);
     }
 
     public void syncFailed() {
@@ -135,7 +135,7 @@ public class SyncManager {
             if (Double.valueOf(theProgress).compareTo(1.0d) != 0 && enabled) {
                 executorService.execute(syncRunnable);
             } else {
-                stopSyncingProgressThread();
+                stopSyncingProgressThread(true);
             }
         }
     };
