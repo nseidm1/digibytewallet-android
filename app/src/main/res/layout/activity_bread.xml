@@ -311,12 +311,12 @@
                          android:orientation="vertical"
                          android:paddingTop="36dp">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="50dp"
-                    android:src="@drawable/digi_byte_symbol"/>
+                    app:srcCompat="@drawable/digi_byte_symbol"/>
 
             </FrameLayout>
 

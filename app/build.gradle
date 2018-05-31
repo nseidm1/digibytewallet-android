@@ -202,4 +202,5 @@ dependencies {
     implementation 'com.tarun0.zxing-standalone:zxing-standalone:1.0.0'
     implementation 'com.evernote:android-job:1.2.5'
     implementation 'com.airbnb.android:lottie:2.5.4'
+    implementation 'com.appolica:flubber:1.0.1'
 }
