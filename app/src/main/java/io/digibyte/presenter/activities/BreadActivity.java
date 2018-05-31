@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.appolica.flubber.Flubber;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +32,7 @@ import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
 import io.digibyte.presenter.activities.settings.SettingsActivity;
+import io.digibyte.presenter.activities.settings.SyncBlockchainActivity;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.TxItem;
 import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
@@ -133,6 +136,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.FLIP_Y)
+                .interpolator(Flubber.Curve.BZR_EASE_IN_OUT_QUAD)
+                .duration(1000)
+                .autoStart(true)
+                .createFor(findViewById(R.id.sync_button));
         CoordinatorLayout.LayoutParams coordinatorLayoutParams =
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(null);
@@ -310,6 +319,12 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     void onSecondaryPriceClick(View view) {
         BRSharedPrefs.putPreferredBTC(BreadActivity.this, false);
         notifyDataSetChangeForAll();
+    }
+
+    @OnClick(R.id.sync_button)
+    void onSyncButtonClick(View view) {
+        startActivity(new Intent(BreadActivity.this,
+                SyncBlockchainActivity.class));
     }
 
     private void notifyDataSetChangeForAll() {

@@ -20,7 +20,6 @@ import io.digibyte.databinding.ActivitySettingsBinding;
 import io.digibyte.presenter.activities.SettingsCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.BRSettingsItem;
-import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 
@@ -202,16 +201,12 @@ public class SettingsActivity extends BRActivity {
         }, BRSettingsItem.Type.ITEM));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_sync), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this,
-                    SyncBlockchainActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            startActivity(new Intent(SettingsActivity.this,
+                    SyncBlockchainActivity.class));
         }, BRSettingsItem.Type.ITEM));
 
         items.add(new BRSettingsItem(getString(R.string.Settings_about), "", v -> {
-            Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
         }, BRSettingsItem.Type.ITEM));
     }
 }
