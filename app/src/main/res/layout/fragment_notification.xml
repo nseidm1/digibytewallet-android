@@ -1,15 +1,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-        <import type="android.text.TextUtils" />
+        <import type="android.text.TextUtils"/>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
             name="data"
-            type="io.digibyte.presenter.fragments.models.FragmentSignalViewModel" />
+            type="io.digibyte.presenter.fragments.models.FragmentSignalViewModel"/>
 
     </data>
 
@@ -47,18 +47,21 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/signal_left_graphic" />
+                    app:srcCompat="@drawable/signal_left_graphic"/>
 
-                <ImageView
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/icon_graphic"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_height="90dp"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    app:setImageResource="@{data.icon}" />
+                    android:hardwareAccelerated="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_enableMergePathsForKitKatAndAbove="true"
+                    app:setAnimation="@{data.icon}"
+                    app:lottie_loop="false"/>
+
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/right_graphic"
@@ -69,7 +72,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/signal_right_graphic" />
+                    app:srcCompat="@drawable/signal_right_graphic"/>
 
             </LinearLayout>
 
@@ -78,27 +81,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="12dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp"
                 android:text="@{data.title}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/header"
-                android:visibility="@{TextUtils.isEmpty(data.title) ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{TextUtils.isEmpty(data.title) ? View.GONE : View.VISIBLE}"/>
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="32dp"
-                android:gravity="center_horizontal"
-                android:layout_marginStart="32dp"
                 android:layout_marginBottom="12dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:gravity="center_horizontal"
                 android:text="@{data.description}"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:visibility="@{TextUtils.isEmpty(data.description) ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{TextUtils.isEmpty(data.description) ? View.GONE : View.VISIBLE}"/>
 
         </LinearLayout>
 

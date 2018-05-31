@@ -174,9 +174,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 ? DigiByte.getContext().getString(R.string.NodeSelector_statusLabel) + ": "
                 + DigiByte.getContext().getString(R.string.SyncingView_connecting)
                 : Integer.toString((int) (SyncManager.getInstance().getProgress() * 100)) + "%"
-                        + " - " + Utils.formatTimeStamp(
-                        SyncManager.getInstance().getLastBlockTimestamp() * 1000,
-                        "MMM. dd, yyyy 'at' hh:mm a"));
+                + " - " + Utils.formatTimeStamp(
+                SyncManager.getInstance().getLastBlockTimestamp() * 1000,
+                "MMM. dd, yyyy 'at' hh:mm a"));
     }
 
     @Override
@@ -211,7 +211,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     private ArrayList<ListItemTransactionData> convertNewTransactionsForAdapter(Adapter adapter,
-            ArrayList<ListItemTransactionData> transactions) {
+                                                                                ArrayList<ListItemTransactionData> transactions) {
         ArrayList<ListItemTransactionData> transactionList = new ArrayList<>();
         for (int index = 0; index < transactions.size(); index++) {
             ListItemTransactionData transactionData = transactions.get(index);
@@ -271,8 +271,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                     error == 0 ? getString(R.string.Alerts_sendSuccess)
                             : getString(R.string.Alert_error),
                     error == 0 ? getString(R.string.Alerts_sendSuccessSubheader)
-                            : message, error == 0 ? R.drawable.signal_icon_graphic
-                            : R.drawable.ic_error_outline_black_24dp, () -> {
+                            : message, error == 0 ? R.raw.success_check
+                            : R.raw.error_check, () -> {
                         try {
                             getSupportFragmentManager().popBackStack();
                         } catch (IllegalStateException e) {
