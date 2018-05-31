@@ -134,14 +134,22 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         });
     }
 
+    private Runnable showSyncButtonRunnable = new Runnable() {
+        @Override
+        public void run() {
+            bindings.syncButton.setVisibility(View.VISIBLE);
+            Flubber.with()
+                    .animation(Flubber.AnimationPreset.FLIP_Y)
+                    .interpolator(Flubber.Curve.BZR_EASE_IN_OUT_QUAD)
+                    .duration(1000)
+                    .autoStart(true)
+                    .createFor(findViewById(R.id.sync_button));
+        }
+    };
+
     @Override
     public void onSyncManagerStarted() {
-        Flubber.with()
-                .animation(Flubber.AnimationPreset.FLIP_Y)
-                .interpolator(Flubber.Curve.BZR_EASE_IN_OUT_QUAD)
-                .duration(1000)
-                .autoStart(true)
-                .createFor(findViewById(R.id.sync_button));
+        handler.postDelayed(showSyncButtonRunnable, 10000);
         CoordinatorLayout.LayoutParams coordinatorLayoutParams =
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(null);
@@ -153,6 +161,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerUpdate() {
+        handler.removeCallbacks(showSyncButtonRunnable);
         updateSyncText();
     }
 
@@ -161,6 +170,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         CoordinatorLayout.LayoutParams coordinatorLayoutParams =
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        handler.removeCallbacks(showSyncButtonRunnable);
+        bindings.syncButton.setVisibility(View.GONE);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.playAnimation();
