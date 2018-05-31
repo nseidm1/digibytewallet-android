@@ -27,6 +27,7 @@ public class LoginActivity extends BRActivity {
     ActivityPinBinding binding;
     private StringBuilder pin = new StringBuilder();
     private boolean inputAllowed = true;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     private LoginActivityCallback callback = () -> {
         if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
@@ -62,7 +63,7 @@ public class LoginActivity extends BRActivity {
         updateDots();
 
         inputAllowed = true;
-        BRWalletManager.getInstance().smartInit(this, BRWalletManager.SmartInitType.LoginActivity);
+        BRWalletManager.getInstance().init();
     }
 
     private final boolean processDeepLink(@Nullable final Intent intent) {
@@ -136,10 +137,11 @@ public class LoginActivity extends BRActivity {
                 binding.dot2, binding.dot3, binding.dot4,
                 binding.dot5, binding.dot6, () -> {
                     inputAllowed = false;
-                    if (AuthManager.getInstance().checkAuth(pin.toString(),
-                            LoginActivity.this)) {
-                        AuthManager.getInstance().authSuccess(LoginActivity.this);
-                        unlockWallet();
+                    if (AuthManager.getInstance().checkAuth(pin.toString(), LoginActivity.this)) {
+                        handler.postDelayed(() -> {
+                            AuthManager.getInstance().authSuccess(LoginActivity.this);
+                            unlockWallet();
+                        }, 350);
                     } else {
                         AuthManager.getInstance().authFail(LoginActivity.this);
                         showFailedToUnlock();

@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.appolica.flubber.Flubber;
 
 import java.math.BigDecimal;
@@ -99,6 +100,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
         bindings.setPagerAdapter(new TxAdapter());
         bindings.txPager.setOffscreenPageLimit(2);
+        bindings.txPager.setPageTransformer(true, new CubeOutTransformer());
         bindings.tabLayout.setupWithViewPager(bindings.txPager);
         bindings.contentContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);

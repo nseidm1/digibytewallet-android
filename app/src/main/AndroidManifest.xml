@@ -183,9 +183,6 @@
         <activity android:name=".presenter.activities.QRCodeActivity"
                   android:theme="@style/Theme.AppCompat.Translucent"/>
 
-        <service android:name=".presenter.activities.RestartService"
-                 android:process=":RestartProcess"/>
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="io.digibyte.fileprovider"

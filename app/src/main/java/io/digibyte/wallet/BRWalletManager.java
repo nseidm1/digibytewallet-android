@@ -15,7 +15,6 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,7 +42,6 @@ import io.digibyte.BuildConfig;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BreadActivity;
-import io.digibyte.presenter.activities.RestartService;
 import io.digibyte.presenter.customviews.BRToast;
 import io.digibyte.presenter.entities.BRMerkleBlockEntity;
 import io.digibyte.presenter.entities.BRPeerEntity;
@@ -531,40 +529,9 @@ public class BRWalletManager {
         }
     }
 
-    public enum SmartInitType {
-        LoginActivity, BreadActivity, SyncService
-    }
-
-    public void smartInit(Activity activity, SmartInitType smartInitType) {
+    public void init() {
         BRExecutor.getInstance().forBackgroundTasks().execute(() -> {
             initWalletAndConnectPeers();
-            if (smartInitType == SmartInitType.SyncService || MerkleBlockDataSource.getInstance(
-                    DigiByte.getContext()).getAllMerkleBlocks().size() == 0 || BuildConfig.DEBUG) {
-                return;
-            }
-            handler.postDelayed(() -> {
-                //Is the activity currently finishing, or is the entire app in the background
-                if (activity.isFinishing() || DigiByte.getContext().getActivity() == null) {
-                    return;
-                }
-                //If the native component is not connected or connecting restart the process
-                if (BRPeerManager.getInstance().connectionStatus() == 2
-                        || BRPeerManager.getInstance().connectionStatus() == 1) {
-                    return;
-                }
-                Toast.makeText(activity,
-                        activity.getString(R.string.NodeSelector_statusLabel) + ": "
-                                + activity.getString(R.string.restarting),
-                        Toast.LENGTH_LONG).show();
-                handler.postDelayed(() -> {
-                    activity.finish();
-                }, 1000);
-                handler.postDelayed(() -> {
-                    RestartService.restart(smartInitType);
-                    android.os.Process.killProcess(android.os.Process.myPid());
-                }, 2000);
-
-            }, 20000);
         });
     }
 
@@ -753,6 +720,7 @@ public class BRWalletManager {
 
     public interface OnBalanceChanged {
         void onBalanceChanged(long balance);
+
         void showSendConfirmDialog(final String message, final int error, byte[] txHash);
     }
 

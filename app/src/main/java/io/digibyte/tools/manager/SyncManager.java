@@ -96,7 +96,7 @@ public class SyncManager {
             }
         }, 2000);
         handler.postDelayed(() -> executorService.execute(syncRunnable), 2500);
-        BRWalletManager.getInstance().smartInit(activity, BRWalletManager.SmartInitType.BreadActivity);
+        BRWalletManager.getInstance().init();
     }
 
     public void stopSyncingProgressThread(boolean delayed) {
