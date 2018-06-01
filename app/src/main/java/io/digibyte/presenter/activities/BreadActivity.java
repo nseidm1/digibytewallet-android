@@ -92,9 +92,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         ViewUtils.increaceClickableArea(bindings.navDrawer);
         ViewUtils.increaceClickableArea(bindings.digiidButton);
         unbinder = ButterKnife.bind(this);
-        if (ActivityUTILS.RootUtil.isDeviceRooted()) {
-            ActivityUTILS.showJailbrokenDialog(this);
-        }
     }
 
     private Runnable showSyncButtonRunnable = new Runnable() {
