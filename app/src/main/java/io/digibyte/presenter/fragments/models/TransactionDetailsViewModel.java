@@ -8,9 +8,8 @@ import com.platform.entities.TxMetaData;
 import com.platform.tools.KVStoreManager;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
@@ -150,16 +149,12 @@ public class TransactionDetailsViewModel extends BaseObservable {
     private String getFormattedDate(long timeStamp) {
         Date currentLocalTime = new Date(
                 timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
-        SimpleDateFormat date1 = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
-        return date1.format(currentLocalTime);
+        return DateFormat.getDateInstance(DateFormat.SHORT).format(currentLocalTime);
     }
 
     private String getFormattedTime(long timeStamp) {
         Date currentLocalTime = new Date(
                 timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
-        SimpleDateFormat date2 = new SimpleDateFormat("HH:mm a", Locale.getDefault());
-        return date2.format(currentLocalTime);
+        return DateFormat.getTimeInstance(DateFormat.SHORT).format(currentLocalTime);
     }
-
-
 }

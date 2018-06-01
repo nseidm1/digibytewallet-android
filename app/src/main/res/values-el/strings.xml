@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">Καταχώρησε μια DigiByte διεύθυνση. Όλα τα DigiByte στο πορτοφόλι σου κατα την εμφάνιση του fork (%1$s) θα αποσταλούν.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">Έγκριση</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">Ο λογαριασμός σου δεν περιέχει DigiByte, ή έλαβες DigiByte μετά το fork.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">Ταυτότητα συναλλαγής αντιγράφηκε</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">Ανάληψη DigiByte</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">Ταυτότητα συναλλαγής DigiByte</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">Εντάξει</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">ΑΠΟΣΤΟΛΗ</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">Σάρωση Ιδιωτικού Κλειδιού</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Επιτυχία</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">Κλείσιμο</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Αγνόησε</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ΠΡΟΣΟΧΗ</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Δημιούργησες το πορτοφόλι σου στις %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Κόμβοι DigiByte</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Εσφαλμένη αίτηση πληρωμής</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">Μη υποστηριζόμενο ή κατεστραμμένο έγγραφο</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">Η αίτηση έληξε</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">Οι πληρωμές σε DigiByte δεν μπορούν να είναι μικρότερες από %1$s.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">Οι συναλλαγές DigiByte δεν μπορούν να είναι μικρότερες από %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">Αναξιόπιστο πιστοποιητικό</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">Απαιτείται η ασφάλεια οθόνης για την ασφάλεια του πορτοφολιού. Πήγαινε στις Ρυθμίσεις-&gt;Ασφάλεια για να την ενεργοποιήσεις.</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">Κοινοποίηση</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Γραπτό Μύνημα</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">ΛΗΨΗ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Έγινε</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">Πότε πρέπει να συγχρονίσω;</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">Ολοκληρώθηκε</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">σε αναμονή</string>
-  <!-- Received filter label -->
-  <string name="Search.received">ελήφθησαν</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">στάλθηκαν</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">Ενεργοποίησε όλες τις λειτουργίες ασφαλείας για μέγιστη προστασία.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">Ο μόνος τρόπος να  αποκτήσεις πρόσβαση στα DigiByte σου, σε περίπτωση που χάσεις ή αναβαθμίσεις τη συσκευή σου.</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">"Το πρόχειρο δεν περιέχει έγκυρη διεύθυνση DigiByte. "</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Άκυρη Διεύθυνση</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">Κατά την ολική σάρωση η αποστολή είναι απενεργοποιημένη.</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">Επικόλληση</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Αδυναμία φόρτωσης αίτησης πληρωμής</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">Σάρωση</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Αποστολή</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Επαναφορά PIN</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Σάρωση</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Αισθητήρας Αφής</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">Διαγραφή πορτοφολιού;</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Αποτυχία</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Για να δημιουργήσεις ένα νέο ή να ανακτήσεις, ένα πορτοφόλι, πρέπει πρώτα να σβήσεις το υπάρχον. Για συνέχεια πρέπει να εισάγεις το κλειδί το πορτοφολιού.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Η εκκίνηση ή η ανάκτηση ενός άλλου πορτοφολιού, σου επιτρέπει την πρόσβαση και διαχείρηση ενός διαφορετικού DigiWallet σε αυτή τη συσκευή.</string>

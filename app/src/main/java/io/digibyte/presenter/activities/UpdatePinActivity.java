@@ -52,7 +52,7 @@ public class UpdatePinActivity extends BasePinActivity {
             case RE_ENTER_NEW_PIN:
                 if (pinsMatch()) {
                     AuthManager.getInstance().setPinCode(currentPin.toString(), this);
-                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.drawable.signal_icon_graphic, () -> {
+                    BRAnimator.showBreadSignal(this, getString(R.string.Alerts_pinSet), getString(R.string.UpdatePin_caption), R.raw.success_check, () -> {
                         switch(initialCreateMode) {
                             case SET_PIN:
                                 PostAuth.instance.onCreateWalletAuth(UpdatePinActivity.this, false);

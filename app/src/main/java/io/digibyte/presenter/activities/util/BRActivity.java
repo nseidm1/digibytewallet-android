@@ -28,6 +28,7 @@ import io.digibyte.tools.security.BitcoinUrlHandler;
 import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRConstants;
+import spencerstudios.com.bungeelib.Bungee;
 
 /**
  * BreadWallet
@@ -61,8 +62,12 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        Bungee.slideRight(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+//        RootBeer rootBeer = new RootBeer(this);
+//        if (rootBeer.isRootedWithoutBusyBoxCheck() && !BuildConfig.DEBUG) {
+//            ActivityUTILS.showJailbrokenDialog(this);
+//        }
     }
 
     protected void setupToolbar() {
@@ -132,7 +137,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     public void onBackPressed() {
         if (backClickListeners.size() == 0) {
             super.onBackPressed();
-            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            Bungee.swipeLeft(this);
         } else {
             for (OnBackPressListener onBackPressListener : backClickListeners) {
                 onBackPressListener.onBackPressed();
@@ -160,7 +165,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home || item.getItemId() == R.id.home) {
             finish();
-            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            Bungee.swipeLeft(this);
         }
         return super.onOptionsItemSelected(item);
     }

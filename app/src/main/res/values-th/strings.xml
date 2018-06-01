@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">ป้อนที่อยู่ Digibyte ปลายทางด้านล่าง เงิน Digibyte ทั้งหมดในกระเป๋าของคุณตอนที่ fork (%1$s) จะถูกส่งไปให้</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">การยืนยัน</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">บัญชีของคุณไม่มี Digibyte อยู่เลย หรือคุณได้รับ Digibyte หลังการ fork</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">คัดลอกรหัสทำรายการแล้ว</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">ถอน DGB</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DGB ทรานแซคชั่นไอดี</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">โอเค</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">ส่ง</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">สแกนกุญแจส่วนตัว</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">เสร็จสมบูรณ์</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">ปิด</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">ไม่สนใจ</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">คำเตือน</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">คุณสร้างกระเป๋าเงินเมื่อวันที่ %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Nodes</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">การ้องขอชำระเงินไม่ถูกต้อง</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">เอกสารไม่สนับสนุนหรือได้รับความเสียหาย</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">การร้องขอหมดอายุ</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">การชำระด้วย DigiByte ไม่สามารถทำได้เมื่อยอดต่ำกว่า %1$s</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">รายการขาออก DigiByte ไม่สามารถน้อยกว่า %1$s</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">ใบรับรองไม่น่าเชื่อถือ</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">การล๊อคหน้าจอมีความจำเป็นเพื่อปกป้องกระเป๋าเงินของคุณ\n ไปที่ \"การตั้งค่า\" -&gt;\"ความปลอดภัย\" -&gt; \"ล๊อคหน้าจอ\" แล้วเปิดใช้งาน</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">แบ่งปัน</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">ข้อความผ่านตัวหนังสือ</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">รับ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">สำเร็จ</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">จะเริ่มซิงค์เมื่อไหร่?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">สมบูรณ์</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">รอดำเนินการ</string>
-  <!-- Received filter label -->
-  <string name="Search.received">ได้รับ</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">ส่งแล้ว</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">เปิดใช้งานคุณลักษณะด้านความปลอดภัยทั้งหมดเพื่อความปลอดภัยสูงสุด</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">วิธีการเดียวที่จะเข้าถึง Digibyte ของคุณถ้าคุณทำโทรศัพท์หายหรืออัพเกรดระบบ</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">ที่อยู่ของ DigiByte ที่จัดเก็บอยู่ใน Pasteboard ไม่ถูกต้อง</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">ที่อยู่ไม่ถูกต้อง</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">การส่งถูกปิดขณะที่มีการสแกนใหม่</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">วาง</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">ไม่สามารถโหลดการร้องขอการชำระเงิน</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">สแกน</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">ส่ง</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">ตั้งค่า PIN ใหม่</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">สแกน</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">สัมผัสเซ็นเซอร์</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">ดึงเงินจากกระเป๋าเงิน</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">ไม่สำเร็จ</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">การเริ่มใช้งานกระเป๋าเงินใหม่หรือกู้คืนกระเป๋าที่มีอยู่แล้ว คุณจะต้องลบกระเป๋าเงินที่ติดตั้งไว้ในปัจจุบันออกก่อน จากนั้น ป้อนคีย์กู้คืนส่วนบุคคลของกระเป๋าเงินปัจจุบันเพื่อดำเนินการต่อ</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">กำลังเริ่มต้นหรือกู้คืนกระเป๋าเงินอื่น เพื่อให้อนุญาตคุณเข้าถึงและจัดการกระเป๋าเงินอื่นบนอุปกรณ์นี้</string>

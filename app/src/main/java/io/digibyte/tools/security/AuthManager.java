@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.appolica.flubber.Flubber;
+
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.presenter.activities.DisabledActivity;
@@ -174,7 +176,15 @@ public class AuthManager {
     }
 
     private void setDotSelected(View view) {
-        view.setBackground(pinSelected);
+        if (view.getBackground() != pinSelected) {
+            view.setBackground(pinSelected);
+            Flubber.with()
+                    .animation(Flubber.AnimationPreset.FLIP_Y)
+                    .interpolator(Flubber.Curve.BZR_EASE_IN_OUT_QUAD)
+                    .duration(500)
+                    .autoStart(true)
+                    .createFor(view);
+        }
     }
 
     private void setDotUnSelected(View view) {

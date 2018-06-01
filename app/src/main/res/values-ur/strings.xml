@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">ذیل میں DGB ایڈریس درج کریں. فورک %1$s کے وقت آپ کے والیٹ کے تمام DGB بھیج دیے جاییں گے .</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">تصدیق کریں</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">آپ کے اکاؤنٹ میں DGB نہیں ہیں یا آپ کو DGB فورک کے بعد ملے.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">ٹرانزیکشن کی شناخت کاپی</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">DGB نکلوانا</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DGB ٹرانزیکشن کی شناخت</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">ٹھیک ہے</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">بھیجیں</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">"سکین پرائیویٹ کی "</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">"کامیاب "</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">بند کریں</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">نظر انداز</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">انتباہ</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">آپ نے اپنا والیٹ %1$s کو بنایا</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">"ڈیجی بائٹ نوڈ "</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">خراب ادائیگی</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">غیر معاون یا خراب دستاویز</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">"درخواست ختم ہوگئی ہے "</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">ڈیجی بائٹ کی ادائیگی %1$s سے کم نہیں ہوسکتی ہے.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">ڈیجی بائٹ ٹرانزیکشن کی پیداوار %1$s سے کم نہیں ہوسکتی ہے.</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">غیر یقینی سرٹیفکیٹ</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">آپ کے والیٹ کی حفاظت کے لئے ایک ڈیوائس اسکرین لاک کی ضرورت ہے.جاری رہنے  کیلئے \"ترتیبات\"&gt; \"سیکورٹی\"&gt; \"سکرین لاک\" پر جائیں اوراس کو فعال کریں.</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">شیئر</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">ٹیکسٹ میسج</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">وصول کریں</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"سب Done ہو گیا "</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">کب سینک؟</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">مکمل</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">زیر التواء</string>
-  <!-- Received filter label -->
-  <string name="Search.received">موصول ہوا</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">بھیجا گیا</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">زیادہ سے زیادہ تحفظ کے لئے تمام سیکورٹی کی خصوصیات کو فعال کریں.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">اگر آپ اپنا فون کھو جاتا ہے یا اپ گریڈ کرتے ہیں  تو آپ کے اپنے ڈیجی بائٹ  تک رسائی حاصل کرنے کا واحد طریقہ.</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">پیسٹ بورڈ میں ایک درست ڈیجی بائٹ ایڈریس نہیں ہے.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">غلط  ایڈریس</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">"مکمل سکننگ کے دوران کچھ بھیجا نہیں جا سکتا "</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">پیسٹ کریں</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">ادائیگی کی درخواست لوڈ نہیں ہو سکی</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">سکین</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">بھیجیں</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">PIN ری سیٹ کریں</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">سکین</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">ٹچ سینسر</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">وائپ والیٹ؟</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">ناکام</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">نیا والیٹ شروع کرنے کے لئے یا موجودہ والیٹ کو بحال کرنے کے لئے، آپ کو سب سے پہلے اس موجودہ والیٹ کو ختم کرنا ہوگا. جاری رہنے کے لئے، موجودہ والیٹ کی پرسنل ریکوری کی درج کریں.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">دوسرا والیٹ کو شروع کرنے یا بحال کرنے سے آپ کو اس ڈیوائس پر مختلف ڈیجی والیٹ تک رسائی کرنے کی اجازت دیتی ہے.</string>

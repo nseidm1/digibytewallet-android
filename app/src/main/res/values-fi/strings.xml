@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">Kirjoita tämän alle kohteen DigiByte-osoite. Kaikki DigiBytet jotka ovat lompakossasi haarautuman aikana (%1$s) tullaan lähettämään.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">Vahvistus</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">Sinun tililläsi ei ole yhtään DigiByteä, tai olet vastaanottanut DigiBytejä haarautumisen jälkeen.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">Transaktio-ID kopioitu</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">Nosta DigiBytejä</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DGB Transaktion ID</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">OK</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">lähetä</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">Skannaa yksityinen avain</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Onnistui</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">Sulje</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Ohita</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">VAROITUS</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Olet luonut lompakkosi %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Nodet</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Viallinen maksupyyntö</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">Tukematon tai korruptoitunut asiakirja</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">pyyntö vanhentunut</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">DigiByte-maksut eivät voi olla vähemmän kuin %1$s.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">DigiByte-transaktion ulostulot eivät voi olla vähemmän kuin %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">Luottamaton sertifikaatti</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">Näytönlukitus tarvitaan lompakkosi suojaamiseen. Mene \"Asetukset\" &gt; \"Lukitusnäyttö ja suojaus\" &gt; \"Näytön lukituksen tyyppi\" ja ota se käyttöön jatkaaksesi.</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">Jaa</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Tekstiviesti</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">Vastaanota</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Valmis</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">Koska synkronointi suoritetaan?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">valmis</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">avoin</string>
-  <!-- Received filter label -->
-  <string name="Search.received">vastaanotettu</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">lähetetty</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">Ota käyttöön kaikki turvaominaisuudet maksimoidaksesi suojan.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">Ainoa tapa päästä käsiksi sinun DigiByteihin jos kadotat tai vaihdat puhelinta.</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Pasteboard ei sisällä kelvollista DigiByte-osoitetta.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Osoite on kelvoton</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">Lähetys on poissa käytöstä täyden skannauksen aikana.</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">Liitä</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Maksupyyntöä ei voitu ladata</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">Skannaa</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Lähetä</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Nollaa PIN-koodi</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Skannaa</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Kosketussensori</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">Pyyhi lompakko?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Epäonnistui</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Aloittaaksesi uuden lompakon tai palauttaaksesi vanhan sinun tulee ensin pyyhkiä lompakko joka on tällähetkellä asennettu. Jatkaaksesi syötä tämän hetkisen lompakkosi henkilökohtainen palautusavain.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Toisen lompakon aloittaminen tai palauttaminen sallii sinulle pääsyn jollekin toiselle DigiWalletille tällä laitteella.</string>

@@ -96,12 +96,12 @@
                     android:textColorHint="@color/white"
                     app:onEditorActionListener="@{(v, actionId, event) -> callback.onEditorAction(v, actionId, event)}"/>
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/paste_button"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:padding="5dp"
-                    android:src="@drawable/send_paste"
+                    app:srcCompat="@drawable/send_paste"
                     android:ellipsize="end"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onPasteClickListener()}"
@@ -109,14 +109,14 @@
                     android:text="@string/Send.pasteLabel"
                     android:textColor="@color/white"/>
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/scan"
                     android:layout_width="36dp"
                     android:padding="6dp"
                     android:layout_height="36dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="12dp"
-                    android:src="@drawable/send_qr_scan"
+                    app:srcCompat="@drawable/send_qr_scan"
                     android:ellipsize="end"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onScanClickListener()}"
@@ -212,7 +212,7 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="12dp"
                     android:layout_marginStart="12dp"
-                    android:background="@drawable/intro_create_button"
+                    app:backgroundTint="#0066cc"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.onMaxSendButtonClickListener()}"
                     android:text="@string/max"

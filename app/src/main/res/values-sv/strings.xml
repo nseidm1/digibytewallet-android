@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">Ange en destinationsadress för DigiByte här nedanför. Alla DigiByte i din plånbok vid tiden för avknoppningen (%1$s) kommer att skickas.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">Bekräftelse</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">Ditt konto innehåller inga DigiByte, eller så mottog du DigiByte efter avknoppningen.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">Transaktions-ID kopierat</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">Ta ut DigiByte</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DigiByte Transaktions-ID</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">OK</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">skicka</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">Scanna Privatnyckel</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Importering Lyckades</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">Stäng</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Ignorera</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">VARNING</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Du skapade din plånbok den %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte-noder</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Felaktig Betalningsförfrågan</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">Dokumentet kan inte öppnas eller är korrupt</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">förfrågan har löpt ut</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">DigiByte-betalningar kan inte vara mindre än %1$s.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">Summan av DigiByte-transaktioner kan inte vara mindre än %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">opålitligt certifikat</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">För att skydda din plånbok krävs skärmlås på enheten. Gå till Inställningar &gt; Säkerhet &gt; Skärmlås och aktivera för att gå vidare.</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">Dela</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Meddelande</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">Ta Emot</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Klar</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">När Synkronisera?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">fullständig</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">avvaktar</string>
-  <!-- Received filter label -->
-  <string name="Search.received">mottagna</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">skickade</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">Aktivera alla säkerhetsfunktioner för maximal säkerhet.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">Det enda sättet att få åtkomst till dina DigiByte om du förlorar eller byter ut din enhet.</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Urklipp innehåller inte en giltig DigiByte-adress.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Ogiltig Adress</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">Möjligheten att skicka är inaktiverad under en fullständig omscanning.</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">Klistra In</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Kunde inte läsa in betalningsförfrågan</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">Scanna</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Skicka</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Återställ PIN</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Scanna</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Vidrör Sensor</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">Radera Plånbok?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Misslyckades</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">För att skapa en ny plånbok eller för att återskapa en befintlig måste du först radera den nuvarande plånboken som är installerad på enheten. För att fortsätta, ange den nuvarande plånbokens Personliga Återskapningsnyckel.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Att skapa eller att återskapa en annan plånbok ger dig möjligheten att få tillgång till och hantera en annan DigiWallet på denna enhet.</string>

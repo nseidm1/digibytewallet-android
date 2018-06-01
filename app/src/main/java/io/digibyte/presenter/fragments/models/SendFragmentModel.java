@@ -53,6 +53,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     public void setAddress(String address) {
         this.enteredAddress = address;
         notifyPropertyChanged(BR.address);
+        notifyPropertyChanged(BR.feeText);
     }
 
     @Bindable

@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +83,9 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
         FragmentPin fragmentPin = new FragmentPin();
         Bundle args = new Bundle();
         args.putString("title", title);
+        if (TextUtils.isEmpty(message)) {
+            message = activity.getString(R.string.VerifyPin_continueBody);
+        }
         args.putString("message", message);
         args.putSerializable(AUTH_TYPE, type);
         fragmentPin.setArguments(args);
