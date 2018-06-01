@@ -153,8 +153,8 @@ public class ActivityUTILS {
         BRDialog.showCustomDialog(context, context.getString(R.string.JailbreakWarnings_title),
                 context.getString(R.string.JailbreakWarnings_messageWithoutBalance),
                 context.getString(R.string.JailbreakWarnings_close), null,
-                brDialogView -> {
+                null, null, brDialogView -> {
                     context.finishAffinity();
-                }, null, null, 0);
+                }, 0);
     }
 }
