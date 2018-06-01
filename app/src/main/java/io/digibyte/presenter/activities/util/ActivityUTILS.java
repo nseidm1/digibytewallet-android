@@ -8,9 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,6 +22,7 @@ import io.digibyte.R;
 import io.digibyte.presenter.activities.BasePinActivity;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.presenter.activities.InputWordsActivity;
+import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.BRCurrency;
@@ -110,5 +115,51 @@ public class ActivityUTILS {
                 secondary.setText(String.format("%s", formattedCurAmount));
             });
         });
+    }
+
+    public static class RootUtil {
+        public static boolean isDeviceRooted() {
+            return checkRootMethod1() || checkRootMethod2() || checkRootMethod3();
+        }
+
+        private static boolean checkRootMethod1() {
+            String buildTags = android.os.Build.TAGS;
+            return buildTags != null && buildTags.contains("test-keys");
+        }
+
+        private static boolean checkRootMethod2() {
+            String[] paths =
+                    {"/system/app/Superuser.apk", "/sbin/su", "/system/bin/su", "/system/xbin/su",
+                            "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
+                            "/system/bin/failsafe/su", "/data/local/su", "/su/bin/su"};
+            for (String path : paths) {
+                if (new File(path).exists()) return true;
+            }
+            return false;
+        }
+
+        private static boolean checkRootMethod3() {
+            Process process = null;
+            try {
+                process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(process.getInputStream()));
+                if (in.readLine() != null) return true;
+                return false;
+            } catch (Throwable t) {
+                return false;
+            } finally {
+                if (process != null) process.destroy();
+            }
+        }
+    }
+
+    public static void showJailbrokenDialog(AppCompatActivity context) {
+        BRDialog.showCustomDialog(context, context.getString(R.string.JailbreakWarnings_title),
+                context.getString(R.string.JailbreakWarnings_messageWithoutBalance),
+                context.getString(R.string.JailbreakWarnings_close), null,
+                brDialogView -> {
+                    context.finishAffinity();
+                }, null, null, 0);
     }
 }
