@@ -1,5 +1,7 @@
 package io.digibyte.presenter.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,6 +12,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.appolica.flubber.Flubber;
@@ -96,6 +99,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         ViewUtils.increaceClickableArea(bindings.navDrawer);
         ViewUtils.increaceClickableArea(bindings.digiidButton);
         unbinder = ButterKnife.bind(this);
+        Animator animator = AnimatorInflater.loadAnimator(this, R.animator.from_bottom);
+        animator.setTarget(bindings.bottomNavigationLayout);
+        animator.setDuration(1000);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
     }
 
     private Runnable showSyncRunnable = new Runnable() {

@@ -147,7 +147,7 @@ public class BRApiManager {
             }
             BRSharedPrefs.putFeePerKb(app, fee);
             BRSharedPrefs.putEconomyFeePerKb(app, economyFee);
-            BRWalletManager.getInstance().setFeePerKb(fee, false); //todo improve that logic
+            BRWalletManager.getInstance().setFeePerKb(economyFee, false); //todo improve that logic
             BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
             return true;
         } catch (Exception e) {

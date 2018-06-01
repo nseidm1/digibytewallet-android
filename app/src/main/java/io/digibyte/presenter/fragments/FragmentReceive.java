@@ -98,6 +98,15 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         }
 
         @Override
+        public void shareCopyClick() {
+            if (onShareCopy()) {
+                return;
+            }
+            BRClipboardManager.putClipboard(getContext(), address);
+            Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
         public void addressClick() {
             FragmentReceive.this.onAddressClick();
             copyText();
@@ -156,6 +165,10 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
     }
 
     protected boolean onShareSMS() {
+        return false;
+    }
+
+    protected boolean onShareCopy() {
         return false;
     }
 

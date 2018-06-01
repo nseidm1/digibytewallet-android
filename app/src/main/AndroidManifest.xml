@@ -42,7 +42,6 @@
         android:label="@string/digi_wallet_name"
         android:largeHeap="true"
         android:launchMode="singleTask"
-        android:process=":DigiProcess"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,android:label">
