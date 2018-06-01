@@ -71,7 +71,6 @@
                             android:singleLine="true"
                             android:text="@{data.fiatAmount}"
                             android:textColor="@color/white"
-                            android:textIsSelectable="true"
                             android:textSize="24sp"/>
                         <TextView
                             android:id="@+id/original_fiat_amount_text"
@@ -84,7 +83,6 @@
                             android:singleLine="true"
                             android:text="@{data.originalFiatAmount}"
                             android:textColor="@color/white"
-                            android:textIsSelectable="true"
                             android:textSize="24sp"/>
 
                     </LinearLayout>
