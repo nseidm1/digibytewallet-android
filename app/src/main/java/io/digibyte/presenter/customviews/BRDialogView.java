@@ -107,7 +107,7 @@ public class BRDialogView extends DialogFragment {
         //the user can just reinvoke it again by initiating the desired action
         try {
             dismissAllowingStateLoss();
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalStateException e) {
             Crashlytics.logException(e);
         }
     }

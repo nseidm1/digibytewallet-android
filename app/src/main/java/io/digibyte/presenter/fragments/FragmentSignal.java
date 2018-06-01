@@ -101,7 +101,7 @@ public class FragmentSignal extends Fragment implements OnBackPressListener {
             new Handler().postDelayed(() -> {
                 fadeOutRemove();
             }, 300);
-        }, 1500);
+        }, 2000);
     }
 
     private void fadeOutRemove() {

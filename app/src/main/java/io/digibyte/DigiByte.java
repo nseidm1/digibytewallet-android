@@ -165,8 +165,7 @@ public class DigiByte extends MultiDexApplication implements
         @Override
         @NonNull
         protected Result onRunJob(Params params) {
-            BRWalletManager.getInstance().smartInit(null,
-                    BRWalletManager.SmartInitType.SyncService);
+            BRWalletManager.getInstance().init();
             return Result.SUCCESS;
         }
 

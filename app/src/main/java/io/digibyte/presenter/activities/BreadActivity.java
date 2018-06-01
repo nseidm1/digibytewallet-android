@@ -6,17 +6,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
-import java.math.BigDecimal;
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.appolica.flubber.Flubber;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,12 +24,13 @@ import butterknife.Unbinder;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
 import io.digibyte.databinding.ActivityBreadBinding;
+import io.digibyte.presenter.activities.adapters.TxAdapter;
 import io.digibyte.presenter.activities.settings.SecurityCenterActivity;
 import io.digibyte.presenter.activities.settings.SettingsActivity;
+import io.digibyte.presenter.activities.settings.SyncBlockchainActivity;
+import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.presenter.entities.VerticalSpaceItemDecoration;
-import io.digibyte.tools.adapter.TransactionListAdapter;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.list.items.ListItemTransactionData;
 import io.digibyte.tools.manager.BRApiManager;
@@ -42,13 +40,10 @@ import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.manager.TxManager.onStatusListener;
 import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.BRCurrency;
-import io.digibyte.tools.util.BRExchange;
 import io.digibyte.tools.util.Utils;
 import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
-import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 
 /**
  * BreadWallet
@@ -81,20 +76,15 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
     private Handler handler = new Handler(Looper.getMainLooper());
-
-    private RecyclerView allRecycler;
-    private TransactionListAdapter allAdapter;
-    private RecyclerView sentRecycler;
-    private TransactionListAdapter sentAdapter;
-    private RecyclerView receivedRecycler;
-    private TransactionListAdapter receivedAdapter;
+    private TxAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
-        bindings.setPagerAdapter(new TxAdapter());
+        bindings.setPagerAdapter(adapter = new TxAdapter(this));
         bindings.txPager.setOffscreenPageLimit(2);
+        bindings.txPager.setPageTransformer(true, new CubeOutTransformer());
         bindings.tabLayout.setupWithViewPager(bindings.txPager);
         bindings.contentContainer.getLayoutTransition()
                 .enableTransitionType(LayoutTransition.CHANGING);
@@ -104,34 +94,25 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         unbinder = ButterKnife.bind(this);
     }
 
-    private void updateDigibyteDollarValues() {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
-            final String iso = BRSharedPrefs.getIso(BreadActivity.this);
-
-            //current amount in satoshis
-            final BigDecimal amount = new BigDecimal(
-                    BRSharedPrefs.getCatchedBalance(BreadActivity.this));
-
-            //amount in BTC units
-            final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(BreadActivity.this,
-                    amount);
-            final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(
-                    BreadActivity.this, "DGB", btcAmount);
-
-            //amount in currency units
-            final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(BreadActivity.this,
-                    iso, amount);
-            final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(
-                    BreadActivity.this, iso, curAmount);
-            runOnUiThread(() -> {
-                bindings.primaryPrice.setText(formattedBTCAmount);
-                bindings.secondaryPrice.setText(String.format("%s", formattedCurAmount));
-            });
-        });
-    }
+    private Runnable showSyncButtonRunnable = new Runnable() {
+        @Override
+        public void run() {
+            bindings.syncButton.setVisibility(View.VISIBLE);
+            Flubber.with()
+                    .animation(Flubber.AnimationPreset.FLIP_Y)
+                    .interpolator(Flubber.Curve.BZR_EASE_IN_OUT_QUAD)
+                    .duration(1000)
+                    .autoStart(true)
+                    .createFor(findViewById(R.id.sync_button));
+        }
+    };
 
     @Override
     public void onSyncManagerStarted() {
+        handler.postDelayed(showSyncButtonRunnable, 10000);
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(null);
         bindings.syncContainer.setVisibility(View.VISIBLE);
         bindings.toolbarLayout.setVisibility(View.GONE);
         bindings.animationView.playAnimation();
@@ -140,11 +121,17 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerUpdate() {
+        handler.removeCallbacks(showSyncButtonRunnable);
         updateSyncText();
     }
 
     @Override
     public void onSyncManagerFinished() {
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        handler.removeCallbacks(showSyncButtonRunnable);
+        bindings.syncButton.setVisibility(View.GONE);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.playAnimation();
@@ -153,6 +140,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncFailed() {
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.playAnimation();
@@ -179,19 +169,19 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         ArrayList<ListItemTransactionData> transactionsToAdd = removeAllExistingEntries(
                 newTransactions);
         if (transactionsToAdd.size() > 0) {
-            allAdapter.addTransactions(transactionsToAdd);
-            sentAdapter.addTransactions(
+            adapter.getAllAdapter().addTransactions(transactionsToAdd);
+            adapter.getSentAdapter().addTransactions(
                     convertNewTransactionsForAdapter(Adapter.SENT, transactionsToAdd));
-            receivedAdapter.addTransactions(
+            adapter.getReceivedAdapter().addTransactions(
                     convertNewTransactionsForAdapter(Adapter.RECEIVED, transactionsToAdd));
-            allRecycler.smoothScrollToPosition(0);
-            sentRecycler.smoothScrollToPosition(0);
-            receivedRecycler.smoothScrollToPosition(0);
+            adapter.getAllRecycler().smoothScrollToPosition(0);
+            adapter.getSentRecycler().smoothScrollToPosition(0);
+            adapter.getReceivedRecycler().smoothScrollToPosition(0);
             notifyDataSetChangeForAll();
         } else {
-            allAdapter.updateTransactions(newTransactions);
-            sentAdapter.updateTransactions(newTransactions);
-            receivedAdapter.updateTransactions(newTransactions);
+            adapter.getAllAdapter().updateTransactions(newTransactions);
+            adapter.getSentAdapter().updateTransactions(newTransactions);
+            adapter.getReceivedAdapter().updateTransactions(newTransactions);
             notifyDataSetChangeForAll();
         }
     }
@@ -230,8 +220,13 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     private ArrayList<ListItemTransactionData> removeAllExistingEntries(
             ArrayList<ListItemTransactionData> newTransactions) {
         return new ArrayList<ListItemTransactionData>(newTransactions) {{
-            removeAll(allAdapter.getTransactions());
+            removeAll(adapter.getAllAdapter().getTransactions());
         }};
+    }
+
+    private void updateAmounts() {
+        ActivityUTILS.updateDigibyteDollarValues(this, bindings.primaryPrice,
+                bindings.secondaryPrice);
     }
 
     @Override
@@ -241,7 +236,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onIsoChanged(String iso) {
-        updateDigibyteDollarValues();
+        updateAmounts();
     }
 
     @Override
@@ -251,7 +246,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onBalanceChanged(final long balance) {
-        updateDigibyteDollarValues();
+        updateAmounts();
     }
 
     @Override
@@ -261,8 +256,8 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                     error == 0 ? getString(R.string.Alerts_sendSuccess)
                             : getString(R.string.Alert_error),
                     error == 0 ? getString(R.string.Alerts_sendSuccessSubheader)
-                            : message, error == 0 ? R.drawable.signal_icon_graphic
-                            : R.drawable.ic_error_outline_black_24dp, () -> {
+                            : message, error == 0 ? R.raw.success_check
+                            : R.raw.error_check, () -> {
                         try {
                             getSupportFragmentManager().popBackStack();
                         } catch (IllegalStateException e) {
@@ -302,10 +297,16 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         notifyDataSetChangeForAll();
     }
 
+    @OnClick(R.id.sync_button)
+    void onSyncButtonClick(View view) {
+        startActivity(new Intent(BreadActivity.this,
+                SyncBlockchainActivity.class));
+    }
+
     private void notifyDataSetChangeForAll() {
-        allAdapter.notifyDataChanged();
-        sentAdapter.notifyDataChanged();
-        receivedAdapter.notifyDataChanged();
+        adapter.getAllAdapter().notifyDataChanged();
+        adapter.getSentAdapter().notifyDataChanged();
+        adapter.getReceivedAdapter().notifyDataChanged();
     }
 
     @OnClick(R.id.security_center)
@@ -332,7 +333,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     protected void onResume() {
         super.onResume();
-        updateDigibyteDollarValues();
+        updateAmounts();
         BRWalletManager.getInstance().addBalanceChangedListener(this);
         BRPeerManager.getInstance().addStatusUpdateListener(this);
         BRSharedPrefs.addIsoChangedListener(this);
@@ -354,7 +355,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSharedPrefs.removeListener(this);
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
-        SyncManager.getInstance().stopSyncingProgressThread();
+        SyncManager.getInstance().stopSyncingProgressThread(false);
     }
 
     @Override
@@ -369,68 +370,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
             handler.post(() -> bindings.drawerLayout.closeDrawer(Gravity.LEFT));
         } else {
             super.onBackPressed();
-        }
-    }
-
-    private class TxAdapter extends PagerAdapter {
-
-        @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-            RecyclerView layout = (RecyclerView) LayoutInflater.from(BreadActivity.this).inflate(
-                    R.layout.activity_bread_recycler, collection, false);
-            SlideInDownAnimator slideInDownAnimator = new SlideInDownAnimator();
-            slideInDownAnimator.setAddDuration(500);
-            slideInDownAnimator.setChangeDuration(0);
-            layout.addItemDecoration(new VerticalSpaceItemDecoration(4));
-            layout.setItemAnimator(slideInDownAnimator);
-            layout.setLayoutManager(new LinearLayoutManager(BreadActivity.this));
-            switch (position) {
-                case 0:
-                    allAdapter = new TransactionListAdapter(layout);
-                    layout.setAdapter(allAdapter);
-                    allRecycler = layout;
-                    break;
-                case 1:
-                    sentAdapter = new TransactionListAdapter(layout);
-                    layout.setAdapter(sentAdapter);
-                    sentRecycler = layout;
-                    break;
-                case 2:
-                    receivedAdapter = new TransactionListAdapter(layout);
-                    layout.setAdapter(receivedAdapter);
-                    receivedRecycler = layout;
-                    break;
-            }
-            collection.addView(layout);
-            return layout;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup collection, int position, Object view) {
-            collection.removeView((View) view);
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return object == view;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                default:
-                case 0:
-                    return getString(R.string.all);
-                case 1:
-                    return getString(R.string.sent);
-                case 2:
-                    return getString(R.string.received);
-            }
         }
     }
 }

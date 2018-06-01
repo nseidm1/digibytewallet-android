@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">DigiByte alıcı adresi aşağıya giriniz. Fork esnasında (%1$s) cüzdanınızda bulunan tüm DigiByte gönderilecek.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">Doğrulama</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">Hesabınızda hiç DigiByte bulunmuyor, veya forkdan sonra DigiByte almışsınız.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">İşlem ID kopyalandı</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">DigiByte Çek</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DigiByte İşlem ID</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">Tamam</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">gönder</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">Özel Anahtar Tara</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Başarılı</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">Kapat</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Yoksay</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">UYARI</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Cüzdanınızı %1$s tarihinde oluşturdunuz.</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Düğümleri</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Hatalı Ödeme İsteği</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">Desteklenmeyen veya bozuk döküman</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">istek zaman aşımı</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">DigiByte ödemeleri %1$s \'den aşağı olamaz.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">DigiByte işlem çıktıları %1$s \'den aşağı olamaz.</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">güvenilmeyen sertifika</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">Cüzdanınızı korumak için bir ekran kilidi gereklidir. \"Ayarlar\"&gt; \"Güvenlik\"&gt; \"Ekran kilidi\" ne gidin ve etkinleştirin.</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">Paylaş</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Metin Mesajı</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">Al</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Tamamlandı</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">Ne Zaman Senkronize Etmelisiniz?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">tamamlanan</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">beklemede</string>
-  <!-- Received filter label -->
-  <string name="Search.received">alınan</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">gönderilen</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">En üst düzeyde koruma için tüm güvenlik özelliklerini etkinleştirin.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">Telefonunuzu kaybeder veya değiştirirseniz DigiByte\'larınıza tekrar erişmenizin tek yolu.</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Yapıştırma panosu geçerli bir DigiByte adresi içermiyor.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Geçersiz Adres</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">Gönderme tam tarama devam ederken devre dışı bırakılır.</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">Yapıştır</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Ödeme isteği yüklenemedi.</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">Tara</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Gönder</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">PIN Kodunu Sıfırla</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Tara</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Dokunma Sensörü</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">Cüzdan Silinsin mi?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Başarısız</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Bu cüzdanı silmek ve yeni bir tane başlatmak için bu cüzdana ait Kurtarma Anahtarını girin. Bakiyeniz bu Kurtarma Anahtarı üzerinde kalmaya devam edecek.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Başka bir cüzdan başlatmak veya kurtarmak, bu cihaz üzerinde farklı bir DigiWallet\'e erişmenizi ve yönetmenizi sağlar.</string>

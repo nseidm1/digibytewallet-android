@@ -100,18 +100,12 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
         public void onBindViewHolder(@NonNull BRMenuItem holder, int position) {
             switch (position) {
                 case 0:
-                    holder.text.setText(R.string.UnlockScreen_scan);
-                    holder.icon.setImageResource(R.drawable.ic_qrcode);
-                    holder.itemView.setOnClickListener(
-                            v -> fadeOutRemove(FragmentType.SCAN, false, false));
-                    break;
-                case 1:
                     holder.text.setText(R.string.Send_title);
                     holder.icon.setImageResource(R.drawable.menu_send);
                     holder.itemView.setOnClickListener(
                             v -> fadeOutRemove(FragmentType.SEND, false, false));
                     break;
-                case 2:
+                case 1:
                     holder.text.setText(R.string.Receive_title);
                     holder.icon.setImageResource(R.drawable.menu_receive);
                     holder.itemView.setOnClickListener(
@@ -122,7 +116,7 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
 
         @Override
         public int getItemCount() {
-            return 3;
+            return 2;
         }
     }
 

@@ -31,6 +31,7 @@ import io.digibyte.tools.util.Utils;
 public class SecurityCenterActivity extends BRActivity {
 
     public List<BRSecurityCenterItem> itemList = new ArrayList<>();
+    private SecurityCenterListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,15 @@ public class SecurityCenterActivity extends BRActivity {
         ActivitySecurityCenterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_security_center);
         setupToolbar();
         setToolbarTitle(R.string.SecurityCenter_title);
-        updateList();
-        binding.setAdapter(new SecurityCenterListAdapter(this, R.layout.menu_list_item, itemList));
+        adapter = new SecurityCenterListAdapter(this, R.layout.menu_list_item, itemList);
+        binding.setAdapter(adapter);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateList();
+        adapter.notifyDataSetChanged();
     }
 
     public class SecurityCenterListAdapter extends ArrayAdapter<BRSecurityCenterItem> {

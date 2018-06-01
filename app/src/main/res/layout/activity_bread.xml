@@ -10,9 +10,9 @@
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        android:filterTouchesWhenObscured="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:filterTouchesWhenObscured="true"
         android:fitsSystemWindows="true">
 
         <FrameLayout android:layout_width="match_parent"
@@ -26,17 +26,18 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
+                <android.support.design.widget.AppBarLayout android:id="@+id/toolbar_layout"
+                                                            android:layout_width="match_parent"
                                                             android:layout_height="wrap_content"
                                                             android:background="@color/background">
                     <android.support.design.widget.CollapsingToolbarLayout
-                        android:id="@+id/toolbar_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:animateLayoutChanges="true"
                         app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                        <LinearLayout android:id="@+id/toolbar_layout_container" android:layout_width="match_parent"
+                        <LinearLayout android:id="@+id/toolbar_layout_container"
+                                      android:layout_width="match_parent"
                                       android:layout_height="wrap_content"
                                       android:gravity="center_horizontal"
                                       android:orientation="vertical"
@@ -48,9 +49,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:layout_marginTop="8dp"
-                                android:singleLine="true"
                                 android:ellipsize="end"
                                 android:foreground="?android:attr/selectableItemBackground"
+                                android:singleLine="true"
                                 android:textColor="@color/white"
                                 android:textSize="40sp"
                                 android:textStyle="bold"/>
@@ -59,10 +60,10 @@
                                 android:id="@+id/secondary_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:singleLine="true"
-                                android:ellipsize="end"
                                 android:layout_marginBottom="4dp"
+                                android:ellipsize="end"
                                 android:foreground="?android:attr/selectableItemBackground"
+                                android:singleLine="true"
                                 android:textColor="#66688f"
                                 android:textSize="26sp"/>
 
@@ -79,29 +80,37 @@
                               android:orientation="vertical"
                               app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                    <LinearLayout android:id="@+id/sync_container" android:layout_width="match_parent"
+                    <LinearLayout android:id="@+id/sync_container"
+                                  android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
                                   android:layout_gravity="center"
                                   android:gravity="center_horizontal"
-                                  android:visibility="gone"
-                                  android:orientation="vertical">
+                                  android:orientation="vertical"
+                                  android:visibility="gone">
 
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/animation_view"
                             android:layout_width="wrap_content"
-                            android:layout_height="75dp"
-                            android:hardwareAccelerated="true"
-                            app:lottie_enableMergePathsForKitKatAndAbove="true"
+                            android:layout_height="90dp"
                             android:layout_gravity="center"
+                            android:hardwareAccelerated="true"
                             app:lottie_autoPlay="false"
+                            app:lottie_enableMergePathsForKitKatAndAbove="true"
                             app:lottie_fileName="loading.json"
                             app:lottie_loop="true"/>
 
-                        <TextView android:layout_width="wrap_content"
-                                  android:id="@+id/sync_text"
-                                  android:gravity="center_horizontal"
+                        <TextView android:id="@+id/sync_text"
+                                  android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
+                                  android:gravity="center_horizontal"
                                   android:textColor="@color/white" android:textSize="16sp"/>
+
+                        <android.support.v7.widget.AppCompatImageView android:layout_width="24dp"
+                                                                      android:visibility="gone"
+                                                                      android:layout_marginTop="4dp"
+                                                                      android:layout_height="24dp"
+                                                                      android:id="@+id/sync_button"
+                                                                      app:srcCompat="@drawable/sync_alt"/>
 
                     </LinearLayout>
 
@@ -110,7 +119,6 @@
                         style="@style/MyCustomTabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         app:tabGravity="fill"
                         app:tabMode="fixed"/>
 
@@ -237,6 +245,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:text="@string/MenuButton.security"
                             android:textColor="#8b8ca7"
                             android:textSize="20sp"/>
@@ -264,6 +274,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:text="@string/MenuButton.settings"
                             android:textColor="#8b8ca7"
                             android:textSize="20sp"/>
@@ -290,6 +302,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:text="@string/MenuButton.lock"
                             android:textColor="#8b8ca7"
                             android:textSize="20sp"/>
@@ -304,12 +318,12 @@
                          android:orientation="vertical"
                          android:paddingTop="36dp">
 
-                <ImageView
+                <android.support.v7.widget.AppCompatImageView
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="50dp"
-                    android:src="@drawable/digi_byte_symbol"/>
+                    app:srcCompat="@drawable/digi_byte_symbol"/>
 
             </FrameLayout>
 

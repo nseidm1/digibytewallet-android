@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/close_button"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
@@ -50,7 +50,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/bread_margin"
                     android:layout_marginStart="12dp"
-                    android:background="@drawable/ic_close_black_24dp"
+                    app:srcCompat="@drawable/ic_close_black_24dp"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="@{() -> callback.closeClick()}"/>
 
@@ -190,7 +190,7 @@
                             android:gravity="center_horizontal"
                             android:orientation="horizontal">
 
-                            <ImageView
+                            <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/share_email"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
@@ -200,12 +200,11 @@
                                 android:onClick="@{() -> callback.shareEmailClick()}"
                                 android:padding="6dp"
                                 android:singleLine="true"
-                                android:src="@drawable/receive_share_qr"
-                                android:text="@string/share_qr"
+                                app:srcCompat="@drawable/receive_share_qr"
                                 android:textColor="@color/white"
                                 android:textSize="14sp"/>
 
-                            <ImageView
+                            <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/share_text"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
@@ -215,8 +214,7 @@
                                 android:onClick="@{() -> callback.shareTextClick()}"
                                 android:padding="6dp"
                                 android:singleLine="true"
-                                android:src="@drawable/share_sms"
-                                android:text="@string/Receive.textButton"
+                                app:srcCompat="@drawable/share_sms"
                                 android:textColor="@color/white"
                                 android:textSize="14sp"/>
 
