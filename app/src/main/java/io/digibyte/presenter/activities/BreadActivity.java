@@ -98,6 +98,20 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         unbinder = ButterKnife.bind(this);
     }
 
+    private Runnable showSyncRunnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(showSyncButtonRunnable, 10000);
+            CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                    (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+            coordinatorLayoutParams.setBehavior(null);
+            bindings.syncContainer.setVisibility(View.VISIBLE);
+            bindings.toolbarLayout.setVisibility(View.GONE);
+            bindings.animationView.playAnimation();
+            updateSyncText();
+        }
+    };
+
     private Runnable showSyncButtonRunnable = new Runnable() {
         @Override
         public void run() {
@@ -113,14 +127,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
-        handler.postDelayed(showSyncButtonRunnable, 10000);
-        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
-                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
-        coordinatorLayoutParams.setBehavior(null);
-        bindings.syncContainer.setVisibility(View.VISIBLE);
-        bindings.toolbarLayout.setVisibility(View.GONE);
-        bindings.animationView.playAnimation();
-        updateSyncText();
+        handler.postDelayed(showSyncRunnable, 2500);
     }
 
     @Override
@@ -135,10 +142,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         handler.removeCallbacks(showSyncButtonRunnable);
+        handler.removeCallbacks(showSyncRunnable);
         bindings.syncButton.setVisibility(View.GONE);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
-        bindings.animationView.playAnimation();
         bindings.animationView.cancelAnimation();
     }
 
@@ -147,9 +154,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         CoordinatorLayout.LayoutParams coordinatorLayoutParams =
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        handler.removeCallbacks(showSyncButtonRunnable);
+        handler.removeCallbacks(showSyncRunnable);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
-        bindings.animationView.playAnimation();
         bindings.animationView.cancelAnimation();
     }
 
@@ -354,7 +362,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
         BRApiManager.getInstance().asyncUpdateFeeData(this);
-        SyncManager.getInstance().startSyncingProgressThread(this);
+        SyncManager.getInstance().startSyncingProgressThread();
     }
 
     @Override
@@ -365,7 +373,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSharedPrefs.removeListener(this);
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
-        SyncManager.getInstance().stopSyncingProgressThread(false);
+        SyncManager.getInstance().stopSyncingProgressThread();
     }
 
     @Override

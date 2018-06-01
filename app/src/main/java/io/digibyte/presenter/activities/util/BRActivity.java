@@ -64,9 +64,9 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         super.onCreate(savedInstanceState);
         Bungee.slideRight(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        if (ActivityUTILS.RootUtil.isDeviceRooted()) {
-            ActivityUTILS.showJailbrokenDialog(this);
-        }
+//        if (ActivityUTILS.RootUtil.isDeviceRooted()) {
+//            ActivityUTILS.showJailbrokenDialog(this);
+//        }
     }
 
     protected void setupToolbar() {
