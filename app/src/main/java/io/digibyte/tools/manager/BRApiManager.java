@@ -86,7 +86,7 @@ public class BRApiManager {
                         String selectedISO = BRSharedPrefs.getIso(context);
                         if (tmp.code.equalsIgnoreCase(selectedISO)) {
                             BRSharedPrefs.putIso(context, tmp.code);
-                            BRSharedPrefs.putCurrencyListPosition(context, i - 1);
+                            BRSharedPrefs.putCurrencyListPosition(context, i);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
