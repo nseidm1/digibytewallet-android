@@ -24,8 +24,8 @@ android {
         applicationId = 'io.digibyte'
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 2148
-        versionName "2.0.0b2094"
+        versionCode 2213
+        versionName "2.0.0b2213 RC6"
         multiDexEnabled true
         // Similar to other properties in the defaultConfig block,
         // you can configure the ndk block for each product flavor
@@ -204,4 +204,6 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.5.4'
     implementation 'com.appolica:flubber:1.0.1'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
+    implementation 'com.scottyab:rootbeer-lib:0.0.6'
 }
