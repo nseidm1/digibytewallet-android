@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">మీరు చేరుకోవలసిన DGB చిరునామాను క్రింద నమోదు చేయండి. అన్నిDGB విడిపోయే/fork (%1$s) సమయంలో మీ వాలెట్ లో వేయబడతాయి.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">నిర్ధారణ</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">మీ అకౌంట్‌లో ఏమీ DGB,లు లేవు, లేదా ఫోర్క్ తరువాత మీకు DGBలు అందినవి.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">లావాదేవీల/ట్రాన్సాక్షన్ ఐడి కాపీ చేయబడింది.</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">DGBను వెనక్కి తీసుకోండి</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DGB  ట్రాన్సాక్షన్ ఐడి</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">"అలాగే "</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">"పంపించండి "</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">ప్రైవేట్ కీని స్కాన్ చేయండి</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">"విజయవంతమైంది "</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">"మూసివేయండి "</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">"దీన్ని పట్టించుకోకండి "</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">హెచ్చరిక</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">"మీరు %1$s లో, మీ వాలెట్‌ని రూపొందించుకున్నారు "</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">"డిజీబైట్ నోడ్స్ "</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">"ఈ చెల్లింపు అభ్యర్థన బాలేదు "</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">మద్దతు లేని లేదా చెడిపోయిన పత్రం</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">అభ్యర్థన గడువు ముగిసింది</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">డిజీబైట్ చెల్లింపులు %1$s కంటే తక్కువగా ఉండకూడదు</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">"డిజీబైట్ లావాదేవీల ప్రతిఫలాలు $@ కంటే తక్కువగా ఉండకూడదు. "</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">అవిశ్వాస ప్రమాణపత్రం</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">"మీ వాలెట్‌ను కాపాడేందుకు పరికరం యొక్క స్క్రీన్ లాక్ అవసరమవుతుంది. దీన్ని సంసిద్ధం చేసి కొనసాగించేందుకు మీరు మొదట \"Settings\"&gt;\"Security\"&gt;  వెళ్ళండి, మరి చివరగా \"Screen lock\" కు వెళ్లండి. "</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">ఇతరులతో పంచుకోండి</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">లిఖితపూర్వక సందేశం</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">స్వీకరించండి</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"పని పూర్తయింది "</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">"ఎప్పుడు సమకాలీకరించాలి? "</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">"పూర్తయింది  "</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">"పెండింగ్/ఇంకా పూర్తికాలేదు  "</string>
-  <!-- Received filter label -->
-  <string name="Search.received">"అందుకోబడినవి  "</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">"పంపబడినవి "</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">"పూర్తి రక్షణ కోసం అన్ని భద్రతా లక్షణాలను సంసిద్ధం చేయండి. "</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">"మీరు మీ ఫోను పారేసుకున్నా లేదా అప్‌గ్రేడ్ చేసినా, మీ డిజీబైట్‌ను తిరిగి పొందడానికి ఏకైక మార్గం. "</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">పేస్ట్‌బోర్డులో, సరైన డిజీబైట్ చిరునామా లేదు.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">చెల్లని చిరునామా</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">పూర్తి పునరుద్ధీకరణ/రీస్కాన్ జరుగుతున్న సమయంలో, పంపించడం నిలిపివేయబడమైనది.</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">"అతికించండి  "</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">"చెల్లింపు అభ్యర్థనను లోడ్ చేయడానికి/ఎక్కించడానికి సాధ్యపడలేదు   "</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">"పరిశోధించు/స్కాన్ చేయి "</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">"పంపించండి "</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">పిన్‌ను తిరిగి సెట్ చేయండి</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">"పరిశోధించు/స్కాన్ చేయి "</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">టచ్ సెన్సర్/స్పర్శకు స్పందించేది</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">"వాలెట్‌ను వైప్ చేయాలా? "</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">విఫలమైంది</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">"ఒక కొత్త వాలెట్‌ను ప్రారంభించడానికి లేదా ఇప్పటికే ఉన్న వాలెట్‌ని పునరుద్ధరించడానికి, మీరు మొదట ఇన్స్టాల్ చేసిన వాలెట్‌ను తొలగించాలి. తరువాత ప్రస్తుత వాలెట్ యొక్క పేపర్ కీని నమోదు చేయండి. "</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">"ఇంకొక వాలెట్‌ను ప్రారంభించడం లేదా పునరుద్ధరించడం వలన మీరు ఈ పరికరంలో మరో డిజీవాలెట్‌ను పొందడానికి మరియు నిర్వహించడానికి వీలు కలుగుతుంది. "</string>

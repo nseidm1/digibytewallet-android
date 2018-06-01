@@ -19,7 +19,6 @@ import io.digibyte.presenter.activities.callbacks.ActivityInputWordsCallback;
 import io.digibyte.presenter.activities.intro.IntroActivity;
 import io.digibyte.presenter.activities.models.InputWordsViewModel;
 import io.digibyte.presenter.activities.util.BRActivity;
-import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.tools.animation.BRDialog;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
@@ -105,13 +104,13 @@ public class InputWordsActivity extends BRActivity implements TextView.OnEditorA
 
         if (Utils.isUsingCustomInputMethod(this)) {
             BRDialog.showCustomDialog(this, getString(R.string.JailbreakWarnings_title), getString(R.string.Alert_customKeyboard_android),
-                    getString(R.string.Button_ok), getString(R.string.JailbreakWarnings_close), new BRDialogView.BROnClickListener() {
-                        @Override
-                        public void onClick(BRDialogView brDialogView) {
-                            InputMethodManager imeManager = (InputMethodManager) getApplicationContext().getSystemService(INPUT_METHOD_SERVICE);
-                            imeManager.showInputMethodPicker();
-                            brDialogView.dismissWithAnimation();
-                        }
+                    getString(R.string.Button_ok), getString(R.string.JailbreakWarnings_close),
+                    brDialogView -> {
+                        InputMethodManager imeManager =
+                                (InputMethodManager) getApplicationContext().getSystemService(
+                                        INPUT_METHOD_SERVICE);
+                        imeManager.showInputMethodPicker();
+                        brDialogView.dismissWithAnimation();
                     }, brDialogView -> brDialogView.dismissWithAnimation(), null, 0);
         }
 

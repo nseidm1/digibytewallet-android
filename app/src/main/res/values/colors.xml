@@ -8,7 +8,6 @@
     <item name="black" type="color">#ff000000</item>
     <item name="gray" type="color">#ff787878</item>
     <item name="light_gray" type="color">#ff9d9d9d</item>
-    <item name="separator_gray" type="color">#c6c6c6</item>
     <item name="gray_shadow" type="color">#41484848</item>
     <item name="extra_light_gray" type="color">#D6DAE1</item>
     <item name="dark_gray" type="color">#65696e</item>
@@ -20,7 +19,6 @@
     <item name="black_trans" type="color">#b5000000</item>
     <item name="red_text" type="color">#FF5454</item>
     <item name="green_text" type="color">#00BF00</item>
-    <item name="camera_guideline" type="color">#50636363</item>
 
     <item name="logo_gradient_start" type="color">#012351</item>
     <item name="logo_gradient_end" type="color">#0066cc</item>

@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">请输入一个有效的极特币接收地址。当分叉发生时，您钱包里的所有极特币余额（%1$s）都会被发出。</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">确认</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">您的账户里没有极特币。或者您在分叉之后才收到的极特币。</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">交易ID复制成功</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">提取极特币</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">极特币交易ID</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">是</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">发送</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">扫描私钥</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">导入成功</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">关闭</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">忽略</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">警告</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">您的钱包创建于%1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">极特币节点</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">交易请求失败</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">文件损坏或不支持</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">请求已过期</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">极特币转账不可少于%1$s</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">极特币转出数额不可少于%1$s</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">该认证不受信任</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">您的设备需要锁屏保护。请在“设置”&gt;“安全”&gt;“锁屏”开启锁屏选项。</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">分享</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">短信</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">收取</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">完成</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">请尝试用重新同步修复以下问题</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">完成</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">正在进行</string>
-  <!-- Received filter label -->
-  <string name="Search.received">已收到</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">已发送</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">开启所有安全功能从而得到最大化保护。</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">在丢失或换新手机的情况下这是唯一能拿回你的极特币的办法。</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">粘贴板里没有一个有效的极特币地址。</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">无效的地址</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">在完全重新扫描时，无法发送。</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">粘贴</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">无法载入付款请求。</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">扫描</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">发送</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">重置密码</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">扫描</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">请触摸指纹感应器</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">删除钱包？</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">失败</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">新建或者恢复一个钱包，您需要首先删除现有的钱包。请输入现有钱包的纸键已继续。</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">通过新建或者恢复一个已有的钱包，可以使您在这个设备上管理多个钱包。</string>

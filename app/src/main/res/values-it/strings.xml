@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">Nel seguente campo inserisci un indirizzo di destinazione DigiByte. Dal momento della biforcazione (%1$s) tutti i DigiByte nel tuo portafoglio saranno inviati.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">Conferma</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">Il tuo account non contiene nessun DigiByte, oppure hai ricevuto DigiByte dopo la biforcazione.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">ID transazione copiato</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">Preleva DigiByte</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">ID transazione DigiByte</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">OK</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">invia</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -142,8 +135,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">Scansiona una Chiave Privata</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Successo</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -152,16 +144,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">Chiudi</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Ignora</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ATTENZIONE</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Portafoglio creato il %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -196,21 +186,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Nodi DigiByte</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Richiesta di Pagamento Errata</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">Documento non supportato o corrotto</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">richiesta scaduta</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">I pagamenti DigiByte non possono essere meno di %1$s</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">Le transazioni in uscita DigiByte non possono essere inferiori a %1$s</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">Certificato non sicuro</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">Il blocca schermo del dispositivo è necessario per salvaguardare il tuo portafoglio. Vai a \"Impostazioni\"&gt;\"Sicurezza\"&gt;\"Blocca schermo\" e abilitalo per continuare.</string>
@@ -252,8 +238,7 @@
   <!-- Share button label -->
   <string name="Receive.share">Condividi</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Messaggio di Testo</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">Ricevi</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Fatto</string>
@@ -301,14 +286,10 @@
   <string name="ReScan.subheader2">Quando Sincronizzare?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">completato</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">in attesa</string>
-  <!-- Received filter label -->
-  <string name="Search.received">ricevuto</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">inviato</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">Abilita tutte le funzionalità di sicurezza per la massima protezione.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">L\'unico modo per accedere al tuo DigiByte se perdi o aggiorni il tuo telefono.</string>
@@ -345,8 +326,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Gli appunti non contengono un indirizzo DigiByte valido.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Indirizzo non valido</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">L\'invio è disabilitato durante una nuova scansione completa.</string>
@@ -358,8 +338,7 @@
   <string name="Send.pasteLabel">Incolla</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Impossibile caricare la richiesta di pagamento</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">Scansiona</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Inviare</string>
@@ -489,8 +468,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Reimposta PIN</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Scansiona</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Sensore Tocco</string>
   <!-- TouchID prompt text -->
@@ -541,8 +519,7 @@
   <string name="WipeWallet.alertTitle">Cancellare il Portafoglio?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Fallito</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Per avviare un nuovo Portafoglio o ripristinarne uno esistente, devi prima cancellare il Portafoglio attualmente installato. Per continuare, inserisci l\'attuale Chiave personale di recupero.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">L\'avvio o il ripristino di un altro portafoglio consente di accedere e gestire un altro DigiWallet su questo dispositivo.</string>

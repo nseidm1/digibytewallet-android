@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">নিচে একটি গন্তব্য DCH ঠিকানা লিখুন। এই সময়ের মধ্যে আপনার ওয়ালেটের এ শাখায় সমস্ত  BCH (%১ $@ গুলি) পাঠানো হবে।</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">নিশ্চিতকরণ</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">আপনার অ্যাকাউন্টে কোন DigiByte নেই, অথবা আপনি ফর্ক এর পর DigiByte পাবেন।</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">লেনদেন আইডি কপি করা হয়েছে</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">DigiByte উত্তোলন</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">DigiByte লেনদেন আইডি</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">ঠিক আছে</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">প্রেরণ</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">ব্যক্তিগত কী স্ক্যান করুন</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">সফল</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">বন্ধ</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">উপেক্ষা করা</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">সতর্কীকরণ</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">আপনি আপনার ওয়ালেটে %১$@ তৈরি করেছেন</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte নোড</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">ত্রূটিপূর্ণ পেমেন্ট অনুরোধ</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">অসমর্থিত বা নষ্ট নথি</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">অনুরোধের মেয়াদ শেষ হয়ে গেছে</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">DigiByte অর্থ প্রদান %১$@ এর চেয়ে কম হতে পারে না</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">DigiByte লেনদেনের আউটপুট  $১@ এর চেয়ে কম হতে পারে না</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">অবিশ্বস্ত সার্টিফিকেট</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">আপনার ওয়ালেট রক্ষা করার জন্য একটি ডিভাইস স্ক্রিন লক প্রয়োজন। \"সেটিংস\"&gt;\"নিরাপত্তা\"&gt;\"স্ক্রিন লক\" এ যান এবং চালিয়ে যেতে সক্ষম করুন।</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">অংশ দেত্তয়া/ভাগ</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">লিখিত বার্তা</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">গ্রহণ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">সম্পন্ন</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">সিনক্রোনাইজ কখন হবে?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">সম্পূর্ণ</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">অমীমাংসিত</string>
-  <!-- Received filter label -->
-  <string name="Search.received">গ্রহণ</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">প্রেরণ</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">সর্বাধিক সুরক্ষার জন্য সমস্ত নিরাপত্তা ব্যাবস্থা সক্রিয় করুন।</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">আপনি আপনার ফোন হারিয়ে ফেললে বা আপগ্রেড করলে এটি আপনার DigiByte অ্যাক্সেস করার একমাত্র উপায়।</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">পেস্টবোর্ডটিতে একটি বৈধ DigiByte ঠিকানা নেই।</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">অকার্যকর ঠিকানা</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">সম্পূর্ণ রিস্ক্যান এর সময় কিছু পাঠানো অক্ষম।</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">এখানে রাখুন</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">পেমেন্ট অনুরোধ লোড করা যায়নি</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">খুঁটিয়ে দেখা</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">পাঠান</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">PIN পুনরায় সেট করুন</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">খুঁটিয়ে দেখা</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">স্পর্শ সেন্সর</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">ওয়ালেট কি মুছে ফেলবেন?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">ব্যর্থ</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">একটি নতুন ওয়ারলেস শুরু বা একটি পুরাতন ওয়ালেট পুনরুদ্ধার করতে, প্রথমে আপনাকে যে ওয়ালেট  ইনস্টল করা আছে সেটি মুছে ফেলতে হবে। চালিয়ে যেতে, বর্তমান ওয়ালেটের কাগজ কীটি লিখুন।</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">অন্য একটি ওয়ালেট চালু বা পুনরুদ্ধার করেত আপনাকে এই ডিভাইসে একটি ভিন্ন DigiWallet প্রবেশ এবং পরিচালনা করতে দেয়।</string>

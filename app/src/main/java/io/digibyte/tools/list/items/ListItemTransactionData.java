@@ -58,7 +58,7 @@ public class ListItemTransactionData extends ListItemData implements Parcelable 
         super(in);
         transactionIndex = in.readInt();
         transactionsCount = in.readInt();
-        transactionItem = (TxItem) in.readValue(TxItem.class.getClassLoader());
+        transactionItem = in.readParcelable(TxItem.class.getClassLoader());
         transactionDisplayTimeHolder = in.readString();
     }
 
@@ -71,7 +71,7 @@ public class ListItemTransactionData extends ListItemData implements Parcelable 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(transactionIndex);
         dest.writeInt(transactionsCount);
-        dest.writeValue(transactionItem);
+        dest.writeParcelable(transactionItem, 0);
         dest.writeString(transactionDisplayTimeHolder);
     }
 

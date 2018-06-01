@@ -6,17 +6,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.Date;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ListItemTransactionBinding;
 import io.digibyte.presenter.entities.TxItem;
-import io.digibyte.tools.database.Database;
 import io.digibyte.tools.list.ListItemData;
 import io.digibyte.tools.list.ListItemViewHolder;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.util.BRCurrency;
-import io.digibyte.tools.util.BRDateUtil;
 import io.digibyte.tools.util.BRExchange;
 
 public class ListItemTransactionViewHolder extends ListItemViewHolder {
@@ -70,9 +69,9 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
     public static void setTimeStamp(TextView textView,
             ListItemTransactionData listItemTransactionData) {
         TxItem item = listItemTransactionData.transactionItem;
-        long timeStamp =
-                item.getTimeStamp() == 0 ? System.currentTimeMillis() : item.getTimeStamp() * 1000;
-        CharSequence timeSpan = BRDateUtil.getCustomSpan(new Date(timeStamp));
-        textView.setText(timeSpan);
+        Date timeStamp =
+                new Date(item.getTimeStamp() == 0 ? System.currentTimeMillis()
+                        : item.getTimeStamp() * 1000);
+        textView.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(timeStamp));
     }
 }

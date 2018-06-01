@@ -51,22 +51,16 @@
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
     <!-- Send BCH view body. -->
-  <string name="BCH.body">Введите ниже адрес получателя DigiByte. Все DigiByte в вашем кошельке на момент форка (%1$s) будут отправлены.</string>
-  <!-- Confirm sending <$5.00> to <address>? -->
+    <!-- Confirm sending <$5.00> to <address>? -->
     <!-- Confirmation alert title -->
-  <string name="BCH.confirmationTitle">Подтверждение</string>
-  <!-- Generic bch erorr message -->
-  <string name="BCH.genericError">На вашем аккаунте нет DGB , или вы получили DGB после форка.</string>
-  <!-- Transaction ID copied message -->
-  <string name="BCH.hashCopiedMessage">Идентификатор транзакции скопирован</string>
-  <!-- No address error message -->
+    <!-- Generic bch erorr message -->
+    <!-- Transaction ID copied message -->
+    <!-- No address error message -->
     <!-- Attempted to scan unsupported qr code error message. -->
     <!-- BCH successfully sent alert message -->
     <!-- Widthdraw BCH view title -->
-  <string name="BCH.title">Вывести DigiByte</string>
-  <!-- Tx Hash button header -->
-  <string name="BCH.txHashHeader">Идентификатор транзакций DigiByte</string>
-  <!-- Approve button label -->
+    <!-- Tx Hash button header -->
+    <!-- Approve button label -->
     <!-- <sitename> is requesting authentication using your bitcoin wallet -->
     <!-- Deny button label -->
     <!-- BitID error alert title -->
@@ -82,8 +76,7 @@
   <string name="Button.ok">ОК</string>
   <!-- receive button -->
     <!-- send button -->
-  <string name="Button.send">Отправить</string>
-  <!-- Settings button label -->
+    <!-- Settings button label -->
     <!-- Settings button label -->
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
@@ -143,8 +136,7 @@
     <!-- Scan Private key button label -->
   <string name="Import.scan">Сканировать приватный ключ</string>
   <!-- Import wallet success alert title -->
-  <string name="Import.success">Успешно</string>
-  <!-- Successfully imported wallet message body -->
+    <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
@@ -153,16 +145,14 @@
     <!-- Close app button -->
   <string name="JailbreakWarnings.close">Закрыть</string>
   <!-- Ignore jailbreak warning button -->
-  <string name="JailbreakWarnings.ignore">Игнорировать</string>
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ВНИМАНИЕ</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
-  <string name="ManageWallet.creationDatePrefix">Вы создали свой кошелек %1$s</string>
-  <!-- Manage wallet description text -->
+    <!-- Manage wallet description text -->
     <!-- Change Wallet name textfield label -->
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
@@ -197,21 +187,17 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Узлы DigiByte</string>
   <!-- Bad Payment request alert title -->
-  <string name="PaymentProtocol.Errors.badPaymentRequest">Неправильный запрос платежа</string>
-  <!-- Error opening payment protocol file message -->
-  <string name="PaymentProtocol.Errors.corruptedDocument">Неподдерживаемый или поврежденный документ</string>
-  <!-- Missing certificate payment protocol error message -->
+    <!-- Error opening payment protocol file message -->
+    <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
-  <string name="PaymentProtocol.Errors.requestExpired">Время запроса истекло</string>
-  <!-- Payment too small alert title -->
+    <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">Оплата DigiByte не может быть меньше %1$s.</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">" Сумма транзакции для вывода DigiByte не может быть меньше %1$s."</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
-  <string name="PaymentProtocol.Errors.untrustedCertificate">Ненадежный сертификат</string>
-  <!-- No passcode set warning body -->
+    <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">Для защиты вашего кошелька на устройстве необходимо включить блокировку экрана. Зайдите в \"Настройки\" &gt; \"Безопасность\" &gt; \"Блокировка экрана\" и включите опцию, чтобы продолжить.</string>
@@ -253,8 +239,7 @@
   <!-- Share button label -->
   <string name="Receive.share">Поделиться</string>
   <!-- Share via text message (SMS) -->
-  <string name="Receive.textButton">Текстовое сообщение</string>
-  <!-- Receive modal title -->
+    <!-- Receive modal title -->
   <string name="Receive.title">Получить</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Готово</string>
@@ -302,14 +287,10 @@
   <string name="ReScan.subheader2">Когда синхронизировать?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
-  <string name="Search.complete">Завершено</string>
-  <!-- Pending filter label -->
-  <string name="Search.pending">В ожидании</string>
-  <!-- Received filter label -->
-  <string name="Search.received">Получено</string>
-  <!-- Sent filter label -->
-  <string name="Search.sent">Отправлено</string>
-  <!-- Security Center Info -->
+    <!-- Pending filter label -->
+    <!-- Received filter label -->
+    <!-- Sent filter label -->
+    <!-- Security Center Info -->
   <string name="SecurityCenter.info">Включите все функции безопасности для максимальной защиты.</string>
   <!-- Paper Key button description -->
   <string name="SecurityCenter.paperKeyDescription">Единственный способ получить доступ к вашим DigiByte, если вы потеряете или смените телефон.</string>
@@ -346,8 +327,7 @@
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
-  <string name="Send.invalidAddressOnPasteboard">Буфер обмена не содержит действительный адрес DigiByte.</string>
-  <!-- Invalid address alert title -->
+    <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">Недействительный адрес</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">Отправка отключена во время полного сканирования.</string>
@@ -359,8 +339,7 @@
   <string name="Send.pasteLabel">Вставить</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
-  <string name="Send.remoteRequestError">Не удалось загрузить запрос на платеж</string>
-  <!-- Scan button label -->
+    <!-- Scan button label -->
   <string name="Send.scanLabel">Сканировать</string>
   <!-- Send button label (the action, "press here to send") -->
   <string name="Send.sendLabel">Отправить</string>
@@ -490,8 +469,7 @@
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">Сбросить PIN-код</string>
   <!-- Scan button title -->
-  <string name="UnlockScreen.scan">Сканировать</string>
-  <!-- Unlock Screen sub-header -->
+    <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">Сенсорный датчик</string>
   <!-- TouchID prompt text -->
@@ -542,8 +520,7 @@
   <string name="WipeWallet.alertTitle">Очистить кошелек?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
-  <string name="WipeWallet.failedTitle">Неудачная попытка</string>
-  <!-- Enter phrase to wipe wallet instruction. -->
+    <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">Для создания нового кошелька или восстановления существующего вы сначала должны удалить текущий кошелёк. Для продолжения введите ваш персональный ключ восстановления для этого кошелька.</string>
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">Создание или восстановление другого кошелька позволяет вам получить доступ к другому DigiWallet и управлять им с этого устройства.</string>

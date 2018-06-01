@@ -117,7 +117,8 @@ public class BRBitId {
                             () -> Toast.makeText(app, "DigiID Success", Toast.LENGTH_SHORT).show());
                 } else {
                     handler.post(() -> Toast.makeText(app,
-                            app.getString(R.string.Import_Error_signing) + ": " + res.message(),
+                            app.getString(R.string.Import_Error_signing) + ": " + res.code() + " - "
+                                    + res.message(),
                             Toast.LENGTH_SHORT).show());
                 }
                 if (isDeepLink) {
