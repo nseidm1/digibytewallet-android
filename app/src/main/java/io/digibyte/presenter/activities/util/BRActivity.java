@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.platform.tools.BRBitId;
+import com.scottyab.rootbeer.RootBeer;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -64,7 +65,8 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         super.onCreate(savedInstanceState);
         Bungee.slideRight(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        if (ActivityUTILS.RootUtil.isDeviceRooted()) {
+        RootBeer rootBeer = new RootBeer(this);
+        if (rootBeer.isRooted()) {
             ActivityUTILS.showJailbrokenDialog(this);
         }
     }
