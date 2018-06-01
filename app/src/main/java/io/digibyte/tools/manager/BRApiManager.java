@@ -76,7 +76,7 @@ public class BRApiManager {
             //No need, this is just for rates, and fee/kb will be updated when sending
             if (arr != null) {
                 int length = arr.length();
-                for (int i = 1; i < length; i++) {
+                for (int i = 0; i < length; i++) {
                     CurrencyEntity tmp = new CurrencyEntity();
                     try {
                         JSONObject tmpObj = (JSONObject) arr.get(i);
@@ -105,22 +105,15 @@ public class BRApiManager {
     }
 
     public void asyncUpdateCurrencyData(final Context context) {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                Set<CurrencyEntity> tmp = getCurrencies((Activity) context);
-                CurrencyDataSource.getInstance(context).putCurrencies(tmp);
-            }
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            Set<CurrencyEntity> tmp = getCurrencies((Activity) context);
+            CurrencyDataSource.getInstance(context).putCurrencies(tmp);
         });
     }
 
     public void asyncUpdateFeeData(final Context context) {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(new Runnable() {
-            @Override
-            public void run() {
-                updateFeePerKb(context);
-            }
-        });
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+                () -> updateFeePerKb(context));
     }
 
     private static JSONArray fetchRates(Activity activity) {
