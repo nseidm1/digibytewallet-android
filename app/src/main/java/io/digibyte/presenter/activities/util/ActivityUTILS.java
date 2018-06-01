@@ -118,11 +118,8 @@ public class ActivityUTILS {
     }
 
     public static class RootUtil {
+      
         public static boolean isDeviceRooted() {
-            return checkRootMethod1() || checkRootMethod2();
-        }
-
-        private static boolean checkRootMethod1() {
             String[] paths =
                     {"/system/app/Superuser.apk", "/sbin/su", "/system/bin/su", "/system/xbin/su",
                             "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
@@ -131,21 +128,6 @@ public class ActivityUTILS {
                 if (new File(path).exists()) return true;
             }
             return false;
-        }
-
-        private static boolean checkRootMethod2() {
-            Process process = null;
-            try {
-                process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(process.getInputStream()));
-                if (in.readLine() != null) return true;
-                return false;
-            } catch (Throwable t) {
-                return false;
-            } finally {
-                if (process != null) process.destroy();
-            }
         }
     }
 
