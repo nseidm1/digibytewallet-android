@@ -200,7 +200,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     implementation 'com.facebook.conceal:conceal:2.0.2@aar'
     implementation 'com.tarun0.zxing-standalone:zxing-standalone:1.0.0'
-    implementation 'com.evernote:android-job:1.2.5'
+    implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.airbnb.android:lottie:2.5.4'
     implementation 'com.appolica:flubber:1.0.1'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
