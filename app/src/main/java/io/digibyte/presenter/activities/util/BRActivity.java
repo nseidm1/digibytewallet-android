@@ -66,7 +66,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         Bungee.slideRight(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         RootBeer rootBeer = new RootBeer(this);
-        if (rootBeer.isRooted()) {
+        if (rootBeer.isRootedWithoutBusyBoxCheck()) {
             ActivityUTILS.showJailbrokenDialog(this);
         }
     }
