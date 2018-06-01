@@ -4,16 +4,24 @@ import static android.content.Context.ACTIVITY_SERVICE;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BasePinActivity;
 import io.digibyte.presenter.activities.DisabledActivity;
 import io.digibyte.presenter.activities.InputWordsActivity;
+import io.digibyte.tools.manager.BRSharedPrefs;
+import io.digibyte.tools.threads.BRExecutor;
+import io.digibyte.tools.util.BRCurrency;
+import io.digibyte.tools.util.BRExchange;
 
 
 /**
@@ -75,5 +83,32 @@ public class ActivityUTILS {
             Log.e(TAG, "IS MAIN UI THREAD!");
         }
         return isMain;
+    }
+
+    public static void updateDigibyteDollarValues(Context context, TextView primary,
+            TextView secondary) {
+        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
+            final String iso = BRSharedPrefs.getIso(context);
+
+            //current amount in satoshis
+            final BigDecimal amount = new BigDecimal(
+                    BRSharedPrefs.getCatchedBalance(context));
+
+            //amount in BTC units
+            final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(context,
+                    amount);
+            final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(
+                    context, "DGB", btcAmount);
+
+            //amount in currency units
+            final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(context,
+                    iso, amount);
+            final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(
+                    context, iso, curAmount);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                primary.setText(formattedBTCAmount);
+                secondary.setText(String.format("%s", formattedCurAmount));
+            });
+        });
     }
 }
