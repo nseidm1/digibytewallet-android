@@ -205,5 +205,4 @@ dependencies {
     implementation 'com.appolica:flubber:1.0.1'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
-    implementation 'com.scottyab:rootbeer-lib:0.0.6'
 }
