@@ -14,9 +14,14 @@ import android.view.View;
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.appolica.flubber.Flubber;
 
+import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,7 +45,6 @@ import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.manager.TxManager.onStatusListener;
 import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.Utils;
 import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
@@ -150,13 +154,19 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     }
 
     private void updateSyncText() {
+        Locale current = getResources().getConfiguration().locale;
+        Date time = new Date(SyncManager.getInstance().getLastBlockTimestamp() * 1000);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         bindings.syncText.setText(SyncManager.getInstance().getLastBlockTimestamp() == 0
                 ? DigiByte.getContext().getString(R.string.NodeSelector_statusLabel) + ": "
                 + DigiByte.getContext().getString(R.string.SyncingView_connecting)
-                : Integer.toString((int) (SyncManager.getInstance().getProgress() * 100)) + "%"
-                        + " - " + Utils.formatTimeStamp(
-                        SyncManager.getInstance().getLastBlockTimestamp() * 1000,
-                        "MMM. dd, yyyy 'at' hh:mm a"));
+                : df.format(Double.valueOf(SyncManager.getInstance().getProgress() * 100d)) + "%"
+                        + " - " + DateFormat.getDateInstance(DateFormat.SHORT, current).format(time)
+                        + ", " + DateFormat.getTimeInstance(DateFormat.SHORT, current).format(
+                        time));
     }
 
     @Override
