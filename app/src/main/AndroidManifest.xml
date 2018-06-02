@@ -54,6 +54,7 @@
             android:name=".presenter.activities.intro.LauncherActivity"
             android:label="@string/digi_wallet_name"
             android:noHistory="true"
+            android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN"/>
@@ -65,29 +66,35 @@
         <activity
             android:name=".presenter.activities.intro.IntroActivity"
             android:label="@string/digi_wallet_name"
+            android:exported="false"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.activities.BreadActivity"
             android:label="@string/digi_wallet_name"
             android:launchMode="singleTop"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".presenter.activities.intro.RecoverActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.WipeActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.ImportActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.UpdatePinActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -109,74 +116,92 @@
         </activity>
         <activity
             android:name=".presenter.activities.settings.SettingsActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.NotificationActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.SyncBlockchainActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.DisplayCurrencyActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.AboutActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.SecurityCenterActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.ShareDataActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.intro.WriteDownActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.PaperKeyActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.SpendLimitActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.PaperKeyProveActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.InputWordsActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".presenter.activities.DisabledActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.FingerprintActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.AdvancedActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.NodesActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".presenter.activities.settings.TestActivity"
+            android:exported="false"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".presenter.activities.QRCodeActivity"
+                  android:exported="false"
                   android:theme="@style/Theme.AppCompat.Translucent"/>
 
         <service
@@ -186,7 +211,6 @@
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="io.digibyte.fileprovider"
-            android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
