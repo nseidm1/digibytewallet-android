@@ -208,7 +208,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="#191a2a">
