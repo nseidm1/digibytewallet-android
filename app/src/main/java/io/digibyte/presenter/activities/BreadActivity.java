@@ -104,6 +104,11 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         animator.setDuration(1000);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.start();
+        animator = AnimatorInflater.loadAnimator(this, R.animator.from_top);
+        animator.setTarget(bindings.tabLayout);
+        animator.setDuration(1000);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
     }
 
     private Runnable showSyncRunnable = new Runnable() {
