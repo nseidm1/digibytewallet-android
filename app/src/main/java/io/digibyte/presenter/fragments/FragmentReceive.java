@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -273,14 +274,10 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
     protected void fadeOutRemove(boolean showRequestAmountPopup) {
         ObjectAnimator colorFade = BRAnimator.animateBackgroundDim(fragmentReceiveBinding.backgroundLayout, true,
                 () -> {
-                    remove();
                     if (showRequestAmountPopup) {
-                        copyCloseHandler.postDelayed(() -> {
-                            if (getActivity() == null) {
-                                return;
-                            }
-                            BRAnimator.showRequestFragment((AppCompatActivity) getActivity());
-                        }, 350);
+                        BRAnimator.showRequestFragment((AppCompatActivity) getActivity());
+                    } else {
+                        remove();
                     }
                 });
         colorFade.start();
@@ -291,7 +288,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
             return;
         }
         try {
-            getFragmentManager().popBackStack();
+            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }

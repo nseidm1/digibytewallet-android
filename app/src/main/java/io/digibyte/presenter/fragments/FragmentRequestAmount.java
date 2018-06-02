@@ -58,7 +58,7 @@ public class FragmentRequestAmount extends FragmentReceive {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
-        transaction.add(android.R.id.content, fragmentRequestAmount,
+        transaction.replace(android.R.id.content, fragmentRequestAmount,
                 FragmentRequestAmount.class.getName());
         transaction.addToBackStack(FragmentRequestAmount.class.getName());
         transaction.commitAllowingStateLoss();
