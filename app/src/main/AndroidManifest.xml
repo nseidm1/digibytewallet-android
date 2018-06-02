@@ -46,6 +46,10 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,android:label">
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="108511e9bca59555cc48f2d13514c03dd5ca0035"/>
+
         <activity
             android:name=".presenter.activities.intro.LauncherActivity"
             android:label="@string/digi_wallet_name"
