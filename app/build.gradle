@@ -174,10 +174,6 @@ repositories {
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'commons-io:commons-io:2.5'
-    implementation 'org.eclipse.jetty:jetty-webapp:9.2.19.v20160908'
-    implementation 'org.eclipse.jetty.websocket:websocket-server:9.2.19.v20160908'
-    implementation 'org.eclipse.jetty:jetty-continuation:9.2.19.v20160908'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:support-vector-drawable:27.1.1'
     implementation 'com.android.support:design:27.1.1'

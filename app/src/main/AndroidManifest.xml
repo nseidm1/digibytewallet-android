@@ -54,7 +54,6 @@
             android:name=".presenter.activities.intro.LauncherActivity"
             android:label="@string/digi_wallet_name"
             android:noHistory="true"
-            android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN"/>
@@ -100,6 +99,7 @@
         <activity
             android:name=".presenter.activities.LoginActivity"
             android:launchMode="singleTop"
+            android:exported="false"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.platform.tools.BRBitId;
 
@@ -39,6 +40,8 @@ public class LoginActivity extends BRActivity {
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pin);
         binding.setData(new PinActivityModel());
         binding.setCallback(callback);
