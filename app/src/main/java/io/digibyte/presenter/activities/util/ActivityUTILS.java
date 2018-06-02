@@ -6,15 +6,13 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -82,9 +80,9 @@ public class ActivityUTILS {
         return false;
     }
 
-    public static boolean isMainThread(){
+    public static boolean isMainThread() {
         boolean isMain = Looper.myLooper() == Looper.getMainLooper();
-        if(isMain){
+        if (isMain) {
             Log.e(TAG, "IS MAIN UI THREAD!");
         }
         return isMain;
@@ -117,20 +115,6 @@ public class ActivityUTILS {
         });
     }
 
-    public static class RootUtil {
-      
-        public static boolean isDeviceRooted() {
-            String[] paths =
-                    {"/system/app/Superuser.apk", "/sbin/su", "/system/bin/su", "/system/xbin/su",
-                            "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
-                            "/system/bin/failsafe/su", "/data/local/su", "/su/bin/su"};
-            for (String path : paths) {
-                if (new File(path).exists()) return true;
-            }
-            return false;
-        }
-    }
-
     public static void showJailbrokenDialog(AppCompatActivity context) {
         BRDialog.showCustomDialog(context, context.getString(R.string.JailbreakWarnings_title),
                 context.getString(R.string.JailbreakWarnings_messageWithoutBalance),
@@ -140,5 +124,40 @@ public class ActivityUTILS {
                 }, null, brDialogView -> {
                     context.finishAffinity();
                 }, 0);
+    }
+
+    public static boolean isvm() {
+
+        StringBuilder deviceInfo = new StringBuilder();
+        deviceInfo.append("Build.PRODUCT " + Build.PRODUCT + "\n");
+        deviceInfo.append("Build.FINGERPRINT " + Build.FINGERPRINT + "\n");
+        deviceInfo.append("Build.MANUFACTURER " + Build.MANUFACTURER + "\n");
+        deviceInfo.append("Build.MODEL " + Build.MODEL + "\n");
+        deviceInfo.append("Build.BRAND " + Build.BRAND + "\n");
+        deviceInfo.append("Build.DEVICE " + Build.DEVICE + "\n");
+        String info = deviceInfo.toString();
+
+        Log.i("LOB", info);
+
+        Boolean isvm = false;
+        if (
+                "google_sdk".equals(Build.PRODUCT) ||
+                        "sdk_google_phone_x86".equals(Build.PRODUCT) ||
+                        "sdk".equals(Build.PRODUCT) ||
+                        "sdk_x86".equals(Build.PRODUCT) ||
+                        "vbox86p".equals(Build.PRODUCT) ||
+                        Build.FINGERPRINT.contains("generic") ||
+                        Build.MANUFACTURER.contains("Genymotion") ||
+                        Build.MODEL.contains("Emulator") ||
+                        Build.MODEL.contains("Android SDK built for x86")
+                ) {
+            isvm = true;
+        }
+
+        if (Build.BRAND.contains("generic") && Build.DEVICE.contains("generic")) {
+            isvm = true;
+        }
+
+        return isvm;
     }
 }
