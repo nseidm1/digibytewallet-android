@@ -1,5 +1,7 @@
 package io.digibyte.presenter.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,13 +12,19 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.appolica.flubber.Flubber;
 
+import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,7 +48,6 @@ import io.digibyte.tools.manager.TxManager;
 import io.digibyte.tools.manager.TxManager.onStatusListener;
 import io.digibyte.tools.sqlite.TransactionDataSource;
 import io.digibyte.tools.threads.BRExecutor;
-import io.digibyte.tools.util.Utils;
 import io.digibyte.tools.util.ViewUtils;
 import io.digibyte.wallet.BRPeerManager;
 import io.digibyte.wallet.BRWalletManager;
@@ -92,7 +99,31 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         ViewUtils.increaceClickableArea(bindings.navDrawer);
         ViewUtils.increaceClickableArea(bindings.digiidButton);
         unbinder = ButterKnife.bind(this);
+        Animator animator = AnimatorInflater.loadAnimator(this, R.animator.from_bottom);
+        animator.setTarget(bindings.bottomNavigationLayout);
+        animator.setDuration(1000);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
+        animator = AnimatorInflater.loadAnimator(this, R.animator.from_top);
+        animator.setTarget(bindings.tabLayout);
+        animator.setDuration(1000);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
     }
+
+    private Runnable showSyncRunnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(showSyncButtonRunnable, 10000);
+            CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                    (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+            coordinatorLayoutParams.setBehavior(null);
+            bindings.syncContainer.setVisibility(View.VISIBLE);
+            bindings.toolbarLayout.setVisibility(View.GONE);
+            bindings.animationView.playAnimation();
+            updateSyncText();
+        }
+    };
 
     private Runnable showSyncButtonRunnable = new Runnable() {
         @Override
@@ -109,14 +140,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
-        handler.postDelayed(showSyncButtonRunnable, 10000);
-        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
-                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
-        coordinatorLayoutParams.setBehavior(null);
-        bindings.syncContainer.setVisibility(View.VISIBLE);
-        bindings.toolbarLayout.setVisibility(View.GONE);
-        bindings.animationView.playAnimation();
-        updateSyncText();
+        handler.postDelayed(showSyncRunnable, 2500);
     }
 
     @Override
@@ -131,10 +155,10 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         handler.removeCallbacks(showSyncButtonRunnable);
+        handler.removeCallbacks(showSyncRunnable);
         bindings.syncButton.setVisibility(View.GONE);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
-        bindings.animationView.playAnimation();
         bindings.animationView.cancelAnimation();
     }
 
@@ -143,20 +167,27 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         CoordinatorLayout.LayoutParams coordinatorLayoutParams =
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        handler.removeCallbacks(showSyncButtonRunnable);
+        handler.removeCallbacks(showSyncRunnable);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
-        bindings.animationView.playAnimation();
         bindings.animationView.cancelAnimation();
     }
 
     private void updateSyncText() {
+        Locale current = getResources().getConfiguration().locale;
+        Date time = new Date(SyncManager.getInstance().getLastBlockTimestamp() * 1000);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         bindings.syncText.setText(SyncManager.getInstance().getLastBlockTimestamp() == 0
                 ? DigiByte.getContext().getString(R.string.NodeSelector_statusLabel) + ": "
                 + DigiByte.getContext().getString(R.string.SyncingView_connecting)
-                : Integer.toString((int) (SyncManager.getInstance().getProgress() * 100)) + "%"
-                        + " - " + Utils.formatTimeStamp(
-                        SyncManager.getInstance().getLastBlockTimestamp() * 1000,
-                        "MMM. dd, yyyy 'at' hh:mm a"));
+                : df.format(Double.valueOf(SyncManager.getInstance().getProgress() * 100d)) + "%"
+                        + " - " + DateFormat.getDateInstance(DateFormat.SHORT, current).format(time)
+                        + ", " + DateFormat.getTimeInstance(DateFormat.SHORT, current).format(
+                        time));
     }
 
     @Override
@@ -344,7 +375,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
         BRApiManager.getInstance().asyncUpdateFeeData(this);
-        SyncManager.getInstance().startSyncingProgressThread(this);
+        SyncManager.getInstance().startSyncingProgressThread();
     }
 
     @Override
@@ -355,7 +386,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         BRSharedPrefs.removeListener(this);
         TxManager.getInstance().removeListener(this);
         SyncManager.getInstance().removeListener(this);
-        SyncManager.getInstance().stopSyncingProgressThread(false);
+        SyncManager.getInstance().stopSyncingProgressThread();
     }
 
     @Override

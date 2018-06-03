@@ -106,6 +106,7 @@ public class UpdatePinActivity extends BasePinActivity {
                 setToolbarTitle(R.string.UpdatePin_createTitleConfirm);
                 break;
         }
+
         binding.description.setText(text);
         SpringAnimator.springView(binding.description);
     }

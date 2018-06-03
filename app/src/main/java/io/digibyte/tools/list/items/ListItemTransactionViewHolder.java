@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import io.digibyte.R;
 import io.digibyte.databinding.ListItemTransactionBinding;
@@ -72,6 +73,7 @@ public class ListItemTransactionViewHolder extends ListItemViewHolder {
         Date timeStamp =
                 new Date(item.getTimeStamp() == 0 ? System.currentTimeMillis()
                         : item.getTimeStamp() * 1000);
-        textView.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(timeStamp));
+        Locale current = textView.getContext().getResources().getConfiguration().locale;
+        textView.setText(DateFormat.getDateInstance(DateFormat.SHORT, current).format(timeStamp));
     }
 }
