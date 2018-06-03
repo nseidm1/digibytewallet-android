@@ -6,6 +6,8 @@ public interface FragmentReceiveCallbacks extends BRKeyboard.OnInsertListener {
 
     void shareEmailClick();
     void shareTextClick();
+
+    void shareCopyClick();
     void shareButtonClick();
     void addressClick();
     void requestButtonClick();

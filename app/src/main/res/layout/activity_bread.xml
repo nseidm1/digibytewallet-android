@@ -91,7 +91,7 @@
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/animation_view"
                             android:layout_width="wrap_content"
-                            android:layout_height="90dp"
+                            android:layout_height="83dp"
                             android:layout_gravity="center"
                             android:hardwareAccelerated="true"
                             app:lottie_autoPlay="false"
@@ -103,6 +103,8 @@
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:gravity="center_horizontal"
+                                  android:singleLine="true"
+                                  android:ellipsize="end"
                                   android:textColor="@color/white" android:textSize="16sp"/>
 
                         <android.support.v7.widget.AppCompatImageView android:layout_width="24dp"
@@ -114,7 +116,7 @@
 
                     </LinearLayout>
 
-                    <android.support.design.widget.TabLayout
+                    <io.digibyte.presenter.customviews.BRTabLayout
                         android:id="@+id/tab_layout"
                         style="@style/MyCustomTabLayout"
                         android:layout_width="match_parent"
@@ -131,7 +133,7 @@
 
             </android.support.design.widget.CoordinatorLayout>
 
-            <RelativeLayout
+            <io.digibyte.presenter.customviews.BRRelativeLayout
                 android:id="@+id/bottom_navigation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -202,11 +204,11 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     app:srcCompat="@drawable/ic_qrcode"/>
 
-            </RelativeLayout>
+            </io.digibyte.presenter.customviews.BRRelativeLayout>
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="#191a2a">

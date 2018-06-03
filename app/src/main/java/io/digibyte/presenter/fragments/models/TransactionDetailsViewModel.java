@@ -10,6 +10,7 @@ import com.platform.tools.KVStoreManager;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
@@ -149,12 +150,14 @@ public class TransactionDetailsViewModel extends BaseObservable {
     private String getFormattedDate(long timeStamp) {
         Date currentLocalTime = new Date(
                 timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
-        return DateFormat.getDateInstance(DateFormat.SHORT).format(currentLocalTime);
+        Locale current = DigiByte.getContext().getResources().getConfiguration().locale;
+        return DateFormat.getDateInstance(DateFormat.SHORT, current).format(currentLocalTime);
     }
 
     private String getFormattedTime(long timeStamp) {
         Date currentLocalTime = new Date(
                 timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
-        return DateFormat.getTimeInstance(DateFormat.SHORT).format(currentLocalTime);
+        Locale current = DigiByte.getContext().getResources().getConfiguration().locale;
+        return DateFormat.getTimeInstance(DateFormat.SHORT, current).format(currentLocalTime);
     }
 }

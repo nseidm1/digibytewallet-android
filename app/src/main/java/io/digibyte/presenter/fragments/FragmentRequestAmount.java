@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 
 import io.digibyte.R;
+import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.qrcode.QRUtils;
 import io.digibyte.tools.util.BRCurrency;
@@ -56,7 +58,7 @@ public class FragmentRequestAmount extends FragmentReceive {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
-        transaction.add(android.R.id.content, fragmentRequestAmount,
+        transaction.replace(android.R.id.content, fragmentRequestAmount,
                 FragmentRequestAmount.class.getName());
         transaction.addToBackStack(FragmentRequestAmount.class.getName());
         transaction.commitAllowingStateLoss();
@@ -87,7 +89,8 @@ public class FragmentRequestAmount extends FragmentReceive {
                     fragmentReceiveBinding.qrImage);
         } else {
             BigDecimal bigAmount = new BigDecimal(
-                    (Utils.isNullOrEmpty(amountBuilder.toString()) || amountBuilder.toString().equalsIgnoreCase(".")) ? "0"
+                    (Utils.isNullOrEmpty(amountBuilder.toString())
+                            || amountBuilder.toString().equalsIgnoreCase(".")) ? "0"
                             : amountBuilder.toString());
             long amount = BRExchange.getSatoshisFromAmount(getActivity(), selectedIso,
                     bigAmount).longValue();
@@ -140,6 +143,14 @@ public class FragmentRequestAmount extends FragmentReceive {
     protected boolean onShareSMS() {
         showKeyboard(false);
         QRUtils.share("sms:", getActivity(), null, address, amountBuilder.toString());
+        return true;
+    }
+
+    @Override
+    protected boolean onShareCopy() {
+        BRClipboardManager.putClipboard(getContext(),
+                String.format(getString(R.string.digi_share), address, amountBuilder.toString()));
+        Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
         return true;
     }
 
