@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.platform.tools.BRBitId;
+import com.scottyab.rootbeer.RootBeer;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -64,10 +65,10 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         super.onCreate(savedInstanceState);
         Bungee.slideRight(this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-//        RootBeer rootBeer = new RootBeer(this);
-//        if (rootBeer.isRootedWithoutBusyBoxCheck() && !BuildConfig.DEBUG) {
-//            ActivityUTILS.showJailbrokenDialog(this);
-//        }
+        RootBeer rootBeer = new RootBeer(this);
+        if (rootBeer.isRootedWithoutBusyBoxCheck() && !ActivityUTILS.isvm()) {
+            ActivityUTILS.showJailbrokenDialog(this);
+        }
     }
 
     protected void setupToolbar() {
@@ -137,7 +138,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     public void onBackPressed() {
         if (backClickListeners.size() == 0) {
             super.onBackPressed();
-            Bungee.swipeLeft(this);
+            Bungee.slideLeft(this);
         } else {
             for (OnBackPressListener onBackPressListener : backClickListeners) {
                 onBackPressListener.onBackPressed();
@@ -165,7 +166,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home || item.getItemId() == R.id.home) {
             finish();
-            Bungee.swipeLeft(this);
+            Bungee.slideLeft(this);
         }
         return super.onOptionsItemSelected(item);
     }

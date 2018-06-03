@@ -194,29 +194,30 @@
                                 android:id="@+id/share_email"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:layout_marginEnd="12dp"
-                                android:ellipsize="end"
                                 android:foreground="?android:attr/selectableItemBackground"
                                 android:onClick="@{() -> callback.shareEmailClick()}"
                                 android:padding="6dp"
-                                android:singleLine="true"
-                                app:srcCompat="@drawable/receive_share_qr"
-                                android:textColor="@color/white"
-                                android:textSize="14sp"/>
+                                app:srcCompat="@drawable/receive_share_qr"/>
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/share_text"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
                                 android:layout_marginStart="12dp"
-                                android:ellipsize="end"
                                 android:foreground="?android:attr/selectableItemBackground"
                                 android:onClick="@{() -> callback.shareTextClick()}"
                                 android:padding="6dp"
-                                android:singleLine="true"
-                                app:srcCompat="@drawable/share_sms"
-                                android:textColor="@color/white"
-                                android:textSize="14sp"/>
+                                app:srcCompat="@drawable/share_sms"/>
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/share_copy"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="12dp"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:onClick="@{() -> callback.shareCopyClick()}"
+                                android:padding="6dp"
+                                app:srcCompat="@drawable/share_copy"/>
 
                         </LinearLayout>
                     </ViewAnimator>
