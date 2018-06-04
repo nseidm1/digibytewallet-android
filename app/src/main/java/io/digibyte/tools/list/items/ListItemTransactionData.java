@@ -71,7 +71,7 @@ public class ListItemTransactionData extends ListItemData implements Parcelable 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(transactionIndex);
         dest.writeInt(transactionsCount);
-        dest.writeParcelable(transactionItem, 0);
+        dest.writeParcelable(transactionItem, flags);
         dest.writeString(transactionDisplayTimeHolder);
     }
 
