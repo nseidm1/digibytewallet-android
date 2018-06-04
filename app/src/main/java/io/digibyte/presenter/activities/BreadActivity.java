@@ -111,20 +111,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         animator.start();
     }
 
-    private Runnable showSyncRunnable = new Runnable() {
-        @Override
-        public void run() {
-            handler.postDelayed(showSyncButtonRunnable, 10000);
-            CoordinatorLayout.LayoutParams coordinatorLayoutParams =
-                    (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
-            coordinatorLayoutParams.setBehavior(null);
-            bindings.syncContainer.setVisibility(View.VISIBLE);
-            bindings.toolbarLayout.setVisibility(View.GONE);
-            bindings.animationView.playAnimation();
-            updateSyncText();
-        }
-    };
-
     private Runnable showSyncButtonRunnable = new Runnable() {
         @Override
         public void run() {
@@ -140,7 +126,14 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
 
     @Override
     public void onSyncManagerStarted() {
-        handler.postDelayed(showSyncRunnable, 2500);
+        handler.postDelayed(showSyncButtonRunnable, 10000);
+        CoordinatorLayout.LayoutParams coordinatorLayoutParams =
+                (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
+        coordinatorLayoutParams.setBehavior(null);
+        bindings.syncContainer.setVisibility(View.VISIBLE);
+        bindings.toolbarLayout.setVisibility(View.GONE);
+        bindings.animationView.playAnimation();
+        updateSyncText();
     }
 
     @Override
@@ -155,7 +148,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         handler.removeCallbacks(showSyncButtonRunnable);
-        handler.removeCallbacks(showSyncRunnable);
         bindings.syncButton.setVisibility(View.GONE);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
@@ -168,7 +160,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         handler.removeCallbacks(showSyncButtonRunnable);
-        handler.removeCallbacks(showSyncRunnable);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.cancelAnimation();

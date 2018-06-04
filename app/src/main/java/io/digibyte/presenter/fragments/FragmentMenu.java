@@ -154,7 +154,11 @@ public class FragmentMenu extends Fragment implements OnBackPressListener {
         if (getFragmentManager() == null) {
             return;
         }
-        getFragmentManager().popBackStack();
+        try {
+            getFragmentManager().popBackStack();
+        } catch (IllegalStateException e) {
+            //Lifecycle race conditions
+        }
     }
 
     @Override

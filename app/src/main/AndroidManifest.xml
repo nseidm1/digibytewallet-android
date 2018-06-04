@@ -99,7 +99,6 @@
         <activity
             android:name=".presenter.activities.LoginActivity"
             android:launchMode="singleTop"
-            android:exported="false"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
