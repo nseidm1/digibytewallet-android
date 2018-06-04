@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">పరికరం/డెవైస్ భద్రతకి పరిష్కారం\n ఏదైనా \'జైల్ బ్రేక్\' అనువర్తనం డిజీవాలెట్  యొక్క కీచైన్ డేటాను పొందవచ్చు  మరియు మీ డిజీబైట్‌ను దొంగిలించవచ్చు!  దయచేసి నాన్-జైల్‌బ్రోకెన్ పరికరంలో మాత్రమే డిజీబైట్‌ను ఉపయోగించండి.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">హెచ్చరిక</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

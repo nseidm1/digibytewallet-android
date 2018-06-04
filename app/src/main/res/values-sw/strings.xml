@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">"USALAMA WA KIFAA UMEVUNJWA \nProgramu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na kuiba DigiByte yako! Tafadhali tumia DigiWallet kwa kifaa kilicho non-jailbroken. "</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ONYO</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

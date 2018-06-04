@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">ਡਿਵਾਈਸ ਸੁਰੱਖਿਆ ਖਰਾਬ \n ਕਿਸੇ ਵੀ ਰੂਟ ਐਪ ਡਿਬੀਬਾਇਟ ਦੀ ਕੀਚੈਨ ਤੱਕ ਪਹੁੰਚ ਕਰ ਸਕਦਾ ਹੈ - ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਡਿਵਾਈਬਾਈਟ ਨੂੰ ਇੱਕ ਆਮ ਡਿਵਾਈਸ ਤੇ ਵਰਤੋ</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ਚੇਤਾਵਨੀ</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

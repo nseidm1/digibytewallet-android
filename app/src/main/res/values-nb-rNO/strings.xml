@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">"ENHETENS SIKKERHET ER NEDGRADERT \ n Enhver root app kan få tilgang til DigiWallets nøkkelringdata og stjele DigiByte. Bruk bare DigiWallet på en rootet enhet. "</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ADVARSEL</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
@@ -234,7 +235,7 @@
   <!-- Address copied message. -->
   <string name="Receive.copied">Kopiert til utklippstavle.</string>
   <!-- Share via email button label -->
-  <!-- Request button label -->
+    <!-- Request button label -->
   <string name="Receive.request">Be om et beløp</string>
   <!-- Share button label -->
   <string name="Receive.share">Del</string>
@@ -496,15 +497,15 @@
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
-  <!-- Authorize to copy wallet addresses alert message -->
+    <!-- Authorize to copy wallet addresses alert message -->
     <!-- Authorize to copy wallet address PIN view prompt. -->
     <!-- Authorize to copy wallet address alert title -->
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
-  <!-- Verify PIN view body -->
+    <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">Vennligst tast inn din PIN kode for å fortsette.</string>
   <!-- Verify PIN view title -->
-  <!-- Authorize transaction with touch id message -->
+    <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->

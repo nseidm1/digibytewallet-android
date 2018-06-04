@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">SEGURETAT DEL DISPOSITIU COMPROMESA\n Qualsevol aplicació \"jailbreak\" pot accedir a les dades del \"keychain\" de DigiWallet i robar els vostres DigiByte. Utilitzeu només DigiWallet en un dispositiu que no sigui \"jailbreak\".</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ADVERTÈNCIA</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

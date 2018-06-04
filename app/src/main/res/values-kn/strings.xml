@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <!-- App name -->
-  <!-- About screen blog label -->
+    <!-- About screen blog label -->
   <string name="About.blog">"ಪರದೆಯ ಬ್ಲಾಗ್ ಲೇಬಲ್ ನ ಬಗ್ಗೆ "</string>
   <!-- About screen footer -->
   <string name="About.footer">"ಪರದೆಯ ಅಡಿಟಿಪ್ಪಣಿಯ ಬಗ್ಗೆ "</string>
@@ -10,16 +10,16 @@
   <!-- About screen reddit label -->
   <string name="About.reddit">"ಪರದೆಯ ರೆಡ್ದಿಟ್ ಲೇಬಲ್ ಬಗ್ಗೆ "</string>
   <!-- Terms of Use button label -->
-  <!-- About screen title -->
+    <!-- About screen title -->
   <string name="About.title">"ಪರದೆಯ ಶೀರ್ಷಿಕೆಯ ಬಗ್ಗೆ "</string>
   <!-- About screen twitter label -->
   <string name="About.twitter">"ಪರದೆಯ ಟ್ವಿಟ್ಟರ್ ಲೇಬಲ್ ನ ಬಗ್ಗೆ "</string>
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">"ಮೋಡಲ್ ಬಟನ್ ಪ್ರವೇಶವನ್ನು ಬಂದ್ ಮಾಡು ಲೇಬಲ್ "</string>
   <!-- Support center accessibiliy label -->
-  <!-- Loading Wallet Message -->
-  <!-- Default wallet name -->
-  <!-- Third party keyboard warning -->
+    <!-- Loading Wallet Message -->
+    <!-- Default wallet name -->
+    <!-- Third party keyboard warning -->
   <string name="Alert.customKeyboard.android">"ಮೂರನೇ ಪಾರ್ಟಿಯ ಕೀಲಿಮಣೆಯ ಎಚ್ಚರಿಕೆ "</string>
   <!-- Error alert title -->
   <string name="Alert.error">"ದೋಷ ಎಚ್ಚರಿಕೆ ಶೀರ್ಷಿಕೆ "</string>
@@ -30,10 +30,10 @@
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">"ಕೀಲಿಸಂಗ್ರಹ ತಪ್ಪಿನ ಶೀರ್ಷಿಕೆ "</string>
   <!-- No internet alert message -->
-  <!-- Warning alert title -->
-  <!-- 'the addresses were copied'' Alert title -->
-  <!-- Addresses Copied Alert sub header -->
-  <!-- Alert Header Label (the paper key was set) -->
+    <!-- Warning alert title -->
+    <!-- 'the addresses were copied'' Alert title -->
+    <!-- Addresses Copied Alert sub header -->
+    <!-- Alert Header Label (the paper key was set) -->
   <string name="Alerts.paperKeySet">ಎಚ್ಚರಿಕೆಯ ಹೆಡರ್ ಲೇಬಲ್ ( ಕಾಗದದ ಕೀಲಿ ಹೊಂದಿಸಲಾಗದೆ)</string>
   <!-- Alert Subheader label (playfully positive) -->
   <string name="Alerts.paperKeySetSubheader">ಎಚ್ಚರಿಕೆಯ ಉಪಹೆಡರ್ ಲೇಬಲ್ (ಸಾಮಾನ್ಯವಾಗಿ ಧನಾತ್ಮಕವಾಗಿ)</string>
@@ -48,125 +48,126 @@
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">"ಸ್ಕಾನರ್ ನಿಮ್ಮ ಬೆರಳಚ್ಚನ್ನು ಪತ್ತೆಮಾಡಿದೆ "</string>
   <!-- JSON Serialization error message -->
-  <!-- Wallet not ready error message -->
-  <!-- API Token error message -->
-  <!-- Send BCH view body. -->
+    <!-- Wallet not ready error message -->
+    <!-- API Token error message -->
+    <!-- Send BCH view body. -->
     <!-- Confirm sending <$5.00> to <address>? -->
-  <!-- Confirmation alert title -->
+    <!-- Confirmation alert title -->
     <!-- Generic bch erorr message -->
     <!-- Transaction ID copied message -->
     <!-- No address error message -->
-  <!-- Attempted to scan unsupported qr code error message. -->
-  <!-- BCH successfully sent alert message -->
-  <!-- Widthdraw BCH view title -->
+    <!-- Attempted to scan unsupported qr code error message. -->
+    <!-- BCH successfully sent alert message -->
+    <!-- Widthdraw BCH view title -->
     <!-- Tx Hash button header -->
     <!-- Approve button label -->
-  <!-- <sitename> is requesting authentication using your bitcoin wallet -->
-  <!-- Deny button label -->
-  <!-- BitID error alert title -->
-  <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
-  <!-- BitID success alert title -->
-  <!-- BitID Authentication Request alert view title -->
-  <!-- Cancel button label -->
+    <!-- <sitename> is requesting authentication using your bitcoin wallet -->
+    <!-- Deny button label -->
+    <!-- BitID error alert title -->
+    <!-- BitID error alert messaage (The payment service you are trying to use isn't working. Please contact them, as you may need to try again) -->
+    <!-- BitID success alert title -->
+    <!-- BitID Authentication Request alert view title -->
+    <!-- Cancel button label -->
   <string name="Button.cancel">"ರದ್ದುಗೊಳಿಸು ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Ignore button label -->
-  <!-- menu button -->
-  <!-- No button -->
-  <!-- OK button label -->
+    <!-- menu button -->
+    <!-- No button -->
+    <!-- OK button label -->
   <string name="Button.ok">"ಸರಿ ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- receive button -->
-  <!-- send button -->
+    <!-- send button -->
     <!-- Settings button label -->
-  <!-- Settings button label -->
-  <!-- Yes button -->
-  <!-- Camera plugin instruction -->
-  <!-- Amount to Send: ($1.00) -->
+    <!-- Settings button label -->
+    <!-- Yes button -->
+    <!-- Camera plugin instruction -->
+    <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">ಕಳಿಸಬೇಕಾದ ಮೊತ್ತ : ($1.00)</string>
   <!-- Network Fee: ($1.00) -->
   <string name="Confirmation.feeLabel">"ನೆಟ್ವರ್ಕ್ ಫೀಸು: ($ 1.00) "</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
-  <!-- Label for "send" button on final confirmation screen -->
-  <!-- Confirmation Screen title -->
-  <!-- To: (address) -->
-  <!-- Total Cost: ($5.00) -->
+    <!-- Label for "send" button on final confirmation screen -->
+    <!-- Confirmation Screen title -->
+    <!-- To: (address) -->
+    <!-- Total Cost: ($5.00) -->
   <string name="Confirmation.totalLabel">ಒಟ್ಟು ಮೊತ್ತ : ($5.00)</string>
   <!-- Confirm paper phrase view label. -->
   <string name="ConfirmPaperPhrase.label">"ಕಾಗದ ವಾಕ್ಯದ ನೋಟ ದೃಢೀಕರಣ ಮಾಡುವ ಲೇಬಲ್ "</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">ಪದ ಲೇಬಲ್ ಉದಾ. ಪದ #1, ಪದ #2</string>
   <!-- Bitcoin denomination picker label -->
-  <!-- Exchange rate label -->
+    <!-- Exchange rate label -->
   <string name="DefaultCurrency.rateLabel">"ವಿನಿಮಯ ದರ ಲೇಬಲ್ "</string>
   <!-- Email unavailable alert title -->
-  <!-- Email unavailable alert title -->
-  <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
+    <!-- Email unavailable alert title -->
+    <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
   <string name="ErrorMessages.loopingLockScreen.android">"ಬಳಕೆದಾರನಿಗೆ ಕಾಣಿಸಕೊಂಡ ಲೂಪಿಂಗ್ ಲಾಕ್-ಪರದೆಯ ಬಗ್ ಅನ್ನು ನಾವು ಪತ್ತೆಮಾಡಿರುವುದರ ಬಗ್ಗೆ  ಹೇಳುವ ಸಂದೇಶ. (ಸಂರಕ್ಷಿಸಿ[] ಅಕ್ಷರಗಳು) "</string>
   <!-- Messaging unavailable alert title -->
-  <!-- Messaging unavailable alert title -->
-  <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
+    <!-- Messaging unavailable alert title -->
+    <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
   <string name="ErrorMessages.touchIdFailed.android">"ಬೆರಳಚ್ಚನ್ನು ಸ್ಕಾನರ್ ಗುರುತು ಮಾಡಲಿಲ್ಲ, ಇನ್ನೊಮ್ಮೆ ಸ್ಕ್ಯಾನಿಂಗ್ ಮಾಡಿ "</string>
   <!-- Economy fee -->
-  <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
-  <!-- Warning message for economy fee -->
-  <!-- E.g. Estimated delivery: 10-60 minutes -->
-  <!-- Regular fee -->
-  <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
-  <!-- Fee Selector title -->
-  <!-- Checking private key balance progress view text -->
+    <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
+    <!-- Warning message for economy fee -->
+    <!-- E.g. Estimated delivery: 10-60 minutes -->
+    <!-- Regular fee -->
+    <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
+    <!-- Fee Selector title -->
+    <!-- Checking private key balance progress view text -->
   <string name="Import.checking">"ವಯಕ್ತಿಕ ಮುಖ್ಯ ಬಾಕಿ ಉಳಿದಿರುವ ಮೊತ್ತವನ್ನು ಪರಿಶೀಲಿಸುವುದು ನೋಟದ ಸಂದೇಶ "</string>
   <!-- Sweep private key confirmation message -->
   <string name="Import.confirm">"ಖಾಸಗಿ ಕೀಲಿ ದೃಢೀಕರಣ ಸಂದೇಶವನ್ನು ಅಳಿಸು "</string>
   <!-- Duplicate key error message -->
-  <!-- empty private key error message -->
+    <!-- empty private key error message -->
   <string name="Import.Error.empty">"ಖಾಸಗಿ ಕೀಲಿ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶವನ್ನು ಖಾಲಿ ಮಾಡು "</string>
   <!-- High fees error message -->
-  <!-- Not a valid private key error message -->
+    <!-- Not a valid private key error message -->
   <string name="Import.Error.notValid">"ಖಾಸಗಿ ಕೀಲಿ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶ ಮಾನ್ಯತೆ ಇರುವುದಿಲ್ಲ "</string>
   <!-- Import signing error message -->
   <string name="Import.Error.signing">"ಸಹಿ ಮಾಡುವುದನ್ನು ಆಮದು ಮಾಡಿ ತಪ್ಪು ಸಂದೇಶ "</string>
   <!-- Import button label -->
-  <!-- Importing wallet progress view label -->
-  <!-- Caption for graphics -->
-  <!-- Import wallet intro screen message -->
+    <!-- Importing wallet progress view label -->
+    <!-- Caption for graphics -->
+    <!-- Import wallet intro screen message -->
   <string name="Import.message">"ವಾಲೆಟ್ ನ ಪರಿಚಯ ಪರದೆಯ ಸಂದೇಶವನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ "</string>
   <!-- Enter password alert view title -->
   <string name="Import.password">"ಪಾಸ್ವರ್ಡ್ ಎಚ್ಚರಿಕೆ ವೀಕ್ಷಿಸಿ ಶೀರ್ಷಿಕೆಯನ್ನು ಎಂಟರ್ ಮಾಡಿ "</string>
   <!-- password textfield placeholder -->
-  <!-- Caption for graphics -->
-  <!-- Scan Private key button label -->
+    <!-- Caption for graphics -->
+    <!-- Scan Private key button label -->
   <string name="Import.scan">"ವಯಕ್ತಿಕ ಕೀಲಿ ಬಟನ್ ಲೇಬಲ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ "</string>
   <!-- Import wallet success alert title -->
     <!-- Successfully imported wallet message body -->
-  <!-- Import Wallet screen title -->
-  <!-- Unlocking Private key activity view message. -->
-  <!-- Import wallet intro warning message -->
+    <!-- Import Wallet screen title -->
+    <!-- Unlocking Private key activity view message. -->
+    <!-- Import wallet intro warning message -->
   <string name="Import.warning">ವಾಲೆಟ್ ಪರಿಚಯ ಎಚ್ಚರಿಕೆ ಸಂದೇಶವನ್ನು ಆಮದು ಮಾಡಿಕೊಳ್ಳಿ</string>
   <!-- Wrong password alert message -->
-  <!-- Close app button -->
+    <!-- Close app button -->
   <string name="JailbreakWarnings.close">"ಅಪ್ಲಿಕೇಶನ್ ಬಟನನ್ನು ಬಂದ್ ಮಾಡು "</string>
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
-  <!-- Jailbreak warning message -->
+    <!-- Jailbreak warning message -->
+  <string name="JailbreakWarnings.messageWithoutBalance">"ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶ "</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">"ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Location services disabled error -->
-  <!-- No permissions for location services -->
-  <!-- Wallet creation date prefix -->
+    <!-- No permissions for location services -->
+    <!-- Wallet creation date prefix -->
     <!-- Manage wallet description text -->
-  <!-- Change Wallet name textfield label -->
-  <!-- Manage wallet modal title -->
-  <!-- Buy bitcoin title -->
-  <!-- Menu button title -->
+    <!-- Change Wallet name textfield label -->
+    <!-- Manage wallet modal title -->
+    <!-- Buy bitcoin title -->
+    <!-- Menu button title -->
   <string name="MenuButton.lock">"ಮೆನು ಬಟನ್ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Menu button title -->
   <string name="MenuButton.security">"ಮೆನು ಬಟನ್ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Menu button title -->
   <string name="MenuButton.settings">"ಮೆನು ಬಟನ್ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Menu button title -->
-  <!-- button label -->
+    <!-- button label -->
   <string name="MenuViewController.createButton">"ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Menu modal title -->
-  <!-- button label -->
+    <!-- button label -->
   <string name="MenuViewController.recoverButton">ಬಟನ್ ಲೇಬಲ್ \n</string>
   <!-- Switch to automatic mode button label -->
   <string name="NodeSelector.automaticButton">"ಸ್ವಯಂ ಚಾಲಿತೆ ಮೋಡ್ ಬಟನ್ ಶೀರ್ಷಿಕೆಯನ್ನು ಆರಿಸಿ "</string>
@@ -189,33 +190,33 @@
   <!-- Bad Payment request alert title -->
     <!-- Error opening payment protocol file message -->
     <!-- Missing certificate payment protocol error message -->
-  <!-- Request expired payment protocol error message -->
+    <!-- Request expired payment protocol error message -->
     <!-- Payment too small alert title -->
-  <!-- Amount too small error message -->
+    <!-- Amount too small error message -->
   <string name="PaymentProtocol.Errors.smallPayment">"ತುಂಬಾ ಕಡಿಮೆ ಮೊತ್ತ ತಪ್ಪು ಸಂದೇಶ  "</string>
   <!-- Output too small error message. -->
   <string name="PaymentProtocol.Errors.smallTransaction">"ಔಟ್ಪುಟ್  ತೀರಾ ಚಿಕ್ಕದಿದೆ ತಪ್ಪು ಸಂದೇಶ "</string>
   <!-- Unsupported signature type payment protocol error message -->
-  <!-- Untrusted certificate payment protocol error message -->
+    <!-- Untrusted certificate payment protocol error message -->
     <!-- No passcode set warning body -->
-  <!-- No Passcode set warning title -->
-  <!-- Instruction how to enable device encryption -->
+    <!-- No Passcode set warning title -->
+    <!-- Instruction how to enable device encryption -->
   <string name="Prompts.NoScreenLock.body.android">"ಸಾಧನದ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುವುದು ಹೇಗೆ ಎನ್ನುವ ಸೂಚನೆಗಳು "</string>
   <!-- Device encryption prompt title -->
-  <!-- Warning about paper key. -->
+    <!-- Warning about paper key. -->
   <string name="Prompts.PaperKey.body">"ಕಾಗದದ ಕೀಲಿಯ ಬಗ್ಗೆ ಎಚ್ಚರಿಕೆ "</string>
   <!-- An action is required (You must do this action). -->
   <string name="Prompts.PaperKey.title">ಒಂದು ಚಟುವಟಿಕೆಯ ಅಗತ್ಯವಿದೆ(ನೀವು ಈ ಚಟುವಟಿಕೆಯನ್ನು ಮಾಡಬೇಕು)</string>
   <!-- Transaction rejected prompt body -->
   <string name="Prompts.RecommendRescan.body">"ವಹಿವಾಟನ್ನು ತಿರಸ್ಕರಿಸಲಾಗಿದೆ ಪ್ರಾಂಪ್ಟ್ ಭಾಗ "</string>
   <!-- Transaction rejected prompt title -->
-  <!-- Share data prompt body -->
-  <!-- Share data prompt title -->
-  <!-- Enable touch ID prompt body -->
-  <!-- Enable Fingerprint prompt body -->
+    <!-- Share data prompt body -->
+    <!-- Share data prompt title -->
+    <!-- Enable touch ID prompt body -->
+    <!-- Enable Fingerprint prompt body -->
   <string name="Prompts.TouchId.body.android">"ಬರಳಚ್ಚು ಪ್ರಾಂಪ್ಟ್ ಮುಖ್ಯಭಾಗವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ "</string>
   <!-- Enable touch ID prompt title -->
-  <!-- Enable Fingerprint prompt title -->
+    <!-- Enable Fingerprint prompt title -->
   <string name="Prompts.TouchId.title.android">"ಬೆರಳಚ್ಚು ಪ್ರಾಂಪ್ಟ್ ಶೀರ್ಷಿಕೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ "</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">" ಬೆರಳಚ್ಚು ಪ್ರಾಂಪ್ಟ್ ನ ಮೇಲೆ ಬಟನ್  ಇದರಿಂದ ಬಳಕೆದಾರನು ತನ್ನ ಪಿನ್ ಅನ್ನು ಹಾಕಬಹುದು "</string>
@@ -228,8 +229,8 @@
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">"ತಳ್ಳು ಅಧಿಸೂಚನೆಗಳು ಟಾಗಲ್ ಸ್ವಿಚ್ ಲೇಬಲ್ "</string>
   <!-- Push notifications are off label -->
-  <!-- Push notifications are on label -->
-  <!-- Push notifications settings view title label -->
+    <!-- Push notifications are on label -->
+    <!-- Push notifications settings view title label -->
   <string name="PushNotifications.title">"ತಳ್ಳು ಅಧಿಸೂಚನೆಗಳು ಸೆಟ್ಟಿಂಗ್ಸ್ ವೀಕ್ಷಿಸು ಶೀರ್ಷಿಕೆ ಲೇಬಲ್ "</string>
   <!-- Address copied message. -->
   <string name="Receive.copied">"ವಿಳಾಸವನ್ನು ತೆಗೆದುಕೊಂಡಿರುವ ಸಂದೇಶ "</string>
@@ -254,20 +255,20 @@
   <!-- Invalid paper key message -->
   <string name="RecoverWallet.invalid">"ಕಾಗದದ ಕೀಲಿ ಸಂದೇಶ ಅಮಾನ್ಯವಾಗಿದೆ "</string>
   <!-- Previous button accessibility label -->
-  <!-- Next button label -->
+    <!-- Next button label -->
   <string name="RecoverWallet.next">"ಮುಂದೆ ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Reset PIN with paper key: more information button. -->
-  <!-- Next button accessibility label -->
-  <!-- Recover wallet sub-header -->
+    <!-- Next button accessibility label -->
+    <!-- Recover wallet sub-header -->
   <string name="RecoverWallet.subheader">"ವಾಲೆಟ್ ಉಪ ಶೀರ್ಷಿಕೆಯನ್ನು ಮರುಪಡೆ "</string>
   <!-- Reset PIN with paper key: sub-header -->
   <string name="RecoverWallet.subheader_reset_pin">"ಕಾಗದದ ಕೀಲಿಯಿಂದ ಪಿನ್ ಅನ್ನು ಮರುಹೊಂದಿಸಿ : ಉಪ ಶೀರ್ಷಿಕೆ "</string>
   <!-- No amount entered error message. -->
-  <!-- Request a specific amount of bitcoin -->
-  <!-- Alert action button label -->
+    <!-- Request a specific amount of bitcoin -->
+    <!-- Alert action button label -->
   <string name="ReScan.alertAction">"ಎಚ್ಚರಿಕೆಯ ಪ್ರಕ್ರಿಯೆ ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Alert message body -->
-  <!-- Alert message title -->
+    <!-- Alert message title -->
   <string name="ReScan.alertTitle">"ಎಚ್ಚರಿಕೆ ಸಂದೇಶದ ಶೀರ್ಷಿಕೆ "</string>
   <!-- extimated time -->
   <string name="ReScan.body1">"ಅಂದಾಜು ಸಮಯ "</string>
@@ -286,7 +287,7 @@
   <!-- Subheader label -->
   <string name="ReScan.subheader2">"ಉಪ ಹೆಡರ್ ಲೇಬಲ್ "</string>
   <!-- Scan bitcoin address camera flash toggle -->
-  <!-- Complete filter label -->
+    <!-- Complete filter label -->
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
@@ -305,40 +306,40 @@
   <!-- Touch ID button description -->
   <string name="SecurityCenter.touchIdDescription">"ಟಚ್ ID ಬಟನ್ ವಿವರಣೆ "</string>
   <!-- Touch ID button title -->
-  <!-- Security center fingerprint authentication button -->
+    <!-- Security center fingerprint authentication button -->
   <string name="SecurityCenter.touchIdTitle.android">"ಸೆಕ್ಯೂರಿಟಿ ಕೇಂದ್ರದ ಬೆರಳಚ್ಚು ದೃಢೀಕರಣದ ಬಟನ್ "</string>
   <!-- Send money amount label -->
-  <!-- Balance: $4.00 -->
-  <!-- Instructions how to allow the camera access for the app -->
+    <!-- Balance: $4.00 -->
+    <!-- Instructions how to allow the camera access for the app -->
   <string name="Send.cameraUnavailabeMessage.android">"ಅಪ್ಲಿಕೇಶನ್ ಕ್ಯಾಮೆರಾ ಬಳಸಲು ಹೇಗೆ ಅನುಮತಿ ನೀಡುವುದರ ಸೂಚನೆಗಳು "</string>
   <!-- Permission required to access camera -->
   <string name="Send.cameraUnavailabeTitle.android">"ಕ್ಯಾಮೆರಾ ವನ್ನು ಉಪಯೋಗಿಸಲು ಅನುಮತಿಯ ಅಗತ್ಯವಿದೆ "</string>
   <!-- Camera not allowed message -->
-  <!-- Camera not allowed alert title -->
-  <!-- Warning when sending to self. -->
+    <!-- Camera not allowed alert title -->
+    <!-- Warning when sending to self. -->
   <string name="Send.containsAddress">"ಸ್ವಯಂಗಾಗಿ  ಕಳುಹಿಸುತ್ತಿದ್ದಾಗ ಎಚ್ಚರಿಕೆ "</string>
   <!-- Could not create transaction alert title -->
-  <!-- Description for sending money label -->
+    <!-- Description for sending money label -->
   <string name="Send.descriptionLabel">"ಹಣವನ್ನು ಕೆಳುಹಿಸಲು ವಿವರಣೆಯ ಲೇಬಲ್ "</string>
   <!-- Emtpy pasteboard error message -->
   <string name="Send.emptyPasteboard">"ಪೇಸ್ಟ್ ಬೋರ್ಡ್ ಖಾಲಿಯಿದೆ ತಪ್ಪು ಸಂದೇಶ "</string>
   <!-- Network Fee: $0.01 -->
   <string name="Send.fee">ನೆಟ್ವರ್ಕ್ ಫೀಸು : $ 0.01</string>
   <!-- Payee identity not certified alert title. -->
-  <!-- Invalid address alert message -->
-  <!-- Invalid address on pasteboard message -->
+    <!-- Invalid address alert message -->
+    <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
   <string name="Send.invalidAddressTitle">"ತಪ್ಪು ವಿಳಾಸದ ಎಚ್ಚರಿಕೆ ಸಂದೇಶ "</string>
   <!-- Is rescanning error message -->
   <string name="Send.isRescanning">"ಪುನಃ ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗುತ್ತಿದೆ ತಪ್ಪು ಸಂದೇಶ "</string>
   <!-- We are loading the request (now) -->
-  <!-- Empty address alert message -->
+    <!-- Empty address alert message -->
   <string name="Send.noAddress">"ವಿಳಾಸ ಖಾಲಿಯಿದೆ ಎಚ್ಚರಿಕೆ ಸಂದೇಶ "</string>
   <!-- Emtpy amount alert message -->
-  <!-- Paste button label -->
+    <!-- Paste button label -->
   <string name="Send.pasteLabel">"ಹಚ್ಚು ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Could not publish transaction alert title -->
-  <!-- Could not load remote request error message -->
+    <!-- Could not load remote request error message -->
     <!-- Scan button label -->
   <string name="Send.scanLabel">"ಸ್ಕ್ಯಾನ್ ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Send button label (the action, "press here to send") -->
@@ -352,15 +353,15 @@
   <!-- Adress already used alert message - second part -->
   <string name="Send.UsedAddress.secondLIne">"ವಿಳಾಸ ಈಗಾಗಲೇ ಬಳಕೆಯಾಗಿದೆ ಎಚ್ಚರಿಕೆ ಸಂದೇಶ - ಎರಡನೇ ಭಾಗ "</string>
   <!-- Adress already used alert title -->
-  <!-- About label -->
+    <!-- About label -->
   <string name="Settings.about">"ಲೇಬಲ್ ನ ಬಗ್ಗೆ "</string>
   <!-- Advanced Settings title -->
   <string name="Settings.advancedTitle">"ಸುಧಾರಿತ ಸೆಟ್ಟಿಂಗ್  ಶೀರ್ಷಿಕೆ "</string>
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">"ಅಂದರೆ ಕಾಣಿಸಿಕೊಳ್ಳಬೇಕಾದ ಕರೆನ್ಸಿಗಳು  "</string>
   <!-- Join Early access label -->
-  <!-- Are you enjoying bread alert message body -->
-  <!-- Import wallet left message -->
+    <!-- Are you enjoying bread alert message body -->
+    <!-- Import wallet left message -->
   <string name="Settings.importLeftMessage">"ವಾಲೆಟ್ ನ ಎಡ ಸಂದೇಶವನ್ನು ಆಮದು ಮಾಡಿಕೊ "</string>
   <!-- Import wallet right message -->
   <string name="Settings.importRightMessage">"ವಾಲೆಟ್ ಸರಿ ಸಂದೇಶವನ್ನು ಇಂಪೋರ್ಟ್ ಮಾಡಿಕೊಳ್ಳಿ "</string>
@@ -369,42 +370,42 @@
   <!-- Manage settings section header -->
   <string name="Settings.manage">"ಸೆಟ್ಟಿಂಗ್ಸ್ ವಿಭಾಗದ ಹೆಡರ್ ಅನ್ನು ನಿರ್ವಹಿಸು "</string>
   <!-- Notifications label -->
-  <!-- Restore screen lower label. -->
+    <!-- Restore screen lower label. -->
   <string name="Settings.restore_label">"ಪರದೆಯ ಕೆಳಗಿನ ಲೇಬಲ್ ಅನ್ನು ಮರುಸ್ಥಾಪಿಸಿ "</string>
   <!-- Leave review button label -->
-  <!-- Share anonymous data label -->
-  <!-- Sync blockchain label -->
+    <!-- Share anonymous data label -->
+    <!-- Sync blockchain label -->
   <string name="Settings.sync">"ಸಿಂಕ್ ಬ್ಲಾಕ್ ಚೈನ್ ಲೇಬಲ್ "</string>
   <!-- Settings title -->
-  <!-- Touch ID spending limit label -->
-  <!-- The fingerprint spending limit -->
+    <!-- Touch ID spending limit label -->
+    <!-- The fingerprint spending limit -->
   <string name="Settings.touchIdLimit.android">"ಬೆರಳಚ್ಚು ಉಪಯೋಗಿಸುವ  ಮಿತಿ "</string>
   <!-- Wallet Settings section header -->
   <string name="Settings.wallet">"ವಾಲೆಟ್ ಸೆಟ್ಟಿಂಗ್ಸ್ ವಿಭಾಗ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Start or recover another wallet menu label. -->
   <string name="Settings.wipe">"ಶುರು ಮಾಡಿ ಅಥವಾ ಇನ್ನೊಂದು ವಾಲೆಟ್ ಮೆನು ಲೇಬಲ್ ಅನ್ನು ಮರುಪಡೆ "</string>
   <!-- Share data view body -->
-  <!-- Share data header -->
-  <!-- Share data switch label. -->
-  <!-- button label -->
-  <!-- Paper key explanation text. -->
+    <!-- Share data header -->
+    <!-- Share data switch label. -->
+    <!-- button label -->
+    <!-- Paper key explanation text. -->
   <string name="StartPaperPhrase.body">"ಕಾಗದದ ಕೀಲಿ ವಿವರಣೆಯ ಸಂದೇಶ "</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">"ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Argument is date -->
-  <!-- Start view message -->
-  <!-- Syncing view connectiong state header text -->
+    <!-- Start view message -->
+    <!-- Syncing view connectiong state header text -->
   <string name="SyncingView.connecting">"ಸಿನ್ಕಿಂಗ್ ನೋಟ  ಜೋಡಣೆಯಾಗಿದೆ ಹೆಡರ್ ಸಂದೇಶವನ್ನು ಬರೆ "</string>
   <!-- Syncing view header text -->
   <string name="SyncingView.header">"ಸಿಂಕಿಂಗ್ ನೋಟ ಹೆಡರ್ ಸಂದೇಶ "</string>
   <!-- Retry button label -->
-  <!-- Syncing view syncing state header text -->
-  <!-- 6 d (6 days) -->
-  <!-- 6 h (6 hours) -->
-  <!-- 6 m (6 minutes) -->
-  <!-- 6 s (6 seconds) -->
-  <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
-  <!-- Fingerprint enabling description body -->
+    <!-- Syncing view syncing state header text -->
+    <!-- 6 d (6 days) -->
+    <!-- 6 h (6 hours) -->
+    <!-- 6 m (6 minutes) -->
+    <!-- 6 s (6 seconds) -->
+    <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
+    <!-- Fingerprint enabling description body -->
   <string name="TouchIdSettings.customizeText.android">"ಬೆರಳಚ್ಚನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುವ ವಿವರಣೆಯ ಭಾಗ "</string>
   <!-- Instruction for the fingerprint setup -->
   <string name="TouchIdSettings.disabledWarning.body.android">"ಬೆರಳಚ್ಚನ್ನು ಸ್ಥಾಪಿಸಲು ಸೂಚನೆಗಳು "</string>
@@ -413,73 +414,73 @@
   <!-- Touch Id screen label -->
   <string name="TouchIdSettings.label">"ಟಚ್ ID ಪರದೆಯ ಲೇಬಲ್ "</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
-  <!-- Spending Limit: b100,000 ($100) -->
+    <!-- Spending Limit: b100,000 ($100) -->
   <string name="TouchIdSettings.spendingLimit">ಖರ್ಚು ಮಾಡುವ ಮಿತಿ: b1000,000 ($100)</string>
   <!-- Touch id switch label. -->
-  <!-- Enable fingerprint for this wallet called Bread -->
+    <!-- Enable fingerprint for this wallet called Bread -->
   <string name="TouchIdSettings.switchLabel.android">"ಬ್ರೆಡ್ ಎನ್ನುವ ವಾಲೆಟ್ ನಲ್ಲಿ ನಿಮ್ಮ ಬೆರಳಚ್ಚನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ "</string>
   <!-- Touch ID settings view title -->
-  <!-- Fingerprint authentication label -->
+    <!-- Fingerprint authentication label -->
   <string name="TouchIdSettings.title.android">"ಬೆರಳಚ್ಚನ್ನು ದೃಢೀಕರಿಸುವ ಲೇಬಲ್ "</string>
   <!-- Touch ID unavailable alert message -->
-  <!-- Touch ID unavailable alert title -->
-  <!-- Always require passcode option -->
-  <!-- Touch ID spending limit screen body -->
+    <!-- Touch ID unavailable alert title -->
+    <!-- Always require passcode option -->
+    <!-- Touch ID spending limit screen body -->
   <string name="TouchIdSpendingLimit.body">"ಟಚ್ ID ಖರ್ಚು ಮಾಡುವ ಮಿತಿ ಪರದೆಯ ಮುಖ್ಯಭಾಗ "</string>
   <!-- Touch Id spending limit screen title -->
-  <!-- name of spending limit when using fingerprint authorization -->
+    <!-- name of spending limit when using fingerprint authorization -->
   <string name="TouchIdSpendingLimit.title.android">"ಬೆರಳಚ್ಚನ್ನು ಪ್ರಾಧೀಕರಿಸುವಾಗ ಖರ್ಚಿನ ಮಿತಿಯ ಹೆಸರು "</string>
   <!-- Availability status text -->
-  <!-- Transaction complete label -->
-  <!-- eg. Ending balance: $50.00 -->
-  <!-- Exchange rate on date header -->
-  <!-- Exchange rate on date header -->
-  <!-- (b600 fee) -->
-  <!-- Invalid transaction -->
-  <!-- Timestamp label for event that just happened -->
-  <!-- Receive status text: 'In progress: 20%' -->
-  <!-- Send status text: 'In progress: 20%' -->
-  <!-- eg. Starting balance: $50.00 -->
-  <!-- Waiting to be confirmed string -->
-  <!-- e.g. I received money from an account. -->
-  <!-- Amount section header -->
-  <!-- Block height label -->
-  <!-- Memo section header -->
-  <!-- Empty transaction list message. -->
-  <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
-  <!-- More button title -->
-  <!-- Moved $5.00 (as in "I moved $5 to another location") -->
-  <!-- Moved $5.00 -->
-  <!-- eg. Confirmed in Block: Not Confirmed -->
-  <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
+    <!-- Transaction complete label -->
+    <!-- eg. Ending balance: $50.00 -->
+    <!-- Exchange rate on date header -->
+    <!-- Exchange rate on date header -->
+    <!-- (b600 fee) -->
+    <!-- Invalid transaction -->
+    <!-- Timestamp label for event that just happened -->
+    <!-- Receive status text: 'In progress: 20%' -->
+    <!-- Send status text: 'In progress: 20%' -->
+    <!-- eg. Starting balance: $50.00 -->
+    <!-- Waiting to be confirmed string -->
+    <!-- e.g. I received money from an account. -->
+    <!-- Amount section header -->
+    <!-- Block height label -->
+    <!-- Memo section header -->
+    <!-- Empty transaction list message. -->
+    <!-- "Received [$5] at [which of my addresses]" => This is the "at [which of my addresses]" part. -->
+    <!-- More button title -->
+    <!-- Moved $5.00 (as in "I moved $5 to another location") -->
+    <!-- Moved $5.00 -->
+    <!-- eg. Confirmed in Block: Not Confirmed -->
+    <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">\"[$5.00] ಯನ್ನು [ನನ್ನ ವಿಳಾಸದ] ಅಲ್ಲಿ ಸ್ವೀಕರಿಸಲಾಗಿದೆ\" =&gt; ಇದು \"[$5.00] ಅನ್ನು ಸ್ವೀಕರಿಸಿದ\" ಭಾಗ</string>
   <!-- Received $5.00 -->
-  <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
-  <!-- Sent $5.00 -->
-  <!-- Status section header -->
+    <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
+    <!-- Sent $5.00 -->
+    <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">ಸ್ಟೇಟಸ್ ವಿಭಾಗದ ಹೆಡರ್</string>
   <!-- Transaction Details Title -->
-  <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
-  <!-- Transaction ID header -->
-  <!-- (this transaction was) Received at this address: -->
-  <!-- (this transaction was) Sent to this address: -->
-  <!-- Disabled until date -->
-  <!-- My Address button title -->
+    <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
+    <!-- Transaction ID header -->
+    <!-- (this transaction was) Received at this address: -->
+    <!-- (this transaction was) Sent to this address: -->
+    <!-- Disabled until date -->
+    <!-- My Address button title -->
   <string name="UnlockScreen.myAddress">"ನನ್ನ ವಿಳಾಸ ಬಟನ್ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Reset PIN with Paper Key button label. -->
   <string name="UnlockScreen.resetPin">"ಕಾಗದದ ಕೀಲಿಯ ಬಟನ್ ಲೇಬಲ್ ನಿಂದ ಪಿನ್ ಅನ್ನು ಮರುಹೊಂದಿಸಿ "</string>
   <!-- Scan button title -->
     <!-- Unlock Screen sub-header -->
-  <!-- Instruction to touch the sensor for fingerprint authentication -->
+    <!-- Instruction to touch the sensor for fingerprint authentication -->
   <string name="UnlockScreen.touchIdInstructions.android">"ಬೆರಳಚ್ಚು ದೃಢೀಕರಿಸಲು ಸೆನ್ಸರ್ ಅನ್ನು ಮುಟ್ಟುವ ಸೂಚನೆಗಳು "</string>
   <!-- TouchID prompt text -->
-  <!-- Device authentication body -->
+    <!-- Device authentication body -->
   <string name="UnlockScreen.touchIdPrompt.android">"ಸಾಧನದ ದೃಢೀಕರಣ ಮುಖ್ಯಭಾಗ "</string>
   <!-- Unlock with TouchID accessibility label -->
-  <!-- Device authentication title -->
+    <!-- Device authentication title -->
   <string name="UnlockScreen.touchIdTitle.android">"ಸಾಧನದ ದೃಢೀಕರಣದ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Wallet unlocked message -->
-  <!-- Update PIN caption text -->
+    <!-- Update PIN caption text -->
   <string name="UpdatePin.caption">"ಪಿನ್ ಕ್ಯಾಪ್ಶನ್ ಅನ್ನು ಅಪ್ಡೇಟ್ ಮಾಡುವ ಸಂದೇಶ "</string>
   <!-- PIN creation info. -->
   <string name="UpdatePin.createInstruction">"ಪಿನ್ ರಚಿಸುವ ಮಾಹಿತಿ "</string>
@@ -494,21 +495,21 @@
   <!-- Re-Enter new PIN instruction -->
   <string name="UpdatePin.reEnterNew">ಹೊಸ ಪಿನ್ ಸೂಚನೆಯನ್ನು ಪುನಃ ಎಂಟರ್ ಮಾಡಿ</string>
   <!-- Update PIN failure error message. -->
-  <!-- Update PIN failure alert view title -->
-  <!-- Update PIN title -->
+    <!-- Update PIN failure alert view title -->
+    <!-- Update PIN title -->
     <!-- Authorize to copy wallet addresses alert message -->
-  <!-- Authorize to copy wallet address PIN view prompt. -->
-  <!-- Authorize to copy wallet address alert title -->
-  <!-- Copy wallet addresses alert button label -->
-  <!-- Verify PIN for transaction view body -->
+    <!-- Authorize to copy wallet address PIN view prompt. -->
+    <!-- Authorize to copy wallet address alert title -->
+    <!-- Copy wallet addresses alert button label -->
+    <!-- Verify PIN for transaction view body -->
     <!-- Verify PIN view body -->
   <string name="VerifyPin.continueBody">"ಪಿನ್ ವೀಕ್ಷಿಸಿ ಮುಖ್ಯಭಾಗವನ್ನು ಪರಿಶೀಲಿಸಿರಿ "</string>
   <!-- Verify PIN view title -->
     <!-- Authorize transaction with touch id message -->
-  <!-- 'No wallet' warning for watch app -->
-  <!-- Dismiss button label -->
-  <!-- Webview loading error message -->
-  <!-- Updating webview message -->
+    <!-- 'No wallet' warning for watch app -->
+    <!-- Dismiss button label -->
+    <!-- Webview loading error message -->
+    <!-- Updating webview message -->
   <string name="Webview.updating">"ವೆಬ್ ನೋಟದ ಸಂದೇಶವನ್ನು ಅಪ್ಡೇಟ್ ಮಾಡಲಾಗುತ್ತಿದೆ "</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
   <string name="Welcome.body">ಬಳಕೆದಾರರು ನೋಡುವ ಸಹಾಯ ಐಕಾನುಗಳನ್ನು ಸ್ವಾಗತ ಪರದೆಯ ಸಂದೇಶದಿಂದ ಬದಲಾಯಿಸಲಾಗಿದೆ</string>
@@ -519,7 +520,7 @@
   <!-- Wipe wallet alert title -->
   <string name="WipeWallet.alertTitle">"ವಾಲೆಟ್ ಅನ್ನು ಅಳಿಸು ಎಚ್ಚರಿಕೆಯ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Failed wipe wallet alert message -->
-  <!-- Failed wipe wallet alert title -->
+    <!-- Failed wipe wallet alert title -->
     <!-- Enter phrase to wipe wallet instruction. -->
   <string name="WipeWallet.instruction">"ವಾಲೆಟ್ ಸೂಚನೆಯನ್ನು ಅಳಿಸಲು ವಾಕ್ಯವನ್ನು ಬರೆಯಿರಿ "</string>
   <!-- Start wipe wallet view message -->
@@ -527,13 +528,13 @@
   <!-- Start wipe wallet view warning -->
   <string name="WipeWallet.startWarning">"ವಾಲೆಟ್ ಅಳಿಸು ನೋಟವನ್ನು ನೋಡು ಎಚ್ಚರಿಕೆ "</string>
   <!-- Wipe wallet navigation item title. -->
-  <!-- Wipe wallet button title -->
+    <!-- Wipe wallet button title -->
   <string name="WipeWallet.wipe">"ವಾಲೆಟ್ ಬಟನ್ ಶೀರ್ಷಿಕೆಯನ್ನು ಅಳಿಸು "</string>
   <!-- Wiping activity message -->
-  <!-- Paper key instructions. -->
+    <!-- Paper key instructions. -->
   <string name="WritePaperPhrase.instruction">"ಕಾಗದದ ಕೀಲಿಯ ಮಾಹಿತಿಗಳು "</string>
   <!-- button label -->
-  <!-- button label -->
+    <!-- button label -->
   <string name="WritePaperPhrase.previous">"ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- 1 of 3 -->
 </resources>

@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">デバイスセキュリティの警告 : すべての脱獄アプリは、DigiWalletのキーチェーンデータにアクセスし、あなたのDigiByteを盗むことができます。 DigiWalletは、非脱獄デバイスでのみ使用してください。</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">警告</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

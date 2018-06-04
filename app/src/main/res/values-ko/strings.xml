@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">장치 보안 완료됨 \n\'탈옥\'앱은 DigiWallet의 키체인 데이터에 액세스 할 수 있으며 당신의 디지바이트를 훔칩니다. \'탈옥\'하지않은 기기에서만 DigiWallet을 사용하십시오.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">경고!</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

@@ -4,45 +4,49 @@
     <!-- About screen blog label -->
   <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
-  <string name="About.footer">由全球極特錢包團隊完成。版本 %1$s</string>
+  <string name="About.footer">由全球极特钱包团队打造。版本 %1$s</string>
   <!-- Privay Policy button label -->
-  <string name="About.privacy">隱私政策</string>
+  <string name="About.privacy">隐私政策</string>
+  <!-- About screen reddit label -->
+  <string name="About.reddit">https://www.reddit.com/r/Digibyte/</string>
   <!-- Terms of Use button label -->
     <!-- About screen title -->
-  <string name="About.title">關於</string>
+  <string name="About.title">快速，简单，安全！使用极特钱包安卓版是发送极特币最简单的方法。在设计之初特别考虑到新老客户不同的需求，安卓极特钱包对初次使用用户足够友好，对老用户又足够强大！</string>
+  <!-- About screen twitter label -->
+  <string name="About.twitter">https://twitter.com/digibytecoin</string>
   <!-- Close modal button accessibility label -->
-  <string name="AccessibilityLabels.close">關閉</string>
+  <string name="AccessibilityLabels.close">关闭</string>
   <!-- Support center accessibiliy label -->
     <!-- Loading Wallet Message -->
     <!-- Default wallet name -->
     <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">警告！您正在使用第三方提供的鍵盤，第三方提供的鍵盤有機會盜取你的錢包密碼。請您改用原生鍵盤以避免安全問題。</string>
+  <string name="Alert.customKeyboard.android">看起来您用着第三方的键盘，这可以记录您所打的资料和偷取纸钥匙。请转换到安卓默认的键盘以达到而外安全保护。</string>
   <!-- Error alert title -->
-  <string name="Alert.error">錯誤</string>
+  <string name="Alert.error">故障</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Keystore發生錯誤請您聯絡 support@digibyte.io</string>
+  <string name="Alert.keystore.generic.android">您的安卓密钥库有问题，请联络support@digibyte.io</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">您極特錢包內的加密資訊已被消除 因您移除了安卓屏幕保護。</string>
+  <string name="Alert.keystore.invalidated.android">最近您的极特钱包加密资料被无效，因为您的安卓锁屏被关</string>
   <!-- Keystore error title -->
-  <string name="Alert.keystore.title.android">Android KeyStore出錯</string>
+  <string name="Alert.keystore.title.android">安卓密钥库故障</string>
   <!-- No internet alert message -->
     <!-- Warning alert title -->
     <!-- 'the addresses were copied'' Alert title -->
     <!-- Addresses Copied Alert sub header -->
     <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">紙鑰匙設定了</string>
+  <string name="Alerts.paperKeySet">纸键设置成功</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">太棒了！</string>
+  <string name="Alerts.paperKeySetSubheader">太好了！</string>
   <!-- Alert Header label (the PIN was set) -->
-  <string name="Alerts.pinSet">成功設置PIN碼</string>
+  <string name="Alerts.pinSet">密码设置成功</string>
   <!-- Send failure alert header label (the send failed to happen) -->
-  <string name="Alerts.sendFailure">發送失敗</string>
+  <string name="Alerts.sendFailure">发送失败</string>
   <!-- Send success alert header label (confirmation that the send happened) -->
-  <string name="Alerts.sendSuccess">成功發送！</string>
+  <string name="Alerts.sendSuccess">发送已被确认</string>
   <!-- Send success alert subheader label (e.g. the money was sent) -->
-  <string name="Alerts.sendSuccessSubheader">成功發出極特幣！</string>
+  <string name="Alerts.sendSuccessSubheader">成功发送！</string>
   <!-- Fingerprint was recognized by the scanner -->
-  <string name="Alerts.touchIdSucceeded.android">指紋認證成功！</string>
+  <string name="Alerts.touchIdSucceeded.android">指纹已识别</string>
   <!-- JSON Serialization error message -->
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
@@ -69,7 +73,7 @@
     <!-- menu button -->
     <!-- No button -->
     <!-- OK button label -->
-  <string name="Button.ok">確定</string>
+  <string name="Button.ok">是</string>
   <!-- receive button -->
     <!-- send button -->
     <!-- Settings button label -->
@@ -77,30 +81,30 @@
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
     <!-- Amount to Send: ($1.00) -->
-  <string name="Confirmation.amountLabel">發送額：</string>
+  <string name="Confirmation.amountLabel">发送额：</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">手續費：</string>
+  <string name="Confirmation.feeLabel">网络手续费：</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
     <!-- Label for "send" button on final confirmation screen -->
     <!-- Confirmation Screen title -->
     <!-- To: (address) -->
     <!-- Total Cost: ($5.00) -->
-  <string name="Confirmation.totalLabel">合共金額：</string>
+  <string name="Confirmation.totalLabel">总记花费：</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">爲了證明全部寫下的都正確，請輸入以下您紙鑰匙的字體</string>
+  <string name="ConfirmPaperPhrase.label">为了万无一失，请从您的纸键输入以下汉字。</string>
   <!-- Word label eg. Word #1, Word #2 -->
-  <string name="ConfirmPaperPhrase.word">字體＃%1$s</string>
+  <string name="ConfirmPaperPhrase.word">汉字#%1$s</string>
   <!-- Bitcoin denomination picker label -->
     <!-- Exchange rate label -->
-  <string name="DefaultCurrency.rateLabel">匯率</string>
+  <string name="DefaultCurrency.rateLabel">兑换率</string>
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
-  <string name="ErrorMessages.loopingLockScreen.android">您現在版本的安卓有一個BUG導致極特錢包不能被認證。【點此獲取更多信息】</string>
+  <string name="ErrorMessages.loopingLockScreen.android">由于您的安卓版本存在一个BUG导致极特币无法被验证。[点击此处了解详情。]</string>
   <!-- Messaging unavailable alert title -->
     <!-- Messaging unavailable alert title -->
     <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
-  <string name="ErrorMessages.touchIdFailed.android">指紋認證失敗，請重試</string>
+  <string name="ErrorMessages.touchIdFailed.android">无法识别指纹。请重试。</string>
   <!-- Economy fee -->
     <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
     <!-- Warning message for economy fee -->
@@ -109,41 +113,42 @@
     <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
     <!-- Fee Selector title -->
     <!-- Checking private key balance progress view text -->
-  <string name="Import.checking">正在檢查私鑰餘額...</string>
+  <string name="Import.checking">查询私钥余额中...</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">從私鑰髮送%1$s去您的錢包？極特幣網絡將會收到%2$s費用</string>
+  <string name="Import.confirm">确认从这个私钥发送%1$s极特币到你的钱包吗？极特币网络将收取%2$s手续费。</string>
   <!-- Duplicate key error message -->
     <!-- empty private key error message -->
-  <string name="Import.Error.empty">這私鑰是空的</string>
+  <string name="Import.Error.empty">这个私钥是空的</string>
   <!-- High fees error message -->
     <!-- Not a valid private key error message -->
-  <string name="Import.Error.notValid">不是有效的私鑰</string>
+  <string name="Import.Error.notValid">请输入一个合理的私钥</string>
   <!-- Import signing error message -->
-  <string name="Import.Error.signing">交易簽署故障</string>
+  <string name="Import.Error.signing">转账签字错误</string>
   <!-- Import button label -->
     <!-- Importing wallet progress view label -->
     <!-- Caption for graphics -->
     <!-- Import wallet intro screen message -->
-  <string name="Import.message">導入另一個錢包將一次性把其中餘額全部轉入您的極特錢包。</string>
+  <string name="Import.message">导入一个钱包将一次性把该余额全部转入你的极特钱包里。</string>
   <!-- Enter password alert view title -->
-  <string name="Import.password">這私鑰是密碼防護</string>
+  <string name="Import.password">这个私钥受密码保护。</string>
   <!-- password textfield placeholder -->
     <!-- Caption for graphics -->
     <!-- Scan Private key button label -->
-  <string name="Import.scan">掃描私鑰</string>
+  <string name="Import.scan">扫描私钥</string>
   <!-- Import wallet success alert title -->
     <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
-  <string name="Import.warning">導入一個錢包不會包括它的交易紀錄與其他細節。</string>
+  <string name="Import.warning">导入一个钱包不会包括交易历史或其他信息。</string>
   <!-- Wrong password alert message -->
     <!-- Close app button -->
-  <string name="JailbreakWarnings.close">關閉</string>
+  <string name="JailbreakWarnings.close">关闭</string>
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">您的设备不安全！任何“越狱”的App都可以获取极特币的钥匙链数据并窃取您的极特币！请只在非越狱的设备上使用极特钱包。</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">警告</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
@@ -153,74 +158,74 @@
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
     <!-- Menu button title -->
-  <string name="MenuButton.lock">封鎖錢包</string>
+  <string name="MenuButton.lock">锁定钱包</string>
   <!-- Menu button title -->
-  <string name="MenuButton.security">" 安全中心"</string>
+  <string name="MenuButton.security">安全中心</string>
   <!-- Menu button title -->
-  <string name="MenuButton.settings">設定</string>
+  <string name="MenuButton.settings">设置</string>
   <!-- Menu button title -->
     <!-- button label -->
-  <string name="MenuViewController.createButton">創建新錢包</string>
+  <string name="MenuViewController.createButton">创建新的钱包</string>
   <!-- Menu modal title -->
     <!-- button label -->
-  <string name="MenuViewController.recoverButton">恢復錢包</string>
+  <string name="MenuViewController.recoverButton">恢复钱包</string>
   <!-- Switch to automatic mode button label -->
-  <string name="NodeSelector.automaticButton">切換到自動模式</string>
+  <string name="NodeSelector.automaticButton">切换到自动模式</string>
   <!-- Node is connected label -->
-  <string name="NodeSelector.connected">連接了</string>
+  <string name="NodeSelector.connected">已连接</string>
   <!-- Enter node ip address view body -->
-  <string name="NodeSelector.enterBody">輸入節點IP地址和端口（可選的）</string>
+  <string name="NodeSelector.enterBody">输入节点IP地址和端口（可选）</string>
   <!-- Enter Node ip address view title -->
-  <string name="NodeSelector.enterTitle">輸入節點</string>
+  <string name="NodeSelector.enterTitle">输入节点</string>
   <!-- Switch to manual mode button label -->
-  <string name="NodeSelector.manualButton">切換到手動模式</string>
+  <string name="NodeSelector.manualButton">切换到手动模式</string>
   <!-- Node address label -->
-  <string name="NodeSelector.nodeLabel">當前主要節點</string>
+  <string name="NodeSelector.nodeLabel">当前主节点</string>
   <!-- Node is not connected label -->
-  <string name="NodeSelector.notConnected">沒連接上</string>
+  <string name="NodeSelector.notConnected">未连接</string>
   <!-- Node status label -->
-  <string name="NodeSelector.statusLabel">節點連接狀態</string>
+  <string name="NodeSelector.statusLabel">节点连接状态</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">極特幣節點</string>
+  <string name="NodeSelector.title">极特币节点</string>
   <!-- Bad Payment request alert title -->
     <!-- Error opening payment protocol file message -->
     <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
     <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">極特幣付款不能少過%1$s</string>
+  <string name="PaymentProtocol.Errors.smallPayment">极特币转账不可少于%1$s</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">極特幣交易輸出不能少過%1$s</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">极特币转出数额不可少于%1$s</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
     <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">為了保護您的錢包需要開啟鎖屏。請在設置-安全-鎖屏選項中開啟</string>
+  <string name="Prompts.NoScreenLock.body.android">您的设备需要锁屏保护。请在“设置”&gt;“安全”&gt;“锁屏”开启锁屏选项。</string>
   <!-- Device encryption prompt title -->
     <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">您必須保存紙鑰，以防手機弄丟或更換。點擊這裡繼續。</string>
+  <string name="Prompts.PaperKey.body">您的纸键必须被妥善保存，以免手机丢失或者换手机。点此继续。</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">請採取措施</string>
+  <string name="Prompts.PaperKey.title">请采取措施</string>
   <!-- Transaction rejected prompt body -->
-  <string name="Prompts.RecommendRescan.body">您的錢包可能不衕步。從新掃描塊鏈可以解決這問題。</string>
+  <string name="Prompts.RecommendRescan.body">您的钱包可能没有同步。通常修复的办法是重新扫描区块链。</string>
   <!-- Transaction rejected prompt title -->
     <!-- Share data prompt body -->
     <!-- Share data prompt title -->
     <!-- Enable touch ID prompt body -->
     <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">點擊這裡開啓觸動認證</string>
+  <string name="Prompts.TouchId.body.android">点此开启指纹验证</string>
   <!-- Enable touch ID prompt title -->
     <!-- Enable Fingerprint prompt title -->
-  <string name="Prompts.TouchId.title.android">開啟觸動認證</string>
+  <string name="Prompts.TouchId.title.android">开启指纹验证</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
-  <string name="Prompts.TouchId.usePin.android">PIN碼</string>
+  <string name="Prompts.TouchId.usePin.android">密码</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">極特錢包已經升級用6位數字PIN碼。點擊這裡升級</string>
+  <string name="Prompts.UpgradePin.body">极特钱包已经升级到一个6位数的密码。点此升级密码。</string>
   <!-- Upgrade PIN prompt title. -->
-  <string name="Prompts.UpgradePin.title">升級PIN碼</string>
+  <string name="Prompts.UpgradePin.title">升级密码</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">開啓通知來接收極特錢包將來的特別訊息。</string>
+  <string name="PushNotifications.body">开启推送提示来接受极特钱包未来的资讯</string>
   <!-- Push notifications toggle switch label -->
   <string name="PushNotifications.label">推送提示</string>
   <!-- Push notifications are off label -->
@@ -228,171 +233,171 @@
     <!-- Push notifications settings view title label -->
   <string name="PushNotifications.title">通知</string>
   <!-- Address copied message. -->
-  <string name="Receive.copied">已複製到剪貼闆</string>
+  <string name="Receive.copied">复制到剪切板成功！</string>
   <!-- Share via email button label -->
     <!-- Request button label -->
-  <string name="Receive.request">請求一個金額</string>
+  <string name="Receive.request">请求一个金额</string>
   <!-- Share button label -->
   <string name="Receive.share">分享</string>
   <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
-  <string name="Receive.title">完成</string>
+  <string name="Receive.title">收取</string>
   <!-- Done button text -->
-  <string name="RecoverWallet.done">成功</string>
+  <string name="RecoverWallet.done">完成</string>
   <!-- Recover wallet header -->
-  <string name="RecoverWallet.header">恢復錢包</string>
+  <string name="RecoverWallet.header">恢复钱包</string>
   <!-- Reset PIN with paper key: header -->
-  <string name="RecoverWallet.header_reset_pin">重新設置PIN碼</string>
+  <string name="RecoverWallet.header_reset_pin">重置密码</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">輸入紙鑰匙</string>
+  <string name="RecoverWallet.instruction">输入纸键</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">用您的紙鑰匙來恢復極特錢包</string>
+  <string name="RecoverWallet.intro">通过纸键恢复您的极特钱包</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">您輸入的紙鑰匙無效。請重覆檢查每個字後再試一次</string>
+  <string name="RecoverWallet.invalid">您输入的纸键不存在。请重新检查并再次输入。</string>
   <!-- Previous button accessibility label -->
     <!-- Next button label -->
-  <string name="RecoverWallet.next">下一個</string>
+  <string name="RecoverWallet.next">下一步</string>
   <!-- Reset PIN with paper key: more information button. -->
     <!-- Next button accessibility label -->
     <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">輸入紙鑰匙給您要修復的錢包</string>
+  <string name="RecoverWallet.subheader">输入您想恢复的钱包的纸键</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">重置您的PIN碼,請輸入紙鑰匙裡的每個字進格子裡。</string>
+  <string name="RecoverWallet.subheader_reset_pin">请输入您纸键的字到以下方格里来重置密码</string>
   <!-- No amount entered error message. -->
     <!-- Request a specific amount of bitcoin -->
     <!-- Alert action button label -->
   <string name="ReScan.alertAction">同步</string>
   <!-- Alert message body -->
     <!-- Alert message title -->
-  <string name="ReScan.alertTitle">同步區塊鏈？</string>
+  <string name="ReScan.alertTitle">确认与区块链同步吗？</string>
   <!-- extimated time -->
-  <string name="ReScan.body1">20-45分鐘</string>
+  <string name="ReScan.body1">20-45 分钟</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">當在極特幣網絡上顯示交易完成而您的極特錢包顯示未完成的時候。</string>
+  <string name="ReScan.body2">如果一个交易在极特币网络上显示已经完成但并没有显示在您的钱包里。</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">或者當重覆收到交易被拒絶的故障訊息的時候。</string>
+  <string name="ReScan.body3">或重复的得到“交易被拒绝”的错误提醒。</string>
   <!-- Start Sync button label -->
-  <string name="ReScan.buttonTitle">開始同步</string>
+  <string name="ReScan.buttonTitle">开始同步</string>
   <!-- Sync blockchain view footer -->
-  <string name="ReScan.footer">塊鏈衕步的衕時，您將不能發送極特幣</string>
+  <string name="ReScan.footer">在与区块链同步的时候无法发送。</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header">同步區塊鏈</string>
+  <string name="ReScan.header">同步区块链</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader1">預計時間</string>
+  <string name="ReScan.subheader1">预计完成时间</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader2">在遇到以下問題時需要重新同步區塊鏈。</string>
+  <string name="ReScan.subheader2">请尝试用重新同步修复以下问题</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
     <!-- Security Center Info -->
-  <string name="SecurityCenter.info">開啓全部安全功能來達到最大的保護</string>
+  <string name="SecurityCenter.info">开启所有安全功能从而得到最大化保护。</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">如果您不見手機或手機升級，唯一能存取極特幣的方法</string>
+  <string name="SecurityCenter.paperKeyDescription">在丢失或换新手机的情况下这是唯一能拿回你的极特币的办法。</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">紙鑰匙</string>
+  <string name="SecurityCenter.paperKeyTitle">纸键</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">保護您的極特錢包遠離非法用戶</string>
+  <string name="SecurityCenter.pinDescription">保护你的极特币不被非法用户获取。</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6位數字PIN碼</string>
+  <string name="SecurityCenter.pinTitle">6位数字密码</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">安全中心</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">便利地開鎖您的極特錢包和設定發送金額上限</string>
+  <string name="SecurityCenter.touchIdDescription">更方便的解锁极特钱包和设定发送上限。</string>
   <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-  <string name="SecurityCenter.touchIdTitle.android">觸動認證</string>
+  <string name="SecurityCenter.touchIdTitle.android">指纹验证</string>
   <!-- Send money amount label -->
     <!-- Balance: $4.00 -->
     <!-- Instructions how to allow the camera access for the app -->
-  <string name="Send.cameraUnavailabeMessage.android">在設置-APPs-極特錢包-權限裡開啟相機接駁</string>
+  <string name="Send.cameraUnavailabeMessage.android">开启摄像头：“设置”&gt;“Apps”&gt;“极特钱包”&gt;“许可”</string>
   <!-- Permission required to access camera -->
-  <string name="Send.cameraUnavailabeTitle.android">極特錢包不被允許接駁相機</string>
+  <string name="Send.cameraUnavailabeTitle.android">极特钱包没有使用摄像头的许可</string>
   <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
     <!-- Warning when sending to self. -->
-  <string name="Send.containsAddress">目的地是您的地址。您不能發送給自己</string>
+  <string name="Send.containsAddress">目的地是您自己的地址。您不能发送给自己</string>
   <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">備忘錄</string>
+  <string name="Send.descriptionLabel">备注</string>
   <!-- Emtpy pasteboard error message -->
-  <string name="Send.emptyPasteboard">貼闆是空的</string>
+  <string name="Send.emptyPasteboard">粘贴板是空的</string>
   <!-- Network Fee: $0.01 -->
-  <string name="Send.fee">手續費：%1$s</string>
+  <string name="Send.fee">网络手续费：%1$s</string>
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
-  <string name="Send.invalidAddressTitle">無效的地址</string>
+  <string name="Send.invalidAddressTitle">无效的地址</string>
   <!-- Is rescanning error message -->
-  <string name="Send.isRescanning">當完整的重新掃描時，發送是被禁止的</string>
+  <string name="Send.isRescanning">在完全重新扫描时，无法发送。</string>
   <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
-  <string name="Send.noAddress">請輸入接收人的地址</string>
+  <string name="Send.noAddress">请输入接受人的地址。</string>
   <!-- Emtpy amount alert message -->
     <!-- Paste button label -->
-  <string name="Send.pasteLabel">貼</string>
+  <string name="Send.pasteLabel">粘贴</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <!-- Scan button label -->
-  <string name="Send.scanLabel">掃描</string>
+  <string name="Send.scanLabel">扫描</string>
   <!-- Send button label (the action, "press here to send") -->
-  <string name="Send.sendLabel">發送</string>
+  <string name="Send.sendLabel">发送</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
-  <string name="Send.title">發送</string>
+  <string name="Send.title">发送</string>
   <!-- Send money to label -->
   <string name="Send.toLabel">到</string>
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">不能加載付款請求</string>
+  <string name="Send.UsedAddress.firstLine">极特币地址只能使用使用一次</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">如果收款者不直接操控地址，重覆使用將減少您和收款者的隱私，可能帶來損耗/失利。</string>
+  <string name="Send.UsedAddress.secondLIne">重新使用该地址将降低您和收款人的私密性，如果收款人不直接拥有该地址也可能导致极特币丢失。</string>
   <!-- Adress already used alert title -->
     <!-- About label -->
-  <string name="Settings.about">關於</string>
+  <string name="Settings.about">关于</string>
   <!-- Advanced Settings title -->
-  <string name="Settings.advancedTitle">高級設置</string>
+  <string name="Settings.advancedTitle">高级设置</string>
   <!-- i.e. the currency which will be displayed -->
-  <string name="Settings.currency">顯示貨幣</string>
+  <string name="Settings.currency">显示货币</string>
   <!-- Join Early access label -->
     <!-- Are you enjoying bread alert message body -->
     <!-- Import wallet left message -->
-  <string name="Settings.importLeftMessage">要被導入的錢包</string>
+  <string name="Settings.importLeftMessage">等待钱包导入</string>
   <!-- Import wallet right message -->
-  <string name="Settings.importRightMessage">您的極特錢包</string>
+  <string name="Settings.importRightMessage">您的极特钱包</string>
   <!-- Import wallet label -->
-  <string name="Settings.importTitle">導入錢包</string>
+  <string name="Settings.importTitle">导入钱包</string>
   <!-- Manage settings section header -->
   <string name="Settings.manage">管理</string>
   <!-- Notifications label -->
     <!-- Restore screen lower label. -->
-  <string name="Settings.restore_label">你在這台機器上的極特錢包</string>
+  <string name="Settings.restore_label">您在此设备上的极特钱包</string>
   <!-- Leave review button label -->
     <!-- Share anonymous data label -->
     <!-- Sync blockchain label -->
-  <string name="Settings.sync">同步區塊鏈</string>
+  <string name="Settings.sync">同步区块链</string>
   <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">觸動認證支出限額</string>
+  <string name="Settings.touchIdLimit.android">指纹验证发送上限</string>
   <!-- Wallet Settings section header -->
-  <string name="Settings.wallet">錢包</string>
+  <string name="Settings.wallet">钱包</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">開啓／恢復另一個錢包</string>
+  <string name="Settings.wipe">新建/恢复另一个钱包</string>
   <!-- Share data view body -->
     <!-- Share data header -->
     <!-- Share data switch label. -->
     <!-- button label -->
     <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">如果您的手機不見了，被偷了，壞了或升級了，您的紙鑰匙是唯一的修復您的極特錢包的方法。 \n \n我們將會顯示一組字，讓您寫下和保存。</string>
+  <string name="StartPaperPhrase.body">如果您的电话丢失，被偷，坏掉或者升级了，纸键是唯一找回极特币余额的方法。我们会给您一组字方便您写在一张纸上，请妥善保管。</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">写下纸钥匙</string>
+  <string name="StartPaperPhrase.buttonTitle">写下纸键</string>
   <!-- Argument is date -->
     <!-- Start view message -->
     <!-- Syncing view connectiong state header text -->
-  <string name="SyncingView.connecting">連接中</string>
+  <string name="SyncingView.connecting">正在连接</string>
   <!-- Syncing view header text -->
-  <string name="SyncingView.header">正在同步</string>
+  <string name="SyncingView.header">同步中</string>
   <!-- Retry button label -->
     <!-- Syncing view syncing state header text -->
     <!-- 6 d (6 days) -->
@@ -401,30 +406,30 @@
     <!-- 6 s (6 seconds) -->
     <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
     <!-- Fingerprint enabling description body -->
-  <string name="TouchIdSettings.customizeText.android">您可以從觸動支付上限界面設置觸動支付上限</string>
+  <string name="TouchIdSettings.customizeText.android">您可以在指纹认证发送上限界面里设置支出限额</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">您還沒有在這台機上開啟觸動認證。請在設置-安全選項裡開啟。</string>
+  <string name="TouchIdSettings.disabledWarning.body.android">您没有在此设备开启指纹验证。请在设置菜单下的安全菜单设置指纹验证。</string>
   <!-- Fingerprint Is Not Setup -->
-  <string name="TouchIdSettings.disabledWarning.title.android">觸動認證還沒開啟</string>
+  <string name="TouchIdSettings.disabledWarning.title.android">没有启用指纹验证</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">用您的指紋開鎖極特錢包和匯款直到支出限額</string>
+  <string name="TouchIdSettings.label">使用您的指纹解锁极特钱包和发起限额内的交易</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
     <!-- Spending Limit: b100,000 ($100) -->
-  <string name="TouchIdSettings.spendingLimit">支出限額：%1$s（%2$s）</string>
+  <string name="TouchIdSettings.spendingLimit">支出限额：%1$s（%2$s）</string>
   <!-- Touch id switch label. -->
     <!-- Enable fingerprint for this wallet called Bread -->
-  <string name="TouchIdSettings.switchLabel.android">開啓極特錢包觸動認證</string>
+  <string name="TouchIdSettings.switchLabel.android">开启指纹验证</string>
   <!-- Touch ID settings view title -->
     <!-- Fingerprint authentication label -->
-  <string name="TouchIdSettings.title.android">觸動認證</string>
+  <string name="TouchIdSettings.title.android">指纹验证</string>
   <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
     <!-- Always require passcode option -->
     <!-- Touch ID spending limit screen body -->
-  <string name="TouchIdSpendingLimit.body">當您發送超過支出限額的交易，或者自上次輸入6位密碼以來超過48小時，您將會被再次要求輸入6位數PIN碼。</string>
+  <string name="TouchIdSpendingLimit.body">当支出额大于支出限制的时候，或者距上次输入密码超过48小时的时候，都需要再次输入6位密码。</string>
   <!-- Touch Id spending limit screen title -->
     <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">觸動認證支出限額</string>
+  <string name="TouchIdSpendingLimit.title.android">指纹验证支付上限</string>
   <!-- Availability status text -->
     <!-- Transaction complete label -->
     <!-- eg. Ending balance: $50.00 -->
@@ -453,7 +458,7 @@
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <!-- Sent $5.00 -->
     <!-- Status section header -->
-  <string name="TransactionDetails.statusHeader">狀態</string>
+  <string name="TransactionDetails.statusHeader">状态</string>
   <!-- Transaction Details Title -->
     <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
     <!-- Transaction ID header -->
@@ -463,32 +468,32 @@
     <!-- My Address button title -->
   <string name="UnlockScreen.myAddress">我的地址</string>
   <!-- Reset PIN with Paper Key button label. -->
-  <string name="UnlockScreen.resetPin">重設PIN碼</string>
+  <string name="UnlockScreen.resetPin">重置密码</string>
   <!-- Scan button title -->
     <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
-  <string name="UnlockScreen.touchIdInstructions.android">觸摸感應器</string>
+  <string name="UnlockScreen.touchIdInstructions.android">请触摸指纹感应器</string>
   <!-- TouchID prompt text -->
     <!-- Device authentication body -->
-  <string name="UnlockScreen.touchIdPrompt.android">請解鎖您的安卓設備已繼續。</string>
+  <string name="UnlockScreen.touchIdPrompt.android">请解锁您的安卓设备以继续。</string>
   <!-- Unlock with TouchID accessibility label -->
     <!-- Device authentication title -->
-  <string name="UnlockScreen.touchIdTitle.android">要求認證</string>
+  <string name="UnlockScreen.touchIdTitle.android">需要验证</string>
   <!-- Wallet unlocked message -->
     <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">記得這密碼。如果您忘了，您將不能存取極特幣。</string>
+  <string name="UpdatePin.caption">请牢记这个密码。如果忘记，您将无法获取您的极特币。</string>
   <!-- PIN creation info. -->
-  <string name="UpdatePin.createInstruction">您的PIN碼會被用作開鎖您的極特錢包和發送極特幣。</string>
+  <string name="UpdatePin.createInstruction">您的密码将被用来解锁极特钱包和发送极特币。</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitle">設置PIN碼</string>
+  <string name="UpdatePin.createTitle">设置密码</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitleConfirm">重新輸入PIN碼</string>
+  <string name="UpdatePin.createTitleConfirm">再次输入密码</string>
   <!-- Enter current PIN instruction -->
-  <string name="UpdatePin.enterCurrent">輸入您的當前PIN碼</string>
+  <string name="UpdatePin.enterCurrent">请输入当前的密码。</string>
   <!-- Enter new PIN instruction -->
-  <string name="UpdatePin.enterNew">輸入您的新PIN碼</string>
+  <string name="UpdatePin.enterNew">请输入新的密码。</string>
   <!-- Re-Enter new PIN instruction -->
-  <string name="UpdatePin.reEnterNew">重新輸入您的新PIN碼</string>
+  <string name="UpdatePin.reEnterNew">重新输入新的密码。</string>
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
@@ -498,7 +503,7 @@
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
     <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">請輸入您的PIN碼來繼續</string>
+  <string name="VerifyPin.continueBody">请输入您的密码以继续。</string>
   <!-- Verify PIN view title -->
     <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
@@ -507,29 +512,29 @@
     <!-- Updating webview message -->
   <string name="Webview.updating">更新中...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">安卓的極特幣應用程式已換名爲極特錢包，帶來全新的麵貌和新功能。\n\n如果您需要幫助，請按屏幕右上角的（?）</string>
+  <string name="Welcome.body">极特钱包已经更新为全新的面貌和功能。\n\n如果您需要帮助，请按屏幕右上角的（?）</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">歡迎來到極特錢包！</string>
+  <string name="Welcome.title">欢迎使用极特钱包！</string>
   <!-- Wipe wallet alert message -->
-  <string name="WipeWallet.alertMessage">您確定要刪除這錢包？</string>
+  <string name="WipeWallet.alertMessage">请问您确定要删除这个钱包吗？</string>
   <!-- Wipe wallet alert title -->
-  <string name="WipeWallet.alertTitle">刪除錢包？</string>
+  <string name="WipeWallet.alertTitle">删除钱包？</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
     <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">要新建或者恢復一個已經存在的錢包，首先需要刪除現有的錢包。請輸入現有錢包的紙鑰匙已繼續。</string>
+  <string name="WipeWallet.instruction">新建或者恢复一个钱包，您需要首先删除现有的钱包。请输入现有钱包的纸键已继续。</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">創建或恢復另一個錢包讓您可以在這手機進接和管理另一個極特錢包</string>
+  <string name="WipeWallet.startMessage">通过新建或者恢复一个已有的钱包，可以使您在这个设备上管理多个钱包。</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">您現有的錢包會從這台機上移除。如果在未來您想恢復它，將需要輸入紙鑰匙。</string>
+  <string name="WipeWallet.startWarning">您现有的钱包将被从这个设备上移除。如果您想在未来恢复它，您需要输入您的纸键。</string>
   <!-- Wipe wallet navigation item title. -->
     <!-- Wipe wallet button title -->
-  <string name="WipeWallet.wipe">刪除</string>
+  <string name="WipeWallet.wipe">删除</string>
   <!-- Wiping activity message -->
     <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">依續寫下每一個字並保存在安全的地方</string>
+  <string name="WritePaperPhrase.instruction">请按顺序写下每一个字并妥善保管。</string>
   <!-- button label -->
     <!-- button label -->
-  <string name="WritePaperPhrase.previous">上一個</string>
+  <string name="WritePaperPhrase.previous">上一个</string>
   <!-- 1 of 3 -->
 </resources>

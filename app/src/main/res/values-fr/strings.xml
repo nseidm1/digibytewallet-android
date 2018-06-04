@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">RISQUE DE SÉCURITÉ SUR CETTE L\'APPAREIL\n les applications non autoriser ou non provenant du magasin d\'applications peuvent y accéder  au informations sensibles de votre DigiWallet et donc voler vos fonds. Effacer cette portefeuille de votre appareil immédiatement et reinstaller sur un appareil non modifié.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">AVERTISSEMENT</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

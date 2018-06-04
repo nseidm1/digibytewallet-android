@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">ТӨХӨӨРӨМЖИЙН АЮУЛГҮЙ БАЙДАЛ ЭВДЭГДЭХ \n ямар нэг \'jailbreak\' апп DigiWallet-ийн гол түлхүүрийн өгөгдөлд хандах боломжтой ба DigiByte-ийг хулгайлж авна! DigiWallet ииг зөвхөн non-jailbroken төхөөрөмж дээр ашиглаарай</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">АНХААРУУЛГА</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

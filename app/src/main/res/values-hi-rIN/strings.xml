@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">यंत्र सुरक्षा समझौता किया गया\n कोई भी \'जेलबीक\' ऐप, DigiWallet के कुंजीश्रृंखला डेटा तक पहुंच सकता है और आपके DigiByte को चोरी कर सकता है कृपया केवल गैर-जेलब्रोकन डिवाइस पर DigiWallet का उपयोग करें।</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">चेतावनी</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

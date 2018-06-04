@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">APPARAATBEVEILIGING AANGETAST\n Elke \'jailbreak\'-app heeft toegang tot de sleutelgegevens van DigiWallet en kan jouw DigiByte stelen. Gebruik  de DigiWallet alleen op een apparaat zonder jailbreak!</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">WAARSCHUWING</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
@@ -159,7 +160,7 @@
     <!-- Menu button title -->
   <string name="MenuButton.lock">Vergrendel jouw DigiWallet</string>
   <!-- Menu button title -->
-  <string name="MenuButton.security">Beveiligingscentrum</string>
+  <string name="MenuButton.security">Beveiliging centrum</string>
   <!-- Menu button title -->
   <string name="MenuButton.settings">Instellingen</string>
   <!-- Menu button title -->

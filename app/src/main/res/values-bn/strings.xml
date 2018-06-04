@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">ডিভাইস নিরাপত্তা কম্প্রোমাইজড\n কোনো \'জেলব্রেক\' অ্যাপ্লিকেশন DigiWallet এর কী চেইন ডেটা অ্যাক্সেস করতে পারে এবং আপনার DigiByte চুরি করতে পারে।  অনুগ্রহ করে DigiWallet শুধুমাত্র একটি নন-জেলব্রোকেন ডিভাইস ব্যবহার করুন।</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">সতর্কীকরণ</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

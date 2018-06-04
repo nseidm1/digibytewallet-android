@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">கருவியின் பாதுகாப்பு சமரசம் செய்யப்பட்டுவிட்டது\n எந்தவொரு \'ஜெயில்ப்ரேக்\' பயன்பாடும் டிஜிவாலட் இன் சாவிக்கொத்து தகவலை  அணுகலாம் மேலும் உங்கள் டிஜிபைட் ஐ திருடலாம்.  ஜெயில்புரோக்கன் அல்லாத கருவியில் மட்டும் டிஜி வாலட்டை பயன்படுத்தவும்.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">எச்சரிக்கை</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

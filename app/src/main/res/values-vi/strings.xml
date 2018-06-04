@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">THIẾT BỊ KHÔNG AN TOÀN\nBất kỳ ứng dụng \'root\' nào cũng có thể truy cập dữ liệu của ví DigiWallet và lấy cắp DigiByte của bạn!Hãy chỉ dùng ví DigiWallet trên thiết bị không bị \'root\'.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">CẢNH BÁO</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

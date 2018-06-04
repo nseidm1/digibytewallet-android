@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">KESEPAKATAN KEAMANAN PERANGKAT\n Semua aplikasi \'jailbreak\' dapat mengakses data keychain DigiWallet dan mencuri DigiByte Anda. Harap gunakan DigiWallet anda hanya pada perangkat yang anti jailbrake.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">PERINGATAN</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

@@ -4,49 +4,49 @@
     <!-- About screen blog label -->
   <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
-  <string name="About.footer">Magħmul mit-tim globali tad-DigiWallet. Verżjoni % 1 $ s</string>
+  <string name="About.footer">Búið til af DigiWallet teyminu. Útgáfa %1$s</string>
   <!-- Privay Policy button label -->
-  <string name="About.privacy">Regoli tal-privatezza</string>
+  <string name="About.privacy">Friðhelgisstefna</string>
   <!-- About screen reddit label -->
   <string name="About.reddit">https://www.reddit.com/r/Digibyte/</string>
   <!-- Terms of Use button label -->
     <!-- About screen title -->
-  <string name="About.title">DigiWallet għal Android huwa l-kartiera mobbli għal DigiByte.</string>
+  <string name="About.title">DigiWallet fyrir Android er snjallsímaveskið fyrir DigiByte.</string>
   <!-- About screen twitter label -->
   <string name="About.twitter">https://twitter.com/digibytecoin</string>
   <!-- Close modal button accessibility label -->
-  <string name="AccessibilityLabels.close">Agħlaq</string>
+  <string name="AccessibilityLabels.close">Loka</string>
   <!-- Support center accessibiliy label -->
     <!-- Loading Wallet Message -->
     <!-- Default wallet name -->
     <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">Jidher li qed tuża xi tastiera ta \'parti terza, li tista\' tirreġistra dak li ttajpja u esraq il-Kejl ta \'rkupru personali tiegħek. Jekk jogħġbok ibdel it-tasti tal-Android default għal protezzjoni żejda.</string>
+  <string name="Alert.customKeyboard.android">Það lítur út fyrir að þú sért að nota lyklaborð frá þriðja aðila, sem gæti tekið upp það sem þú skrifar og stolið endurheimtunarlykli þínum. Vinsamlegast skiptu yfir á sjálfgefið Android lyklaborð fyrir aukavörn.</string>
   <!-- Error alert title -->
-  <string name="Alert.error">Errur</string>
+  <string name="Alert.error">Villa</string>
   <!-- Keystore error -->
-  <string name="Alert.keystore.generic.android">Hemm problema bil-keystore Android OS tiegħek, jekk jogħġbok ikkuntattja support@digibyte.io</string>
+  <string name="Alert.keystore.generic.android">Það er vandamál með lyklavörslu Android stýrikerfis þíns, vinsamlegast hafðu samband við support@digibyte.io</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Id-data kkodifikata tad-DigiWallet tiegħek ġiet reċentement invalidata minħabba li l-iskrin tiegħek ta \'lock Android kien diżattivat.</string>
+  <string name="Alert.keystore.invalidated.android">Dulkóðuð DigiWallet gögn þín voru nýlega ógild vegna þess að skjálás Android tækis þíns var gerður óvirkur.</string>
   <!-- Keystore error title -->
-  <string name="Alert.keystore.title.android">Android Key Store Error</string>
+  <string name="Alert.keystore.title.android">Villa í lyklavörslu Android</string>
   <!-- No internet alert message -->
     <!-- Warning alert title -->
     <!-- 'the addresses were copied'' Alert title -->
     <!-- Addresses Copied Alert sub header -->
     <!-- Alert Header Label (the paper key was set) -->
-  <string name="Alerts.paperKeySet">Sett Ewlieni ta \'Rkupru Personali</string>
+  <string name="Alerts.paperKeySet">Endurheimtunarlykill stilltur</string>
   <!-- Alert Subheader label (playfully positive) -->
-  <string name="Alerts.paperKeySetSubheader">Tal-għageb</string>
+  <string name="Alerts.paperKeySetSubheader">Æði!</string>
   <!-- Alert Header label (the PIN was set) -->
-  <string name="Alerts.pinSet">Pin Lest</string>
+  <string name="Alerts.pinSet">PIN stillt</string>
   <!-- Send failure alert header label (the send failed to happen) -->
-  <string name="Alerts.sendFailure">Ibgħat fallew.</string>
+  <string name="Alerts.sendFailure">Sending mistókst</string>
   <!-- Send success alert header label (confirmation that the send happened) -->
-  <string name="Alerts.sendSuccess">Konferma mibgħuta</string>
+  <string name="Alerts.sendSuccess">Staðfesting sendingu</string>
   <!-- Send success alert subheader label (e.g. the money was sent) -->
-  <string name="Alerts.sendSuccessSubheader">DigiByte mibgħuti!</string>
+  <string name="Alerts.sendSuccessSubheader">DigiByte sent!</string>
   <!-- Fingerprint was recognized by the scanner -->
-  <string name="Alerts.touchIdSucceeded.android">Marki tas-swaba rikonoxxuti</string>
+  <string name="Alerts.touchIdSucceeded.android">Fingrafar þekkt</string>
   <!-- JSON Serialization error message -->
     <!-- Wallet not ready error message -->
     <!-- API Token error message -->
@@ -68,12 +68,12 @@
     <!-- BitID success alert title -->
     <!-- BitID Authentication Request alert view title -->
     <!-- Cancel button label -->
-  <string name="Button.cancel">Ikkanċella</string>
+  <string name="Button.cancel">Hætta við</string>
   <!-- Ignore button label -->
     <!-- menu button -->
     <!-- No button -->
     <!-- OK button label -->
-  <string name="Button.ok">kollox sew</string>
+  <string name="Button.ok">Í lagi</string>
   <!-- receive button -->
     <!-- send button -->
     <!-- Settings button label -->
@@ -81,30 +81,30 @@
     <!-- Yes button -->
     <!-- Camera plugin instruction -->
     <!-- Amount to Send: ($1.00) -->
-  <string name="Confirmation.amountLabel">Ammont li Ibgħat:</string>
+  <string name="Confirmation.amountLabel">Upphæð til sendingar:</string>
   <!-- Network Fee: ($1.00) -->
-  <string name="Confirmation.feeLabel">Ħlas tan-Netwerk:</string>
+  <string name="Confirmation.feeLabel">Gjald á neti:</string>
   <!-- eg. Processing time: This transaction is predicted to complete in [10-60 minutes]. -->
     <!-- Label for "send" button on final confirmation screen -->
     <!-- Confirmation Screen title -->
     <!-- To: (address) -->
     <!-- Total Cost: ($5.00) -->
-  <string name="Confirmation.totalLabel">Spiża Totali:</string>
+  <string name="Confirmation.totalLabel">Samtals kostnaður:</string>
   <!-- Confirm paper phrase view label. -->
-  <string name="ConfirmPaperPhrase.label">Biex tiżgura li kollox kien miktub sewwa, jekk jogħġbok daħħal il-kliem li ġejjin mill-Ewwel Skema Personali ta \'Rkupru tiegħek.</string>
+  <string name="ConfirmPaperPhrase.label">Til að vera viss um að allt hafi verið skrifað niður rétt, vinsamlegast sláðu inn eftirfarandi orð úr þínum endurheimtunarlykli.</string>
   <!-- Word label eg. Word #1, Word #2 -->
-  <string name="ConfirmPaperPhrase.word">\nKelma # %1$s</string>
+  <string name="ConfirmPaperPhrase.word">Orð #%1$s</string>
   <!-- Bitcoin denomination picker label -->
     <!-- Exchange rate label -->
-  <string name="DefaultCurrency.rateLabel">Rata tal-Kambju</string>
+  <string name="DefaultCurrency.rateLabel">Gengi</string>
   <!-- Email unavailable alert title -->
     <!-- Email unavailable alert title -->
     <!-- Message that gets shown when we've detected the user has encountered the looping lock-screen bug. (preserve [ ] characters) -->
-  <string name="ErrorMessages.loopingLockScreen.android">DigiWallet ma jistax jiġi awtentikat minħabba bug fil-verżjoni tiegħek ta \'Android. [Jekk jogħġbok ikklikkja hawn għal aktar informazzjoni.]</string>
+  <string name="ErrorMessages.loopingLockScreen.android">Ekki er hægt að auðkenna DigiWallet vegna lús í þinni útgáfu af Android. [Vinsamlegast ýttu hér fyrir frekari upplýsingar.]</string>
   <!-- Messaging unavailable alert title -->
     <!-- Messaging unavailable alert title -->
     <!-- Fingerprint was not recognized by the scanner, please try scanning again -->
-  <string name="ErrorMessages.touchIdFailed.android">Il-marki tas-swaba \'mhumiex rikonoxxuti. Jekk jogħġbok erġa pprova.\n</string>
+  <string name="ErrorMessages.touchIdFailed.android">Fingrafar ekki þekkt. Vinsamlegast reyndu aftur.</string>
   <!-- Economy fee -->
     <!-- E.g. [This transaction is predicted to complete in] 1-24 hours -->
     <!-- Warning message for economy fee -->
@@ -113,43 +113,43 @@
     <!-- E.g. [This transaction is predicted to complete in] 10-60 minutes -->
     <!-- Fee Selector title -->
     <!-- Checking private key balance progress view text -->
-  <string name="Import.checking">Iċċekkjar tal-bilanċ ewlieni privat ...</string>
+  <string name="Import.checking">Athugar stöðu á einkalykli...</string>
   <!-- Sweep private key confirmation message -->
-  <string name="Import.confirm">Ibgħat% 1 $ s minn din iċ-ċavetta privata fil-kartiera tiegħek? In-netwerk DigiByte jirċievi tariffa ta \'% 2 $ s.</string>
+  <string name="Import.confirm">Viltu senda %1$s frá þessum einkalykli í veski þitt? DigiByte netið mun fá gjald að upphæð %2$s.</string>
   <!-- Duplicate key error message -->
     <!-- empty private key error message -->
-  <string name="Import.Error.empty">Din iċ-ċavetta privata hija vojta.</string>
+  <string name="Import.Error.empty">Þessi einkalykill er tómur.</string>
   <!-- High fees error message -->
     <!-- Not a valid private key error message -->
-  <string name="Import.Error.notValid">Mhux ċavetta privata valida</string>
+  <string name="Import.Error.notValid">Einkalykill ekki gildur.</string>
   <!-- Import signing error message -->
-  <string name="Import.Error.signing">It-tranżazzjoni li tiffirma żball</string>
+  <string name="Import.Error.signing">Villa við undirritun færslu</string>
   <!-- Import button label -->
     <!-- Importing wallet progress view label -->
     <!-- Caption for graphics -->
     <!-- Import wallet intro screen message -->
-  <string name="Import.message">L-importazzjoni ta \'kartiera tittrasferixxi d-DigiByte kollu mill-portafoll l-ieħor tiegħek fis-DigiWallet tiegħek billi tuża tranżazzjoni waħda.</string>
+  <string name="Import.message">Innflutningur veskis færir öll DigiByte úr hinu veski þinu inn í þitt DigiWallet í einni færslu.</string>
   <!-- Enter password alert view title -->
-  <string name="Import.password">Din iċ-ċavetta privata hija protetta bil password.</string>
+  <string name="Import.password">Þessi einkalykill er varinn af lykilorði.</string>
   <!-- password textfield placeholder -->
     <!-- Caption for graphics -->
     <!-- Scan Private key button label -->
-  <string name="Import.scan">Skan Key Privat</string>
+  <string name="Import.scan">Skanna einkalykil</string>
   <!-- Import wallet success alert title -->
     <!-- Successfully imported wallet message body -->
     <!-- Import Wallet screen title -->
     <!-- Unlocking Private key activity view message. -->
     <!-- Import wallet intro warning message -->
-  <string name="Import.warning">L-importazzjoni ta \'kartiera ma tinkludix storja ta\' transazzjoni jew dettalji oħra.</string>
+  <string name="Import.warning">Innflutningur veskis inniheldur ekki færslusögu eða aðrar upplýsingar.</string>
   <!-- Wrong password alert message -->
     <!-- Close app button -->
-  <string name="JailbreakWarnings.close">Agħlaq</string>
+  <string name="JailbreakWarnings.close">Loka</string>
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithoutBalance">SIGURTÀ TAL-MEKKANIŻMU KOMPLEMITAT \ Kull applikazzjoni \"jailbreak\" tista \'taċċessa d-data ta\' keychain ta \'DigiWallet u tisraq id-DigiByte tiegħek. Jekk jogħġbok uża biss id-DigiWallet fuq strument li ma jailbroken.</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">ÖRYGGI TÆKIS RASKAÐ\n\nHvert forrit fyrir óhlekkt tæki sem er getur komist að lyklakippuupplýsingum DigiWallet og stolið þínu DigiByte. Vinsamlegast notaðu DigiWallet eingöngu á tæki sem ekki er óhlekkt.</string>
   <!-- Jailbreak warning title -->
-  <string name="JailbreakWarnings.title">TWISSIJA</string>
+  <string name="JailbreakWarnings.title">VIÐVÖRUN</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
     <!-- Wallet creation date prefix -->
@@ -158,246 +158,246 @@
     <!-- Manage wallet modal title -->
     <!-- Buy bitcoin title -->
     <!-- Menu button title -->
-  <string name="MenuButton.lock">Sakkar il-kartiera</string>
+  <string name="MenuButton.lock">Læsa veski</string>
   <!-- Menu button title -->
-  <string name="MenuButton.security">Ċentru ta \'Sigurtà\n</string>
+  <string name="MenuButton.security">Öryggismiðstöð</string>
   <!-- Menu button title -->
-  <string name="MenuButton.settings">Settings</string>
+  <string name="MenuButton.settings">Stillingar</string>
   <!-- Menu button title -->
     <!-- button label -->
-  <string name="MenuViewController.createButton">Oħloq Wallet Ġdida\n</string>
+  <string name="MenuViewController.createButton">Búa til nýtt veski</string>
   <!-- Menu modal title -->
     <!-- button label -->
-  <string name="MenuViewController.recoverButton">Irkupra l-kartiera</string>
+  <string name="MenuViewController.recoverButton">Endurheimta veski</string>
   <!-- Switch to automatic mode button label -->
-  <string name="NodeSelector.automaticButton">Ibdel għal Modalità Awtomatika</string>
+  <string name="NodeSelector.automaticButton">Skipta í sjálfvirkan ham</string>
   <!-- Node is connected label -->
-  <string name="NodeSelector.connected">ikkonnetjajt</string>
+  <string name="NodeSelector.connected">Tengt</string>
   <!-- Enter node ip address view body -->
-  <string name="NodeSelector.enterBody">Daħħal l-indirizz IP tal-Node u l-port (mhux obbligatorju)\n</string>
+  <string name="NodeSelector.enterBody">Sláðu inn IP vistfang og höfn tengipunkts (valfrjálst)</string>
   <!-- Enter Node ip address view title -->
-  <string name="NodeSelector.enterTitle">Daħħal in-Nodu</string>
+  <string name="NodeSelector.enterTitle">Sláðu inn tengipunkt</string>
   <!-- Switch to manual mode button label -->
-  <string name="NodeSelector.manualButton">Ibdel għal Modalità Manwal</string>
+  <string name="NodeSelector.manualButton">Skipta í handvirkan ham</string>
   <!-- Node address label -->
-  <string name="NodeSelector.nodeLabel">Nodu primarju kurrenti</string>
+  <string name="NodeSelector.nodeLabel">Núverandi aðaltengipunktur</string>
   <!-- Node is not connected label -->
-  <string name="NodeSelector.notConnected">Mhux Konnetjajt</string>
+  <string name="NodeSelector.notConnected">Ekki tengt</string>
   <!-- Node status label -->
-  <string name="NodeSelector.statusLabel">L-Istatus tal-Konnessjoni tan-Nodi</string>
+  <string name="NodeSelector.statusLabel">Staða á tengingu við tengipunkt</string>
   <!-- Node Selector view title -->
-  <string name="NodeSelector.title">Nodi DigiByte</string>
+  <string name="NodeSelector.title">DigiByte tengipunktar</string>
   <!-- Bad Payment request alert title -->
     <!-- Error opening payment protocol file message -->
     <!-- Missing certificate payment protocol error message -->
     <!-- Request expired payment protocol error message -->
     <!-- Payment too small alert title -->
     <!-- Amount too small error message -->
-  <string name="PaymentProtocol.Errors.smallPayment">Il-ħlasijiet DigiByte ma jistgħux ikunu anqas minn %1$s</string>
+  <string name="PaymentProtocol.Errors.smallPayment">DigiByte borganir geta ekki verið minni en %1$s.</string>
   <!-- Output too small error message. -->
-  <string name="PaymentProtocol.Errors.smallTransaction">Ir-riżultati tat-tranżazzjonijiet DigiByte ma jistgħux ikunu anqas minn %1$s</string>
+  <string name="PaymentProtocol.Errors.smallTransaction">DigiByte færsluúttök geta ekki verið minni en %1$s.</string>
   <!-- Unsupported signature type payment protocol error message -->
     <!-- Untrusted certificate payment protocol error message -->
     <!-- No passcode set warning body -->
     <!-- No Passcode set warning title -->
     <!-- Instruction how to enable device encryption -->
-  <string name="Prompts.NoScreenLock.body.android">Huwa meħtieġ lock tal-iskrin tal-mezz biex tissalvagwardja l-kartiera tiegħek. Mur fuq \"Settings\"&gt; \"Sigurtà\"&gt; \"Screen lock\" u ħalli tkompli.</string>
+  <string name="Prompts.NoScreenLock.body.android">Skjálás á tæki þarf til að tryggja veski þitt. Farðu í \"Settings\" &gt; \"Security\" &gt; \"Screen lock\" og virkjaðu til að halda áfram.</string>
   <!-- Device encryption prompt title -->
     <!-- Warning about paper key. -->
-  <string name="Prompts.PaperKey.body">Il-cavetta tar-Rkupru Personali tiegħek għandu jiġi ffrankat f\'każ li titlef jew tbiddel il-mowbajl tiegħek. Ikklikkja hawn biex tkompli.</string>
+  <string name="Prompts.PaperKey.body">Vista þarf endurheimtunarlykil þinn skyldir þú týna eða skipta um síma. Ýttu hér til að halda áfram.</string>
   <!-- An action is required (You must do this action). -->
-  <string name="Prompts.PaperKey.title">Azzjoni meħtieġa</string>
+  <string name="Prompts.PaperKey.title">Aðgerðar krafist</string>
   <!-- Transaction rejected prompt body -->
-  <string name="Prompts.RecommendRescan.body">Il-kartiera tiegħek tista \'tkun\' il barra mis-sinkronizzazzjoni. Dan spiss jista \'jiġi ffissat bl re-iskannjar tal-blockchain.</string>
+  <string name="Prompts.RecommendRescan.body">Upplýsingar um veski þitt gætu verið úreldar. Oft er hægt að laga þetta með að endurskanna blokkarkeðju.</string>
   <!-- Transaction rejected prompt title -->
     <!-- Share data prompt body -->
     <!-- Share data prompt title -->
     <!-- Enable touch ID prompt body -->
     <!-- Enable Fingerprint prompt body -->
-  <string name="Prompts.TouchId.body.android">"Ikklikkja hawn biex tippermetti l-awtentifikazzjoni tas-swaba "</string>
+  <string name="Prompts.TouchId.body.android">Ýttu hér til að virkja fingrafaraauðkenningu.</string>
   <!-- Enable touch ID prompt title -->
     <!-- Enable Fingerprint prompt title -->
-  <string name="Prompts.TouchId.title.android">L-awtentikazzjoni tal-marki tas-swaba \'</string>
+  <string name="Prompts.TouchId.title.android">Virkja fingrafarsauðkenningu</string>
   <!-- Button on fingerprint prompt so the user can enter their PIN instead -->
   <string name="Prompts.TouchId.usePin.android">PIN</string>
   <!-- Upgrade PIN prompt body. -->
-  <string name="Prompts.UpgradePin.body">DigiWallet għamel upgrade għall-użu ta \'PIN ta\' 6 figuri. Ikklikkja hawn biex titjieb.</string>
+  <string name="Prompts.UpgradePin.body">DigiWallet hefur verið endurnýjað til að nota 6 stafa PIN. Ýttu hér til að endurnýja.</string>
   <!-- Upgrade PIN prompt title. -->
-  <string name="Prompts.UpgradePin.title">Upgrade PIN</string>
+  <string name="Prompts.UpgradePin.title">Endurnýja PIN</string>
   <!-- Notifications will be added later but users can set their preferences now, which is why we specify "in the future". -->
-  <string name="PushNotifications.body">Ixgħel in-notifiki biex jirċievi messaġġi speċjali minn DigiWallet fil-futur.</string>
+  <string name="PushNotifications.body">Kveiktu á tilkynningum til að fá sérstök skilaboð frá DigiWallet í framtíðinni.</string>
   <!-- Push notifications toggle switch label -->
-  <string name="PushNotifications.label">Imbotta Notifiki</string>
+  <string name="PushNotifications.label">Push tilkynningar</string>
   <!-- Push notifications are off label -->
     <!-- Push notifications are on label -->
     <!-- Push notifications settings view title label -->
-  <string name="PushNotifications.title">Notifiki</string>
+  <string name="PushNotifications.title">Tilkynningar</string>
   <!-- Address copied message. -->
-  <string name="Receive.copied">Kopjati lill-clipboard.\n</string>
+  <string name="Receive.copied">Afritað á klemmuspjald.</string>
   <!-- Share via email button label -->
     <!-- Request button label -->
-  <string name="Receive.request">Talba Ammont</string>
+  <string name="Receive.request">Biðja um upphæð</string>
   <!-- Share button label -->
-  <string name="Receive.share">Aqsam</string>
+  <string name="Receive.share">Deila</string>
   <!-- Share via text message (SMS) -->
     <!-- Receive modal title -->
-  <string name="Receive.title">Irċievi</string>
+  <string name="Receive.title">Taka við</string>
   <!-- Done button text -->
-  <string name="RecoverWallet.done">Magħmul</string>
+  <string name="RecoverWallet.done">Lokið</string>
   <!-- Recover wallet header -->
-  <string name="RecoverWallet.header">Irkupra l-kartiera</string>
+  <string name="RecoverWallet.header">Endurheimta veski</string>
   <!-- Reset PIN with paper key: header -->
-  <string name="RecoverWallet.header_reset_pin">Pinna mill-ġdid/Reset PIN</string>
+  <string name="RecoverWallet.header_reset_pin">Endurstilla PIN</string>
   <!-- Enter paper key instruction -->
-  <string name="RecoverWallet.instruction">Daħħal il-Kjavi Personali ta \'Rkupru</string>
+  <string name="RecoverWallet.instruction">Sláðu inn endurheimtunarlykil</string>
   <!-- Recover wallet intro -->
-  <string name="RecoverWallet.intro">Irkupra d-DigiWallet tiegħek mal-Ewlenin ta \'rkupru personali tiegħek.</string>
+  <string name="RecoverWallet.intro">Endurheimtu þitt Digiwallet með endurheimtunarlyklinum þínum.</string>
   <!-- Invalid paper key message -->
-  <string name="RecoverWallet.invalid">l-Pinna Personali ta \'Rkupru li daħħalt hija invalida. Jekk jogħġbok iċċekkja kull kelma u erġa \'pprova.</string>
+  <string name="RecoverWallet.invalid">Endurhemtunarlykillinn sem þú slóst inn er ógildur. Vinsamlegast athugaðu hvert orð tvisvar og reyndu aftur.</string>
   <!-- Previous button accessibility label -->
     <!-- Next button label -->
-  <string name="RecoverWallet.next">li jmiss</string>
+  <string name="RecoverWallet.next">Næst</string>
   <!-- Reset PIN with paper key: more information button. -->
     <!-- Next button accessibility label -->
     <!-- Recover wallet sub-header -->
-  <string name="RecoverWallet.subheader">Daħħal il-Kjavi ta \'Rkupru Personali għad-DigiWallet li tixtieq tirkupra.</string>
+  <string name="RecoverWallet.subheader">Sláðu inn endurheimtunarlykil fyrir það DigiWallet sem þú vilt endurheimta.</string>
   <!-- Reset PIN with paper key: sub-header -->
-  <string name="RecoverWallet.subheader_reset_pin">Biex  t\'resetja il-PIN tiegħek, daħħal il-kliem mill-Ewlenin ta\' Rkupru Personali fil-kaxxi ta \'hawn taħt.\n</string>
+  <string name="RecoverWallet.subheader_reset_pin">Til að endurstilla PIN kóðann þinn, sláðu inn orðin úr endurheimtunarlyklinum þínum í kassana hér fyrir neðan.</string>
   <!-- No amount entered error message. -->
     <!-- Request a specific amount of bitcoin -->
     <!-- Alert action button label -->
-  <string name="ReScan.alertAction">Sync</string>
+  <string name="ReScan.alertAction">Samstilla</string>
   <!-- Alert message body -->
     <!-- Alert message title -->
-  <string name="ReScan.alertTitle">Sync ma \'Blockchain?</string>
+  <string name="ReScan.alertTitle">Samstilla við blokkarkeðju?</string>
   <!-- extimated time -->
-  <string name="ReScan.body1">20-45 minuti</string>
+  <string name="ReScan.body1">20-45 mínútur</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body2">Jekk tranżazzjoni turi kif tlestiet fuq in-netwerk DigiByte iżda mhux fid-DigiWallet tiegħek.</string>
+  <string name="ReScan.body2">Ef færsla sýnist kláruð á DigiByte neti en ekki í þínu DigiWallet.</string>
   <!-- Syncing explanation -->
-  <string name="ReScan.body3">Int ripetutament tikseb żball billi tgħid li t-tranżazzjoni tiegħek ġiet miċħuda</string>
+  <string name="ReScan.body3">Þú færð endurteknar villur sem segja að færslu þinni hafi verið hafnað.</string>
   <!-- Start Sync button label -->
-  <string name="ReScan.buttonTitle">Ibda Sync</string>
+  <string name="ReScan.buttonTitle">Hefja samstillingu</string>
   <!-- Sync blockchain view footer -->
-  <string name="ReScan.footer">Mhux se tkun tista \'tibgħat id-DigiByte waqt li tissinkronja mal-blockchain</string>
+  <string name="ReScan.footer">Þú munt ekki geta sent DigiByte þegar samstilling við blokkarkeðju er í gangi.</string>
   <!-- Sync Blockchain view header -->
-  <string name="ReScan.header">Sync Blockchain</string>
+  <string name="ReScan.header">Samstilla blokkarkeðju</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader1">Ħin stmat</string>
+  <string name="ReScan.subheader1">Áætlaður tími</string>
   <!-- Subheader label -->
-  <string name="ReScan.subheader2">Meta s-sinkronizzazzjoni?</string>
+  <string name="ReScan.subheader2">Samstilla hvenær?</string>
   <!-- Scan bitcoin address camera flash toggle -->
     <!-- Complete filter label -->
     <!-- Pending filter label -->
     <!-- Received filter label -->
     <!-- Sent filter label -->
     <!-- Security Center Info -->
-  <string name="SecurityCenter.info">Jippermettu l-karatteristiċi ta \'sigurtà kollha għall-protezzjoni massima.</string>
+  <string name="SecurityCenter.info">Virkjaðu alla öryggiseiginleika fyrir hámarksvernd.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">L-uniku mod ta \'aċċess għad-DigiByte tiegħek jekk titlifha jew ittejjeb it-telefon tiegħek.</string>
+  <string name="SecurityCenter.paperKeyDescription">Eina leiðin til að fá aðgang að þínu DigiByte ef þú týnir eða endurnýjir símann þinn.</string>
   <!-- Paper Key button title -->
-  <string name="SecurityCenter.paperKeyTitle">Kjavi ta \'Rkupru Personali</string>
+  <string name="SecurityCenter.paperKeyTitle">Endurheimtunarlykill</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">Tipproteġi d-DigiWallet tiegħek minn utenti mhux awtorizzati.</string>
+  <string name="SecurityCenter.pinDescription">Verndar DigiWallet þitt fyrir óheimiluðum notendum.</string>
   <!-- PIN button title -->
-  <string name="SecurityCenter.pinTitle">6-Digit PIN</string>
+  <string name="SecurityCenter.pinTitle">6 stafa PIN</string>
   <!-- Security Center Title -->
-  <string name="SecurityCenter.title">Ċentru ta \'Sigurtà</string>
+  <string name="SecurityCenter.title">Öryggismiðstöð</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">Konvenjentament niftħu id-DigiWallet tiegħek u ibgħat DigiByte sa limitu stabbilit.</string>
+  <string name="SecurityCenter.touchIdDescription">Auðveldlega opnaðu þitt DigiWallet og sentu DigiByte upp að ákveðnu takmarki.</string>
   <!-- Touch ID button title -->
     <!-- Security center fingerprint authentication button -->
-  <string name="SecurityCenter.touchIdTitle.android">Marki tas-swaba \'Awtentikazzjoni</string>
+  <string name="SecurityCenter.touchIdTitle.android">Fingrafarsauðkenning</string>
   <!-- Send money amount label -->
     <!-- Balance: $4.00 -->
     <!-- Instructions how to allow the camera access for the app -->
-  <string name="Send.cameraUnavailabeMessage.android">Ħalli aċċess għall-kamera f \'\"Settings\"&gt; \"Apps\"&gt; \"DigiWallet\"&gt; \"Permessi\"</string>
+  <string name="Send.cameraUnavailabeMessage.android">Leyfa myndavélaaðgang í \"Settings\" &gt; \"Apps\" &gt; \"Digiwallet\" &gt; \"Permissions\"</string>
   <!-- Permission required to access camera -->
-  <string name="Send.cameraUnavailabeTitle.android">DigiWallet m\'għandux permess aċċess għall-kamera</string>
+  <string name="Send.cameraUnavailabeTitle.android">DigiWallet hefur verið hafnað aðgangi að myndavélinni</string>
   <!-- Camera not allowed message -->
     <!-- Camera not allowed alert title -->
     <!-- Warning when sending to self. -->
-  <string name="Send.containsAddress">Id-destinazzjoni hija l-indirizz tiegħek. Ma tistax tibgħat lilek innifsek.</string>
+  <string name="Send.containsAddress">Áfangastaður er þitt eigið vistfang. Þú getur ekki sent sjálfum/ri þér.</string>
   <!-- Could not create transaction alert title -->
     <!-- Description for sending money label -->
-  <string name="Send.descriptionLabel">Memo</string>
+  <string name="Send.descriptionLabel">Minnisblað</string>
   <!-- Emtpy pasteboard error message -->
-  <string name="Send.emptyPasteboard">Pasteboard huwa vojt</string>
+  <string name="Send.emptyPasteboard">Límborð er tómt</string>
   <!-- Network Fee: $0.01 -->
-  <string name="Send.fee">Ħlas tan-Netwerk:%1$s</string>
+  <string name="Send.fee">Gjald á neti: %1$s</string>
   <!-- Payee identity not certified alert title. -->
     <!-- Invalid address alert message -->
     <!-- Invalid address on pasteboard message -->
     <!-- Invalid address alert title -->
-  <string name="Send.invalidAddressTitle">Indirizz invalidu</string>
+  <string name="Send.invalidAddressTitle">Ógilt vistfang</string>
   <!-- Is rescanning error message -->
-  <string name="Send.isRescanning">Mittenti huwa diżattivat matul rescan sħiħ.</string>
+  <string name="Send.isRescanning">Sending er óvirk á meðan heildarendurskönnun er í gangi.</string>
   <!-- We are loading the request (now) -->
     <!-- Empty address alert message -->
-  <string name="Send.noAddress">Jekk jogħġbok idħol l-indirizz tar-riċevitur.\n</string>
+  <string name="Send.noAddress">Vinsamlegast sláðu inn vistfang viðtakanda.</string>
   <!-- Emtpy amount alert message -->
     <!-- Paste button label -->
-  <string name="Send.pasteLabel">Pejst</string>
+  <string name="Send.pasteLabel">Líma</string>
   <!-- Could not publish transaction alert title -->
     <!-- Could not load remote request error message -->
     <!-- Scan button label -->
-  <string name="Send.scanLabel">Scan</string>
+  <string name="Send.scanLabel">Skanna</string>
   <!-- Send button label (the action, "press here to send") -->
-  <string name="Send.sendLabel">Ibgħat</string>
+  <string name="Send.sendLabel">Senda</string>
   <!-- Send screen title (as in "this is the screen for sending money") -->
-  <string name="Send.title">Ibgħat</string>
+  <string name="Send.title">Senda</string>
   <!-- Send money to label -->
-  <string name="Send.toLabel">Lil</string>
+  <string name="Send.toLabel">Til</string>
   <!-- Adress already used alert message - first part -->
-  <string name="Send.UsedAddress.firstLine">L-indirizzi DigiByte huma maħsuba biss għal użu wieħed.</string>
+  <string name="Send.UsedAddress.firstLine">DigiByte vistföng eru eingöngu ætluð sem einnota.</string>
   <!-- Adress already used alert message - second part -->
-  <string name="Send.UsedAddress.secondLIne">L-użu tal Indirizzi diġà użati inaqqas il-privatezza kemm għalik kif ukoll għar-riċevitur u jista \'jirriżulta f\'telf jekk ir-riċevitur ma jikkontrollax direttament l-indirizz.\n</string>
+  <string name="Send.UsedAddress.secondLIne">Endurnotkun skemmir friðhelgi fyrir bæði þér og viðtakandanum og getur endað í tapi ef viðtakandinn er ekki með beina strjórn á vistfanginu.</string>
   <!-- Adress already used alert title -->
     <!-- About label -->
-  <string name="Settings.about">Dwar</string>
+  <string name="Settings.about">Um</string>
   <!-- Advanced Settings title -->
-  <string name="Settings.advancedTitle">"Settings Avvanzati "</string>
+  <string name="Settings.advancedTitle">Ítarlegri stillingar</string>
   <!-- i.e. the currency which will be displayed -->
-  <string name="Settings.currency">Uri Munita</string>
+  <string name="Settings.currency">Sýna gjaldmiðil</string>
   <!-- Join Early access label -->
     <!-- Are you enjoying bread alert message body -->
     <!-- Import wallet left message -->
-  <string name="Settings.importLeftMessage">Kartiera li għandha tiġi Importata\n</string>
+  <string name="Settings.importLeftMessage">Veski sem flytja á inn</string>
   <!-- Import wallet right message -->
-  <string name="Settings.importRightMessage">DigiWallet tiegħek</string>
+  <string name="Settings.importRightMessage">Þitt DigiWallet</string>
   <!-- Import wallet label -->
-  <string name="Settings.importTitle">" Importa il-Kartiera "</string>
+  <string name="Settings.importTitle">Flytja inn veski</string>
   <!-- Manage settings section header -->
-  <string name="Settings.manage">Immaniġġa\n</string>
+  <string name="Settings.manage">Stjórna</string>
   <!-- Notifications label -->
     <!-- Restore screen lower label. -->
-  <string name="Settings.restore_label">DigiWallet tiegħek fuq dan l-Apparat</string>
+  <string name="Settings.restore_label">Þitt DigiWallet á þessu tæki</string>
   <!-- Leave review button label -->
     <!-- Share anonymous data label -->
     <!-- Sync blockchain label -->
-  <string name="Settings.sync">Sync Blockchain</string>
+  <string name="Settings.sync">Samstilla blokkarkeðju</string>
   <!-- Settings title -->
     <!-- Touch ID spending limit label -->
     <!-- The fingerprint spending limit -->
-  <string name="Settings.touchIdLimit.android">Limitu ta \'l-Infiq għall-awtentikazzjoni tas-swaba\'</string>
+  <string name="Settings.touchIdLimit.android">Eyðslutakmark fingrafarsauðkenningar</string>
   <!-- Wallet Settings section header -->
-  <string name="Settings.wallet">Kartiera</string>
+  <string name="Settings.wallet">Veski</string>
   <!-- Start or recover another wallet menu label. -->
-  <string name="Settings.wipe">Ibda / Tirkupra Kartiera oħra</string>
+  <string name="Settings.wipe">Stofna/endurheimta annað veski</string>
   <!-- Share data view body -->
     <!-- Share data header -->
     <!-- Share data switch label. -->
     <!-- button label -->
     <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">\nIl-Kjavi Personali ta \'Rkupru huwa l-uniku mod biex terġa\' tiddaħħal id-DigiWallet tiegħek jekk it-telefon tiegħek jintilef, jiġi misruq, imkisser jew aġġornat. Nisperawlek lista ta \'kliem biex tikteb fuq biċċa karta u żomm safe u privat</string>
+  <string name="StartPaperPhrase.body">Endurheimtunarlykill þinn er eina leiðin til að endurheimta þitt DigiWallet ef sími þinn týnist, verður fyrir þjófnaði, bilar, skemmist, eða er endurnýjaður.\n\nVið munum sýna þér lista af orðum til að skrifa niður á blað og halda öruggu.</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.buttonTitle">" Ikteb il-Key Recovery Personali "</string>
+  <string name="StartPaperPhrase.buttonTitle">Skrifa niður endurheimtunarlykil</string>
   <!-- Argument is date -->
     <!-- Start view message -->
     <!-- Syncing view connectiong state header text -->
-  <string name="SyncingView.connecting">Qed tikkonnettja</string>
+  <string name="SyncingView.connecting">Tengir</string>
   <!-- Syncing view header text -->
-  <string name="SyncingView.header">Syncing</string>
+  <string name="SyncingView.header">Samstillir</string>
   <!-- Retry button label -->
     <!-- Syncing view syncing state header text -->
     <!-- 6 d (6 days) -->
@@ -406,30 +406,30 @@
     <!-- 6 s (6 seconds) -->
     <!-- You can customize your Touch ID Spending Limit from the [TouchIdSettings.linkText gets added here as a button] -->
     <!-- Fingerprint enabling description body -->
-  <string name="TouchIdSettings.customizeText.android">Tista \'tippersonalizza l-Limitu ta\' l-Infiq tal-Awtentikazzjoni tal-Marki tas-Swaba \'mill-iskrin tal-Limitu ta\' l-Awtorizzazzjoni tal-Marki tas-Swaba \'</string>
+  <string name="TouchIdSettings.customizeText.android">Þú getur breytt eyðslutakmarki fingrafarsauðkenningar á fingrafarsauðkenniseyðslutakmarksskjánum.</string>
   <!-- Instruction for the fingerprint setup -->
-  <string name="TouchIdSettings.disabledWarning.body.android">Inti ma ppermettietx l-awtentifikazzjoni tal-marki tas-swaba fuq dan l-apparat. Mur fil-Settings -&gt; Sigurtà biex titwaqqaf l-awtentikazzjoni tal-marki tas-swaba \'.</string>
+  <string name="TouchIdSettings.disabledWarning.body.android">Þú hefur ekki virkjað fingrafarsauðkenni á þessu tæki. Farðu í Settings -&gt; Security til að setja upp fingrafarsauðkenni.</string>
   <!-- Fingerprint Is Not Setup -->
-  <string name="TouchIdSettings.disabledWarning.title.android">Marki tas-swaba \'L-awtentikazzjoni mhix permessa</string>
+  <string name="TouchIdSettings.disabledWarning.title.android">Fingrafarsauðkenning ekki virk</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">Uża s-swaba \'tiegħek biex tiftaħ il-DigiWallet tiegħek u ibgħat DigiByte sa limitu stabbilit.</string>
+  <string name="TouchIdSettings.label">Notaðu fingrafar þitt til að opna þitt DigiWallet og senda DigiByte upp að ákveðnu takmarki.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
     <!-- Spending Limit: b100,000 ($100) -->
-  <string name="TouchIdSettings.spendingLimit">Limitu tal-infiq: %1$s %2$s</string>
+  <string name="TouchIdSettings.spendingLimit">Eyðslutakmark: %1$s (%2$s)</string>
   <!-- Touch id switch label. -->
     <!-- Enable fingerprint for this wallet called Bread -->
-  <string name="TouchIdSettings.switchLabel.android">Hadem L-awtentikazzjoni tal-marki tas-swaba \'</string>
+  <string name="TouchIdSettings.switchLabel.android">Virkja fingrafarsauðkenni</string>
   <!-- Touch ID settings view title -->
     <!-- Fingerprint authentication label -->
-  <string name="TouchIdSettings.title.android">Marki tas-swaba \'Awtentikazzjoni</string>
+  <string name="TouchIdSettings.title.android">Fingrafarsauðkenni</string>
   <!-- Touch ID unavailable alert message -->
     <!-- Touch ID unavailable alert title -->
     <!-- Always require passcode option -->
     <!-- Touch ID spending limit screen body -->
-  <string name="TouchIdSpendingLimit.body">Int ser tintalab biex tidħol il-PIN ta \'6 ċifri tiegħek biex tibgħat kwalunkwe transazzjoni fuq il-limitu ta\' nfiq tiegħek, u kull 48 siegħa mill-aħħar darba li daħħalt in-numru ta \'PIN ta\' 6 ċifri tiegħek.\n</string>
+  <string name="TouchIdSpendingLimit.body">Þú verður beðin/n um að slá inn 6 stafa PIN þitt til að senda hvaða færslu sem er fyrir ofan eyðslutakmark, og eftir hverja 48 tíma síðan þú slóst 6 stafa PIN þitt inn síðast.</string>
   <!-- Touch Id spending limit screen title -->
     <!-- name of spending limit when using fingerprint authorization -->
-  <string name="TouchIdSpendingLimit.title.android">Limitu tal-Infiq tal-Awtorizzazzjoni tal-Marki tas-Swaba</string>
+  <string name="TouchIdSpendingLimit.title.android">Eyðslutakmark fingrafarsauðkenningar</string>
   <!-- Availability status text -->
     <!-- Transaction complete label -->
     <!-- eg. Ending balance: $50.00 -->
@@ -453,12 +453,12 @@
     <!-- Moved $5.00 -->
     <!-- eg. Confirmed in Block: Not Confirmed -->
     <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
-  <string name="TransactionDetails.received">Irċevejt %1$s</string>
+  <string name="TransactionDetails.received">Tók við %1$s</string>
   <!-- Received $5.00 -->
     <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
     <!-- Sent $5.00 -->
     <!-- Status section header -->
-  <string name="TransactionDetails.statusHeader">Status</string>
+  <string name="TransactionDetails.statusHeader">Staða</string>
   <!-- Transaction Details Title -->
     <!-- "Sent [$5] to [address]" => This is the "to [address]" part. -->
     <!-- Transaction ID header -->
@@ -466,34 +466,34 @@
     <!-- (this transaction was) Sent to this address: -->
     <!-- Disabled until date -->
     <!-- My Address button title -->
-  <string name="UnlockScreen.myAddress">L-Indirizz Tiegħi</string>
+  <string name="UnlockScreen.myAddress">Mitt vistfang</string>
   <!-- Reset PIN with Paper Key button label. -->
-  <string name="UnlockScreen.resetPin">Pinna mill-ġdid/Reset PIN</string>
+  <string name="UnlockScreen.resetPin">Endurstilla PIN</string>
   <!-- Scan button title -->
     <!-- Unlock Screen sub-header -->
     <!-- Instruction to touch the sensor for fingerprint authentication -->
-  <string name="UnlockScreen.touchIdInstructions.android">Sensor Touch</string>
+  <string name="UnlockScreen.touchIdInstructions.android">Snertiskynjari</string>
   <!-- TouchID prompt text -->
     <!-- Device authentication body -->
-  <string name="UnlockScreen.touchIdPrompt.android">Jekk jogħġbok iftah it-device Android tiegħek biex ikompli.</string>
+  <string name="UnlockScreen.touchIdPrompt.android">Vinsamlegast opnaðu Android tæki þitt til að halda áfram.</string>
   <!-- Unlock with TouchID accessibility label -->
     <!-- Device authentication title -->
-  <string name="UnlockScreen.touchIdTitle.android">Tinħtieġ awtentikazzjoni</string>
+  <string name="UnlockScreen.touchIdTitle.android">Auðkenni þarf</string>
   <!-- Wallet unlocked message -->
     <!-- Update PIN caption text -->
-  <string name="UpdatePin.caption">takar dan il-PIN. Jekk tinsaha, ma jkollokx aċċess għad-DigiByte tiegħek.</string>
+  <string name="UpdatePin.caption">Legðu þetta PIN á minnið. Ef þú gleymir því, muntu ekki hafa aðgang að þínu DigiByte.</string>
   <!-- PIN creation info. -->
-  <string name="UpdatePin.createInstruction">Il-PIN tiegħek ser jintuża biex tiftaħ id-DigiWallet tiegħek u ibgħat id-DigiByte.</string>
+  <string name="UpdatePin.createInstruction">PIN þitt mun vera notað til að opna þitt DigiWallet og senda DigiByte.</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitle">Set PIN</string>
+  <string name="UpdatePin.createTitle">Stilla PIN</string>
   <!-- Update PIN title -->
-  <string name="UpdatePin.createTitleConfirm">"Erga daħħal il-PIN "</string>
+  <string name="UpdatePin.createTitleConfirm">Sláðu aftur inn PIN</string>
   <!-- Enter current PIN instruction -->
-  <string name="UpdatePin.enterCurrent">Daħħal il-PIN kurrenti tiegħek</string>
+  <string name="UpdatePin.enterCurrent">Sláðu inn núverandi PIN þitt.</string>
   <!-- Enter new PIN instruction -->
-  <string name="UpdatePin.enterNew">Enter PIN ġdid</string>
+  <string name="UpdatePin.enterNew">Sláðu inn nýja PIN þitt.</string>
   <!-- Re-Enter new PIN instruction -->
-  <string name="UpdatePin.reEnterNew">Daħħal mill-ġdid il-PIN il-ġdid tiegħek.</string>
+  <string name="UpdatePin.reEnterNew">Sláðu inn nýja PIN þitt aftur.</string>
   <!-- Update PIN failure error message. -->
     <!-- Update PIN failure alert view title -->
     <!-- Update PIN title -->
@@ -503,38 +503,38 @@
     <!-- Copy wallet addresses alert button label -->
     <!-- Verify PIN for transaction view body -->
     <!-- Verify PIN view body -->
-  <string name="VerifyPin.continueBody">Jekk jogħġbok idħol il-PIN tiegħek biex tkompli.</string>
+  <string name="VerifyPin.continueBody">Vinsamlegast sláðu inn PIN þitt til að halda áfram</string>
   <!-- Verify PIN view title -->
     <!-- Authorize transaction with touch id message -->
     <!-- 'No wallet' warning for watch app -->
     <!-- Dismiss button label -->
     <!-- Webview loading error message -->
     <!-- Updating webview message -->
-  <string name="Webview.updating">Aġġornament ...</string>
+  <string name="Webview.updating">Uppfærir...</string>
   <!-- Welcome screen text. (?) will be replaced with the help icon users should look for. -->
-  <string name="Welcome.body">DigiWallet għandu ħarsa ġdida fjamanta u xi karatteristiċi ġodda. \ N \ nJekk għandek bżonn l-għajnuna, fittex (?) Fid-dritt ta \'fuq tal-maġġoranza tal-iskrins.</string>
+  <string name="Welcome.body">DigiWallet hefur glænýtt útlit og nokkra nýja eiginleika.\n\nEf þú þarft hjálp, leitaðu eftir (?) í efra hægra horni á flestum skjám.</string>
   <!-- Top title of welcome screen -->
-  <string name="Welcome.title">Merħba għad-DigiWallet!</string>
+  <string name="Welcome.title">Velkomin í DigiWallet!</string>
   <!-- Wipe wallet alert message -->
-  <string name="WipeWallet.alertMessage">Int żgur li tixtieq tħassar din il-kartiera?</string>
+  <string name="WipeWallet.alertMessage">Ertu viss um að þú viljir eyða þessu veski?</string>
   <!-- Wipe wallet alert title -->
-  <string name="WipeWallet.alertTitle">Imsaħ il-kartiera?</string>
+  <string name="WipeWallet.alertTitle">Þurrka veski?</string>
   <!-- Failed wipe wallet alert message -->
     <!-- Failed wipe wallet alert title -->
     <!-- Enter phrase to wipe wallet instruction. -->
-  <string name="WipeWallet.instruction">Biex tibda kartiera ġdida jew terġa \'ġġorr kartiera eżistenti, l-ewwel trid tħassar il-kartiera li bħalissa hija installata. Biex tkompli, ikteb il-Key Recovery Personale tal-kartiera kurrenti.</string>
+  <string name="WipeWallet.instruction">Til að stofna nýtt veski eða endurheimta núverandi veski, þarftu fyrst að eyða því veski sem er nú þegar uppsett. Til að halda áfram, sláðu inn endurheimtunalykil á þegar uppsettu veski.</string>
   <!-- Start wipe wallet view message -->
-  <string name="WipeWallet.startMessage">Il-bidu jew l-irkupru ta \'kartiera oħra jippermettilek li taċċessa u tmexxi DigiWallet differenti fuq dan l-apparat.\n</string>
+  <string name="WipeWallet.startMessage">Stofnun eða endurheimta annars veskis leyfir þér að fá aðgang að og stjórna öðru DigiWallet á þessu tæki.</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">Il-kartiera attwali tiegħek titneħħa minn dan l-apparat. Jekk tixtieq tirrestawraha fil-futur, ser ikollok bżonn tidħol il-Mejda Personali ta \'Rkupru tiegħek.\n</string>
+  <string name="WipeWallet.startWarning">Núverandi veski þitt mun vera fjarlægt af þessu tæki. Ef þú villt endurheimta það í framtíðinni, muntu þurfa að slá inn endurheimtunarlykil þinn.</string>
   <!-- Wipe wallet navigation item title. -->
     <!-- Wipe wallet button title -->
-  <string name="WipeWallet.wipe">Imsaħ</string>
+  <string name="WipeWallet.wipe">Þurrka</string>
   <!-- Wiping activity message -->
     <!-- Paper key instructions. -->
-  <string name="WritePaperPhrase.instruction">Ikteb kull kelma u aħżen f\'post sigur.</string>
+  <string name="WritePaperPhrase.instruction">Skrifaðu niður hvert orð í röð og geymdu það á öruggum stað.</string>
   <!-- button label -->
     <!-- button label -->
-  <string name="WritePaperPhrase.previous">Ta\' qabel</string>
+  <string name="WritePaperPhrase.previous">Fyrri</string>
   <!-- 1 of 3 -->
 </resources>

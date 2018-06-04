@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">" डिवाइस सुरक्षा कॉम्प्रोमाइज्ड \ कोणतेही \'जेलब्रेक\' ऐप  डीजी वॉलेटच्या  कि चेन मध्ये प्रवेश करून डीजी बाइट चोरू शकते. कृपया फक्त नॉन जैलब्रेक डिवाइस वरच डीजी वॉलेटचा वापर करा."</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">चेतावणी\n</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

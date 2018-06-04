@@ -147,7 +147,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">KEAMANAN PERANGKAT RUSAK\nAplikasi \'jailbreak\' apa wae bisa ngakses data-data kunci rahasia DigiWallet lan nyolong DigiByte sampeyan! Monggo instal DigiWallet neng perangkat sing ora di-jailbreak.</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">ELING-ELING</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->

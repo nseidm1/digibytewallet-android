@@ -143,7 +143,8 @@
   <!-- Ignore jailbreak warning button -->
     <!-- Jailbreak warning message -->
     <!-- Jailbreak warning message -->
-    <!-- Jailbreak warning title -->
+  <string name="JailbreakWarnings.messageWithoutBalance">設備安全性妥協 \n任何”越獄“應用程序都可以存取極特錢包鑰匙扣的資料和偷取您的極特幣。請衹在沒“越獄”的機器使用極特錢包</string>
+  <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">警告</string>
   <!-- Location services disabled error -->
     <!-- No permissions for location services -->
