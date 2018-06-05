@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.math.BigDecimal;
 
 import io.digibyte.R;
+import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.tools.manager.BRClipboardManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.qrcode.QRUtils;
@@ -45,7 +46,7 @@ import io.digibyte.tools.util.Utils;
  * THE SOFTWARE.
  */
 
-public class FragmentRequestAmount extends FragmentReceive {
+public class FragmentRequestAmount extends FragmentReceive implements OnBackPressListener {
     private static final String TAG = FragmentRequestAmount.class.getName();
     private StringBuilder amountBuilder = new StringBuilder(0);
     private String selectedIso = "dgb";
@@ -55,10 +56,11 @@ public class FragmentRequestAmount extends FragmentReceive {
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_RECEIVE, true);
         fragmentRequestAmount.setArguments(bundle);
+        activity.getSupportFragmentManager().popBackStack();
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.from_bottom, R.animator.to_bottom,
                 R.animator.from_bottom, R.animator.to_bottom);
-        transaction.replace(android.R.id.content, fragmentRequestAmount,
+        transaction.add(android.R.id.content, fragmentRequestAmount,
                 FragmentRequestAmount.class.getName());
         transaction.addToBackStack(FragmentRequestAmount.class.getName());
         transaction.commitAllowingStateLoss();
@@ -154,26 +156,6 @@ public class FragmentRequestAmount extends FragmentReceive {
         return true;
     }
 
-    @Override
-    protected void onAddressClick() {
-        super.onAddressClick();
-        showKeyboard(false);
-        showShareButtons(false);
-    }
-
-    @Override
-    protected void onShareButtonClick() {
-        super.onShareButtonClick();
-        showKeyboard(false);
-    }
-
-    @Override
-    protected void onQRClick() {
-        super.onQRClick();
-        showKeyboard(false);
-        showShareButtons(false);
-    }
-
     private void handleClick(String key) {
         if (key == null) {
             Log.e(TAG, "handleClick: key is null! ");
@@ -231,14 +213,7 @@ public class FragmentRequestAmount extends FragmentReceive {
     }
 
     private void showKeyboard(boolean show) {
-        if (!show) {
-            receiveFragmentModel.setShowKeyboard(false);
-        } else {
-            if (!receiveFragmentModel.isShowKeyboard()) {
-                receiveFragmentModel.setShowKeyboard(true);
-                showShareButtons(false);
-            }
-        }
+        receiveFragmentModel.setShowKeyboard(show);
     }
 
     @Override

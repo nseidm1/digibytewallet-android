@@ -2,6 +2,8 @@ package io.digibyte.presenter.fragments.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Handler;
+import android.os.Looper;
 
 import io.digibyte.BR;
 import io.digibyte.R;
@@ -9,9 +11,6 @@ import io.digibyte.R;
 public class ReceiveFragmentModel extends BaseObservable {
 
     private boolean shareVisibility;
-    private int shareButtonType = 2;
-    private boolean copiedButtonLayoutVisibility;
-    private boolean separatorVisibility;
     private boolean requestButtonVisibility;
     private String title;
     private String address;
@@ -19,6 +18,7 @@ public class ReceiveFragmentModel extends BaseObservable {
     private String amount;
     private String isoText;
     private String isoButtonText;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Bindable
     public boolean isShareVisibility() {
@@ -28,26 +28,12 @@ public class ReceiveFragmentModel extends BaseObservable {
     public void setShareVisibility(boolean shareVisibility) {
         this.shareVisibility = shareVisibility;
         notifyPropertyChanged(BR.shareVisibility);
-    }
-
-    @Bindable
-    public int getShareButtonType() {
-        return shareButtonType;
-    }
-
-    public void setShareButtonType(int shareButtonType) {
-        this.shareButtonType = shareButtonType;
-        notifyPropertyChanged(BR.shareButtonType);
-    }
-
-    @Bindable
-    public boolean isCopiedButtonLayoutVisibility() {
-        return copiedButtonLayoutVisibility;
-    }
-
-    public void setCopiedButtonLayoutVisibility(boolean copiedButtonLayoutVisibility) {
-        this.copiedButtonLayoutVisibility = copiedButtonLayoutVisibility;
-        notifyPropertyChanged(BR.copiedButtonLayoutVisibility);
+        if (shareVisibility) {
+            handler.postDelayed(() -> {
+                showKeyboard = false;
+                notifyPropertyChanged(BR.showKeyboard);
+            }, 250);
+        }
     }
 
     @Bindable
@@ -88,6 +74,12 @@ public class ReceiveFragmentModel extends BaseObservable {
     public void setShowKeyboard(boolean showKeyboard) {
         this.showKeyboard = showKeyboard;
         notifyPropertyChanged(BR.showKeyboard);
+        if (showKeyboard) {
+            handler.postDelayed(() -> {
+                shareVisibility = false;
+                notifyPropertyChanged(BR.shareVisibility);
+            }, 250);
+        }
     }
 
     @Bindable
