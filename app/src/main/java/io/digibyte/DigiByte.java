@@ -2,7 +2,9 @@ package io.digibyte;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
@@ -14,6 +16,7 @@ import com.evernote.android.job.JobCreator;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.facebook.soloader.SoLoader;
+import com.google.zxing.client.android.PreferencesActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -92,6 +95,15 @@ public class DigiByte extends MultiDexApplication implements
         activeActivity = null;
         registerActivityLifecycleCallbacks(this);
         JobManager.create(this).addJobCreator(new SyncBlockchainJobCreator());
+
+        //This is for legacy users that have the boolean set to true, Vibrate permission has been
+        // removed
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getBoolean(PreferencesActivity.KEY_VIBRATE, false)) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(PreferencesActivity.KEY_VIBRATE, false);
+            editor.commit();
+        }
     }
 
 
