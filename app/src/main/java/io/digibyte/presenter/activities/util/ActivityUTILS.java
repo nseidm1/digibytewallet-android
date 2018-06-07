@@ -2,6 +2,7 @@ package io.digibyte.presenter.activities.util;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -11,6 +12,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -98,21 +101,64 @@ public class ActivityUTILS {
                     BRSharedPrefs.getCatchedBalance(context));
 
             //amount in BTC units
-            final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(context,
-                    amount);
-            final String formattedBTCAmount = BRCurrency.getFormattedCurrencyString(
-                    context, "DGB", btcAmount);
+            final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(context, amount);
+            float currentBtc = getCurrentAmount(primary).floatValue();
+            if (isSameValue(btcAmount, primary)) {
+                return;
+            }
+            primary.setTag(btcAmount);
 
             //amount in currency units
-            final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(context,
-                    iso, amount);
-            final String formattedCurAmount = BRCurrency.getFormattedCurrencyString(
-                    context, iso, curAmount);
+            final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(context, iso, amount);
+            float currentAmount = getCurrentAmount(secondary).floatValue();
+            if (isSameValue(curAmount, secondary)) {
+                return;
+            }
+            secondary.setTag(curAmount);
+
             new Handler(Looper.getMainLooper()).post(() -> {
-                primary.setText(formattedBTCAmount);
-                secondary.setText(String.format("%s", formattedCurAmount));
+
+                float[] btcIntervals = getIntervals(currentBtc, btcAmount.floatValue());
+                ValueAnimator btcAnimator = ValueAnimator.ofFloat(btcIntervals);
+                btcAnimator.addUpdateListener(animation -> {
+                    float value = (float) animation.getAnimatedValue();
+                    primary.setText(BRCurrency.getFormattedCurrencyString(
+                            context, "DGB", new BigDecimal(value)));
+                });
+                btcAnimator.setDuration(1500);
+                btcAnimator.setInterpolator(new DecelerateInterpolator());
+                btcAnimator.start();
+
+
+                float[] fiatIntervals = getIntervals(currentAmount, curAmount.floatValue());
+                ValueAnimator fiatAnimator = ValueAnimator.ofFloat(fiatIntervals);
+                fiatAnimator.addUpdateListener(animation -> {
+                    float value = (float) animation.getAnimatedValue();
+                    secondary.setText(BRCurrency.getFormattedCurrencyString(
+                            context, iso, new BigDecimal(value)));
+                });
+                fiatAnimator.setDuration(1500);
+                fiatAnimator.setInterpolator(new DecelerateInterpolator());
+                fiatAnimator.start();
             });
+
         });
+    }
+
+    private static boolean isSameValue(BigDecimal current, View view) {
+        return view.getTag() != null && current.equals(view.getTag());
+    }
+
+    private static float[] getIntervals(float start, float finish) {
+        float[] intervals = new float[40];
+        for (int i = 1; i <= 40; i++) {
+            intervals[i - 1] = start + (finish - start) * ((float) i * .025f);
+        }
+        return intervals;
+    }
+
+    private static BigDecimal getCurrentAmount(TextView amount) {
+        return amount.getTag() != null ? ((BigDecimal) amount.getTag()) : BigDecimal.ZERO;
     }
 
     public static void showJailbrokenDialog(AppCompatActivity context) {

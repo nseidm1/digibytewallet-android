@@ -70,7 +70,12 @@ public class BRCurrency {
 //        currencyFormat.setMaximumFractionDigits(decimalPoints);
         currencyFormat.setGroupingUsed(true);
         if ("DGB".equals(isoCurrencyCode)) {
-            currencyFormat.setMaximumFractionDigits(BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 8 : 2);
+            currencyFormat.setMinimumFractionDigits(
+                    BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 6
+                            : 2);
+            currencyFormat.setMaximumFractionDigits(
+                    BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 6
+                            : 2);
         } else {
             currencyFormat.setMaximumFractionDigits(decimalPoints);
         }
