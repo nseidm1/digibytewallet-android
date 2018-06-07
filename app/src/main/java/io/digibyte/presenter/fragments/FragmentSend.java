@@ -176,9 +176,7 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
             String comment = sendFragmentModel.getMemo();
 
             //get amount in satoshis from any isos
-            BigDecimal bigAmount = new BigDecimal(
-                    Utils.isNullOrEmpty(sendFragmentModel.getAmount()) ? "0"
-                            : sendFragmentModel.getAmount());
+            BigDecimal bigAmount = new BigDecimal(Utils.isNullOrEmpty(amountStr) ? "0" : amountStr);
             BigDecimal satoshiAmount = BRExchange.getSatoshisFromAmount(getActivity(), iso,
                     bigAmount);
 
