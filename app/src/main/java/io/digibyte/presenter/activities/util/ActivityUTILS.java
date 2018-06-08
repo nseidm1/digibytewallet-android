@@ -1,10 +1,7 @@
 package io.digibyte.presenter.activities.util;
 
-import static android.content.Context.ACTIVITY_SERVICE;
-
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -12,12 +9,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BasePinActivity;
@@ -57,6 +52,7 @@ import io.digibyte.tools.util.BRExchange;
 public class ActivityUTILS {
 
     private static final String TAG = ActivityUTILS.class.getName();
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
     //return true if the app does need to show the disabled wallet screen
     public static boolean isAppSafe(Activity app) {
@@ -69,18 +65,6 @@ public class ActivityUTILS {
         app.overridePendingTransition(R.anim.fade_up, R.anim.fade_down);
         Log.e(TAG, "showWalletDisabled: " + app.getClass().getName());
 
-    }
-
-    public static boolean isLast(Activity app) {
-        ActivityManager mngr = (ActivityManager) app.getSystemService(ACTIVITY_SERVICE);
-
-        List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
-
-        if (taskList.get(0).numActivities == 1 &&
-                taskList.get(0).topActivity.getClassName().equals(app.getClass().getName())) {
-            return true;
-        }
-        return false;
     }
 
     public static boolean isMainThread() {
@@ -103,39 +87,40 @@ public class ActivityUTILS {
             //amount in BTC units
             final BigDecimal btcAmount = BRExchange.getBitcoinForSatoshis(context, amount);
             float currentBtc = getCurrentAmount(primary).floatValue();
-            if (isSameValue(btcAmount, primary)) {
-                return;
-            }
             primary.setTag(btcAmount);
 
             //amount in currency units
             final BigDecimal curAmount = BRExchange.getAmountFromSatoshis(context, iso, amount);
             float currentAmount = getCurrentAmount(secondary).floatValue();
-            if (isSameValue(curAmount, secondary)) {
-                return;
-            }
             secondary.setTag(curAmount);
 
-            new Handler(Looper.getMainLooper()).post(() -> {
+            float[] fiatIntervals = getIntervals(currentAmount, curAmount.floatValue());
+            float[] btcIntervals = getIntervals(currentBtc, btcAmount.floatValue());
 
-                float[] btcIntervals = getIntervals(currentBtc, btcAmount.floatValue());
+            handler.post(() -> {
+                if (fiatIntervals.length == 1 || btcIntervals.length == 1) {
+                    secondary.setText(BRCurrency.getFormattedCurrencyString(
+                            context, iso, new BigDecimal(fiatIntervals[0])));
+                    primary.setText(BRCurrency.getFormattedCurrencyString(
+                            context, "DGB", new BigDecimal(btcIntervals[0])));
+                    return;
+                }
+
                 ValueAnimator btcAnimator = ValueAnimator.ofFloat(btcIntervals);
                 btcAnimator.addUpdateListener(animation -> {
                     float value = (float) animation.getAnimatedValue();
                     primary.setText(BRCurrency.getFormattedCurrencyString(
-                            context, "DGB", value));
+                            context, "DGB", new BigDecimal(value)));
                 });
                 btcAnimator.setDuration(1500);
                 btcAnimator.setInterpolator(new DecelerateInterpolator());
                 btcAnimator.start();
 
-
-                float[] fiatIntervals = getIntervals(currentAmount, curAmount.floatValue());
                 ValueAnimator fiatAnimator = ValueAnimator.ofFloat(fiatIntervals);
                 fiatAnimator.addUpdateListener(animation -> {
                     float value = (float) animation.getAnimatedValue();
                     secondary.setText(BRCurrency.getFormattedCurrencyString(
-                            context, iso, value));
+                            context, iso, new BigDecimal(value)));
                 });
                 fiatAnimator.setDuration(1500);
                 fiatAnimator.setInterpolator(new DecelerateInterpolator());
@@ -145,13 +130,9 @@ public class ActivityUTILS {
         });
     }
 
-    private static boolean isSameValue(BigDecimal current, View view) {
-        return view.getTag() != null && current.equals(view.getTag());
-    }
-
     private static float[] getIntervals(float start, float finish) {
-        if (finish < start) {
-            return new float[]{start, finish};
+        if (finish < start || finish == start) {
+            return new float[]{finish};
         }
         float[] intervals = new float[40];
         for (int i = 1; i <= 40; i++) {
