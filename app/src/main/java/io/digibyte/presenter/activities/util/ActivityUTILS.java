@@ -123,7 +123,7 @@ public class ActivityUTILS {
                 btcAnimator.addUpdateListener(animation -> {
                     float value = (float) animation.getAnimatedValue();
                     primary.setText(BRCurrency.getFormattedCurrencyString(
-                            context, "DGB", new BigDecimal(value)));
+                            context, "DGB", value));
                 });
                 btcAnimator.setDuration(1500);
                 btcAnimator.setInterpolator(new DecelerateInterpolator());
@@ -135,7 +135,7 @@ public class ActivityUTILS {
                 fiatAnimator.addUpdateListener(animation -> {
                     float value = (float) animation.getAnimatedValue();
                     secondary.setText(BRCurrency.getFormattedCurrencyString(
-                            context, iso, new BigDecimal(value)));
+                            context, iso, value));
                 });
                 fiatAnimator.setDuration(1500);
                 fiatAnimator.setInterpolator(new DecelerateInterpolator());
@@ -150,6 +150,9 @@ public class ActivityUTILS {
     }
 
     private static float[] getIntervals(float start, float finish) {
+        if (finish < start) {
+            return new float[]{start, finish};
+        }
         float[] intervals = new float[40];
         for (int i = 1; i <= 40; i++) {
             intervals[i - 1] = start + (finish - start) * ((float) i * .025f);

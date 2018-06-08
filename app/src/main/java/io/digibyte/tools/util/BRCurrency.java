@@ -4,7 +4,6 @@ import static io.digibyte.tools.util.BRConstants.CURRENT_UNIT_BITS;
 
 import android.content.Context;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Currency;
@@ -42,7 +41,8 @@ public class BRCurrency {
 
 
     // amount is in currency or BTC (bits, mBTC or BTC)
-    public static String getFormattedCurrencyString(Context app, String isoCurrencyCode, BigDecimal amount) {
+    public static String getFormattedCurrencyString(Context app, String isoCurrencyCode,
+            double amount) {
 //        Log.e(TAG, "amount: " + amount);
         DecimalFormat currencyFormat;
 
@@ -82,7 +82,7 @@ public class BRCurrency {
         currencyFormat.setDecimalFormatSymbols(decimalFormatSymbols);
         currencyFormat.setNegativePrefix(decimalFormatSymbols.getCurrencySymbol() + "-");
         currencyFormat.setNegativeSuffix("");
-        return currencyFormat.format(amount.doubleValue());
+        return currencyFormat.format(amount);
     }
 
     public static String getSymbolByIso(Context app, String iso) {
