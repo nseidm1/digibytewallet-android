@@ -39,22 +39,21 @@ import io.digibyte.tools.manager.BRSharedPrefs;
 
 public class BRCurrency {
     public static final String TAG = BRCurrency.class.getName();
+    private static DecimalFormat currencyFormat;
+    private static DecimalFormatSymbols decimalFormatSymbols;
 
+    static {
+        currencyFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.getDefault());
+        decimalFormatSymbols = currencyFormat.getDecimalFormatSymbols();
+    }
 
     // amount is in currency or BTC (bits, mBTC or BTC)
-    public static String getFormattedCurrencyString(Context app, String isoCurrencyCode, BigDecimal amount) {
-//        Log.e(TAG, "amount: " + amount);
-        DecimalFormat currencyFormat;
+    public static String getFormattedCurrencyString(Context app, String isoCurrencyCode,
+            BigDecimal amount) {
 
-        // This formats currency values as the user expects to read them (default locale).
-        currencyFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.getDefault());
-        // This specifies the actual currency that the value is in, and provide
-        // s the currency symbol.
-        DecimalFormatSymbols decimalFormatSymbols;
         Currency currency;
         String symbol = null;
-        decimalFormatSymbols = currencyFormat.getDecimalFormatSymbols();
-      int decimalPoints = 0;
+        int decimalPoints = 0;
         if ("DGB".equals(isoCurrencyCode)) {
             symbol = BRExchange.getBitcoinSymbol(app);
         } else {
@@ -67,10 +66,14 @@ public class BRCurrency {
             decimalPoints = currency.getDefaultFractionDigits();
         }
         decimalFormatSymbols.setCurrencySymbol(symbol);
-//        currencyFormat.setMaximumFractionDigits(decimalPoints);
         currencyFormat.setGroupingUsed(true);
         if ("DGB".equals(isoCurrencyCode)) {
-            currencyFormat.setMaximumFractionDigits(BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 8 : 2);
+            currencyFormat.setMinimumFractionDigits(
+                    BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 6
+                            : 2);
+            currencyFormat.setMaximumFractionDigits(
+                    BRSharedPrefs.getCurrencyUnit(app) == BRConstants.CURRENT_UNIT_BITCOINS ? 6
+                            : 2);
         } else {
             currencyFormat.setMaximumFractionDigits(decimalPoints);
         }
@@ -140,6 +143,4 @@ public class BRCurrency {
         }
 
     }
-
-
 }

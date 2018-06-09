@@ -71,6 +71,7 @@
                 android:id="@+id/amount_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="bottom"
                 android:orientation="horizontal" android:visibility="gone">
 
                 <EditText
@@ -187,7 +188,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:animateLayoutChanges="true"
-                            android:gravity="center_horizontal"
+                            android:gravity="center_horizontal|bottom"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView

@@ -89,14 +89,16 @@ public class SyncManager {
             return;
         }
         enabled = true;
-        handler.postDelayed(() -> {
-            for (onStatusListener listener : theListeners) {
-                listener.onSyncManagerStarted();
-            }
-        }, 2000);
-        handler.postDelayed(() -> executorService.execute(syncRunnable), 2500);
+        handler.postDelayed(startSyncRunnable, 2500);
+        executorService.execute(syncRunnable);
         BRWalletManager.getInstance().init();
     }
+
+    private Runnable startSyncRunnable = () -> {
+        for (onStatusListener listener : theListeners) {
+            listener.onSyncManagerStarted();
+        }
+    };
 
     public void stopSyncingProgressThread() {
         Log.d(TAG, "stopSyncingProgressThread");
@@ -104,6 +106,7 @@ public class SyncManager {
             return;
         }
         enabled = false;
+        handler.removeCallbacks(startSyncRunnable);
         handler.post(() -> {
             for (onStatusListener listener : theListeners) {
                 listener.onSyncManagerFinished();
