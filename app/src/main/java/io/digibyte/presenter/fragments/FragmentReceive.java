@@ -57,8 +57,6 @@ import io.digibyte.wallet.BRWalletManager;
 public class FragmentReceive extends Fragment implements OnBackPressListener {
 
     protected static final String IS_RECEIVE = "FragmentReceive:IsReceive";
-    private boolean shareButtonsShown = false;
-    private Handler copyCloseHandler = new Handler(Looper.getMainLooper());
     protected FragmentReceiveBinding fragmentReceiveBinding;
     protected String address;
     protected String qrUrl;
@@ -93,9 +91,7 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
 
         @Override
         public void shareButtonClick() {
-            FragmentReceive.this.onShareButtonClick();
-            shareButtonsShown = !shareButtonsShown;
-            showShareButtons(shareButtonsShown);
+            receiveFragmentModel.setShareVisibility(true);
         }
 
         @Override
@@ -109,7 +105,6 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
 
         @Override
         public void addressClick() {
-            FragmentReceive.this.onAddressClick();
             copyText();
         }
 
@@ -173,15 +168,6 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
         return false;
     }
 
-    protected void onShareButtonClick() {
-    }
-
-    protected void onQRClick() {
-    }
-
-    protected void onAddressClick() {
-    }
-
     public static void show(AppCompatActivity activity, boolean isReceive) {
         FragmentReceive fragmentReceive = new FragmentReceive();
         Bundle bundle = new Bundle();
@@ -230,16 +216,6 @@ public class FragmentReceive extends Fragment implements OnBackPressListener {
             return false;
         }
         return getArguments().getBoolean(IS_RECEIVE, false);
-    }
-
-    protected void showShareButtons(boolean show) {
-        if (!show) {
-            receiveFragmentModel.setShareVisibility(false);
-            receiveFragmentModel.setShareButtonType(2);
-        } else {
-            receiveFragmentModel.setShareVisibility(true);
-            receiveFragmentModel.setShareButtonType(3);
-        }
     }
 
     @Override

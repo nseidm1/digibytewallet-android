@@ -112,7 +112,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     @Bindable
     public String getAmount() {
-        return amountBuilder.toString();
+        return amountBuilder.toString().replace("'", "");
     }
 
     @Bindable

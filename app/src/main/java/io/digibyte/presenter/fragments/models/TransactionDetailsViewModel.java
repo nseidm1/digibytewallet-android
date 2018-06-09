@@ -158,6 +158,6 @@ public class TransactionDetailsViewModel extends BaseObservable {
         Date currentLocalTime = new Date(
                 timeStamp == 0 ? System.currentTimeMillis() : timeStamp * 1000);
         Locale current = DigiByte.getContext().getResources().getConfiguration().locale;
-        return DateFormat.getTimeInstance(DateFormat.SHORT, current).format(currentLocalTime);
+        return DateFormat.getTimeInstance(DateFormat.MEDIUM, current).format(currentLocalTime);
     }
 }

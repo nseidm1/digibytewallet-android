@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,11 +17,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 import io.digibyte.DigiByte;
 import io.digibyte.R;
@@ -230,5 +234,10 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
     @Override
     public void onBackPressed() {
         fadeOutRemove(false);
+    }
+
+    @BindingAdapter("setMovementMethod")
+    public static void setMovementMethod(TextView textview, boolean set) {
+        textview.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 }
