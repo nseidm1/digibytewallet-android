@@ -11,9 +11,8 @@ import io.digibyte.presenter.activities.util.BRActivity;
 
 public class RecoverActivity extends BRActivity {
 
-    ActivityRecoverCallback callback = () -> {
-        InputWordsActivity.open(RecoverActivity.this, InputWordsActivity.Type.RESTORE);
-    };
+    ActivityRecoverCallback callback = () ->
+            InputWordsActivity.open(RecoverActivity.this, InputWordsActivity.Type.RESTORE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
