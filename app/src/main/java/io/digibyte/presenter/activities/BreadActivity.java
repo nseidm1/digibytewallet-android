@@ -139,6 +139,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     public void onSyncManagerUpdate() {
         handler.removeCallbacks(showSyncButtonRunnable);
+        bindings.syncButton.setVisibility(View.GONE);
         updateSyncText();
     }
 
@@ -160,6 +161,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
                 (CoordinatorLayout.LayoutParams) bindings.contentContainer.getLayoutParams();
         coordinatorLayoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         handler.removeCallbacks(showSyncButtonRunnable);
+        bindings.syncButton.setVisibility(View.GONE);
         bindings.syncContainer.setVisibility(View.GONE);
         bindings.toolbarLayout.setVisibility(View.VISIBLE);
         bindings.animationView.cancelAnimation();
@@ -291,7 +293,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @OnClick(R.id.nav_drawer)
     void onNavButtonClick(View view) {
         try {
-            bindings.drawerLayout.openDrawer(Gravity.LEFT);
+            bindings.drawerLayout.openDrawer(Gravity.START);
         } catch (IllegalArgumentException e) {
             //Race condition inflating the hierarchy?
         }

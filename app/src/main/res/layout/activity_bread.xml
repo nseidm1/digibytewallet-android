@@ -30,6 +30,7 @@
                                                             android:layout_width="match_parent"
                                                             android:layout_height="wrap_content"
                                                             android:background="@color/background">
+
                     <android.support.design.widget.CollapsingToolbarLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,15 +84,15 @@
                     <LinearLayout android:id="@+id/sync_container"
                                   android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
+                                  android:visibility="gone"
                                   android:layout_gravity="center"
                                   android:gravity="center_horizontal"
-                                  android:orientation="vertical"
-                                  android:visibility="gone">
+                                  android:orientation="vertical">
 
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/animation_view"
                             android:layout_width="wrap_content"
-                            android:layout_height="83dp"
+                            android:layout_height="80dp"
                             android:layout_gravity="center"
                             android:hardwareAccelerated="true"
                             app:lottie_autoPlay="false"
@@ -102,9 +103,9 @@
                         <TextView android:id="@+id/sync_text"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
+                                  android:ellipsize="end"
                                   android:gravity="center_horizontal"
                                   android:singleLine="true"
-                                  android:ellipsize="end"
                                   android:textColor="@color/white" android:textSize="16sp"/>
 
                         <android.support.v7.widget.AppCompatImageView android:layout_width="24dp"
@@ -261,6 +262,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="12dp"
+                        android:paddingEnd="22dp"
                         android:paddingStart="22dp"
                         android:paddingTop="12dp">
 
@@ -287,6 +289,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingBottom="12dp"
+                        android:paddingEnd="22dp"
                         android:paddingStart="22dp"
                         android:paddingTop="12dp">
 
