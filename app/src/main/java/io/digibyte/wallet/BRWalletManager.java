@@ -543,6 +543,8 @@ public class BRWalletManager {
             BRPeerManager.getInstance().connect();
         } catch (Throwable e) {
             e.printStackTrace();
+            initingPeerManager = false;
+            initingWallet = false;
             //TODO if the wallet fails to init, wtf to do?
         }
     }
