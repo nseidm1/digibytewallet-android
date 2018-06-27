@@ -618,7 +618,7 @@ public class BRWalletManager {
             pingToUpdateExplorerDomain();
             LinkedList<String> transactionsData = getAllTransactions();
             if (transactionsData == null) {
-                //If null is returns an exception occurred connecting to the block explorer
+                //If null returns an exception occurred connecting to the block explorer
                 //Init the peer manager using the standard checkpoint mechanic
                 BRPeerManager.getInstance().create(walletTime, blocksCount, peersCount);
             } else if (transactionsData.size() == 0) {
