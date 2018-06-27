@@ -542,6 +542,7 @@ public class BRWalletManager {
             createBRPeerManager();
             BRPeerManager.getInstance().connect();
         } catch (Throwable e) {
+            e.printStackTrace();
             //TODO if the wallet fails to init, wtf to do?
         }
     }
@@ -640,13 +641,20 @@ public class BRWalletManager {
         if (BuildConfig.DEBUG) {
             Log.d(BRWalletManager.class.getSimpleName(), Arrays.toString(addresses));
         }
-        for (String address : addresses) {
-            JSONObject transactionsData = new JSONObject(BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(), DIGIEXPLORER_URL + "/api/addr/" + address));
-            JSONArray transactionsJson = transactionsData.getJSONArray("transactions");
-            for (int i = 0; i < transactionsJson.length(); i++) {
-                transactions.add(transactionsJson.getString(i));
+        try {
+            for (String address : addresses) {
+                JSONObject transactionsData = new JSONObject(
+                        BRApiManager.getInstance().getBlockInfo(
+                                DigiByte.getContext(), DIGIEXPLORER_URL + "/api/addr/" + address));
+                JSONArray transactionsJson = transactionsData.getJSONArray("transactions");
+                for (int i = 0; i < transactionsJson.length(); i++) {
+                    transactions.add(transactionsJson.getString(i));
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Returning 0 transactions should just use the last snapshot
+            //An exception here likely means the server is down, or network connectivity isn't available
         }
         return transactions;
     }
