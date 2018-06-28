@@ -28,8 +28,8 @@ android {
         applicationId = 'io.digibyte'
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 2307
-        versionName "2.0.0b2307 RC8"
+        versionCode 2316
+        versionName "2.0.0b2316 RC9"
         multiDexEnabled true
         // Similar to other properties in the defaultConfig block,
         // you can configure the ndk block for each product flavor
