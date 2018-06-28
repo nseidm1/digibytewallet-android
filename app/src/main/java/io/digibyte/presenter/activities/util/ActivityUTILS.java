@@ -136,7 +136,11 @@ public class ActivityUTILS {
         }
         float[] intervals = new float[40];
         for (int i = 1; i <= 40; i++) {
-            intervals[i - 1] = start + (finish - start) * ((float) i * .025f);
+            if (i == 40) {
+                intervals[39] = finish;
+            } else {
+                intervals[i - 1] = start + (finish - start) * ((float) i * .025f);
+            }
         }
         return intervals;
     }
