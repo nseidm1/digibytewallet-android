@@ -60,6 +60,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte enviado!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Leitor de digitais reconhecido</string>
+  <string name="all">Todos</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Erro na Serialização do JSON</string>
   <!-- Wallet not ready error message -->
@@ -122,6 +123,7 @@
   <string name="Button.yes">Sim</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Centralize seu ID na caixa</string>
+  <string name="completed">Concluído</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Quantia a ser enviada:</string>
   <!-- Network Fee: ($1.00) -->
@@ -140,6 +142,8 @@
   <string name="ConfirmPaperPhrase.label">Para garantir que tudo foi escrito corretamente, por favor informe as seguintes palavras de sua chave de papel.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Palavra #%1$s</string>
+  <string name="current_amount">Valor atual: %s</string>
+  <string name="date">Data</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Unidade de Exibição DigiByte</string>
   <!--
@@ -243,6 +247,8 @@ Qualquer aplicativo \'jailbreak\' pode acessar os dados do keychain da DigiWalle
   <string name="ManageWallet.textFeildLabel">Nome da Carteira</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Gerenciar Carteira</string>
+  <string name="max">máximo</string>
+  <string name="max_send_enabled">Botão Show: Enviar Máximo</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Comprar DigiByte</string>
   <!-- Menu button title -->
@@ -277,6 +283,8 @@ Qualquer aplicativo \'jailbreak\' pode acessar os dados do keychain da DigiWalle
   <string name="NodeSelector.statusLabel">Status de Conexão do Nó</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Nós DigiByte</string>
+  <string name="no_limit">Sem limite</string>
+  <string name="original_amount">Valor original: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Pedido de Pagamento Inválido</string>
   <!-- Error opening payment protocol file message -->
@@ -295,6 +303,7 @@ Qualquer aplicativo \'jailbreak\' pode acessar os dados do keychain da DigiWalle
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Tipo de assinatura não suportado</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Certificado Não Confiável</string>
+  <string name="processed">Processado</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Uma senha de dispositivo é necessária para a segurança de sua carteira. Vá em Configurações e ative a senha.</string>
   <!-- No Passcode set warning title -->
@@ -351,6 +360,7 @@ Qualquer aplicativo \'jailbreak\' pode acessar os dados do keychain da DigiWalle
   <string name="Receive.textButton">Mensagem de Texto</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Receber</string>
+  <string name="received">Recebido</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Concluído</string>
   <!-- Recover wallet header -->
@@ -487,6 +497,7 @@ Qualquer aplicativo \'jailbreak\' pode acessar os dados do keychain da DigiWalle
   <string name="Send.UsedAddress.secondLIne">A reutilização reduz a privacidade para você e o destinatário, e pode resultar em perda caso o destinatário não controle o endereço diretamente.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Endereço já em uso</string>
+  <string name="sent">Enviado</string>
   <!-- About label -->
   <string name="Settings.about">Sobre</string>
   <!-- Advanced Settings title -->

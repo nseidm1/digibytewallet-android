@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">డబ్బులు పంపించబడినవి</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">వేలిముద్రలు గుర్తించబడినవి</string>
+  <string name="all">అన్ని</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON సీరియలైజేషన్‌లో లోపం ఏర్పడింది</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">అవును</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">గడిలో మీ ఐడీ ని ఉంచండి</string>
+  <string name="completed">"పూర్తయింది "</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">పంపించాల్సిన డబ్బుల మొత్తము</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">ప్రతిదీ సరిగ్గా వ్రాసినట్లు నిర్ధారించడానికి, దయచేసి మీ పేపరు కీ నుండి ఈ క్రింది పదాలను నమోదు చేయండి.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">పదము #%1$@</string>
+  <string name="current_amount">ప్రస్తుత విలువ: %s</string>
+  <string name="date">"తేదీ "</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">డిజీబైట్‌ను ప్రదర్శించే విభాగము</string>
   <!--
@@ -240,6 +244,8 @@
   <string name="ManageWallet.textFeildLabel">వాలెట్ పేరు</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">వాలెట్‌ను నిర్వహించడం</string>
+  <string name="max">గరిష్టంగా</string>
+  <string name="max_send_enabled">షో బటన్: గరిష్టంగా పంపించండి</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">"డిజీబైట్‌ను కొనండి "</string>
   <!-- Menu button title -->
@@ -274,6 +280,8 @@
   <string name="NodeSelector.statusLabel">నోడ్ యొక్క అనుసంధాన/కనెక్షన్ స్థితి</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">"డిజీబైట్ నోడ్స్ "</string>
+  <string name="no_limit">పరిమితి లేదు</string>
+  <string name="original_amount">అసలు విలువ: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">"ఈ చెల్లింపు అభ్యర్థన బాలేదు "</string>
   <!-- Error opening payment protocol file message -->
@@ -292,6 +300,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">మద్దతులేని సంతకం /ఈరకమైన సంతకానికి మద్దతులేదు</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">అవిశ్వాస ప్రమాణపత్రం</string>
+  <string name="processed">"కొనసాగించబడింది "</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">"మీ వాలెట్‌ను కాపాడేందుకు పరికరం యొక్క పాస్‌కోడ్ అవసరమవుతుంది. సెట్టింగులోకి వెళ్ళి పాస్‌కోడ్‌ను ఆన్ చేయండి. "</string>
   <!-- No Passcode set warning title -->
@@ -348,6 +357,7 @@
   <string name="Receive.textButton">లిఖితపూర్వక సందేశం</string>
   <!-- Receive modal title -->
   <string name="Receive.title">స్వీకరించండి</string>
+  <string name="received">అందినది</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"పని పూర్తయింది "</string>
   <!-- Recover wallet header -->
@@ -484,6 +494,7 @@
   <string name="Send.UsedAddress.secondLIne">తిరిగి వినియోగించడం మీకు మరియు గ్రహీతకు ఇద్దరికీ గోప్యతను తగ్గిస్తుంది ఇంకా స్వీకర్త నేరుగా చిరునామాను నియంత్రించకలేకపోతే నష్టపోయే అవకాశం ఉంది.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">ఈ చిరునామా ఇంతకుముందే ఉపయోగించబడింది</string>
+  <string name="sent">"ప్రవేశము "</string>
   <!-- About label -->
   <string name="Settings.about">విషయాన్ని గురించి</string>
   <!-- Advanced Settings title -->

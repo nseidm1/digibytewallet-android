@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte Terkirim!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Sidik jari dikenali</string>
+  <string name="all">Kabeh</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Error Serialize JSON</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">Ya</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Pasna ID sampeyan neng tengah tanda kotak</string>
+  <string name="completed">Rampung</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Jumlah sing dikirim:</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">Kanggo mastikna kabeh wis ditulis kanti bener, monggo dipilih kata-kata sing pada karo Personal Recovery Key sampeyan.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Kata # %1$s</string>
+  <string name="current_amount">Saiki Nilai: %s</string>
+  <string name="date">Tanggal</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Tampilan Unit DigiByte</string>
   <!--
@@ -239,6 +243,8 @@
   <string name="ManageWallet.textFeildLabel">Jeneng Dompet</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Atur Dompet</string>
+  <string name="max">Maks</string>
+  <string name="max_send_enabled">Tampil Tombol: Kirimi Maksimum</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Tumbas DigiByte</string>
   <!-- Menu button title -->
@@ -273,6 +279,8 @@
   <string name="NodeSelector.statusLabel">Status Sambungan Node</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Node DigiByte</string>
+  <string name="no_limit">Ora ana watesan</string>
+  <string name="original_amount">Nilai asli: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Rekues Pembayaran Salah</string>
   <!-- Error opening payment protocol file message -->
@@ -291,6 +299,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">tanda tangan digital ora didukung</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">sertifikat ora bisa dipercaya</string>
+  <string name="processed">Diproses</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Kode akses perangkat dibutuhna kanggo melindungi dompet sampeyan. Buka Settings terus aktifna Passcode.</string>
   <!-- No Passcode set warning title -->
@@ -347,6 +356,7 @@
   <string name="Receive.textButton">Pesan teks</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Terima</string>
+  <string name="received">Ditampa</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Rampung</string>
   <!-- Recover wallet header -->
@@ -483,6 +493,7 @@
   <string name="Send.UsedAddress.secondLIne">Nganggo alamat sing pada lewih saka sepisan iku ngurangi privasine sampeyan lan sing nerima, lan bisa dadi kerugian yen sing nerima ora bisa ngontrol alamate.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Alamat iki wis tau dinggo</string>
+  <string name="sent">Dikirim</string>
   <!-- About label -->
   <string name="Settings.about">Tentang</string>
   <!-- Advanced Settings title -->

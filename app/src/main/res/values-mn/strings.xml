@@ -66,6 +66,7 @@ DigiWallet нь DigiByte-д зориулсан гар утасны түрийв�
   <string name="Alerts.sendSuccessSubheader">DigiByte илгээсэн!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Хурууны хээ танигдсан</string>
+  <string name="all">Бүгд</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON Serialization алдаа</string>
   <!-- Wallet not ready error message -->
@@ -134,6 +135,7 @@ DGB амжилттай илгээгдсэн.</string>
   <string name="Button.yes">Тийм</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Өөрийн ID-г  хайрцагт байрлуулна уу</string>
+  <string name="completed">Дууссан</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Илгээх дүн:</string>
   <!-- Network Fee: ($1.00) -->
@@ -152,6 +154,8 @@ DGB амжилттай илгээгдсэн.</string>
   <string name="ConfirmPaperPhrase.label">Бүгдийг зөв бичсэн эсэхийг баталгаажуулахын тулд өөрийн хувийн сэргээх түлхүүрээс дараах үгсийг оруулна уу.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Үг # %1$s</string>
+  <string name="current_amount">Одоогийн үнэ цэнэ: %s</string>
+  <string name="date">Огноо</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">DigiByte харуулах нэгж</string>
   <!--
@@ -257,6 +261,8 @@ DigiWallet нь байршлын үйлчилгээнд хандах зөвшө�
   <string name="ManageWallet.textFeildLabel">Wallet нэр</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Wallet удирдах</string>
+  <string name="max">Макс</string>
+  <string name="max_send_enabled">Харуулах товч: хамгийн ихийг илгээх</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">DigiByte худалдан авах</string>
   <!-- Menu button title -->
@@ -291,6 +297,8 @@ DigiWallet нь байршлын үйлчилгээнд хандах зөвшө�
   <string name="NodeSelector.statusLabel">Node холболтын төлөв</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte цэгүүд</string>
+  <string name="no_limit">Хязгааргүй</string>
+  <string name="original_amount">Эх үнэ:</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Муу төлбөрийн хүсэлт</string>
   <!-- Error opening payment protocol file message -->
@@ -310,6 +318,7 @@ DigiByte гүйлгээний гаралт  %1$s  -с бага байж боло
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">гарын үсгийн хэлбэрийг дэмждэггүй</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Баталгаагүй сертификат</string>
+  <string name="processed">Боловсруулсан</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">
 Таны түрийвчийг хамгаалахын тулд төхөөрөмжийн нууц код шаардлагатай. Тохиргоо руу орж, нууц кодыг асаах.</string>
@@ -370,6 +379,7 @@ DigiWallet нь 6 оронтой ПИН кодыг ашиглан сайжруу
   <string name="Receive.textButton">Текст зурвас</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Хүлээн авах</string>
+  <string name="received">Хүлээн авсан</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Үүнийг хийлээ</string>
   <!-- Recover wallet header -->
@@ -518,6 +528,7 @@ DigiByte хаягууд нь зөвхөн ганц хэрэглээнд зори
 Дахин ашиглах нь танд болон хүлээн авагч хоёулангийнх нь хувийн нууцыг бууруулж, хүлээн авагч шууд хаягыг хянадаггүй тохиолдолд алдагдлыг үүсгэж болно.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Аль хэдийн ашиглагдсан хаяг</string>
+  <string name="sent">Илгээсэн</string>
   <!-- About label -->
   <string name="Settings.about">Тухай</string>
   <!-- Advanced Settings title -->

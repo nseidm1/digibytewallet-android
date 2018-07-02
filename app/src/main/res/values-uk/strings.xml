@@ -60,6 +60,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte відправлено!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Відбиток пальця розпізнано</string>
+  <string name="all">Все</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON Serialization Error</string>
   <!-- Wallet not ready error message -->
@@ -123,6 +124,7 @@
   <string name="Button.yes">Так</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Розмістіть ваш ідентифікатор (ID) в центрі поля</string>
+  <string name="completed">Завершено</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Сума для відправки:</string>
   <!-- Network Fee: ($1.00) -->
@@ -142,6 +144,8 @@
 </string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Слово #%1$s</string>
+  <string name="current_amount">Поточне значення: %s</string>
+  <string name="date">Дата</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Відображення  одиниць DigiByte</string>
   <!--
@@ -246,6 +250,8 @@
   <string name="ManageWallet.textFeildLabel">Назва гаманця</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Керування гаманцем</string>
+  <string name="max">Макс</string>
+  <string name="max_send_enabled">Показати кнопку: надіслати максимум</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Придбати DigiByte</string>
   <!-- Menu button title -->
@@ -280,6 +286,8 @@
   <string name="NodeSelector.statusLabel">Статус підключення вузла</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Вузли DigiByte</string>
+  <string name="no_limit">Без обмежень</string>
+  <string name="original_amount">Оригінальне значення: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Неправильний запит платежу</string>
   <!-- Error opening payment protocol file message -->
@@ -299,6 +307,7 @@
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">ненадійний сертифікат
 </string>
+  <string name="processed">Оброблено</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Для захисту вашого гаманця необхідний код доступу до пристрою. Перейдіть до налаштувань і вкажіть код доступу.</string>
   <!-- No Passcode set warning title -->
@@ -355,6 +364,7 @@
   <string name="Receive.textButton">Текстове повідомлення</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Отримати</string>
+  <string name="received">Отримано</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Готово</string>
   <!-- Recover wallet header -->
@@ -491,6 +501,7 @@
   <string name="Send.UsedAddress.secondLIne">Повторне використання зменшує конфіденційність як для вас, так і для одержувача, і може призвести до втрати, якщо адресат не безпосередньо контролює адресу.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Адреса вже вживана</string>
+  <string name="sent">Надісланий</string>
   <!-- About label -->
   <string name="Settings.about">Про</string>
   <!-- Advanced Settings title -->

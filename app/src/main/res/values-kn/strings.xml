@@ -3,22 +3,22 @@
   <!-- App name -->
   <string name="About.appName.android">"ಅಪ್ಲಿಕೇಶನ್ ಹೆಸರು "</string>
   <!-- About screen blog label -->
-  <string name="About.blog">"ಪರದೆಯ ಬ್ಲಾಗ್ ಲೇಬಲ್ ನ ಬಗ್ಗೆ "</string>
+  <string name="About.blog">https://digibyte.io/</string>
   <!-- About screen footer -->
   <string name="About.footer">"ಪರದೆಯ ಅಡಿಟಿಪ್ಪಣಿಯ ಬಗ್ಗೆ "</string>
   <!-- Privay Policy button label -->
   <string name="About.privacy">"ಗೌಪ್ಯತಾ ನೀತಿಗಳು ಬಟನ್ ಲೇಬಲ್  "</string>
   <!-- About screen reddit label -->
-  <string name="About.reddit">"ಪರದೆಯ ರೆಡ್ದಿಟ್ ಲೇಬಲ್ ಬಗ್ಗೆ "</string>
+  <string name="About.reddit">https://www.reddit.com/r/Digibyte/</string>
   <!-- Terms of Use button label -->
   <string name="About.terms">"ಬಳಸುವ ನಿಯಮಗಳು ಬಟನ್ ಲೇಬಲ್ "</string>
   <!--
   Terms of Use button label
   About screen title
   -->
-  <string name="About.title">"ಪರದೆಯ ಶೀರ್ಷಿಕೆಯ ಬಗ್ಗೆ "</string>
+  <string name="About.title">ವೇಗವಾದ, ಸರಳ ಮತ್ತು ಸುರಕ್ಷಿತ !: ಡಿಜಿಬಿಟ್ಗೆ ಕಳುಹಿಸುವ ಮತ್ತು ಸ್ವೀಕರಿಸುವಿಕೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು Android ಗಾಗಿ DigiWallet ಸುಲಭ ಮಾರ್ಗವಾಗಿದೆ. ಹೊಸ ಮತ್ತು ಅನುಭವಿ ಬಳಕೆದಾರರ ಮನಸ್ಸಿನಲ್ಲಿ ವಿನ್ಯಾಸಗೊಳಿಸಿದರೆ, ಆಂಡ್ರಾಯ್ಡ್ಗಾಗಿ ಡಿಜಿ ವಾಲೆಟ್ ಬಳಸಲು ಮೊದಲ ಬಾರಿಗೆ ಅನನುಭವಿಯಾಗಿದ್ದು, ಸಾಮಾನ್ಯ ವಿದ್ಯುತ್ ಬಳಕೆದಾರರಿಗೆ ಸಾಕಷ್ಟು ಶಕ್ತಿಯುತವಾಗಿದೆ.</string>
   <!-- About screen twitter label -->
-  <string name="About.twitter">"ಪರದೆಯ ಟ್ವಿಟ್ಟರ್ ಲೇಬಲ್ ನ ಬಗ್ಗೆ "</string>
+  <string name="About.twitter">https://twitter.com/digibytecoin</string>
   <!-- Close modal button accessibility label -->
   <string name="AccessibilityLabels.close">"ಮೋಡಲ್ ಬಟನ್ ಪ್ರವೇಶವನ್ನು ಬಂದ್ ಮಾಡು ಲೇಬಲ್ "</string>
   <!-- Support center accessibiliy label -->
@@ -28,7 +28,7 @@
   <!-- Default wallet name -->
   <string name="AccountHeader.defaultWalletName">"ವಾಲೆಟಿನ ಡಿಫಾಲ್ಟ್ ಹೆಸರು "</string>
   <!-- Third party keyboard warning -->
-  <string name="Alert.customKeyboard.android">"ಮೂರನೇ ಪಾರ್ಟಿಯ ಕೀಲಿಮಣೆಯ ಎಚ್ಚರಿಕೆ "</string>
+  <string name="Alert.customKeyboard.android">ನೀವು ಮೂರನೇ ವ್ಯಕ್ತಿಯ ಕೀಬೋರ್ಡ್ ಅನ್ನು ಬಳಸುತ್ತಿರುವಂತೆ ತೋರುತ್ತಿದೆ, ಅದು ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಪುನಶ್ಚೇತನ ಕೀಲಿಯನ್ನು ನೀವು ಟೈಪ್ ಮಾಡುವ ಮತ್ತು ಕದಿಯುವದನ್ನು ದಾಖಲಿಸಬಹುದು. ಹೆಚ್ಚುವರಿ ರಕ್ಷಣೆಗಾಗಿ ದಯವಿಟ್ಟು ಡೀಫಾಲ್ಟ್ ಆಂಡ್ರಾಯ್ಡ್ ಕೀಬೋರ್ಡ್ಗೆ ಬದಲಾಯಿಸಿ.</string>
   <!-- Error alert title -->
   <string name="Alert.error">"ದೋಷ ಎಚ್ಚರಿಕೆ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Keystore error -->
@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">"ಸಫಲವಾಗಿದೆ ಎಂದು ಎಚ್ಚರಿಕೆಯನ್ನು  ನೀಡುವ ಉಪಶೀರ್ಷಿಕೆ ಲೇಬಲನ್ನು ಕಳಿಸಿ(ಉದಾಹರಣೆಗೆ- ಹಣವನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ) "</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">"ಸ್ಕಾನರ್ ನಿಮ್ಮ ಬೆರಳಚ್ಚನ್ನು ಪತ್ತೆಮಾಡಿದೆ "</string>
+  <string name="all">ಎಲ್ಲವೂ</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">"JSON ಸೀರಿಯಾಲೈಜೆಷನ್ ತಪ್ಪು ಸಂದೇಶ "</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,8 @@
   <string name="Button.yes">"ಸರಿ ಬಟನ್ "</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">"ಕ್ಯಾಮೆರಾ ಪ್ಲಗ್ಇನ್ ಸೂಚನೆಗಳು "</string>
+  <string name="completed">ಮುಗಿದಿದೆ 
+</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">ಕಳಿಸಬೇಕಾದ ಮೊತ್ತ : ($1.00)</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +142,10 @@
   <string name="ConfirmPaperPhrase.label">"ಕಾಗದ ವಾಕ್ಯದ ನೋಟ ದೃಢೀಕರಣ ಮಾಡುವ ಲೇಬಲ್ "</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">ಪದ ಲೇಬಲ್ ಉದಾ. ಪದ #1, ಪದ #2</string>
+  <string name="current_amount">ಸದ್ಯದ ಬೆಲೆ: %s
+</string>
+  <string name="date">ದಿನಾಂಕ 
+</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">"ಬಿಟ್ ಕಾಯಿನ್ ಡಿನಾಮಿನೆಶನ್ ಆಯ್ಕೆಯ ಲೇಬಲ್ "</string>
   <!--
@@ -219,12 +226,12 @@
   <!-- Ignore jailbreak warning button -->
   <string name="JailbreakWarnings.ignore">"ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಬಟನ್ ಅನ್ನು ನಿರ್ಲಕ್ಷಿಸು "</string>
   <!-- Jailbreak warning message -->
-  <string name="JailbreakWarnings.messageWithBalance">"ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶ "</string>
+  <string name="JailbreakWarnings.messageWithBalance">ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶ. ಸಾಧನ ಸುರಕ್ಷತೆ ಹೊಂದಾಣಿಕೆಯಾಗಿದೆ\nಯಾವುದೇ \'ಜೈಲ್ ಬ್ರೇಕ್\' ಅಪ್ಲಿಕೇಶನ್ ಡಿಜಿ ವಾಲೆಟ್ನ ಕೀಚೈನ್ನ ಡೇಟಾವನ್ನು ಪ್ರವೇಶಿಸಬಹುದು ಮತ್ತು ನಿಮ್ಮ DigiByte ಅನ್ನು ಕದಿಯಬಹುದು! ಈ Wallet ಅನ್ನು ತಕ್ಷಣವೇ ಅಳಿಸಿ ಮತ್ತು ಸುರಕ್ಷಿತ ಸಾಧನದಲ್ಲಿ ಮರುಸ್ಥಾಪಿಸಿ.</string>
   <!--
   Ignore jailbreak warning button
   Jailbreak warning message
   -->
-  <string name="JailbreakWarnings.messageWithoutBalance">"ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶ "</string>
+  <string name="JailbreakWarnings.messageWithoutBalance">ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಸಂದೇಶ. ಸಾಧನ ಸುರಕ್ಷತೆ ಸುಸಂಘಟಿತವಾಗಿದೆ\nಯಾವುದೇ \'ಜೈಲ್ ಬ್ರೇಕ್\' ಅಪ್ಲಿಕೇಶನ್ ಡಿಜಿ ವಾಲೆಟ್ನ ಕೀಚೈನ್ನ ಡೇಟಾವನ್ನು ಪ್ರವೇಶಿಸಬಹುದು ಮತ್ತು ನಿಮ್ಮ ಡಿಜಿಬಿಟ್ ಅನ್ನು ಕದಿಯಬಹುದು. ಜೈಲಿತರಲ್ಲದ ಸಾಧನದಲ್ಲಿ ಡಿಜಿ ವಾಲೆಟ್ ಅನ್ನು ಮಾತ್ರ ಬಳಸಿ.</string>
   <!-- Jailbreak warning title -->
   <string name="JailbreakWarnings.title">"ಜೈಲ್ ಬ್ರೇಕ್ ಎಚ್ಚರಿಕೆಯ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Location services disabled error -->
@@ -239,6 +246,9 @@
   <string name="ManageWallet.textFeildLabel">"ವಾಲೆಟ್ ಹೆಸರು ಪಠ್ಯಕ್ಷೇತ್ರ ಲೇಬಲ್ ಅನ್ನು ಬದಲಾಯಿಸಿ "</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">"ವಾಲೆಟ್ ಮೋಡಲ್ ಶೀರ್ಷಿಕೆಯನ್ನು ನಿರ್ವಹಣೆ ಮಾಡಿ "</string>
+  <string name="max">ಗರಿಷ್ಟ 
+</string>
+  <string name="max_send_enabled">ಬಟನ್ ತೋರಿಸು: ಗರಿಷ್ಠ ಕಳುಹಿಸಿ</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">"ಬಿಟ್ ಕಾಯಿನ್ ಖರೀದಿಸಿ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Menu button title -->
@@ -274,6 +284,10 @@
   <string name="NodeSelector.statusLabel">"ನೋಡ್ ಸ್ಟೇಟಸ್ ಲೇಬಲ್ "</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">"ನೋಡ್ ಆಯ್ಕೆಮಾಡು ವೀಕ್ಷಿಸು ಶೀರ್ಷಿಕೆ "</string>
+  <string name="no_limit">ಲಿಮಿಟ್_ಇಲ್ಲ 
+</string>
+  <string name="original_amount">ಮೂಲ ಮೌಲ್ಯ: %s
+</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">"ಪಾವತಿ ತಪ್ಪಾಗಿದೆ ವಿನಂತಿಯ ಎಚ್ಚರಿಕೆಯ ಶೀರ್ಷಿಕೆ "</string>
   <!-- Error opening payment protocol file message -->
@@ -292,6 +306,8 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">ಬೆಂಬಲಿಸದ ಸಹಿ ವಿಧದ ಪಾವತಿ ಪ್ರೋಟೋಕಾಲ್ ತಪ್ಪು ಸಂದೇಶ</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">"ನಂಬಲಾರ್ಹವಾದ ಪ್ರಮಾಣಪತ್ರ ಪಾವತಿ ಪ್ರೋಟೋಕೋಲ್ ಸಂದೇಶ ತಪ್ಪು "</string>
+  <string name="processed">ಸಂಸ್ಕರಿಸಲಾಗಿದೆ 
+</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">"ಪಾಸ್ವರ್ಡ್ ಇನ್ನೂ ಹೊಂದಿಸಿಲ್ಲ ಎಚ್ಚರಿಕೆಯ ಭಾಗ "</string>
   <!-- No Passcode set warning title -->
@@ -349,6 +365,8 @@
   <string name="Receive.textButton">ಪಠ್ಯ ಸಂದೇಶದ ಮೂಲಕ ಶೇರ್ ಮಾಡಿ(ಎಸ್ಎಂ ಎಸ್)</string>
   <!-- Receive modal title -->
   <string name="Receive.title">"ಮೋಡಲ್ ಶೀರ್ಷಿಕೆಯನ್ನು ಸ್ವೀಕರಿಸಿ "</string>
+  <string name="received">ಸ್ವೀಕರಿಸಲಾಗಿದೆ 
+</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"ಮುಗಿಯಿತು ಬಟನ್ ಸಂದೇಶ "</string>
   <!-- Recover wallet header -->
@@ -487,6 +505,7 @@
   <string name="Send.UsedAddress.secondLIne">"ವಿಳಾಸ ಈಗಾಗಲೇ ಬಳಕೆಯಾಗಿದೆ ಎಚ್ಚರಿಕೆ ಸಂದೇಶ - ಎರಡನೇ ಭಾಗ "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">"ವಿಳಾಸವನ್ನು ಈಗಾಗಲೇ ಬಳಸಿಯಾಗಿದೆ ಎಚ್ಚರಿಕೆಯ ಶೀರ್ಷಿಕೆ "</string>
+  <string name="sent">"ಕಳುಹಿಸಲಾಗಿದೆ "</string>
   <!-- About label -->
   <string name="Settings.about">"ಲೇಬಲ್ ನ ಬಗ್ಗೆ "</string>
   <!-- Advanced Settings title -->
@@ -532,9 +551,9 @@
   <!-- Share data switch label. -->
   <string name="ShareData.toggleLabel">"ಡಾಟಾ ಆರಿಸು ಲೇಬಲ್ ಅನ್ನು ಶೇರ್ ಮಾಡು "</string>
   <!-- button label -->
-  <string name="StartPaperPhrase.againButtonTitle">"ಬಟನ್ ಲೇಬಲ್ "</string>
+  <string name="StartPaperPhrase.againButtonTitle">ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ರಿಕವರಿ ಕೀಲಿಯನ್ನು ಮತ್ತೊಮ್ಮೆ ಬರೆಯಿರಿ</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">"ಕಾಗದದ ಕೀಲಿ ವಿವರಣೆಯ ಸಂದೇಶ "</string>
+  <string name="StartPaperPhrase.body">ನಿಮ್ಮ ಫೋನ್ ಕಳೆದುಹೋಗಿತ್ತು, ಕದಿಯಲ್ಪಟ್ಟಿದೆ, ಮುರಿದುಹೋಗಿದೆ ಅಥವಾ ಅಪ್ಗ್ರೇಡ್ ಮಾಡಿದರೆ ನಿಮ್ಮ ಡಿಜಿ ವಾಲೆಟ್ ಅನ್ನು ಪುನಃಸ್ಥಾಪಿಸಲು ಏಕೈಕ ಮಾರ್ಗವೆಂದರೆ ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ರಿಕವರಿ ಕೀ.\n\nನಾವು ಪದಗಳ ಪಟ್ಟಿಯನ್ನು ಕಾಗದದ ತುದಿಯಲ್ಲಿ ಬರೆದು ಸುರಕ್ಷಿತವಾಗಿರಿಸುತ್ತೇವೆ.</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">"ಬಟನ್ ಲೇಬಲ್ "</string>
   <!-- Argument is date -->
@@ -745,7 +764,7 @@
   <!-- Start wipe wallet view message -->
   <string name="WipeWallet.startMessage">"ವಾಲೆಟ್ ವೀಕ್ಷಿಸು ಸಂದೇಶವನ್ನು ಅಳಿಸನ್ನು ಶುರುಮಾಡಿ "</string>
   <!-- Start wipe wallet view warning -->
-  <string name="WipeWallet.startWarning">"ವಾಲೆಟ್ ಅಳಿಸು ನೋಟವನ್ನು ನೋಡು ಎಚ್ಚರಿಕೆ "</string>
+  <string name="WipeWallet.startWarning">ಈ ಸಾಧನದಿಂದ ನಿಮ್ಮ ಪ್ರಸ್ತುತ Wallet ಅನ್ನು ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ. ಭವಿಷ್ಯದಲ್ಲಿ ಅದನ್ನು ಮರುಸ್ಥಾಪಿಸಲು ನೀವು ಬಯಸಿದರೆ, ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಪುನಶ್ಚೇತನ ಕೀಲಿಯನ್ನು ನೀವು ನಮೂದಿಸಬೇಕಾಗುತ್ತದೆ.</string>
   <!-- Wipe wallet navigation item title. -->
   <string name="WipeWallet.title">"ವಾಲೆಟ್ ನೇವಿಗೇಶನ್ ಐಟಂ ಶೀರ್ಷಿಕೆಯನ್ನು ಅಳಿಸಿ "</string>
   <!-- Wipe wallet button title -->

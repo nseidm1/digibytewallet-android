@@ -61,6 +61,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Alerts.sendSuccessSubheader">"DigiByte Zimetumwa! "</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">"Alama za vidole zimetambulika "</string>
+  <string name="all">WOTE</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Herufi sambamba za JSON zinakasoro</string>
   <!-- Wallet not ready error message -->
@@ -124,6 +125,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Button.yes">Ndio</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">"Weka ID yako katika sehemu ya kati ya sanduku "</string>
+  <string name="completed">Imekamilishwa</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Kiasi Cha Kutuma:</string>
   <!-- Network Fee: ($1.00) -->
@@ -142,6 +144,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ConfirmPaperPhrase.label">Ili kuhakikisha kila kitu kiliandikwa kwa usahihi, tafadhali ingiza maneno yafuatayo kutoka kwa Kifunguo chako binafsi cha kuokoa kipochi.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Neno #%1$s</string>
+  <string name="current_amount">Thamani ya sasa: %s</string>
+  <string name="date">Tarehe</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">"Kitengo cha DigiByte cha maonesho "</string>
   <!--
@@ -249,6 +253,8 @@ Programu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na ku
   <string name="ManageWallet.textFeildLabel">Jina la Kipochi</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Simamia kipochi</string>
+  <string name="max">upeo</string>
+  <string name="max_send_enabled">Onyesha Button: Tuma Maximum</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Nunua DigiByte</string>
   <!-- Menu button title -->
@@ -283,6 +289,8 @@ Programu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na ku
   <string name="NodeSelector.statusLabel">Hali ya Kuunganisha ya Node</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Nodes za DigiByte</string>
+  <string name="no_limit">Hakuna Mpaka</string>
+  <string name="original_amount">Thamani ya awali: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Ombi la Malipo bovu</string>
   <!-- Error opening payment protocol file message -->
@@ -301,6 +309,7 @@ Programu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na ku
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">aina ya saini isiyotambuliwa</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">"cheti lisiloaminiwa "</string>
+  <string name="processed">Imefanywa</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Msimbo wa kifaa unahitajika ili kulinda kipochi chako. Nenda kwenye mipangilio na uwezeshe nenosiri.</string>
   <!-- No Passcode set warning title -->
@@ -360,6 +369,7 @@ Programu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na ku
 </string>
   <!-- Receive modal title -->
   <string name="Receive.title">Pokea</string>
+  <string name="received">IMEKUBALIWA</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Maliza</string>
   <!-- Recover wallet header -->
@@ -497,6 +507,7 @@ Programu yeyote ya \'jailbreak\' inaweza kufikia data muhimu ya DigiWallet na ku
   <string name="Send.UsedAddress.secondLIne">"Matumizi tena hupunguza faragha kwa wewe na mpokeaji na inaweza kusababisha hasara ikiwa mpokeaji hawezi kudhibiti anwani. "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Anwani Tayari Imetumika</string>
+  <string name="sent">Imepelekwa</string>
   <!-- About label -->
   <string name="Settings.about">Kuhusu</string>
   <!-- Advanced Settings title -->

@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte Gönderildi!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Parmak izi tanımlandı</string>
+  <string name="all">Herşey</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON Serialization Hatası</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">Evet</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Kimliğinizi kutuya ortalayınız</string>
+  <string name="completed">Tamamlanan</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Gönderilecek Miktar:</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">Kurtarma anahtarının doğru şekilde yedeklendiğine emin olmak için, lütfen istenilen kelimeleri girin.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">%1$s. Kelime</string>
+  <string name="current_amount">Mevcut değer: %s</string>
+  <string name="date">Tarih</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Gösterilecek DigiByte Birimi</string>
   <!--
@@ -239,6 +243,8 @@
   <string name="ManageWallet.textFeildLabel">Cüzdan İsmi</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Cüzdanı Yönet</string>
+  <string name="max">maks</string>
+  <string name="max_send_enabled">Göster Düğmesi: Maksimum Gönder</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">DigiByte Satın Al</string>
   <!-- Menu button title -->
@@ -273,6 +279,8 @@
   <string name="NodeSelector.statusLabel">Düğüm Bağlantı Durumu</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Düğümleri</string>
+  <string name="no_limit">Limit yok</string>
+  <string name="original_amount">Orijinal değeri: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Hatalı Ödeme İsteği</string>
   <!-- Error opening payment protocol file message -->
@@ -291,6 +299,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">desteklenmeyen imza türü</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">güvenilmeyen sertifika</string>
+  <string name="processed">Işlenmiş</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Cüzdanınızı güvene almak için parola şifre gerekiyor. Ayarlara gidip parolayı açınız.</string>
   <!-- No Passcode set warning title -->
@@ -347,6 +356,7 @@
   <string name="Receive.textButton">Metin Mesajı</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Al</string>
+  <string name="received">Alınan</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Tamamlandı</string>
   <!-- Recover wallet header -->
@@ -483,6 +493,7 @@
   <string name="Send.UsedAddress.secondLIne">Yeniden kullanım hem sizin hem de alıcının gizliliğini azaltır ve alıcı adresini doğrudan kontrol etmezse kayıplara neden olabilir.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adres Zaten Kullanıldı</string>
+  <string name="sent">Gönderilen</string>
   <!-- About label -->
   <string name="Settings.about">Hakkında</string>
   <!-- Advanced Settings title -->

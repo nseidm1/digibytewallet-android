@@ -64,6 +64,8 @@
   <string name="Alerts.sendSuccessSubheader">டிஜிபைட் அனுப்பப்பட்டது</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">கைரேகை அங்கீகரிக்கப்பட்டது</string>
+  <string name="all">அனைத்தும்
+</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON  வரிசையமைப்பு பிழை</string>
   <!-- Wallet not ready error message -->
@@ -127,6 +129,7 @@
 </string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">பெட்டியில் உங்கள் ID ஐ மையப்படுத்தவும்</string>
+  <string name="completed">முடிந்தது</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">அனுப்ப வேண்டிய தொகை:
 </string>
@@ -146,6 +149,8 @@
   <string name="ConfirmPaperPhrase.label">எல்லாவற்றையும் சரியாக எழுதியுள்ளீர்கள் என்பதை உறுதி செய்ய, உங்கள் தனிப்பட்ட மீட்பு விசைக்கு பின்வரும் வார்த்தைகளை உள்ளிடவும்.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">வார்த்தை #%1$@</string>
+  <string name="current_amount">தற்போதைய மதிப்பு: %s</string>
+  <string name="date">தேதி</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">டிஜிபைட் காட்சி பிரிவு</string>
   <!--
@@ -253,6 +258,8 @@
   <string name="ManageWallet.textFeildLabel">வாலட் பெயர்</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">வாலட்டை கையாளு</string>
+  <string name="max">அதிகபட்ச</string>
+  <string name="max_send_enabled">கான்பிக்கும் பொத்தான்: அதிகபட்சம் அனுப்பவும்</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">டிஜிபைட் ஐ வாங்கு</string>
   <!-- Menu button title -->
@@ -288,6 +295,8 @@
   <string name="NodeSelector.statusLabel">இணைப்பு நிலை</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">டிஜிபைட் நோடுகள்</string>
+  <string name="no_limit">வரம்பு அற்ற</string>
+  <string name="original_amount">அசல் மதிப்பு: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">தவறான கட்டண கோரிக்கை</string>
   <!-- Error opening payment protocol file message -->
@@ -307,6 +316,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">ஆதரிக்கப்படாத கையொப்ப வகை</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">நம்பகமில்லாத சான்றிதழ்</string>
+  <string name="processed">செயலாக்கபட்ட</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">உங்கள் வாலட்டை பாதுகாக்க கருவியின் கடவுக்குறியீடு தேவை. அமைப்புகளுக்கு சென்று கடவுக்குறியீட்டை இயக்கவும்.</string>
   <!-- No Passcode set warning title -->
@@ -364,6 +374,7 @@
   <string name="Receive.textButton">உரை செய்தி</string>
   <!-- Receive modal title -->
   <string name="Receive.title">பெறுக</string>
+  <string name="received">பெற்றது</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">முடிந்தது</string>
   <!-- Recover wallet header -->
@@ -501,6 +512,7 @@
   <string name="Send.UsedAddress.secondLIne">உங்களுக்கும் பெறுநருக்குமான தனியுரிமையைக் குறைப்பதன் மூலம் மறு-பயன்பாடு குறைக்கப்படுகிறது மேலும் பெறுநர் நேரடியாக முகவரிகளை கட்டுப்படுத்தாவிட்டால் இழப்பு ஏற்படலாம்.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">முகவரி ஏற்கனவே பயன்படுத்தப்பட்டுள்ளது</string>
+  <string name="sent">அனுப்பியது</string>
   <!-- About label -->
   <string name="Settings.about">பற்றி</string>
   <!-- Advanced Settings title -->

@@ -62,6 +62,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Alerts.sendSuccessSubheader">डिजिबाइट पाठविले</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">बोटांचे ठसे ओळखले</string>
+  <string name="all">सर्व</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON क्रमवारीकरण त्रुटी</string>
   <!-- Wallet not ready error message -->
@@ -128,6 +129,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
 </string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">बॉक्समध्ये आपला आई डी केंद्रित करा</string>
+  <string name="completed">"पूर्ण झाले "</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">पाठविण्याची रक्कम:</string>
   <!-- Network Fee: ($1.00) -->
@@ -146,6 +148,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ConfirmPaperPhrase.label">आपण लिहिलेली माहिती बरोबर आहे की नाही हे तपासण्यासाठी  कृपया  आपल्या वैयक्तिक रिकव्हरी संचातून खालील शब्द नोंदवा.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">शब्द #%1$s</string>
+  <string name="current_amount">वर्तमान शुल्क: %s</string>
+  <string name="date">दिनांक</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">DigiByte डिस्प्ले यूनिट</string>
   <!--
@@ -253,6 +257,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ManageWallet.textFeildLabel">वॉलेट नाव</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">वॉलेट  व्यवस्थापित  करा</string>
+  <string name="max">अधिक</string>
+  <string name="max_send_enabled">"बटन दाखवा: अधिक पाठवा "</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">डिजिबाइट खरेदी करा</string>
   <!-- Menu button title -->
@@ -288,6 +294,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="NodeSelector.statusLabel">नोड कनेक्शन स्थिती</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">डीजीबाइट नोड्स</string>
+  <string name="no_limit">"कोणतीही मर्यादा नाही "</string>
+  <string name="original_amount">मूळ किंमत: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">खराब देयक विनंती</string>
   <!-- Error opening payment protocol file message -->
@@ -307,6 +315,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">असहाय्यक स्वाक्षरी प्रकार</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">अविश्वासपात्र  प्रमाणपत्र</string>
+  <string name="processed">प्रक्रिया केली</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">आपले वॉलेट संरक्षित करण्यासाठी  पासकोडची आवश्यकता आहे. सेटिंग्ज वर जा आणि पासकोड चालू करा.</string>
   <!-- No Passcode set warning title -->
@@ -363,6 +372,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Receive.textButton">पाठ संदेश</string>
   <!-- Receive modal title -->
   <string name="Receive.title">मिळणे</string>
+  <string name="received">प्राप्त झाले</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">पूर्ण झाले</string>
   <!-- Recover wallet header -->
@@ -502,6 +512,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Send.UsedAddress.secondLIne">पुनर्वापर आपण आणि प्राप्तकर्ता दोन्हीसाठी गोपनीयता कमी करतो आणि  जर प्राप्तकर्ता पत्त्यावर नियंत्रण ठेवत नाही, तर परिणामी त्याचे नुकसान होऊ शकते.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">पत्ता आधीपासूनच वापरला आहे</string>
+  <string name="sent">पाठवले</string>
   <!-- About label -->
   <string name="Settings.about">संबंधित</string>
   <!-- Advanced Settings title -->
@@ -663,7 +674,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">% 1 $ s प्राप्त झाले</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription"><b>%1$s</b> प्राप्त झाले</string>
+  <string name="TransactionDetails.receivedAmountDescription"><b>% 1 $ s &lt;/ b&gt; प्राप्त झाले</string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">
 % 1 $ s  पाठविले</string>

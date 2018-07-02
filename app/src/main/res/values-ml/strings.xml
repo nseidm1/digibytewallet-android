@@ -64,6 +64,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Alerts.sendSuccessSubheader">ഡിജിബൈറ്റ് അയച്ചു!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">വിരലടയാളം തിരിച്ചറിഞ്ഞു</string>
+  <string name="all">എല്ലാം</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON സീരിയലൈസേഷൻ പിശക്</string>
   <!-- Wallet not ready error message -->
@@ -126,6 +127,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Button.yes">അതെ</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">"ബോക്സിൽ നിങ്ങളുടെ ID രേഖപ്പെടുത്തുക "</string>
+  <string name="completed">പൂർത്തിയായി</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">അയയ്ക്കേണ്ട തുക:</string>
   <!-- Network Fee: ($1.00) -->
@@ -144,6 +146,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ConfirmPaperPhrase.label">എല്ലാം ശരിയായി എഴുതിയിട്ടുണ്ടെന്ന് ഉറപ്പുവരുത്താൻ, നിങ്ങളുടെ പ്രൈവറ്റ് റിക്കവറി കീയിൽ നിന്ന് തിരഞ്ഞെടുക്കുന്ന വാക്കുകൾ ദയവായി രേഖപ്പെടുത്തുക.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">വാക്ക് #%1$s</string>
+  <string name="current_amount">ഇപ്പോഴത്തെ മൂല്യം: %s</string>
+  <string name="date">തീയതി</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">ഡിജിബൈറ്റ് ഡിസ്പ്ലേ യൂണിറ്റ്</string>
   <!--
@@ -246,6 +250,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ManageWallet.textFeildLabel">വാലറ്റിന്‍റെ പേര്</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">വാലറ്റ് കൈകാര്യം ചെയ്യുക</string>
+  <string name="max">മിക്കവരും</string>
+  <string name="max_send_enabled">ബട്ടൺ കാണിക്കുക: പരമാവധി അയയ്ക്കുക</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">ഡിജിബൈറ്റ് വാങ്ങുക</string>
   <!-- Menu button title -->
@@ -280,6 +286,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="NodeSelector.statusLabel">നോഡ് കണക്ഷൻ സ്റ്റാറ്റസ്</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">ഡിജിബൈറ്റ് നോഡുകൾ</string>
+  <string name="no_limit">പരിധിയില്ല</string>
+  <string name="original_amount">മുമ്പത്തെ മൂല്യം: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">"അപൂർണമായ പേയ്മെന്‍ററ്റ് അഭ്യർത്ഥന "</string>
   <!-- Error opening payment protocol file message -->
@@ -298,6 +306,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">"പിന്തുണയ്ക്കാത്ത തരം സിഗ്നേച്ചർ "</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">വിശ്വസനീയമല്ലാത്ത സർട്ടിഫിക്കറ്റ്</string>
+  <string name="processed">പ്രോസസ്സ് ചെയ്തു</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">നിങ്ങളുടെ വാലറ്റ് സംരക്ഷിക്കാൻ ഒരു ഉപകരണ പാസ്കോഡ് ആവശ്യമാണ്. സെറ്റിംങ്ങ്സിലേക്ക് പോയി പാസ്കോഡ് ഓൺ ചെയ്യുക.</string>
   <!-- No Passcode set warning title -->
@@ -355,6 +364,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Receive.textButton">ടെക്‌സ്റ്റ്‌ സന്ദേശം</string>
   <!-- Receive modal title -->
   <string name="Receive.title">സ്വീകരിക്കുക</string>
+  <string name="received">ലഭിച്ചു</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"പൂർത്തീകരിച്ചു "</string>
   <!-- Recover wallet header -->
@@ -491,6 +501,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Send.UsedAddress.secondLIne">പുനർ-ഉപയോഗം നിങ്ങൾക്കും സ്വീകർത്താവിനും ഉള്ള സ്വകാര്യത കുറയ്ക്കും കൂടാതെ സ്വീകർത്താവ് നേരിട്ട് വിലാസം നിയന്ത്രിക്കാത്ത പക്ഷം നഷ്ട്ടമുണ്ടായെക്കാം.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">വിലാസം ഇതിനകം ഉപയോഗിച്ചതാണ്</string>
+  <string name="sent">അയച്ചു</string>
   <!-- About label -->
   <string name="Settings.about">സംബന്ധിച്ച്</string>
   <!-- Advanced Settings title -->
@@ -646,11 +657,11 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">ലഭിച്ചു %1$s</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription">ലഭിച്ചു  <b>%1$s</b></string>
+  <string name="TransactionDetails.receivedAmountDescription">ലഭിച്ചു  <b>%1$s <b></string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">അയച്ചു %1$s</string>
   <!-- Sent $5.00 -->
-  <string name="TransactionDetails.sentAmountDescription">അയച്ചു <b>%1$s</b></string>
+  <string name="TransactionDetails.sentAmountDescription">അയച്ചു <b>%1$s <b></string>
   <!-- Status section header -->
   <string name="TransactionDetails.statusHeader">പദവി</string>
   <!-- Transaction Details Title -->

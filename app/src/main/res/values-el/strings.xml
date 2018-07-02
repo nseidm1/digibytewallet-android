@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">Τα DigiByte εστάλησαν!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Το δαχτυλικό αποτύπωμα αναγνωρίστηκε</string>
+  <string name="all">ΟΛΑ</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Σφάλμα σειριακού JSON</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">Ναί</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Κεντράρισε το QR code μέσα στο πλαίσιο</string>
+  <string name="completed">Ολοκληρώθηκε</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Ποσό προς αποστολή:</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">Για να βεβαιωθείς ότι όλα έχουν καταγραφεί σωστά, γράψε τις ακόλουθες λέξεις από το κλειδί χαρτιού.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Λέξη #%1$s</string>
+  <string name="current_amount">Παρούσα Αξία: %s</string>
+  <string name="date">Ημερομηνία</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Μονάδα προβολής DigiByte</string>
   <!--
@@ -241,6 +245,8 @@
   <string name="ManageWallet.textFeildLabel">Όνομα πορτοφολιού</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Διαχείρηση πορτοφολιού</string>
+  <string name="max">Μέγιστο</string>
+  <string name="max_send_enabled">Εμφάνιση Κουμπιού: Αποστολή Μέγιστου</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Αγορά DigiByte</string>
   <!-- Menu button title -->
@@ -275,6 +281,8 @@
   <string name="NodeSelector.statusLabel">Κατάσταση σύνδεσης κόμβου</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Κόμβοι DigiByte</string>
+  <string name="no_limit">Χωρίς Όριο</string>
+  <string name="original_amount">Αρχική Αξία: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Εσφαλμένη αίτηση πληρωμής</string>
   <!-- Error opening payment protocol file message -->
@@ -293,6 +301,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Μη υποστηριζόμενος τύπος υπογραφής</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Αναξιόπιστο πιστοποιητικό</string>
+  <string name="processed">Επεξεργάστηκε</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Για τη διασφάλιση του πορτοφολιού σου απαιτείται συνθηματικό συσκευής.  Ενεργοποίησέ τον στις ρυθμίσεις.</string>
   <!-- No Passcode set warning title -->
@@ -349,6 +358,7 @@
   <string name="Receive.textButton">Γραπτό Μύνημα</string>
   <!-- Receive modal title -->
   <string name="Receive.title">ΛΗΨΗ</string>
+  <string name="received">ΕΛΗΦΘΗΣΑΝ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Έγινε</string>
   <!-- Recover wallet header -->
@@ -486,6 +496,7 @@
   <string name="Send.UsedAddress.secondLIne">Η επαναχρησιμοποίηση μειώνει το απόρρητο τόσο για εσάς όσο και για τον παραλήπτη και μπορεί να έχει ως αποτέλεσμα απώλεια εάν ο παραλήπτης δεν ελέγχει απευθείας τη διεύθυνση.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Η Διεύθυνση Χρησιμοποιείται Ήδη</string>
+  <string name="sent">ΣΤΑΛΘΗΚΑΝ</string>
   <!-- About label -->
   <string name="Settings.about">Περί</string>
   <!-- Advanced Settings title -->

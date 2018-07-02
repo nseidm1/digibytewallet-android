@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte Poslan!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Prstni odtis prepoznan</string>
+  <string name="all">VSE</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Napaka pri JSON Serializaciji</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">Da</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Postavite vaš ID na sredino okvirja</string>
+  <string name="completed">Dokončano</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Znesek Pošiljanja:</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">Da bi zagotovili točnost zapisanih besed, prosimo vnesite naslednje besede iz vašeGA Osebnega Obnovitvenega Ključa.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Beseda #%1$s</string>
+  <string name="current_amount">Trenutna vrednost: %s</string>
+  <string name="date">Datum</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">DigiByte Enota Prikaza</string>
   <!--
@@ -239,6 +243,8 @@
   <string name="ManageWallet.textFeildLabel">Ime Denarnice</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Upravljaj z Denarnico</string>
+  <string name="max">največja</string>
+  <string name="max_send_enabled">Gumb Pokaži: pošlji največ</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Kupi DigiByte</string>
   <!-- Menu button title -->
@@ -273,6 +279,8 @@
   <string name="NodeSelector.statusLabel">Status Povezave Vozlišča</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Vozlišča</string>
+  <string name="no_limit">Ni omejitev</string>
+  <string name="original_amount">Izvirna vrednost: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Napačna Zahteva za Plačilo</string>
   <!-- Error opening payment protocol file message -->
@@ -291,6 +299,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">nepodprt tip podpisa</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">nezaupen certifikat</string>
+  <string name="processed">Predelana</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Naprava mora imeti geslo, da zaščitite vašo denarnico. Pojdite v nastavitve in vklopite geslo.</string>
   <!-- No Passcode set warning title -->
@@ -347,6 +356,7 @@
   <string name="Receive.textButton">SMS sporočilo</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Prejmi</string>
+  <string name="received">PRIHAJAJO</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Končano</string>
   <!-- Recover wallet header -->
@@ -483,6 +493,7 @@
   <string name="Send.UsedAddress.secondLIne">Ponovno uporabljanje naslovov zmanjša zasebnost za vas in prejemnika in lahko pripelje do izgube v primeru, da prejemnik nima neposrednega dostopa do naslova.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Naslov je že bil Uporabljen</string>
+  <string name="sent">POLSANO</string>
   <!-- About label -->
   <string name="Settings.about">O DigiByte-u</string>
   <!-- Advanced Settings title -->

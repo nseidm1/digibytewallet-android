@@ -61,6 +61,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Alerts.sendSuccessSubheader">دیجی بایت ارسال شد</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">اثر انگشت تشخیص داده شد.</string>
+  <string name="all">همه</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSONSerializationError</string>
   <!-- Wallet not ready error message -->
@@ -123,6 +124,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Button.yes">بله</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">شناسه کاربری خود را در مرکز باکس قرار دهید</string>
+  <string name="completed">تکمیل شده</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">مقدار ارسال:</string>
   <!-- Network Fee: ($1.00) -->
@@ -141,6 +143,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ConfirmPaperPhrase.label">برای اطمینان از اینکه همه چیز درست یادداشت شده، کلمات زیر را از از کلید بازگردانی خصوصی وارد نمایید.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">کلمه #%1$s</string>
+  <string name="current_amount">ارزش فعلی: %s</string>
+  <string name="date">تاریخ</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">واحد نمایش دیجی بایت</string>
   <!--
@@ -246,6 +250,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ManageWallet.textFeildLabel">نام کیف پول</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">مدیریت کیف پول</string>
+  <string name="max">حداکثر</string>
+  <string name="max_send_enabled">نمایش دکمه: حداکثر ارسال</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">خرید دیجی بایت</string>
   <!-- Menu button title -->
@@ -280,6 +286,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="NodeSelector.statusLabel">وضعیت اتصال گره</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">گره های دیجی بایت</string>
+  <string name="no_limit">بدون محدودیت</string>
+  <string name="original_amount">ارزش اصلی: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">خطا در درخواست پرداخت</string>
   <!-- Error opening payment protocol file message -->
@@ -298,6 +306,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">امضاء غیرقابل پشتیبانی</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">مجوز غیر قابل اعتماد</string>
+  <string name="processed">فرآوری شده</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">برای حفاظت از کیف پولتان نیاز به کد عبور می باشد. به تنظیمات رفته و کد عبور را فعال کنید.</string>
   <!-- No Passcode set warning title -->
@@ -354,6 +363,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Receive.textButton">پیام متنی</string>
   <!-- Receive modal title -->
   <string name="Receive.title">دریافت</string>
+  <string name="received">اخذ شده</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">انجام شد</string>
   <!-- Recover wallet header -->
@@ -490,6 +500,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Send.UsedAddress.secondLIne">استفاده مداوم باعث کاهش حریم خصوصی برای شما و گیرنده می شود و ممکن است، درصورت عدم کنترل مستقیم گیرنده بر آدرس، باعث خسارت شود.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">آدرس قبلا استفاده شده است</string>
+  <string name="sent">ارسال شد</string>
   <!-- About label -->
   <string name="Settings.about">درباره</string>
   <!-- Advanced Settings title -->

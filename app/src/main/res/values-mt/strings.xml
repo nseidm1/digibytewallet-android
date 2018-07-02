@@ -60,6 +60,7 @@ Dan il-proġett huwa sors miftuħ, tista \'tirrevedi l-kodiċi hawn: https://git
   <string name="Alerts.sendSuccessSubheader">DigiByte mibgħuti!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Marki tas-swaba rikonoxxuti</string>
+  <string name="all">Kollha</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON Serialization Error</string>
   <!-- Wallet not ready error message -->
@@ -123,6 +124,7 @@ Dan il-proġett huwa sors miftuħ, tista \'tirrevedi l-kodiċi hawn: https://git
   <string name="Button.yes">Iva</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Ċentru l-ID tiegħek fil-kaxxa</string>
+  <string name="completed">Kompletament</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Ammont li Ibgħat:</string>
   <!-- Network Fee: ($1.00) -->
@@ -142,6 +144,8 @@ Dan il-proġett huwa sors miftuħ, tista \'tirrevedi l-kodiċi hawn: https://git
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">
 Kelma # %1$s</string>
+  <string name="current_amount">Valur Kurrenti: %s</string>
+  <string name="date">Data</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">DigiByte Display Unit</string>
   <!--
@@ -247,6 +251,8 @@ Kelma # %1$s</string>
   <string name="ManageWallet.textFeildLabel">Isem tal-kartiera</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Immaniġġa l-kartiera</string>
+  <string name="max">Mass</string>
+  <string name="max_send_enabled">Buttuna tal-wirja: Ibgħat massimu</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Ixtri DigiByte
 </string>
@@ -285,6 +291,8 @@ Kelma # %1$s</string>
   <string name="NodeSelector.statusLabel">L-Istatus tal-Konnessjoni tan-Nodi</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Nodi DigiByte</string>
+  <string name="no_limit">Nru Limitu</string>
+  <string name="original_amount">Valur Oriġinali: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Talba għall-Ħlas ħażina</string>
   <!-- Error opening payment protocol file message -->
@@ -304,6 +312,7 @@ Kelma # %1$s</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">ċertifikazzjoni mhux affidabbli
 </string>
+  <string name="processed">Ipproċessat</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Passcode ta \'l-apparat huwa meħtieġ biex jissalvagwardja l-kartiera tiegħek. Mur fil-settings u dawwar il-passcode On.</string>
   <!-- No Passcode set warning title -->
@@ -362,6 +371,7 @@ Kelma # %1$s</string>
   <string name="Receive.textButton">Text Messaġġ</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Irċievi</string>
+  <string name="received">Irċevuta</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Magħmul</string>
   <!-- Recover wallet header -->
@@ -502,6 +512,7 @@ Kelma # %1$s</string>
 </string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">L-indirizz diġà użat</string>
+  <string name="sent">Mibgħut</string>
   <!-- About label -->
   <string name="Settings.about">Dwar</string>
   <!-- Advanced Settings title -->

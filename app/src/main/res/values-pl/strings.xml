@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">Wysłano DigiByte!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Rozpoznano odcisk palca</string>
+  <string name="all">Wszystko</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Błąd serializacji JSON</string>
   <!-- Wallet not ready error message -->
@@ -123,6 +124,7 @@ Nie można pobrać tokenu API</string>
   <string name="Button.yes">Tak</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">"Umieść swoje ID w oknie "</string>
+  <string name="completed">Zakończony</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Ilość do wysłania:</string>
   <!-- Network Fee: ($1.00) -->
@@ -141,6 +143,8 @@ Nie można pobrać tokenu API</string>
   <string name="ConfirmPaperPhrase.label">Aby upewnić się, że zapisałeś słowa poprawnie, wpisz następujące słowa z Twojego Osobistego Klucza Odzyskiwania.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Słowo # %1$s</string>
+  <string name="current_amount">Aktualna wartość: %s</string>
+  <string name="date">Data</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">"Waluta do wyświetlenia DiGiByte "</string>
   <!--
@@ -241,6 +245,8 @@ Nie można pobrać tokenu API</string>
   <string name="ManageWallet.textFeildLabel">Nazwa portfela</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Zarządzaj portfelem</string>
+  <string name="max">Maks</string>
+  <string name="max_send_enabled">Pokaż przycisk: Wyślij maksimum</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Kup DigiByte</string>
   <!-- Menu button title -->
@@ -275,6 +281,8 @@ Nie można pobrać tokenu API</string>
   <string name="NodeSelector.statusLabel">Status połączenia z węzłem</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">Węzły DigiByte</string>
+  <string name="no_limit">Bez limitu</string>
+  <string name="original_amount">Oorspronkelijke waarde: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Błędne żądanie płatności.</string>
   <!-- Error opening payment protocol file message -->
@@ -293,6 +301,7 @@ Nie można pobrać tokenu API</string>
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">nieobsługiwany typ podpisu</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">niezaufany certyfikat</string>
+  <string name="processed">Obrobiony</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Aby chronić Twój portfel wymagany jest kod. Idź do ustawień aby włączyć kod.</string>
   <!-- No Passcode set warning title -->
@@ -349,6 +358,7 @@ Nie można pobrać tokenu API</string>
   <string name="Receive.textButton">Tekst wiadomości</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Odbierz</string>
+  <string name="received">Odebrane</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Gotowe</string>
   <!-- Recover wallet header -->
@@ -485,6 +495,7 @@ Nie można pobrać tokenu API</string>
   <string name="Send.UsedAddress.secondLIne">Ponowne użycie zmniejsza prywatność zarówno Twoją, jak i odbiorcy i może doprowadzić do straty, jeśli odbiorca nie będzie bezpośrednio kontrolować adresu.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adres jest zajęty</string>
+  <string name="sent">Wysłane</string>
   <!-- About label -->
   <string name="Settings.about">O Nas</string>
   <!-- Advanced Settings title -->

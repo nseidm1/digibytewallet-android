@@ -60,6 +60,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Alerts.sendSuccessSubheader">"ڈیجی بائٹ بھیج دئے گیۓ ہیں "</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">"فنگر پرنٹ کی شناخت ہو گئی ہے "</string>
+  <string name="all">سب</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">مسئلہ JSON Serialization</string>
   <!-- Wallet not ready error message -->
@@ -122,6 +123,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Button.yes">"ہاں "</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">باکس کے  درمیان  میں اپنی  شناخت کریں</string>
+  <string name="completed">" تیار"</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">بھیجنے کی رقم:</string>
   <!-- Network Fee: ($1.00) -->
@@ -140,6 +142,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ConfirmPaperPhrase.label">اس بات کا یقین کرنے کے لئے کہ ہر چیز درست طریقے سے لکھی گئی ہے، براہ کرم اپنے پرسونل ریکوری کی سے درج ذیل الفاظ درج کریں.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">لفظ# %1$s</string>
+  <string name="current_amount">موجودہ قیمت: %s</string>
+  <string name="date">تاریخ</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">ڈیجی بائٹ ڈسپلےیونٹ</string>
   <!--
@@ -240,6 +244,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ManageWallet.textFeildLabel">والیٹ کا نام</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">"والیٹ منیج "</string>
+  <string name="max">زیادہ سے زیادہ</string>
+  <string name="max_send_enabled">دکھائیں بٹن: زیادہ سے زیادہ بھیجیں</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">ڈیجی بائٹ خریدیں</string>
   <!-- Menu button title -->
@@ -274,6 +280,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="NodeSelector.statusLabel">نوڈ کنکشن کی حالت</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">"ڈیجی بائٹ نوڈ "</string>
+  <string name="no_limit">کوئی حد نہیں</string>
+  <string name="original_amount">حقیقی قدر: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">خراب ادائیگی</string>
   <!-- Error opening payment protocol file message -->
@@ -292,6 +300,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">غیر معاون دستخط کی قسم</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">غیر یقینی سرٹیفکیٹ</string>
+  <string name="processed">تیار</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">آپ کےوالیٹ کی حفاظت کے لئے ایک ڈیوائس پاس ورڈ ضروری ہے. ترتیبات میں جائیں اور پاس ورڈ کو آن کریں.</string>
   <!-- No Passcode set warning title -->
@@ -348,6 +357,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Receive.textButton">ٹیکسٹ میسج</string>
   <!-- Receive modal title -->
   <string name="Receive.title">وصول کریں</string>
+  <string name="received">موصول ہوا</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"سب Done ہو گیا "</string>
   <!-- Recover wallet header -->
@@ -484,6 +494,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Send.UsedAddress.secondLIne">اگر ایڈریس وصول کنندہ کے کنٹرول میں نہیں ہے توایک ہی ایڈریس کا بار بار استمال وصول کنندہ ور بھیجنے والے کی پرائیویسی کو کم کرسکتا ہے جو کے نقصان دہ ہے.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">پتہ پہلے سے ہی استعمال کیا جاتا ہے</string>
+  <string name="sent">بھیجا</string>
   <!-- About label -->
   <string name="Settings.about">متعلقہ</string>
   <!-- Advanced Settings title -->

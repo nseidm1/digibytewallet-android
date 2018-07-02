@@ -357,7 +357,7 @@
   <string name="Receive.textButton">Tekstbericht</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Ontvangen</string>
-  <string name="received">Ontvangen</string>
+  <string name="received">ONTVANGEN</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Klaar</string>
   <!-- Recover wallet header -->

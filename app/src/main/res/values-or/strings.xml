@@ -62,6 +62,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Alerts.sendSuccessSubheader">"DigiByte ପଠାଇଲୁ "</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">"ଟିପ ଚିହ୍ନ ଚିହ୍ନିଲାଉ "</string>
+  <string name="all">ସମସ୍ତ</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON 	କ୍ରମାନ୍ୱୟ ତ୍ରୁଟି</string>
   <!-- Wallet not ready error message -->
@@ -124,6 +125,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Button.yes">ହଁ</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">ଏହି ବୋକ୍ସ ରେ ଆପଣନ୍କ ଆଇ.ଡି. ରଖନ୍ତୁ</string>
+  <string name="completed">ସମାପ୍ତ</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">ପରିମାଣ ପଠାଇବା</string>
   <!-- Network Fee: ($1.00) -->
@@ -142,6 +144,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ConfirmPaperPhrase.label">"ସବୁ ବିଷୟ ସଠିକ ଲେଖା ଗୋଲ ନିଶ୍ଚୟ କରିବା ପାଇଁ , ଆପଣାର ନିଜର recovery key  ର ନିମ୍ନଲିଖିତ ଶବ୍ଦ ପ୍ରବେଶ କରନ୍ତୁ "</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">ଶବ୍ଦ # %୧$s</string>
+  <string name="current_amount">ଏବେକା ପରିମାଣ : %s</string>
+  <string name="date">ତାରିଖ</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">ୱାଲେଟ୍  ଡିସପ୍ଲେ  ୟୁନିଟ୍</string>
   <!--
@@ -245,6 +249,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="ManageWallet.textFeildLabel">ୱାଲେଟ୍ ନାମ</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">ୱାଲେଟ୍ ନିୟନ୍ତ୍ରଣ</string>
+  <string name="max">ସର୍ବାଧିକ</string>
+  <string name="max_send_enabled">ପ୍ରଦର୍ଶନ ବଟନ୍ : ସର୍ବାଧିକ ପଠାନ୍ତୁ</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">କିଣନ୍ତୁ</string>
   <!-- Menu button title -->
@@ -279,6 +285,8 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="NodeSelector.statusLabel">ନୋଡ 	ଜୋଡ଼ ସ୍ଥିତି</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">ନୋଡ୍</string>
+  <string name="no_limit">ସୀମା ଅନିର୍ଧାରିତ</string>
+  <string name="original_amount">ମୂଳ  ପରିମାଣ : %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">ଭୁଲ୍ ପରିଶୋଧ ଅନୁରୋଧ</string>
   <!-- Error opening payment protocol file message -->
@@ -298,6 +306,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">ସାହାଯ୍ୟହୀନ ହସ୍ତାକ୍ଷର</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">"ଅବିଶ୍ବାସ୍ୟ ପ୍ରମାଣପତ୍ର "</string>
+  <string name="processed">ପ୍ରକ୍ରମ ସରିଲା</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">"ଆପଣାର ମୁନି କୁ ପ୍ରବନ୍ଧ କରିବା ପାଇଁ ଯନ୍ତ୍ର ସଂଙ୍କତ ଶବ୍ଦ ର ଅଭାବ "</string>
   <!-- No Passcode set warning title -->
@@ -354,6 +363,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <string name="Receive.textButton">"ପାଠ୍ୟ ସନ୍ଦେଶ "</string>
   <!-- Receive modal title -->
   <string name="Receive.title">"ଗ୍ରହଣ କରିବା "</string>
+  <string name="received">ଗ୍ରହଣ କଲେ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">"ସମାପ୍ତ "</string>
   <!-- Recover wallet header -->
@@ -492,6 +502,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
  ତା ଠିକଣା ସିଧାସଳଖ ନିୟନ୍ତ୍ରଣ ନ କରେ.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">ଏହି ଠିକଣା ଆଗରୁ ଅଛି</string>
+  <string name="sent">"	ପଠାଇଲେ"</string>
   <!-- About label -->
   <string name="Settings.about">ଚତୁର୍ଦିଗରେ</string>
   <!-- Advanced Settings title -->

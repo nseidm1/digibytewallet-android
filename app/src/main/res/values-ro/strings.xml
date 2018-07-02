@@ -61,6 +61,7 @@ Datele criptate de la DigiWallet au fost recent invalidate deoarece ecranul de b
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Amprenta recunoscută
 </string>
+  <string name="all">Toate</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Eroare de serializare JSON</string>
   <!-- Wallet not ready error message -->
@@ -124,6 +125,7 @@ Datele criptate de la DigiWallet au fost recent invalidate deoarece ecranul de b
   <string name="Button.yes">Da</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Centrați-vă cartea de identitate în chenar</string>
+  <string name="completed">Terminat</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Suma de trimis:</string>
   <!-- Network Fee: ($1.00) -->
@@ -142,6 +144,8 @@ Datele criptate de la DigiWallet au fost recent invalidate deoarece ecranul de b
   <string name="ConfirmPaperPhrase.label">Pentru a vă asigura că totul a fost scris corect, vă rugăm să introduceți următoarele cuvinte din Cheia personală de recuperare.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Cuvântul #%1$s</string>
+  <string name="current_amount">Valoarea curentă: %s</string>
+  <string name="date">Data</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Unitatea de afișare DigiByte</string>
   <!--
@@ -243,6 +247,8 @@ Această opțiune nu este recomandată pentru tranzacțiile sensibile la timp.</
   <string name="ManageWallet.textFeildLabel">Numele Portofelului</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Administrați Portofelul</string>
+  <string name="max">maxim</string>
+  <string name="max_send_enabled">Butonul de expunere: Trimite maxim</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Cumpărați DigiByte</string>
   <!-- Menu button title -->
@@ -278,6 +284,8 @@ Această opțiune nu este recomandată pentru tranzacțiile sensibile la timp.</
   <string name="NodeSelector.statusLabel">Statut Node de conexiune</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Nodes</string>
+  <string name="no_limit">Fara limita</string>
+  <string name="original_amount">Valoare originală: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Solicitare de plată greșită
 </string>
@@ -300,6 +308,7 @@ Această opțiune nu este recomandată pentru tranzacțiile sensibile la timp.</
 </string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">certificare nesigură</string>
+  <string name="processed">Prelucrate</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">"Este nevoie de parola dispozitivului pentru a vă proteja portofelul. Accesați setările și activați parola.  "</string>
   <!-- No Passcode set warning title -->
@@ -361,6 +370,7 @@ Această opțiune nu este recomandată pentru tranzacțiile sensibile la timp.</
   <string name="Receive.textButton">Mesaj Text</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Primit</string>
+  <string name="received">Primit</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Finalizat</string>
   <!-- Recover wallet header -->
@@ -503,6 +513,7 @@ Această opțiune nu este recomandată pentru tranzacțiile sensibile la timp.</
   <string name="Send.UsedAddress.secondLIne">"Re-folosirea reduce securizarea atât pentru dvs., cât și pentru destinatar și poate aduce pierderi, dacă destinatarul nu deține controlul direct al adresei.   "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adresă deja folosită</string>
+  <string name="sent">Trimis</string>
   <!-- About label -->
   <string name="Settings.about">Despre</string>
   <!-- Advanced Settings title -->

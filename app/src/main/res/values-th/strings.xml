@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">โอนเงินเรียบร้อย</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">ลายนิ้วมือได้รับการยอมรับ</string>
+  <string name="all">ทั้งหมด</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">อ่านค่า JSON ผิดพลาด</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">ใช่</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">จัดไอดีของคุณให้อยู่กึ่งกลางช่อง</string>
+  <string name="completed">เสร็จ</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">จำนวนที่จะส่ง:</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">เพื่อตรวจสอบว่าทุกอย่างถูกเขียนอย่างถูกต้อง\n กรุณาป้อนคำดังต่อไปนี้จากคีย์กู้คืนส่วนบุคคลของคุณ</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">คำ #%1$s</string>
+  <string name="current_amount">มูลค่าปัจจุบัน: %s</string>
+  <string name="date">วันที่</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">หน่วยแสดงผลของ DigiByte</string>
   <!--
@@ -239,6 +243,8 @@
   <string name="ManageWallet.textFeildLabel">ชื่อกระเป๋าเงิน</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">บริหารกระเป๋าเงิน</string>
+  <string name="max">สูงสุด</string>
+  <string name="max_send_enabled">ปุ่มแสดง: ส่งสูงสุด</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">ซื้อ DigiByte</string>
   <!-- Menu button title -->
@@ -273,6 +279,8 @@
   <string name="NodeSelector.statusLabel">สถานะการเชื่อมต่อของ Node</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Nodes</string>
+  <string name="no_limit">ไม่มีขีด จำกัด</string>
+  <string name="original_amount">มูลค่าเดิม: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">การ้องขอชำระเงินไม่ถูกต้อง</string>
   <!-- Error opening payment protocol file message -->
@@ -291,6 +299,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">ประเภทของลายเซ็นไม่สนับสนุน</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">ใบรับรองไม่น่าเชื่อถือ</string>
+  <string name="processed">เสร็จ</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">รหัสผ่านสำหรับอุปกรณ์มีความจำเป็นเพื่อปกป้องกระเป๋าเงินของคุณ\n ไปที่ \"การตั้งค่า\" และเปิดใช้งานรหัสผ่าน</string>
   <!-- No Passcode set warning title -->
@@ -347,6 +356,7 @@
   <string name="Receive.textButton">ข้อความผ่านตัวหนังสือ</string>
   <!-- Receive modal title -->
   <string name="Receive.title">รับ</string>
+  <string name="received">ที่ได้รับ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">สำเร็จ</string>
   <!-- Recover wallet header -->
@@ -483,6 +493,7 @@
   <string name="Send.UsedAddress.secondLIne">การใช้งานที่อยู่เดิมซ้ำๆกันทั้งของคุณและของผู้รับอาจจะส่งผลให้เกิดความสูญเสียในกรณีที่ที่อยู่นั้นไม่ได้อยู่ในควบคุมโดยตรงของผู้รับ</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">ที่อยู่นี้ถูกใช้แล้ว</string>
+  <string name="sent">ส่ง</string>
   <!-- About label -->
   <string name="Settings.about">นี่คือ DigiWallet ซึ่งเป็นกระเป๋าถือสำหรับ DigiByte</string>
   <!-- Advanced Settings title -->

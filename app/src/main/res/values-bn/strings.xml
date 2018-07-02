@@ -280,7 +280,7 @@
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte নোড</string>
   <string name="no_limit">সীমাহীন</string>
-  <string name="original_amount">প্রকৃত মূল্য:</string>
+  <string name="original_amount">বর্তমান মূল্য: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">ত্রূটিপূর্ণ পেমেন্ট অনুরোধ</string>
   <!-- Error opening payment protocol file message -->

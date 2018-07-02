@@ -60,6 +60,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte đã gửi!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Dấu vân tay đã được nhận diện</string>
+  <string name="all">Tất cả các</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">Lỗi ký tự JSON</string>
   <!-- Wallet not ready error message -->
@@ -122,6 +123,7 @@
   <string name="Button.yes">Có</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Canh ID của bạn vào giữa khung</string>
+  <string name="completed">Đã hoàn thành</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Số lượng cần gửi</string>
   <!-- Network Fee: ($1.00) -->
@@ -140,6 +142,8 @@
   <string name="ConfirmPaperPhrase.label">Nhằm đảm bảo mọi thứ đã được ghi chép chính xác, vui lòng nhập các từ trong mã khôi phục ví của bạn.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Từ khóa %1$s</string>
+  <string name="current_amount">Giá trị hiện tại: %s</string>
+  <string name="date">Ngày tháng</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">Đơn vị hiển thị DiGiByte</string>
   <!--
@@ -242,6 +246,8 @@ Bất kỳ ứng dụng \'root\' nào cũng có thể truy cập dữ liệu c�
   <string name="ManageWallet.textFeildLabel">Tên ví</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Quản lý ví</string>
+  <string name="max">Tối đa</string>
+  <string name="max_send_enabled">Nút hiển thị: Gửi tối đa</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Mua DigiByte</string>
   <!-- Menu button title -->
@@ -276,6 +282,8 @@ Bất kỳ ứng dụng \'root\' nào cũng có thể truy cập dữ liệu c�
   <string name="NodeSelector.statusLabel">Trạng thái kết nối Node</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Node</string>
+  <string name="no_limit">Không giới hạn</string>
+  <string name="original_amount">Giá trị ban đầu: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Yêu cầu thanh toán không hợp lệ</string>
   <!-- Error opening payment protocol file message -->
@@ -294,6 +302,7 @@ Bất kỳ ứng dụng \'root\' nào cũng có thể truy cập dữ liệu c�
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Kiểu chữ ký không được hỗ trợ</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Certificate không đáng tin cậy</string>
+  <string name="processed">Sẵn sàng</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Bạn cần phải bảo vệ ví của bạn bằng mã bảo vệ thiết bị. Hãy vào Cài đặt và bật mật mã bảo vệ thiết bị lên.</string>
   <!-- No Passcode set warning title -->
@@ -350,6 +359,7 @@ Bất kỳ ứng dụng \'root\' nào cũng có thể truy cập dữ liệu c�
   <string name="Receive.textButton">Tin nhắn văn bản</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Nhận</string>
+  <string name="received">Nhận</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Hoàn tất</string>
   <!-- Recover wallet header -->
@@ -486,6 +496,7 @@ Bất kỳ ứng dụng \'root\' nào cũng có thể truy cập dữ liệu c�
   <string name="Send.UsedAddress.secondLIne">Việc sử dụng lại làm giảm sự riêng tư của cả bạn và người nhận và cũng là nguyên nhân của việc mất dữ liệu nếu người nhận không trực tiếp kiểm tra địa chỉ.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Địa chỉ đã được sử dụng</string>
+  <string name="sent">Gởi</string>
   <!-- About label -->
   <string name="Settings.about">Giới thiệu</string>
   <!-- Advanced Settings title -->

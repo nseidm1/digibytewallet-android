@@ -61,6 +61,7 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="Alerts.sendSuccessSubheader">DigiByte elküldve!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Ujjlenyomat felismerve</string>
+  <string name="all">MINDEN</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON Sorszámozási hiba</string>
   <!-- Wallet not ready error message -->
@@ -123,6 +124,7 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="Button.yes">Igen</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Mozgasd az Igazolványod a doboz közepére</string>
+  <string name="completed">Befejezték</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">Küldendő összeg:</string>
   <!-- Network Fee: ($1.00) -->
@@ -141,6 +143,8 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="ConfirmPaperPhrase.label">Annak ellenőrzése képpen, hogy minden helyesen lett leírva kérlek add meg a következő szavakat a Személyi Visszaállító Kulcsodból.</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Szó #%1$s</string>
+  <string name="current_amount">Jelenlegi érték: %s</string>
+  <string name="date">Dátum</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">DigiByte Kijelző Egység</string>
   <!--
@@ -242,6 +246,8 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="ManageWallet.textFeildLabel">Tárca neve</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Tárca kezelése</string>
+  <string name="max">max</string>
+  <string name="max_send_enabled">Gomb megjelenítése: Maximum küldése</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Digibyte vásárlása</string>
   <!-- Menu button title -->
@@ -276,6 +282,8 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="NodeSelector.statusLabel">Csomópont csatlakozás állapota</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Csomópontok</string>
+  <string name="no_limit">Határ nélül</string>
+  <string name="original_amount">Eredeti érték: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Rossz Fizetési Kérelem</string>
   <!-- Error opening payment protocol file message -->
@@ -294,6 +302,7 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Nem támogatott aláírás típus</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Megbízhatatlan tanusítvány</string>
+  <string name="processed">Feldolgozott</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">Jelszó szükséges a tárca védelme érdekében. A Beállításokban kapcsold be a jelszóvédelmet.</string>
   <!-- No Passcode set warning title -->
@@ -350,6 +359,7 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="Receive.textButton">Szöveges üzenet</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Fogadás</string>
+  <string name="received">KAPOTT</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Kész</string>
   <!-- Recover wallet header -->
@@ -486,6 +496,7 @@ https://github.com/Racecraft/digibytewallet-android
   <string name="Send.UsedAddress.secondLIne">A címek újbóli felhasználása csökkenti az adatvédelmet mind a címzett és saját magad számára ami veszteséget okozhat amennyiben a címzett nem cím közvetlen felügyelője.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Ez a cím már használva volt</string>
+  <string name="sent">KÜLDÖTT</string>
   <!-- About label -->
   <string name="Settings.about">Névjegy</string>
   <!-- Advanced Settings title -->

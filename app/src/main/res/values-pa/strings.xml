@@ -60,6 +60,7 @@
   <string name="Alerts.sendSuccessSubheader">ਡੀਜੀਬਾਈਟ ਭੇਜੇ ਗਏ</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">ਉਂਗਲੀ ਮਾਨਤਾ ਪ੍ਰਾਪਤ</string>
+  <string name="all">ਸਭ</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">ਜਾਵਾ ਸੀਰੀਅਲ ਗਲਤੀ</string>
   <!-- Wallet not ready error message -->
@@ -123,6 +124,7 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="Button.yes">ਹਾਂ</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">ਬਾਕਸ ਦੇ ਸੈਂਟਰ ਵਿਚ ਆਪਣੀ ID ਕਰੋ</string>
+  <string name="completed">ਮੁਕੰਮਲ</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">ਭੇਜਣ ਦੀ ਰਕਮ:</string>
   <!-- Network Fee: ($1.00) -->
@@ -141,6 +143,8 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="ConfirmPaperPhrase.label">ਇਹ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਕਿ ਹਰ ਚੀਜ਼ ਸਹੀ ਢੰਗ ਨਾਲ ਲਿਖੀ ਗਈ ਸੀ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਪਰਸਨਲ ਰੀਕਵਰੀ ਕੀ ਤੋਂ ਹੇਠਲੇ ਸ਼ਬਦ ਦਾਖਲ ਕਰੋ</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">ਸ਼ਬਦ #%1$s</string>
+  <string name="current_amount">ਮੌਜੂਦਾ ਮੁੱਲ: %s</string>
+  <string name="date">ਤਾਰੀਖ</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">ਡਿਜਬਾਇਟ ਡਿਸਪਲੇ ਯੂਨਿਟ</string>
   <!--
@@ -242,6 +246,8 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="ManageWallet.textFeildLabel">ਵਾਲਿਟ ਨਾਮ</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">ਵਾਲਿਟ  ਮੈਨੇਜਰ ਕਰਣਾ</string>
+  <string name="max">ਵੱਧ ਤੋਂ ਵੱਧ</string>
+  <string name="max_send_enabled">ਬਟਨ ਦਿਖਾਓ: ਅਧਿਕਤਮ ਭੇਜੋ</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">ਡਿਜੀਬਾਇਟ ਖਰੀਦੋ</string>
   <!-- Menu button title -->
@@ -276,6 +282,8 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="NodeSelector.statusLabel">ਨੋਡ ਕਨੈਕਸ਼ਨ ਸਟੇਟਸ</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">ਡਿਜੀਬਾਈਟ ਨੋਡਜ਼</string>
+  <string name="no_limit">ਕੋਈ ਸੀਮਾ ਨਹੀਂ</string>
+  <string name="original_amount">ਪਿਛਲਾ ਮਾਨ: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">ਮਾੜਾ ਭੁਗਤਾਨ ਬੇਨਤੀ</string>
   <!-- Error opening payment protocol file message -->
@@ -294,6 +302,7 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">ਨਾ ਸਹਿਯੋਗੀ ਦਸਤਖਤ ਪ੍ਰਕਾਰ</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">ਬੇਭਰੋਸੇਯੋਗ ਸਰਟੀਫਿਕੇਟ</string>
+  <string name="processed">ਮੁਕੰਮਲ</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">ਤੁਹਾਡੇ ਵਾਲਿਟ ਦੀ ਰਾਖੀ ਲਈ ਇੱਕ ਡਿਵਾਈਸ ਪਾਸਕੋਡ ਦੀ ਲੋੜ ਹੈ ਸੈਟਿੰਗਾਂ ਤੇ ਜਾਓ ਅਤੇ ਪਾਸਕੋਡ ਚਾਲੂ ਕਰੋ</string>
   <!-- No Passcode set warning title -->
@@ -350,6 +359,7 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="Receive.textButton">ਟੈਕਸਟ ਮੈਸੇਜ</string>
   <!-- Receive modal title -->
   <string name="Receive.title">ਪ੍ਰਾਪਤ ਕਰੋ</string>
+  <string name="received">ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">ਕੀਤਾ</string>
   <!-- Recover wallet header -->
@@ -491,6 +501,7 @@ API ਟੋਕਨ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਮ�
   <string name="Send.UsedAddress.secondLIne">ਮੁੜ-ਵਰਤੋਂ ਤੁਹਾਡੇ ਅਤੇ ਪ੍ਰਾਪਤਕਰਤਾ ਦੋਵਾਂ ਲਈ ਗੋਪਨੀਯਤਾ ਘਟਾਉਂਦਾ ਹੈ ਅਤੇ ਨਤੀਜਾ ਹੋ ਸਕਦਾ ਹੈ ਜੇ ਪ੍ਰਾਪਤਕਰਤਾ ਪਤੇ \'ਤੇ ਸਿੱਧਾ ਕਾਬੂ ਨਹੀਂ ਰੱਖਦਾ</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">ਪਤਾ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਹੈ</string>
+  <string name="sent">ਭੇਜੇ ਗਏ</string>
   <!-- About label -->
   <string name="Settings.about">ਬਾਰੇ</string>
   <!-- Advanced Settings title -->

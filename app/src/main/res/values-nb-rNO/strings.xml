@@ -59,6 +59,7 @@
   <string name="Alerts.sendSuccessSubheader">DigiByte sendt!</string>
   <!-- Fingerprint was recognized by the scanner -->
   <string name="Alerts.touchIdSucceeded.android">Fingeravtrykk er godkjent</string>
+  <string name="all">Alle</string>
   <!-- JSON Serialization error message -->
   <string name="ApiClient.jsonError">JSON Serialization Error</string>
   <!-- Wallet not ready error message -->
@@ -121,6 +122,7 @@
   <string name="Button.yes">Ja</string>
   <!-- Camera plugin instruction -->
   <string name="CameraPlugin.centerInstruction">Sentrer din ID i boksen</string>
+  <string name="completed">fullført</string>
   <!-- Amount to Send: ($1.00) -->
   <string name="Confirmation.amountLabel">"Beløp som skal sendes: "</string>
   <!-- Network Fee: ($1.00) -->
@@ -139,6 +141,8 @@
   <string name="ConfirmPaperPhrase.label">"For å sikre at alt ble skrevet riktig, vennligst skriv inn følgende ord fra din private nøkkel. "</string>
   <!-- Word label eg. Word #1, Word #2 -->
   <string name="ConfirmPaperPhrase.word">Ord #%1$s</string>
+  <string name="current_amount">Nåværende verdi: %s</string>
+  <string name="date">Dato</string>
   <!-- Bitcoin denomination picker label -->
   <string name="DefaultCurrency.bitcoinLabel">DigiByte Display Unit</string>
   <!--
@@ -239,6 +243,8 @@
   <string name="ManageWallet.textFeildLabel">Navnet på lommeboken</string>
   <!-- Manage wallet modal title -->
   <string name="ManageWallet.title">Endre lommebok</string>
+  <string name="max">Max</string>
+  <string name="max_send_enabled">Vis knapp: Send Maksimal</string>
   <!-- Buy bitcoin title -->
   <string name="MenuButton.buy">Kjøp DigiByte</string>
   <!-- Menu button title -->
@@ -273,6 +279,8 @@
   <string name="NodeSelector.statusLabel">Node tilkoblingsstatus</string>
   <!-- Node Selector view title -->
   <string name="NodeSelector.title">DigiByte Noder</string>
+  <string name="no_limit">Ingen grense</string>
+  <string name="original_amount">Opprinnelig verdi: %s</string>
   <!-- Bad Payment request alert title -->
   <string name="PaymentProtocol.Errors.badPaymentRequest">Betalings forespørsel feilet</string>
   <!-- Error opening payment protocol file message -->
@@ -291,6 +299,7 @@
   <string name="PaymentProtocol.Errors.unsupportedSignatureType">Signaturtypen støttes ikke</string>
   <!-- Untrusted certificate payment protocol error message -->
   <string name="PaymentProtocol.Errors.untrustedCertificate">Usikkert sertifikat</string>
+  <string name="processed">Bearbeidet</string>
   <!-- No passcode set warning body -->
   <string name="Prompts.NoPasscode.body">En PIN kode er nødvendig for å sikre din DigiByte lommebok. Vennligst gå inn på innstillinger og slå på PIN kode.</string>
   <!-- No Passcode set warning title -->
@@ -347,6 +356,7 @@
   <string name="Receive.textButton">Melding</string>
   <!-- Receive modal title -->
   <string name="Receive.title">Motta</string>
+  <string name="received">Mottatt</string>
   <!-- Done button text -->
   <string name="RecoverWallet.done">Fullført</string>
   <!-- Recover wallet header -->
@@ -484,6 +494,7 @@ Betalingsmottakerens identitet er ikke sertifisert.</string>
   <string name="Send.UsedAddress.secondLIne">"Gjenbruk reduserer personvernet for både deg og mottaker, og kan resultere i tap hvis mottakeren ikke har full kontroll på adressen. "</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adressen er allerede i bruk</string>
+  <string name="sent">Sendt</string>
   <!-- About label -->
   <string name="Settings.about">Om</string>
   <!-- Advanced Settings title -->
