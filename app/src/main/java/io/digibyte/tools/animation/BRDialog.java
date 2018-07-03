@@ -53,7 +53,11 @@ public class BRDialog {
             dialog.setPosListener(posListener);
             dialog.setNegListener(negListener);
             dialog.setDismissListener(dismissListener);
-            dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+            try {
+                dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+            } catch (IllegalStateException e) {
+
+            }
         });
 
     }
@@ -71,7 +75,11 @@ public class BRDialog {
             dialog.setPosListener(posListener);
             dialog.setNegListener(negListener);
             dialog.setDismissListener(dismissListener);
-            dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+            try {
+                dialog.show(((Activity) app).getFragmentManager(), dialog.getClass().getName());
+            } catch (IllegalStateException e) {
+
+            }
         });
     }
 }

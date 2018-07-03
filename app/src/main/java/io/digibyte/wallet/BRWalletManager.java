@@ -94,11 +94,11 @@ import io.digibyte.tools.util.Utils;
 
 public class BRWalletManager {
     private static final String TAG = BRWalletManager.class.getName();
-    private static final String DIGIEXPLORER_URL = "https://explorer-1.us.digibyteservers.io";
+    private static String DIGIEXPLORER_URL = "https://explorer-1.us.digibyteservers.io";
+    private static final String DIGIEXPLORER_URL_FALLBACK = "https://explorer-2.us.digibyteservers.io";
 
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners;
-    private Handler handler = new Handler(Looper.getMainLooper());
     private boolean initingWallet = false;
     private boolean initingPeerManager = false;
 
@@ -542,6 +542,9 @@ public class BRWalletManager {
             createBRPeerManager();
             BRPeerManager.getInstance().connect();
         } catch (Throwable e) {
+            e.printStackTrace();
+            initingPeerManager = false;
+            initingWallet = false;
             //TODO if the wallet fails to init, wtf to do?
         }
     }
@@ -613,10 +616,14 @@ public class BRWalletManager {
         // If there's no stored blocks query public keys for transactions
         // and if there's no transactions sync from the head of the DigiByte blockchain
         // otherwise sync from the oldest block associated with the transactions
-        if (MerkleBlockDataSource.getInstance(DigiByte.getContext()).getAllMerkleBlocks().size()
-                == 0) {
+        if (MerkleBlockDataSource.getInstance(DigiByte.getContext()).getAllMerkleBlocks().size() == 0) {
+            pingToUpdateExplorerDomain();
             LinkedList<String> transactionsData = getAllTransactions();
-            if (transactionsData.size() == 0) {
+            if (transactionsData == null) {
+                //If null returns an exception occurred connecting to the block explorer
+                //Init the peer manager using the standard checkpoint mechanic
+                BRPeerManager.getInstance().create(walletTime, blocksCount, peersCount);
+            } else if (transactionsData.size() == 0) {
                 createPeerManagerFromCurrentHeadBlock(walletTime, blocksCount, peersCount);
             } else {
                 createPeerManagerFromOldestBlock(transactionsData, walletTime, blocksCount,
@@ -634,19 +641,36 @@ public class BRWalletManager {
         initingPeerManager = false;
     }
 
-    private LinkedList<String> getAllTransactions() throws JSONException {
+    private void pingToUpdateExplorerDomain() {
+        try {
+            BRApiManager.getInstance().getBlockInfo(
+                    DigiByte.getContext(), DIGIEXPLORER_URL);
+        } catch(Exception e) {
+            DIGIEXPLORER_URL = DIGIEXPLORER_URL_FALLBACK;
+        }
+    }
+
+    private LinkedList<String> getAllTransactions() {
         String[] addresses = getPublicAddresses();
         LinkedList<String> transactions = new LinkedList<>();
         if (BuildConfig.DEBUG) {
             Log.d(BRWalletManager.class.getSimpleName(), Arrays.toString(addresses));
         }
-        for (String address : addresses) {
-            JSONObject transactionsData = new JSONObject(BRApiManager.getInstance().getBlockInfo(
-                    DigiByte.getContext(), DIGIEXPLORER_URL + "/api/addr/" + address));
-            JSONArray transactionsJson = transactionsData.getJSONArray("transactions");
-            for (int i = 0; i < transactionsJson.length(); i++) {
-                transactions.add(transactionsJson.getString(i));
+        try {
+            for (String address : addresses) {
+                JSONObject transactionsData = new JSONObject(
+                        BRApiManager.getInstance().getBlockInfo(
+                                DigiByte.getContext(), DIGIEXPLORER_URL + "/api/addr/" + address));
+                JSONArray transactionsJson = transactionsData.getJSONArray("transactions");
+                for (int i = 0; i < transactionsJson.length(); i++) {
+                    transactions.add(transactionsJson.getString(i));
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+            //Returning 0 transactions should just use the last snapshot
+            //An exception here likely means the server is down, or network connectivity isn't available
         }
         return transactions;
     }
