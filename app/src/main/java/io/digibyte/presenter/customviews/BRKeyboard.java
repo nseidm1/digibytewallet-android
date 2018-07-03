@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.digibyte.R;
+import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.tools.util.Utils;
 
 
@@ -93,6 +94,7 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
         num8 = root.findViewById(R.id.num8);
         num9 = root.findViewById(R.id.num9);
         numDot = root.findViewById(R.id.numDot);
+        numDot.setText(Character.toString(ActivityUTILS.getDecimalSeparator()));
         numDelete = root.findViewById(R.id.numDelete);
 
         num0.setOnClickListener(this);
@@ -346,5 +348,4 @@ public class BRKeyboard extends BRRelativeLayout implements View.OnClickListener
     public void setDeleteImage(int resId) {
         numDelete.setImageResource(resId);
     }
-
 }

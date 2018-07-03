@@ -1,6 +1,7 @@
 package io.digibyte.presenter.activities.util;
 
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import io.digibyte.R;
 import io.digibyte.presenter.activities.BasePinActivity;
@@ -193,5 +198,24 @@ public class ActivityUTILS {
         }
 
         return isvm;
+    }
+
+    public static char getDecimalSeparator() {
+        NumberFormat nf = NumberFormat.getInstance();
+        if (nf instanceof DecimalFormat) {
+            DecimalFormatSymbols sym = ((DecimalFormat) nf).getDecimalFormatSymbols();
+            return sym.getDecimalSeparator();
+        }
+        return '.';
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private static Locale getCurrentLocale(Context c) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return c.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            //noinspection deprecation
+            return c.getResources().getConfiguration().locale;
+        }
     }
 }
