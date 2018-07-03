@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import io.digibyte.BR;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
+import io.digibyte.presenter.activities.util.ActivityUTILS;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.util.BRCurrency;
 import io.digibyte.tools.util.BRExchange;
@@ -110,9 +111,14 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
         return DigiByte.getContext().getString(R.string.Send_fee).replace("%1$s", approximateFee);
     }
 
-    @Bindable
     public String getAmount() {
         return amountBuilder.toString().replace("'", "");
+    }
+
+    @Bindable
+    public String getDisplayAmount() {
+        return amountBuilder.toString().replace(".",
+                Character.toString(ActivityUTILS.getDecimalSeparator())).replace("'", "");
     }
 
     @Bindable
@@ -151,6 +157,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     private boolean validAmount() {
         try {
+
             new BigDecimal(getAmount());
             return true;
         } catch (Exception e) {
@@ -174,7 +181,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     }
 
     public void handleDeleteClick() {
-        if (!validAmount()) {
+        if (TextUtils.isEmpty(getAmount())) {
             return;
         }
         amountBuilder.deleteCharAt(getAmount().length() - 1);
@@ -213,14 +220,15 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
     }
 
     public void populateMaxAmount() {
-        BigDecimal maxAvailable =new BigDecimal(BRWalletManager.getInstance().getBalance(DigiByte.getContext()));
-        if (maxAvailable.intValue() == 0) {
+        BigDecimal maxAvailable = getBalanceForISO().multiply(new BigDecimal(100000000));
+        if (maxAvailable.equals(BigDecimal.ZERO)) {
             return;
         }
         BigDecimal fee = new BigDecimal(BRWalletManager.getInstance().feeForTransactionAmount(maxAvailable.intValue()));
-        setAmount(maxAvailable.subtract(fee).divide(
-                new BigDecimal(100000000)).toString());
-        notifyPropertyChanged(BR.amount);
+        BigDecimal availableConsideringFee = maxAvailable.subtract(fee).divide(
+                new BigDecimal(100000000));
+        setAmount(availableConsideringFee.toString());
+        notifyPropertyChanged(BR.displayAmount);
         notifyPropertyChanged(BR.feeText);
     }
 
@@ -236,7 +244,7 @@ public class SendFragmentModel extends BaseObservable implements Parcelable {
 
     public void updateText() {
         notifyPropertyChanged(BR.isoButtonText);
-        notifyPropertyChanged(BR.amount);
+        notifyPropertyChanged(BR.displayAmount);
         notifyPropertyChanged(BR.isoText);
         notifyPropertyChanged(BR.balanceText);
         notifyPropertyChanged(BR.feeText);

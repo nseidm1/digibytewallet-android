@@ -46,7 +46,7 @@
         <item name="android:background">@drawable/intro_create_button</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="ClickableText">

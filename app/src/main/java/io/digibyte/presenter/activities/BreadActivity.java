@@ -391,7 +391,7 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @Override
     public void onBackPressed() {
         if (bindings.drawerLayout.isDrawerOpen(Gravity.START)) {
-            handler.post(() -> bindings.drawerLayout.closeDrawer(Gravity.LEFT));
+            handler.post(() -> bindings.drawerLayout.closeDrawer(Gravity.START));
         } else {
             super.onBackPressed();
         }

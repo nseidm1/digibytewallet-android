@@ -155,7 +155,7 @@
                         android:inputType="numberDecimal"
                         android:onClick="@{() -> callback.onAmountClickListener()}"
                         android:paddingEnd="20dp"
-                        android:text="@{data.amount}"
+                        android:text="@{data.displayAmount}"
                         android:textColor="@{data.amountEditTextColor}"
                         android:textColorHint="@{data.ISOTextColor}"/>
 
