@@ -674,7 +674,7 @@ https://github.com/Racecraft/digibytewallet-android</string>
   <!-- "Received [$5] at [which of my addresses]" => This is the "Received [$5]" part. -->
   <string name="TransactionDetails.received">% 1 $ s प्राप्त झाले</string>
   <!-- Received $5.00 -->
-  <string name="TransactionDetails.receivedAmountDescription"><b>% 1 $ s &lt;/ b&gt; प्राप्त झाले</string>
+  <string name="TransactionDetails.receivedAmountDescription"><b>%1$s</b> प्राप्त झाले</string>
   <!-- "Sent [$5] to [address]" => This is the "Sent [$5]" part. -->
   <string name="TransactionDetails.sent">
 % 1 $ s  पाठविले</string>
