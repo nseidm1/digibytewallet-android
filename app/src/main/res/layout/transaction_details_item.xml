@@ -47,14 +47,14 @@
                         android:id="@+id/crypto_amount_text"
                         android:layout_width="match_parent"
                         android:layout_height="75dp"
+                        android:ellipsize="marquee"
                         android:gravity="center_horizontal"
                         android:paddingEnd="6dp"
                         android:paddingStart="6dp"
                         android:singleLine="true"
                         android:text="@{data.cryptoAmount}"
                         android:textColor="@color/white"
-                        android:textSize="50sp"
-                        app:autoSizeTextType="uniform"/>
+                        android:textSize="50sp"/>
 
                     <LinearLayout android:layout_width="match_parent"
                                   android:layout_height="match_parent"
@@ -65,27 +65,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:drawablePadding="4dp"
+                            android:ellipsize="marquee"
                             android:gravity="center_horizontal"
                             android:paddingEnd="6dp"
                             android:paddingStart="6dp"
                             android:singleLine="true"
                             android:text="@{data.fiatAmount}"
                             android:textColor="@color/white"
-                            android:textSize="24sp"
-                            app:autoSizeTextType="uniform"/>
+                            android:textSize="24sp"/>
                         <TextView
                             android:id="@+id/original_fiat_amount_text"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:drawablePadding="4dp"
+                            android:ellipsize="marquee"
                             android:gravity="center_horizontal"
                             android:paddingEnd="6dp"
                             android:paddingStart="6dp"
                             android:singleLine="true"
                             android:text="@{data.originalFiatAmount}"
                             android:textColor="@color/white"
-                            android:textSize="24sp"
-                            app:autoSizeTextType="uniform"/>
+                            android:textSize="24sp"/>
 
                     </LinearLayout>
 
