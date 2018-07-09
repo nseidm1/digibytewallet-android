@@ -35,7 +35,7 @@
   <!-- Keystore error -->
   <string name="Alert.keystore.generic.android">Es gibt ein Problem mit Ihrem Android Keystore. Bitte kontaktieren Sie support@digibyte.io</string>
   <!-- KeyStore error, keys are invalidated -->
-  <string name="Alert.keystore.invalidated.android">Ihre DigiWallet-verschlüsselten Daten wurden kürzlich ungültig gemacht, weil Ihr Android-Sperrbildschirm deaktiviert wurde.</string>
+  <string name="Alert.keystore.invalidated.android">Deine DigiWallet-verschlüsselten Daten wurden kürzlich ungültig gemacht, weil deine Android-Sperrbildschirm deaktiviert wurde.</string>
   <!-- Keystore error title -->
   <string name="Alert.keystore.title.android">Android Keystore Fehler</string>
   <!-- No internet alert message -->
@@ -204,7 +204,7 @@
   <!-- password textfield placeholder -->
   <string name="Import.passwordPlaceholder">Passwort</string>
   <!-- Caption for graphics -->
-  <string name="Import.rightCaption">Ihr DigiWallet</string>
+  <string name="Import.rightCaption">Deine DigiWallet</string>
   <!-- Scan Private key button label -->
   <string name="Import.scan">Privaten Schlüssel scannen</string>
   <!-- Import wallet success alert title -->
@@ -421,17 +421,17 @@
   <!-- Security Center Info -->
   <string name="SecurityCenter.info">Aktiviere alle Sicherheitsfunktionen für eine maximale Sicherheit.</string>
   <!-- Paper Key button description -->
-  <string name="SecurityCenter.paperKeyDescription">Der einzige Weg Zugriff auf dein DigiByte zu erlangen, wenn du dein Telefon verlierst oder wechselst.</string>
+  <string name="SecurityCenter.paperKeyDescription">Der einzige Weg Zugriff auf deine DigiByte zu erlangen, falls du dein Telefon verlierst oder wechselst.</string>
   <!-- Paper Key button title -->
   <string name="SecurityCenter.paperKeyTitle">Papierschlüssel</string>
   <!-- PIN button description -->
-  <string name="SecurityCenter.pinDescription">Beschützt dein DigiWallet vor unbefugten Benutzern.</string>
+  <string name="SecurityCenter.pinDescription">Beschützt deine DigiWallet vor unbefugten Benutzern.</string>
   <!-- PIN button title -->
   <string name="SecurityCenter.pinTitle">Sechsstellige PIN</string>
   <!-- Security Center Title -->
   <string name="SecurityCenter.title">Sicherheitscenter</string>
   <!-- Touch ID button description -->
-  <string name="SecurityCenter.touchIdDescription">Entsperren Sie bequem Ihr DigiWallet und senden Sie Geld bis zu einem festgelegten Limit.</string>
+  <string name="SecurityCenter.touchIdDescription">Entsperren Sie bequem deine DigiWallet und senden Sie Geld bis zu einem festgelegten Limit.</string>
   <!-- Touch ID button title -->
   <string name="SecurityCenter.touchIdTitle">Touch ID</string>
   <!-- Security center fingerprint authentication button -->
@@ -494,7 +494,7 @@
   <string name="Send.UsedAddress.secondLIne">Eine Wiederverwendung reduziert die Privatsphäre für dich und den Empfänger und kann zu einem Verlust führen, wenn der Empfänger keinen direkten Zugriff auf die Adresse hat.</string>
   <!-- Adress already used alert title -->
   <string name="Send.UsedAddress.title">Adresse bereits verwendet</string>
-  <string name="sent">GESCHICKT</string>
+  <string name="sent">GESENDET</string>
   <!-- About label -->
   <string name="Settings.about">Über DigiByte</string>
   <!-- Advanced Settings title -->
@@ -542,7 +542,7 @@
   <!-- button label -->
   <string name="StartPaperPhrase.againButtonTitle">Papierschlüssel erneut aufschreiben</string>
   <!-- Paper key explanation text. -->
-  <string name="StartPaperPhrase.body">Dein Papierschlüssel ist der einzige Weg, um dein DigiWallet wiederherzustellen, wenn dein Telefon verloren geht, gestohlen wird, kaputt geht oder gewechselt wird.</string>
+  <string name="StartPaperPhrase.body">Dein Papierschlüssel ist der einzige Weg, um deine DigiWallet wiederherzustellen, wenn dein Telefon verloren geht, gestohlen wird, kaputt geht oder gewechselt wird.</string>
   <!-- button label -->
   <string name="StartPaperPhrase.buttonTitle">Papierschlüssel aufschreiben</string>
   <!-- Argument is date -->
@@ -574,7 +574,7 @@
   <!-- Fingerprint Is Not Setup -->
   <string name="TouchIdSettings.disabledWarning.title.android">Authentifizierung durch Fingerabdruck ist nicht aktiviert</string>
   <!-- Touch Id screen label -->
-  <string name="TouchIdSettings.label">Verwende deinen Fingerabdruck, um dein DigiWallet zu entsperren und Geld bis zu einem gesetzten Limit zu versenden.</string>
+  <string name="TouchIdSettings.label">Verwende deinen Fingerabdruck, um deine DigiWallet zu entsperren und Geld bis zu einem gesetzten Limit zu versenden.</string>
   <!-- Link Text (see TouchIdSettings.customizeText) -->
   <string name="TouchIdSettings.linkText">Touch ID Ausgabelimit ansehen</string>
   <!-- Spending Limit: b100,000 ($100) -->
