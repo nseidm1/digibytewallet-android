@@ -78,6 +78,9 @@ public class FragmentTransactionItem extends Fragment {
         TransactionDetailsItemBinding binding = TransactionDetailsItemBinding.inflate(inflater);
         binding.setData(viewModel);
         binding.setCallback(callback);
+        binding.originalFiatAmountText.setSelected(true);
+        binding.currentFiatAmountText.setSelected(true);
+        binding.cryptoAmountText.setSelected(true);
         binding.amountSwitcher.setDisplayedChild(
                 (BRSharedPrefs.getPreferredBTC(DigiByte.getContext())
                         || viewModel.currentFiatAmountEqualsOriginalFiatAmount() && !BRSharedPrefs.getPreferredBTC(
