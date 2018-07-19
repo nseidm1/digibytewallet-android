@@ -61,11 +61,15 @@ public class TransactionDetailsViewModel extends BaseObservable {
 
     public String getOriginalFiatAmount() {
         DigiTransaction transaction = Database.instance.findTransaction(item.getTxHash());
-        return String.format(DigiByte.getContext().getString(R.string.original_amount), transaction.getTxAmount());
+        return String.format(DigiByte.getContext().getString(R.string.original_amount),
+                transaction == null ? "" : transaction.getTxAmount());
     }
 
     public boolean currentFiatAmountEqualsOriginalFiatAmount() {
         DigiTransaction transaction = Database.instance.findTransaction(item.getTxHash());
+        if (transaction == null) {
+            return true;
+        }
         boolean received = item.getSent() == 0;
         long satoshisAmount = received ? item.getReceived() : (item.getSent() - item.getReceived());
         return transaction.getTxAmount().equals(BRCurrency.getFormattedCurrencyString(DigiByte.getContext(),

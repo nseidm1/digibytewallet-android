@@ -77,8 +77,12 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         binding = FragmentTransactionDetailsBinding.inflate(inflater);
-        binding.setAdapter(new TransactionPagerAdapter(getChildFragmentManager(),
-                getArguments().getParcelableArrayList(TRANSACTIONS_ARRAY)));
+        try {
+            binding.setAdapter(new TransactionPagerAdapter(getChildFragmentManager(),
+                    getArguments().getParcelableArrayList(TRANSACTIONS_ARRAY)));
+        } catch (RuntimeException e) {
+            fadeOutRemove();
+        }
         binding.setTransactionNumber(getArguments().getInt(TRANSACTION_NUMBER, 0));
         binding.txListPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
