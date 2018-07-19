@@ -17,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.text.method.MovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -182,12 +181,13 @@ public class FragmentPin extends Fragment implements OnBackPressListener {
                 binding.dot2, binding.dot3, binding.dot4, binding.dot5, binding.dot6, () -> {
                     if (AuthManager.getInstance().checkAuth(pin.toString(), getContext())) {
                         authComplete = true;
+                        AuthManager.getInstance().authSuccess(getContext());
                         fadeOutRemove(true);
                     } else {
                         SpringAnimator.failShakeAnimation(getActivity(), binding.pinLayout);
                         pin = new StringBuilder("");
                         new Handler().postDelayed(() -> updateDots(), 250);
-                        AuthManager.getInstance().authFail(getActivity());
+                        AuthManager.getInstance().authFail(getContext());
                     }
                 });
     }
