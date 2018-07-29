@@ -80,7 +80,7 @@ public class FragmentTransactionDetails extends Fragment implements OnBackPressL
         try {
             binding.setAdapter(new TransactionPagerAdapter(getChildFragmentManager(),
                     getArguments().getParcelableArrayList(TRANSACTIONS_ARRAY)));
-        } catch (RuntimeException e) {
+        } catch (Throwable e) {
             fadeOutRemove();
         }
         binding.setTransactionNumber(getArguments().getInt(TRANSACTION_NUMBER, 0));

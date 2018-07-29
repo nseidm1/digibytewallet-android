@@ -1,5 +1,6 @@
 package io.digibyte.presenter.fragments.models;
 
+import android.annotation.SuppressLint;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
@@ -54,15 +55,21 @@ public class TransactionDetailsViewModel extends BaseObservable {
                         new BigDecimal(satoshisAmount)));
     }
 
+    @SuppressLint("StringFormatInvalid")
     @Bindable
     public String getFiatAmount() {
         return String.format(DigiByte.getContext().getString(R.string.current_amount), getRawFiatAmount(item));
     }
 
+    @SuppressLint("StringFormatInvalid")
     public String getOriginalFiatAmount() {
         DigiTransaction transaction = Database.instance.findTransaction(item.getTxHash());
-        return String.format(DigiByte.getContext().getString(R.string.original_amount),
-                transaction == null ? "" : transaction.getTxAmount());
+        if (transaction == null) {
+            return String.format(DigiByte.getContext().getString(R.string.original_amount), "");
+        } else {
+            return String.format(DigiByte.getContext().getString(R.string.original_amount),
+                    transaction.getTxAmount());
+        }
     }
 
     public boolean currentFiatAmountEqualsOriginalFiatAmount() {
