@@ -17,6 +17,7 @@
 package io.digibyte.tools.security;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.CancellationSignal;
@@ -105,12 +106,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
         if (!mSelfCancelled) {
             showError(errString);
-            mIcon.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mCallback.onError();
-                }
-            }, ERROR_TIMEOUT_MILLIS);
+            mIcon.postDelayed(() -> mCallback.onError(), ERROR_TIMEOUT_MILLIS);
         }
     }
 
@@ -131,12 +127,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         mErrorTextView.setTextColor(
                 mErrorTextView.getResources().getColor(R.color.success_color, null));
         mErrorTextView.setText(mContext.getString(R.string.Alerts_touchIdSucceeded_android));
-        mIcon.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mCallback.onAuthenticated();
-            }
-        }, SUCCESS_DELAY_MILLIS);
+        mIcon.postDelayed(() -> mCallback.onAuthenticated(), SUCCESS_DELAY_MILLIS);
     }
 
     private void showError(CharSequence error) {
@@ -151,8 +142,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
     Runnable mResetErrorTextRunnable = new Runnable() {
         @Override
         public void run() {
-            mErrorTextView.setTextColor(
-                    mErrorTextView.getResources().getColor(R.color.hint_color, null));
+            mErrorTextView.setTextColor(Color.WHITE);
             mErrorTextView.setText(
                     mContext.getString(R.string.UnlockScreen_touchIdInstructions_android));
             mIcon.setImageResource(R.drawable.ic_fp_40px);

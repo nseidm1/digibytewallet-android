@@ -17,6 +17,7 @@ import io.digibyte.databinding.ActivityPinBinding;
 import io.digibyte.presenter.activities.callbacks.LoginActivityCallback;
 import io.digibyte.presenter.activities.models.PinActivityModel;
 import io.digibyte.presenter.activities.util.BRActivity;
+import io.digibyte.presenter.fragments.FragmentFingerprint;
 import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
@@ -101,6 +102,10 @@ public class LoginActivity extends BRActivity {
     }
 
     private void showFingerprintDialog() {
+        if (getSupportFragmentManager().findFragmentByTag(FragmentFingerprint.class.getName())
+                != null) {
+            return;
+        }
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             AuthManager.getInstance().authPrompt(LoginActivity.this, "", "", new AuthType(
                     AuthType.Type.LOGIN));
