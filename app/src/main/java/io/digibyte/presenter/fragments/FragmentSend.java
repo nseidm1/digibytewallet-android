@@ -5,6 +5,7 @@ import static io.digibyte.tools.security.BitcoinUrlHandler.getRequestFromString;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import java.math.BigDecimal;
 
 import io.digibyte.R;
 import io.digibyte.databinding.FragmentSendBinding;
+import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.presenter.customviews.BRDialogView;
 import io.digibyte.presenter.entities.PaymentItem;
 import io.digibyte.presenter.entities.RequestObject;
@@ -266,6 +268,14 @@ public class FragmentSend extends Fragment implements OnBackPressListener {
         sendFragmentModel = savedInstanceState != null ? savedInstanceState.getParcelable(
                 SEND_FRAGMENT_MODEL) : new SendFragmentModel();
         binding.setData(sendFragmentModel);
+        binding.scan.setOnLongClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            getActivity().startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                    BRActivity.QR_IMAGE_PROCESS);
+            return true;
+        });
         if (getArguments() != null && getArguments()
                 .getString("url") != null) {
             setUrl(getArguments().getString("url"));
