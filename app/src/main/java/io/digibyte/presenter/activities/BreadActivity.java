@@ -28,6 +28,7 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import butterknife.Unbinder;
 import io.digibyte.DigiByte;
 import io.digibyte.R;
@@ -80,6 +81,7 @@ import io.digibyte.wallet.BRWalletManager;
 public class BreadActivity extends BRActivity implements BRWalletManager.OnBalanceChanged,
         BRPeerManager.OnTxStatusUpdate, BRSharedPrefs.OnIsoChangedListener,
         TransactionDataSource.OnTxAddedListener, SyncManager.onStatusListener, onStatusListener {
+
     ActivityBreadBinding bindings;
     private Unbinder unbinder;
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -352,6 +354,16 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     @OnClick(R.id.qr_button)
     void onQRClick(View view) {
         BRAnimator.openScanner(this);
+    }
+
+    @OnLongClick(R.id.qr_button)
+    boolean onQRLongClick() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),
+                BRActivity.QR_IMAGE_PROCESS);
+        return true;
     }
 
     @Override

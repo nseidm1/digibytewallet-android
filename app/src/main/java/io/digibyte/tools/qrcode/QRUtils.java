@@ -134,10 +134,10 @@ public class QRUtils {
     public static void share(String via, Activity app, Uri qrImageUri, String address, String ammount) {
         Intent intent = new Intent();
         if (via.equalsIgnoreCase("sms:")) {
-            intent.setAction(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("sms:"));
-            intent.putExtra("sms_body", String.format(app.getString(R.string.digi_share), address, ammount));
-            intent.putExtra("exit_on_sent", true);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT,
+                    String.format(app.getString(R.string.digi_share), address, ammount));
+            intent.setType("text/plain");
             app.startActivity(intent);
         } else {
             intent.setAction(android.content.Intent.ACTION_SEND);

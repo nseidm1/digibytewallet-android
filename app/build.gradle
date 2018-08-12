@@ -28,8 +28,8 @@ android {
         applicationId = 'io.digibyte'
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 2339
-        versionName "2.0.1b2339"
+        versionCode 2343
+        versionName "2.0.3b2343"
         multiDexEnabled true
         // Similar to other properties in the defaultConfig block,
         // you can configure the ndk block for each product flavor
@@ -206,4 +206,5 @@ dependencies {
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
     implementation 'com.scottyab:rootbeer-lib:0.0.6'
+    implementation group: 'com.google.guava', name: 'guava', version: '23.5-android'
 }

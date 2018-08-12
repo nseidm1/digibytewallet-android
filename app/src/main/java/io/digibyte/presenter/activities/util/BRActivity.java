@@ -3,6 +3,8 @@ package io.digibyte.presenter.activities.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,12 +17,22 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.common.io.ByteStreams;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
+import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
 import com.platform.tools.BRBitId;
 import com.scottyab.rootbeer.RootBeer;
 
+import java.io.InputStream;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.digibyte.R;
+import io.digibyte.presenter.activities.BreadActivity;
 import io.digibyte.presenter.fragments.interfaces.OnBackPressListener;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRAnimator;
@@ -59,6 +71,7 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
         BRAuthCompletion {
     private final String TAG = this.getClass().getName();
     private CopyOnWriteArrayList<OnBackPressListener> backClickListeners = new CopyOnWriteArrayList<>();
+    public static final int QR_IMAGE_PROCESS = 244;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,6 +127,36 @@ public abstract class BRActivity extends AppCompatActivity implements FragmentMa
                             Log.e(TAG, "onActivityResult: not bitcoin address NOR bitID");
                         }
                     }, 500);
+                }
+                break;
+            case QR_IMAGE_PROCESS:
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                    byte[] rawBytes = ByteStreams.toByteArray(inputStream);
+                    Bitmap bMap = BitmapFactory.decodeByteArray(rawBytes, 0, rawBytes.length);
+                    String contents = null;
+                    int[] intArray = new int[bMap.getWidth() * bMap.getHeight()];
+                    //copy pixel data from the Bitmap into the 'intArray' array
+                    bMap.getPixels(intArray, 0, bMap.getWidth(), 0, 0, bMap.getWidth(),
+                            bMap.getHeight());
+
+                    LuminanceSource source = new RGBLuminanceSource(bMap.getWidth(),
+                            bMap.getHeight(), intArray);
+                    BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+                    Reader reader = new MultiFormatReader();
+                    Result result = reader.decode(bitmap);
+                    contents = result.getText();
+                    if (BitcoinUrlHandler.isBitcoinUrl(contents)) {
+                        BRAnimator.showOrUpdateSendFragment(this, contents);
+                    } else if (BRBitId.isBitId(contents)) {
+                        BRBitId.digiIDAuthPrompt(this, contents, false);
+                    } else {
+                        Log.e(BreadActivity.class.getSimpleName(),
+                                "onActivityResult: not bitcoin address NOR bitID");
+                    }
+                } catch (Exception e) {
+
                 }
                 break;
         }
