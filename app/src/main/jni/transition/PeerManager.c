@@ -149,10 +149,10 @@ static void saveBlocks(void *info, int replace, BRMerkleBlock *blocks[], size_t 
 
     if (!env) return;
 
-    // do a memory integrity check and exit, if the data is corrupted in any way
-    if (*memIntegrityCheck == 0xAAAAAAAAAAAAAAAA) {
-        return;
-    }
+//    // do a memory integrity check and exit, if the data is corrupted in any way
+//    if (*memIntegrityCheck == 0xAAAAAAAAAAAAAAAA) {
+//        return;
+//    }
 
     //call java methods
 
