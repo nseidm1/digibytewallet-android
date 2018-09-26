@@ -140,7 +140,7 @@ static void txStatusUpdate(void *info) {
     (*env)->CallStaticVoidMethod(env, _peerManagerClass, mid);
 }
 
-static void saveBlocks(void *info, int replace, BRMerkleBlock *blocks[], size_t count) {
+static void saveBlocks(void *info, int replace, BRMerkleBlock *blocks[], size_t count, uint64_t* memIntegrityCheck) {
     __android_log_print(ANDROID_LOG_DEBUG, "Message from C: ", "saveBlocks");
     if (!_peerManager) return;
 
@@ -149,11 +149,10 @@ static void saveBlocks(void *info, int replace, BRMerkleBlock *blocks[], size_t 
 
     if (!env) return;
 
-//    if (count != 1) {
-//        __android_log_print(ANDROID_LOG_ERROR, "Message from C: ", "deleting %zu blocks", count);
-//        mid = (*env)->GetStaticMethodID(env, _peerManagerClass, "deleteBlocks", "()V");
-//        (*env)->CallStaticVoidMethod(env, _peerManagerClass, mid);
-//    }
+//    // do a memory integrity check and exit, if the data is corrupted in any way
+    if (*memIntegrityCheck != 0xAAAAAAAAAAAAAAAA) {
+        return;
+    }
 
     //call java methods
 
