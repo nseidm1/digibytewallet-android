@@ -94,7 +94,7 @@ public class BRBitId {
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
             byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
-            final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 42, callbackUrl);
+            final byte[] key = BRBIP32Sequence.getInstance().bip32BitIDKey(seed, 0, callbackUrl);
             final String sig = signMessage(bitID, new BRKey(key));
             final String address = new BRKey(key).address();
             final JSONObject postJson = new JSONObject();
