@@ -16,7 +16,7 @@ crashlytics {
 
 android {
     compileSdkVersion = 27
-    buildToolsVersion = '28.0.2'
+    buildToolsVersion = '28.0.3'
 
     dataBinding {
         enabled = true
