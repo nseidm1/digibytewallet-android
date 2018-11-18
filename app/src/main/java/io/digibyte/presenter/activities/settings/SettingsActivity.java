@@ -208,5 +208,9 @@ public class SettingsActivity extends BRActivity {
         items.add(new BRSettingsItem(getString(R.string.Settings_about), "", v -> {
             startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
         }, BRSettingsItem.Type.ITEM));
+
+        items.add(new BRSettingsItem(getString(R.string.Settings_credits), "", v -> {
+            startActivity(new Intent(SettingsActivity.this, CreditsActivity.class));
+        }, BRSettingsItem.Type.ITEM));
     }
 }
