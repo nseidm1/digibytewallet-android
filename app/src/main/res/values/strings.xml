@@ -240,7 +240,31 @@
   <string name="Send.UsedAddress.secondLIne">Re-use reduces privacy for both you and the recipient and can result in loss if the recipient doesn\'t directly control the address.</string>
   <!-- About label -->
   <string name="Settings.about">About</string>
-  <!-- Advanced Settings title -->
+    <!-- Credits label -->
+    <string name="Settings.credits">Credits</string>
+    <!-- Credits content -->
+    <string name="Settings.credits.content">This app was build by DigiByte &amp; Blockchain
+        enthusiasts, unpaid volunteers who devoted their time and skills to a project they believe
+        in.
+    </string>
+
+    <string name="Settings.credits.content.development">Development</string>
+
+    <string name="Settings.credits.content.development.developers">GTO90\nNoah Seidman\nYoshi
+        Jäger\nThomas Ploentzke
+    </string>
+
+    <string name="Settings.credits.content.ui">UI</string>
+
+    <string name="Settings.credits.content.ui.designers">Damir Čengić</string>
+
+    <string name="Settings.credits.content.translations">Translations</string>
+
+    <string name="Settings.credits.content.translations.translators">Glenn\nGTO90\nTwoFace</string>
+
+    <string name="Settings.credits.version">Version %s</string>
+
+    <!-- Advanced Settings title -->
   <string name="Settings.advancedTitle">Advanced Settings</string>
   <!-- i.e. the currency which will be displayed -->
   <string name="Settings.currency">Display Currency</string>

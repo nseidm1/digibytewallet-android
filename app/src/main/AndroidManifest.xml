@@ -149,6 +149,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".presenter.activities.settings.CreditsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".presenter.activities.settings.SecurityCenterActivity"
             android:exported="false"
             android:screenOrientation="portrait">

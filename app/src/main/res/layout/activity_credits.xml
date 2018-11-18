@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable name="version" type="String"/>
+    </data>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/activity_intro_set_pit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:textDirection="locale">
+
+            <include layout="@layout/toolbar"/>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/logo_circle"/>
+
+            <ImageView
+                android:id="@+id/view4"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:src="@drawable/digi_blockchain"/>
+
+            <TextView
+                android:id="@+id/version_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp"
+                android:text="@{@string/Settings_credits_version(version)}"
+                android:textColor="@color/light_gray"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="28dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content"
+                android:textColor="@color/light_gray"/>
+
+            <TextView
+                android:id="@+id/development"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="22dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content.development"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/developers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content.development.developers"
+                android:textColor="@color/light_gray"/>
+
+            <TextView
+                android:id="@+id/ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="14sp"
+                android:layout_marginEnd="22dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content.ui"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/designers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content.ui.designers"
+                android:textColor="@color/light_gray"/>
+
+            <TextView
+                android:id="@+id/translation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="22dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content.translations"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/translators"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="@string/Settings.credits.content.translations.translators"
+                android:textColor="@color/light_gray"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>
+
+
