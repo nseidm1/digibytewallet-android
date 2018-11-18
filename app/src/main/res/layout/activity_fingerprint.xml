@@ -55,7 +55,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/TouchIdSettings.switchLabel.android"/>
 
-                    <ToggleButton
+                    <android.support.v7.widget.SwitchCompat
                         android:id="@+id/toggleButton"
                         android:layout_width="75dp"
                         android:layout_marginEnd="16dp"

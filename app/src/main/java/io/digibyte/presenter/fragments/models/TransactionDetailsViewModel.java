@@ -99,7 +99,12 @@ public class TransactionDetailsViewModel extends BaseObservable {
 
     @Bindable
     public String getAddress() {
-        return getSent() ? item.getTo()[0] : item.getFrom()[0];
+        try {
+            return getSent() ? item.getTo()[0] : item.getFrom()[0];
+        } catch(NullPointerException e) {
+            return "";
+            //Why isn't the address available?
+        }
     }
 
     @Bindable
