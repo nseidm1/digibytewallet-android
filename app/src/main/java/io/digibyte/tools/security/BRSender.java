@@ -16,7 +16,6 @@ import io.digibyte.R;
 import io.digibyte.presenter.entities.PaymentItem;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
 import io.digibyte.tools.animation.BRDialog;
-import io.digibyte.tools.manager.BRApiManager;
 import io.digibyte.tools.manager.BRReportsManager;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.threads.BRExecutor;
@@ -79,27 +78,10 @@ public class BRSender {
         final String[] errMessage = {null};
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(() -> {
             try {
-                long now = System.currentTimeMillis();
-                //if the fee was updated more than 24 hours ago then try updating the fee
-                if (now - BRSharedPrefs.getFeeTime(app) >= FEE_EXPIRATION_MILLIS) {
-                    if (BRApiManager.updateFeePerKb(app)) {
-                        if (updateTxFeeCallback != null) {
-                            handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
-                        }
-                        tryPay(app, request);
-                    } else {
-                        if (updateTxFeeCallback != null) {
-                            handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
-                        }
-                        throw new FeeOutOfDate(BRSharedPrefs.getFeeTime(app),
-                                System.currentTimeMillis());
-                    }
-                } else {
-                    if (updateTxFeeCallback != null) {
-                        handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
-                    }
-                    tryPay(app, request);
+                if (updateTxFeeCallback != null) {
+                    handler.post(() -> updateTxFeeCallback.onTxFeeUpdated());
                 }
+                tryPay(app, request);
                 return; //return so no error is shown
             } catch (InsufficientFundsException ignored) {
                 errTitle[0] = app.getString(R.string.Alerts_sendFailure);
@@ -119,17 +101,19 @@ public class BRSender {
 //                    showFailed(app); //just show failed for now
                 showAdjustFee((Activity) app, request);
                 return;
-            } catch (FeeOutOfDate ex) {
-                //Fee is out of date, show not connected error
-                Crashlytics.logException(ex);
-                BRExecutor.getInstance().forMainThreadTasks().execute(
-                        () -> BRDialog.showCustomDialog(app,
-                                app.getString(R.string.Alerts_sendFailure),
-                                app.getString(R.string.NodeSelector_notConnected),
-                                app.getString(R.string.Button_ok), null,
-                                brDialogView -> brDialogView.dismiss(), null, null, 0));
-                return;
-            } catch (SomethingWentWrong somethingWentWrong) {
+            }
+//            catch (FeeOutOfDate ex) {
+//                //Fee is out of date, show not connected error
+//                Crashlytics.logException(ex);
+//                BRExecutor.getInstance().forMainThreadTasks().execute(
+//                        () -> BRDialog.showCustomDialog(app,
+//                                app.getString(R.string.Alerts_sendFailure),
+//                                app.getString(R.string.NodeSelector_notConnected),
+//                                app.getString(R.string.Button_ok), null,
+//                                brDialogView -> brDialogView.dismiss(), null, null, 0));
+//                return;
+//            }
+            catch (SomethingWentWrong somethingWentWrong) {
                 somethingWentWrong.printStackTrace();
                 Crashlytics.logException(somethingWentWrong);
                 BRExecutor.getInstance().forMainThreadTasks().execute(

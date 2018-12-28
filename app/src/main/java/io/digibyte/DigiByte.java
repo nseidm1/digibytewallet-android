@@ -58,7 +58,7 @@ import io.fabric.sdk.android.Fabric;
 public class DigiByte extends MultiDexApplication implements
         Application.ActivityLifecycleCallbacks {
     public static final String HOST = "digibyte.io";
-    public static final String FEE_URL = "https://go.digibyte.co/bws/api/v2/feelevels";
+    //public static final String FEE_URL = "https://go.digibyte.co/bws/api/v2/feelevels";
     private static final long SYNC_PERIOD = TimeUnit.HOURS.toMillis(24);
 
     private static DigiByte application;
@@ -95,6 +95,7 @@ public class DigiByte extends MultiDexApplication implements
         activeActivity = null;
         registerActivityLifecycleCallbacks(this);
         JobManager.create(this).addJobCreator(new SyncBlockchainJobCreator());
+        BRSharedPrefs.putFeePerKb(this, 40000);
 
         //This is for legacy users that have the boolean set to true, Vibrate permission has been
         // removed
