@@ -9,6 +9,7 @@ import java.util.List;
 import io.digibyte.DigiByte;
 import io.digibyte.presenter.entities.BlockEntity;
 import io.digibyte.presenter.entities.PeerEntity;
+import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.manager.SyncManager;
 import io.digibyte.tools.sqlite.MerkleBlockDataSource;
@@ -102,6 +103,12 @@ public class BRPeerManager {
         }
         BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
                 () -> updateLastBlockHeight(getCurrentBlockHeight()));
+    }
+
+    public static void corruptBlocks() {
+        BRWalletManager.getInstance().wipeBlockAndTrans(DigiByte.getContext(),
+                () -> BRAnimator.startBreadActivity(DigiByte.getContext(),
+                        false));
     }
 
     public static void saveBlocks(final BlockEntity[] blockEntities, final boolean replace) {
