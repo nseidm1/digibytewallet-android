@@ -4,9 +4,11 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 
 import io.digibyte.BR;
 import io.digibyte.R;
+import io.digibyte.presenter.activities.util.ActivityUTILS;
 
 public class ReceiveFragmentModel extends BaseObservable {
 
@@ -89,7 +91,16 @@ public class ReceiveFragmentModel extends BaseObservable {
 
     public void setAmount(String amount) {
         this.amount = amount;
-        notifyPropertyChanged(BR.amount);
+        notifyPropertyChanged(BR.displayAmount);
+    }
+
+    @Bindable
+    public String getDisplayAmount() {
+        if (TextUtils.isEmpty(amount)) {
+            return "";
+        }
+        return amount.replace(".",
+                Character.toString(ActivityUTILS.getDecimalSeparator())).replace("'", "");
     }
 
     @Bindable

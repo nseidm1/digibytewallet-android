@@ -165,7 +165,7 @@ public class FragmentRequestAmount extends FragmentReceive implements OnBackPres
             handleDeleteClick();
         } else if (Character.isDigit(key.charAt(0))) {
             handleDigitClick(Integer.parseInt(key.substring(0, 1)));
-        } else if (key.charAt(0) == '.') {
+        } else if (key.charAt(0) == '.' || key.charAt(0) == ',') {
             handleSeparatorClick();
         }
         updateQRImage();
