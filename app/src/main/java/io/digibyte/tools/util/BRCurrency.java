@@ -138,8 +138,12 @@ public class BRCurrency {
         if (iso.equalsIgnoreCase("DGB")) {
             return 8;
         } else {
-            Currency currency = Currency.getInstance(iso);
-            return currency.getDefaultFractionDigits();
+            try {
+                Currency currency = Currency.getInstance(iso);
+                return currency.getDefaultFractionDigits();
+            } catch(IllegalArgumentException e) {
+                return 2;
+            }
         }
 
     }

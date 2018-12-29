@@ -68,13 +68,13 @@ public class FingerprintActivity extends BRActivity {
             @Override
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
-                ds.setUnderlineText(false);
+                ds.setColor(Color.WHITE);
             }
         };
         //start index of the last space (beginning of the last word)
         int indexOfSpace = binding.limitInfo.getText().toString().lastIndexOf(" ");
         // make the whole text clickable if failed to select the last word
-        ss.setSpan(clickableSpan, indexOfSpace == -1 ? 0 : indexOfSpace,
+        ss.setSpan(clickableSpan, indexOfSpace == -1 ? 0 : indexOfSpace + 1,
                 binding.limitInfo.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         binding.limitInfo.setText(ss);

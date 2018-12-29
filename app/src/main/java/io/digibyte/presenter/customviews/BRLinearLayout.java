@@ -75,5 +75,4 @@ public class BRLinearLayout extends LinearLayout {
         setTranslationX(mXfract*width);
         setTranslationY(mYfract*height);
     }
-
 }
