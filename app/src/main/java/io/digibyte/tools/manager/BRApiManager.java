@@ -26,7 +26,6 @@ import io.digibyte.presenter.entities.CurrencyEntity;
 import io.digibyte.tools.sqlite.CurrencyDataSource;
 import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.tools.util.Utils;
-import io.digibyte.wallet.BRWalletManager;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -111,10 +110,10 @@ public class BRApiManager {
         });
     }
 
-    public void asyncUpdateFeeData(final Context context) {
-        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
-                () -> updateFeePerKb(context));
-    }
+//    public void asyncUpdateFeeData(final Context context) {
+//        BRExecutor.getInstance().forLightWeightBackgroundTasks().execute(
+//                () -> updateFeePerKb(context));
+//    }
 
     private static JSONArray fetchRates(Activity activity) {
         String jsonString = urlGET(activity, "https://" + DigiByte.HOST + "/rates.php");
@@ -128,32 +127,34 @@ public class BRApiManager {
         return jsonArray;
     }
 
-    public static boolean updateFeePerKb(Context app) {
-        String jsonString = urlGET(app, DigiByte.FEE_URL);
-        long fee = 0;
-        long economyFee = 0;
-        try {
-            JSONArray array = new JSONArray(jsonString);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject feeObject = array.getJSONObject(i);
-                switch(feeObject.getString("level")) {
-                    case "economy":
-                        economyFee = feeObject.getLong("feePerKb");
-                        break;
-                    case "normal":
-                        fee = feeObject.getLong("feePerKb");
-                        break;
-                }
-            }
-            BRSharedPrefs.putFeePerKb(app, fee);
-            BRSharedPrefs.putEconomyFeePerKb(app, economyFee);
-            BRWalletManager.getInstance().setFeePerKb(economyFee, false); //todo improve that logic
-            BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the last successful fee fetch
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+//    public static boolean updateFeePerKb(Context app) {
+//        String jsonString = urlGET(app, DigiByte.FEE_URL);
+//        long fee = 0;
+//        long economyFee = 0;
+//        try {
+//            JSONArray array = new JSONArray(jsonString);
+//            for (int i = 0; i < array.length(); i++) {
+//                JSONObject feeObject = array.getJSONObject(i);
+//                switch(feeObject.getString("level")) {
+//                    case "economy":
+//                        economyFee = feeObject.getLong("feePerKb");
+//                        break;
+//                    case "normal":
+//                        fee = feeObject.getLong("feePerKb");
+//                        break;
+//                }
+//            }
+//            BRSharedPrefs.putFeePerKb(app, fee);
+//            BRSharedPrefs.putEconomyFeePerKb(app, economyFee);
+//            BRWalletManager.getInstance().setFeePerKb(economyFee, false); //todo improve that
+// logic
+//            BRSharedPrefs.putFeeTime(app, System.currentTimeMillis()); //store the time of the
+// last successful fee fetch
+//            return true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     public String getBlockInfo(Context app, String blockUrl) {
         return urlGET(app, blockUrl);

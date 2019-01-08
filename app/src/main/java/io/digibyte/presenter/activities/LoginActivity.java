@@ -22,9 +22,10 @@ import io.digibyte.tools.animation.BRAnimator;
 import io.digibyte.tools.animation.SpringAnimator;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.BitcoinUrlHandler;
+import io.digibyte.tools.threads.BRExecutor;
 import io.digibyte.wallet.BRWalletManager;
 
-public class LoginActivity extends BRActivity {
+public class LoginActivity extends BRActivity implements BRWalletManager.OnBalanceChanged {
     private static final String TAG = LoginActivity.class.getName();
     ActivityPinBinding binding;
     private StringBuilder pin = new StringBuilder();
@@ -68,6 +69,13 @@ public class LoginActivity extends BRActivity {
 
         inputAllowed = true;
         BRWalletManager.getInstance().init();
+        BRWalletManager.getInstance().addBalanceChangedListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BRWalletManager.getInstance().removeListener(this);
     }
 
     private final boolean processDeepLink(@Nullable final Intent intent) {
@@ -171,5 +179,27 @@ public class LoginActivity extends BRActivity {
     @Override
     public void onCancel(AuthType authType) {
 
+    }
+
+    @Override
+    public void onBalanceChanged(long balance) {
+
+    }
+
+    @Override
+    public void showSendConfirmDialog(String message, int error, byte[] txHash) {
+        BRExecutor.getInstance().forMainThreadTasks().execute(() -> {
+            BRAnimator.showBreadSignal(LoginActivity.this,
+                    error == 0 ? getString(R.string.Alerts_sendSuccess)
+                            : getString(R.string.Alert_error),
+                    error == 0 ? getString(R.string.Alerts_sendSuccessSubheader)
+                            : message, error == 0 ? R.raw.success_check
+                            : R.raw.error_check, () -> {
+                        try {
+                            getSupportFragmentManager().popBackStack();
+                        } catch (IllegalStateException e) {
+                        }
+                    });
+        });
     }
 }

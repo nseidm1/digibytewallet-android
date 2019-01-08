@@ -114,6 +114,20 @@
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
+                <TextView
+                    android:id="@+id/transaction_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:gravity="center_horizontal"
+                    android:onClick="@{() -> callback.onTransactionIDClick()}"
+                    android:paddingEnd="24dp"
+                    android:paddingStart="24dp"
+                    android:singleLine="true"
+                    android:text="@{data.transactionID}"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
                 <TextView android:id="@+id/fee" android:layout_width="match_parent"
                           android:layout_height="wrap_content"
                           android:gravity="center_horizontal"

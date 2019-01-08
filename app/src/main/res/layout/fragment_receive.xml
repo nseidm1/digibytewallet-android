@@ -88,7 +88,7 @@
                     android:inputType="numberDecimal"
                     android:hint="@{data.isoText}"
                     android:onClick="@{() -> callback.onAmountEditClick()}"
-                    android:text="@{data.amount}"
+                    android:text="@{data.displayAmount}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"/>
 

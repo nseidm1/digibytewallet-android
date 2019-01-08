@@ -379,7 +379,6 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
         DigiByte.SyncBlockchainJob.scheduleJob();
         TxManager.getInstance().updateTxList();
         BRApiManager.getInstance().asyncUpdateCurrencyData(this);
-        BRApiManager.getInstance().asyncUpdateFeeData(this);
         SyncManager.getInstance().startSyncingProgressThread();
     }
 

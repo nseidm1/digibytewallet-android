@@ -61,6 +61,12 @@ public class FragmentTransactionItem extends Fragment {
             BRClipboardManager.putClipboard(getContext(), viewModel.getAddress());
             Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
         }
+
+        @Override
+        public void onTransactionIDClick() {
+            BRClipboardManager.putClipboard(getContext(), viewModel.getTransactionID());
+            Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
+        }
     };
 
     public static FragmentTransactionItem newInstance(TxItem item) {
