@@ -159,7 +159,9 @@ public class ActivityUTILS {
                 context.getString(R.string.JailbreakWarnings_messageWithoutBalance),
                 context.getString(R.string.JailbreakWarnings_close), null,
                 null, null, brDialogView -> {
-                    context.finishAffinity();
+                    if (context != null) {
+                        context.finishAffinity();
+                    }
                 }, 0);
     }
 

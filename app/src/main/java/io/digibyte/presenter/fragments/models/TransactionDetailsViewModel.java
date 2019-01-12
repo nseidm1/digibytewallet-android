@@ -179,14 +179,6 @@ public class TransactionDetailsViewModel extends BaseObservable {
 
     @Bindable
     public String getTransactionID() {
-        return byteArrayToHex(item.getTxHash());
-    }
-
-    public static String byteArrayToHex(byte[] a) {
-        StringBuilder sb = new StringBuilder(a.length * 2);
-        for (byte b : a) {
-            sb.append(String.format("%02x", b));
-        }
-        return sb.toString();
+        return item.txReversed;
     }
 }
