@@ -81,9 +81,16 @@ public class BRBitId {
     public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull final String bitID, boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
         String scheme = "https://";
+        String hasDQueryParam = bitUri.getQueryParameter("d");
+        String displayDomain;
+        if ("antumid.be".equals(bitUri.getHost().toLowerCase()) || "antumid.eu".equals(
+                bitUri.getHost().toLowerCase())) {
+            displayDomain = hasDQueryParam;
+        } else {
+            displayDomain = (scheme + bitUri.getHost()).toLowerCase();
+        }
         AuthManager.getInstance().authPrompt(app, null,
-                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + (scheme
-                        + bitUri.getHost()).toLowerCase(),
+                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + displayDomain,
                 new BRAuthCompletion.AuthType(bitID, isDeepLink,
                         scheme + bitUri.getHost() + bitUri.getPath()));
     }
