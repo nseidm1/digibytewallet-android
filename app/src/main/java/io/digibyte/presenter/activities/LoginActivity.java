@@ -33,9 +33,7 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private LoginActivityCallback callback = () -> {
-        if (AuthManager.isFingerPrintAvailableAndSetup(this)) {
-            showFingerprintDialog();
-        }
+        BRAnimator.openScanner(this);
     };
 
     @Override
