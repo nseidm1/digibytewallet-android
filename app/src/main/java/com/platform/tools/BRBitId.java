@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -83,8 +84,9 @@ public class BRBitId {
         String scheme = "https://";
         String hasDQueryParam = bitUri.getQueryParameter("d");
         String displayDomain;
-        if ("antumid.be".equals(bitUri.getHost().toLowerCase()) || "antumid.eu".equals(
-                bitUri.getHost().toLowerCase())) {
+        if (!TextUtils.isEmpty(hasDQueryParam) && ("antumid.be".equals(
+                bitUri.getHost().toLowerCase()) || "antumid.eu".equals(
+                bitUri.getHost().toLowerCase()))) {
             displayDomain = hasDQueryParam;
         } else {
             displayDomain = (scheme + bitUri.getHost()).toLowerCase();
