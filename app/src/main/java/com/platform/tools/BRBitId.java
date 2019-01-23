@@ -25,6 +25,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Set;
 
 import io.digibyte.R;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
@@ -79,15 +80,25 @@ public class BRBitId {
         return false;
     }
 
-    public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull final String bitID, boolean isDeepLink) {
+    public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull String bitID,
+            boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
         String scheme = "https://";
         String hasDQueryParam = bitUri.getQueryParameter("d");
+        String host = bitUri.getHost().toLowerCase();
         String displayDomain;
-        if (!TextUtils.isEmpty(hasDQueryParam) && ("antumid.be".equals(
-                bitUri.getHost().toLowerCase()) || "antumid.eu".equals(
-                bitUri.getHost().toLowerCase()))) {
+        if (!TextUtils.isEmpty(hasDQueryParam) && (host.contains("antumid.be") ||
+                host.contains("antumid.eu"))) {
             displayDomain = hasDQueryParam;
+            final Set<String> params = bitUri.getQueryParameterNames();
+            final Uri.Builder newUri = bitUri.buildUpon().clearQuery();
+            for (String param : params) {
+                if (param.equals("d")) {
+                    continue;
+                }
+                newUri.appendQueryParameter(param, bitUri.getQueryParameter(param));
+            }
+            bitID = newUri.toString();
         } else {
             displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         }
