@@ -90,15 +90,7 @@ public class BRBitId {
         if (!TextUtils.isEmpty(hasDQueryParam) && (host.contains("antumid.be") ||
                 host.contains("antumid.eu"))) {
             displayDomain = hasDQueryParam;
-            final Set<String> params = bitUri.getQueryParameterNames();
-            final Uri.Builder newUri = bitUri.buildUpon().clearQuery();
-            for (String param : params) {
-                if (param.equals("d")) {
-                    continue;
-                }
-                newUri.appendQueryParameter(param, bitUri.getQueryParameter(param));
-            }
-            bitID = newUri.toString();
+            bitID = removeDQueryParam(bitUri).toString();
         } else {
             displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         }
@@ -106,6 +98,18 @@ public class BRBitId {
                 app.getString(R.string.VerifyPin_continueBody) + "\n\n" + displayDomain,
                 new BRAuthCompletion.AuthType(bitID, isDeepLink,
                         scheme + bitUri.getHost() + bitUri.getPath()));
+    }
+
+    private static String removeDQueryParam(Uri uri) {
+        final Set<String> params = uri.getQueryParameterNames();
+        final Uri.Builder newUri = uri.buildUpon().clearQuery();
+        for (String param : params) {
+            if (param.equals("d")) {
+                continue;
+            }
+            newUri.appendQueryParameter(param, uri.getQueryParameter(param));
+        }
+        return newUri.toString();
     }
 
     public static void digiIDSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
