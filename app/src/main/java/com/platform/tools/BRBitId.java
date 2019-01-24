@@ -90,7 +90,7 @@ public class BRBitId {
         if (!TextUtils.isEmpty(hasDQueryParam) && (host.contains("antumid.be") ||
                 host.contains("antumid.eu"))) {
             displayDomain = hasDQueryParam;
-            bitID = removeDQueryParam(bitUri).toString();
+            bitID = removeDQueryParam(bitUri);
         } else {
             displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         }
