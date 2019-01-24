@@ -25,7 +25,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Set;
 
 import io.digibyte.R;
 import io.digibyte.presenter.interfaces.BRAuthCompletion;
@@ -90,7 +89,6 @@ public class BRBitId {
         if (!TextUtils.isEmpty(hasDQueryParam) && (host.contains("antumid.be") ||
                 host.contains("antumid.eu"))) {
             displayDomain = hasDQueryParam;
-            bitID = removeDQueryParam(bitUri);
         } else {
             displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         }
@@ -98,18 +96,6 @@ public class BRBitId {
                 app.getString(R.string.VerifyPin_continueBody) + "\n\n" + displayDomain,
                 new BRAuthCompletion.AuthType(bitID, isDeepLink,
                         scheme + bitUri.getHost() + bitUri.getPath()));
-    }
-
-    private static String removeDQueryParam(Uri uri) {
-        final Set<String> params = uri.getQueryParameterNames();
-        final Uri.Builder newUri = uri.buildUpon().clearQuery();
-        for (String param : params) {
-            if (param.equals("d")) {
-                continue;
-            }
-            newUri.appendQueryParameter(param, uri.getQueryParameter(param));
-        }
-        return newUri.toString();
     }
 
     public static void digiIDSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
