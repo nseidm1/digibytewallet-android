@@ -71,7 +71,7 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         processDeepLink(intent);
-        progressNFC(intent);
+        processNFC(intent);
         setIntent(new Intent());
     }
 
