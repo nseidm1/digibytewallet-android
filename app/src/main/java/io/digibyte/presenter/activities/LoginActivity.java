@@ -89,6 +89,7 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
                 }
             }
         }
+        setIntent(new Intent());
     }
 
     @Override
