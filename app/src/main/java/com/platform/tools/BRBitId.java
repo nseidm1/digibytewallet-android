@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -83,15 +82,8 @@ public class BRBitId {
             boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
         String scheme = "https://";
-        String hasDQueryParam = bitUri.getQueryParameter("d");
         String host = bitUri.getHost().toLowerCase();
-        String displayDomain;
-        if (!TextUtils.isEmpty(hasDQueryParam) && (host.contains("antumid.be") ||
-                host.contains("antumid.eu"))) {
-            displayDomain = hasDQueryParam;
-        } else {
-            displayDomain = (scheme + bitUri.getHost()).toLowerCase();
-        }
+        String displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         AuthManager.getInstance().authPrompt(app, null,
                 app.getString(R.string.VerifyPin_continueBody) + "\n\n" + displayDomain,
                 new BRAuthCompletion.AuthType(bitID, isDeepLink,
