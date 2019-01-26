@@ -83,7 +83,11 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
                         Log.d(LoginActivity.class.getSimpleName(),
                                 record.substring(record.indexOf("digiid")));
                         BRBitId.digiIDAuthPrompt(this, record, false);
+                    } else if (record.contains("digibyte")) {
+                        BRAnimator.showOrUpdateSendFragment(this,
+                                record.substring(record.indexOf("digibyte")));
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
