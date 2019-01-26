@@ -1,8 +1,14 @@
 package io.digibyte.presenter.activities;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +37,8 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
     private StringBuilder pin = new StringBuilder();
     private boolean inputAllowed = true;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private NfcAdapter nfcAdapter;
+    private PendingIntent pendingNfcIntent;
 
     private LoginActivityCallback callback = () -> {
         BRAnimator.openScanner(this);
@@ -52,12 +60,35 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
                 AuthManager.isFingerPrintAvailableAndSetup(this)) {
             showFingerprintDialog();
         }
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter != null) {
+            pendingNfcIntent = PendingIntent.getActivity(this, 0, new Intent(this,
+                    getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         processDeepLink(intent);
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        if (tag != null) {
+            Ndef ndef = Ndef.get(tag);
+            NdefMessage ndefMessage = ndef.getCachedNdefMessage();
+            NdefRecord[] records = ndefMessage.getRecords();
+            for (NdefRecord ndefRecord : records) {
+                try {
+                    String record = new String(ndefRecord.getPayload());
+                    if (record.contains("digiid")) {
+                        Log.d(LoginActivity.class.getSimpleName(),
+                                record.substring(record.indexOf("digiid"), record.length() - 1));
+                        BRBitId.digiIDAuthPrompt(this, record, false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
@@ -68,12 +99,18 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
         inputAllowed = true;
         BRWalletManager.getInstance().init();
         BRWalletManager.getInstance().addBalanceChangedListener(this);
+        if (nfcAdapter != null) {
+            nfcAdapter.enableForegroundDispatch(this, pendingNfcIntent, null, null);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         BRWalletManager.getInstance().removeListener(this);
+        if (nfcAdapter != null) {
+            nfcAdapter.disableForegroundDispatch(this);
+        }
     }
 
     private final boolean processDeepLink(@Nullable final Intent intent) {
