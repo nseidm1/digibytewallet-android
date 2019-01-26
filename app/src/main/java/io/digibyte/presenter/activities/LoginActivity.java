@@ -71,28 +71,7 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         processDeepLink(intent);
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        if (tag != null) {
-            Ndef ndef = Ndef.get(tag);
-            NdefMessage ndefMessage = ndef.getCachedNdefMessage();
-            NdefRecord[] records = ndefMessage.getRecords();
-            for (NdefRecord ndefRecord : records) {
-                try {
-                    String record = new String(ndefRecord.getPayload());
-                    if (record.contains("digiid")) {
-                        Log.d(LoginActivity.class.getSimpleName(),
-                                record.substring(record.indexOf("digiid")));
-                        BRBitId.digiIDAuthPrompt(this, record, false);
-                    } else if (record.contains("digibyte")) {
-                        BRAnimator.showOrUpdateSendFragment(this,
-                                record.substring(record.indexOf("digibyte")));
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        progressNFC(intent);
         setIntent(new Intent());
     }
 
@@ -128,6 +107,34 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
             return true;
         }
         return false;
+    }
+
+    private final void processNFC(@Nullable final Intent intent) {
+        if (intent == null) {
+            return;
+        }
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        if (tag != null) {
+            Ndef ndef = Ndef.get(tag);
+            NdefMessage ndefMessage = ndef.getCachedNdefMessage();
+            NdefRecord[] records = ndefMessage.getRecords();
+            for (NdefRecord ndefRecord : records) {
+                try {
+                    String record = new String(ndefRecord.getPayload());
+                    if (record.contains("digiid")) {
+                        Log.d(LoginActivity.class.getSimpleName(),
+                                record.substring(record.indexOf("digiid")));
+                        BRBitId.digiIDAuthPrompt(this, record, false);
+                    } else if (record.contains("digibyte")) {
+                        BRAnimator.showOrUpdateSendFragment(this,
+                                record.substring(record.indexOf("digibyte")));
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private final void handleClick(String key) {
