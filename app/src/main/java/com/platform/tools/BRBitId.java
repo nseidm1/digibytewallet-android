@@ -78,12 +78,14 @@ public class BRBitId {
         return false;
     }
 
-    public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull final String bitID, boolean isDeepLink) {
+    public static void digiIDAuthPrompt(@NonNull final Activity app, @NonNull String bitID,
+            boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
         String scheme = "https://";
+        String host = bitUri.getHost().toLowerCase();
+        String displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         AuthManager.getInstance().authPrompt(app, null,
-                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + (scheme
-                        + bitUri.getHost()).toLowerCase(),
+                app.getString(R.string.VerifyPin_continueBody) + "\n\n" + displayDomain,
                 new BRAuthCompletion.AuthType(bitID, isDeepLink,
                         scheme + bitUri.getHost() + bitUri.getPath()));
     }
