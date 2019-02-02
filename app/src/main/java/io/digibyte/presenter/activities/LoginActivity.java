@@ -116,6 +116,9 @@ public class LoginActivity extends BRActivity implements BRWalletManager.OnBalan
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (tag != null) {
             Ndef ndef = Ndef.get(tag);
+            if (ndef == null) {
+                return;
+            }
             NdefMessage ndefMessage = ndef.getCachedNdefMessage();
             NdefRecord[] records = ndefMessage.getRecords();
             for (NdefRecord ndefRecord : records) {
