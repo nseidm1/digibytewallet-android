@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -91,6 +92,9 @@ public class BreadActivity extends BRActivity implements BRWalletManager.OnBalan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindings = DataBindingUtil.setContentView(this, R.layout.activity_bread);
+        bindings.digiSymbolBackground.
+                setBackground(AppCompatResources.getDrawable(DigiByte.getContext(),
+                        R.drawable.nav_drawer_header));
         bindings.setPagerAdapter(adapter = new TxAdapter(this));
         bindings.txPager.setOffscreenPageLimit(2);
         bindings.txPager.setPageTransformer(true, new CubeOutTransformer());
