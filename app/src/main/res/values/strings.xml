@@ -95,6 +95,8 @@
   <!-- Menu button title -->
   <string name="MenuButton.settings">Settings</string>
   <!-- button label -->
+  <string name="MenuViewController.createDigiIDButton">Create New Digi-ID</string>
+  <!-- button label -->
   <string name="MenuViewController.createButton">Create New Wallet</string>
   <!-- button label -->
   <string name="MenuViewController.recoverButton">Recover Wallet</string>

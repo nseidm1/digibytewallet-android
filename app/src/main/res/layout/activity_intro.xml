@@ -41,20 +41,37 @@
             android:gravity="center_horizontal" android:orientation="vertical">
             <Button
                 style="@style/ButtonTheme"
-                android:id="@+id/button_new_wallet"
+                android:id="@+id/button_new_digi_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> callback.onNewWalletClick()}"
-                android:text="@string/MenuViewController.createButton"/>
+                android:onClick="@{() -> callback.onNewDigiIDClick()}"
+                android:text="@string/MenuViewController.createDigiIDButton"/>
 
-            <TextView
-                style="@style/ClickableText"
-                android:id="@+id/button_recover_wallet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> callback.onRestoreClick()}"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/RecoverWallet.header"/>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content" android:orientation="horizontal">
+
+                <TextView
+                    style="@style/ClickableText"
+                    android:id="@+id/button_new_wallet"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> callback.onNewWalletClick()}"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/MenuViewController.createButton"/>
+                <TextView
+                    style="@style/ClickableText"
+                    android:id="@+id/button_recover_wallet"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> callback.onRestoreClick()}"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/RecoverWallet.header"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

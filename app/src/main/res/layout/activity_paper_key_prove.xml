@@ -68,7 +68,7 @@
                     android:layout_marginEnd="@dimen/bread_margin"
                     android:layout_marginStart="@dimen/bread_margin"
                     android:background="@drawable/dashed_edittext_underline"
-                    android:inputType="textPersonName"
+                    android:inputType="textNoSuggestions"
                     android:minHeight="50dp"
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
@@ -94,10 +94,11 @@
                     android:layout_marginStart="@dimen/bread_margin"
                     android:background="@drawable/dashed_edittext_underline"
                     android:imeOptions="actionSend"
-                    android:inputType="textPersonName"
+                    android:inputType="textNoSuggestions"
                     android:minHeight="50dp"
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
+
                     android:textColor="@color/white"
                     app:addTextChangedListener="@{textWatcher}"
                     app:setOnEditorActionListener="@{(textView, id, keyEvent) -> editorActionListener.onEditorAction(textView, id, keyEvent)}"/>

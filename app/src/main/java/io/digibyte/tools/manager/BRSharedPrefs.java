@@ -514,4 +514,18 @@ public class BRSharedPrefs {
         SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME, Context.MODE_PRIVATE);
         return prefs.contains("new_storage");
     }
+
+    public static void setDigiIDFocus(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("digi_id_focus", true);
+        editor.apply();
+    }
+
+    public static boolean digiIDFocus(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(BRConstants.PREFS_NAME,
+                Context.MODE_PRIVATE);
+        return prefs.getBoolean("digi_id_focus", false);
+    }
 }

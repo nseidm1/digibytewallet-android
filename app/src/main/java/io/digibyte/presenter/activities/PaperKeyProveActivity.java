@@ -47,9 +47,14 @@ public class PaperKeyProveActivity extends BRActivity implements TextView.OnEdit
                         getString(R.string.Alerts_paperKeySet),
                         getString(R.string.Alerts_paperKeySetSubheader),
                         R.raw.success_check, () -> {
-                            BRAnimator.startBreadActivity(PaperKeyProveActivity.this, false);
-                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                            finishAffinity();
+                            if (BRSharedPrefs.digiIDFocus(PaperKeyProveActivity.this)) {
+                                BRAnimator.startBreadActivity(PaperKeyProveActivity.this, true);
+                            } else {
+                                BRAnimator.startBreadActivity(PaperKeyProveActivity.this, false);
+                                overridePendingTransition(R.anim.enter_from_right,
+                                        R.anim.exit_to_left);
+                                finishAffinity();
+                            }
                         });
             } else {
                 if (!isWordCorrect(true)) {

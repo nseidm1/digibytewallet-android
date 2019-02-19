@@ -13,8 +13,8 @@ import io.digibyte.databinding.ActivityIntroBinding;
 import io.digibyte.presenter.activities.UpdatePinActivity;
 import io.digibyte.presenter.activities.callbacks.IntroActivityCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
+import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.BRKeyStore;
-import io.digibyte.tools.security.PostAuth;
 import io.digibyte.tools.security.SmartValidator;
 import io.digibyte.wallet.BRWalletManager;
 
@@ -57,6 +57,12 @@ public class IntroActivity extends BRActivity implements Serializable {
             Intent intent = new Intent(IntroActivity.this, RecoverActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        }
+
+        @Override
+        public void onNewDigiIDClick() {
+            BRSharedPrefs.setDigiIDFocus(IntroActivity.this);
+            UpdatePinActivity.open(IntroActivity.this, UpdatePinActivity.Mode.SET_PIN);
         }
     };
 

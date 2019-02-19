@@ -11,6 +11,7 @@ import io.digibyte.databinding.ActivityWriteDownBinding;
 import io.digibyte.presenter.activities.callbacks.ActivityWriteDownCallback;
 import io.digibyte.presenter.activities.util.BRActivity;
 import io.digibyte.tools.animation.BRAnimator;
+import io.digibyte.tools.manager.BRSharedPrefs;
 import io.digibyte.tools.security.AuthManager;
 import io.digibyte.tools.security.PostAuth;
 
@@ -40,7 +41,8 @@ public class WriteDownActivity extends BRActivity {
         switch(item.getItemId()) {
             case R.id.home:
             case android.R.id.home:
-                BRAnimator.startBreadActivity(WriteDownActivity.this, false);
+                BRAnimator.startBreadActivity(WriteDownActivity.this,
+                        BRSharedPrefs.digiIDFocus(this));
                 return true;
             default:
                 return false;
@@ -50,7 +52,7 @@ public class WriteDownActivity extends BRActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        BRAnimator.startBreadActivity(WriteDownActivity.this, false);
+        BRAnimator.startBreadActivity(WriteDownActivity.this, BRSharedPrefs.digiIDFocus(this));
     }
 
     @Override
