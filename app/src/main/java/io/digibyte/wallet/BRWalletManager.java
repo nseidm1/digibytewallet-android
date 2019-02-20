@@ -96,6 +96,7 @@ public class BRWalletManager {
     private static final String TAG = BRWalletManager.class.getName();
     private static String DIGIEXPLORER_URL = "https://explorer-1.us.digibyteservers.io";
     private static final String DIGIEXPLORER_URL_FALLBACK = "https://explorer-2.us.digibyteservers.io";
+    private static final String DIGIEXPLORER_URL_FALLBACK_2 = "https://digiexplorer.info/";
 
     private static BRWalletManager instance;
     public List<OnBalanceChanged> balanceListeners;
@@ -646,7 +647,19 @@ public class BRWalletManager {
             BRApiManager.getInstance().getBlockInfo(
                     DigiByte.getContext(), DIGIEXPLORER_URL);
         } catch(Exception e) {
-            DIGIEXPLORER_URL = DIGIEXPLORER_URL_FALLBACK;
+            try {
+                BRApiManager.getInstance().getBlockInfo(
+                        DigiByte.getContext(), DIGIEXPLORER_URL_FALLBACK);
+                DIGIEXPLORER_URL = DIGIEXPLORER_URL_FALLBACK;
+            } catch (Exception ee) {
+                try {
+                    BRApiManager.getInstance().getBlockInfo(
+                            DigiByte.getContext(), DIGIEXPLORER_URL_FALLBACK_2);
+                    DIGIEXPLORER_URL = DIGIEXPLORER_URL_FALLBACK_2;
+                } catch (Exception eee) {
+                    DIGIEXPLORER_URL = "WTF??";
+                }
+            }
         }
     }
 
