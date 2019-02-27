@@ -22,7 +22,6 @@ android {
     }
 
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         applicationId = 'io.digibyte'
         minSdkVersion 17
@@ -30,19 +29,6 @@ android {
         versionCode 2399
         versionName "2.0.7b2399"
         multiDexEnabled true
-        // Similar to other properties in the defaultConfig block,
-        // you can configure the ndk block for each product flavor
-        // in your build configuration.
-        ndk {
-            // Specifies the ABI configurations of your native
-            // libraries Gradle should build and package with your APK.
-            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
-        }
-        externalNativeBuild {
-            cmake {
-                arguments "-DANDROID_TOOLCHAIN=clang"
-            }
-        }
     }
 
     testOptions {
@@ -59,7 +45,6 @@ android {
             // the Android plugin searches for its binary within your
             // PATH environmental variable.
             path "CMakeLists.txt"  //path can only be set outside (in android block)
-
         }
     }
 
@@ -80,6 +65,7 @@ android {
                     // PATH environmental variable.
                     cFlags "-DBITCOIN_TESTNET=0"
                     targets "core-lib"
+                    arguments "-DANDROID_TOOLCHAIN=clang"
                 }
             }
         }
@@ -97,6 +83,7 @@ android {
                     // PATH environmental variable.
                     cFlags "-DBITCOIN_TESTNET=1"
                     targets "core-lib"
+                    arguments "-DANDROID_TOOLCHAIN=clang"
                 }
             }
 
@@ -128,6 +115,7 @@ android {
             ndk {
                 minifyEnabled = false
                 debuggable = false
+                abiFilters 'armeabi-v7a'
             }
         }
         debug {
@@ -138,6 +126,7 @@ android {
             ndk {
                 minifyEnabled = false
                 debuggable = true
+                abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
             }
         }
 
@@ -157,6 +146,16 @@ gradle.projectsEvaluated {
     assembleDebug.dependsOn(copyResDirectoryToClasses)
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.0'
+            }
+        }
+    }
+}
 
 def gitUpdateModules() {
     //['sh', '-c', 'git submodule foreach git pull origin master'].execute().text.trim()
