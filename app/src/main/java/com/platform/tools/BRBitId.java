@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -82,7 +83,6 @@ public class BRBitId {
             boolean isDeepLink) {
         Uri bitUri = Uri.parse(bitID);
         String scheme = "https://";
-        String host = bitUri.getHost().toLowerCase();
         String displayDomain = (scheme + bitUri.getHost()).toLowerCase();
         AuthManager.getInstance().authPrompt(app, null,
                 app.getString(R.string.VerifyPin_continueBody) + "\n\n" + displayDomain,
@@ -90,9 +90,15 @@ public class BRBitId {
                         scheme + bitUri.getHost() + bitUri.getPath()));
     }
 
-    public static void digiIDSignAndRespond(@NonNull final Activity app, @NonNull final String bitID,
+    public static void digiIDSignAndRespond(@NonNull final Activity app, @NonNull String bitID,
             boolean isDeepLink, String callbackUrl) {
         try {
+            Uri bitUri = Uri.parse(bitID);
+            String nonce = bitUri.getQueryParameter("x");
+            if (TextUtils.isEmpty(nonce)) {
+                bitID = bitUri.buildUpon().appendQueryParameter("x",
+                        Long.toHexString(System.currentTimeMillis())).build().toString();
+            }
             byte[] phrase = BRKeyStore.getPhrase(app, BRConstants.REQUEST_PHRASE_BITID);
             byte[] nulTermPhrase = TypesConverter.getNullTerminatedPhrase(phrase);
             byte[] seed = BRWalletManager.getSeedFromPhrase(nulTermPhrase);
