@@ -58,8 +58,8 @@ public class FragmentTransactionItem extends Fragment {
 
         @Override
         public void onAddressClick() {
-            BRClipboardManager.putClipboard(getContext(), viewModel.getAddress());
-            Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
+            //BRClipboardManager.putClipboard(getContext(), viewModel.getAddress());
+            //Toast.makeText(getContext(), R.string.Receive_copied, Toast.LENGTH_SHORT).show();
         }
 
         @Override
